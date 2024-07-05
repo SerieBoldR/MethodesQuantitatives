@@ -1,0 +1,2071 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Méthodes quantitatives en sciences sociales : un grand bol d’R - 14&nbsp; Annexes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./13-MethodeClassification.html" rel="prev">
+<link href="./images/introduction/Couverture.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Pas de résultats",
+    "search-matching-documents-text": "documents trouvés",
+    "search-copy-link-title": "Copier le lien vers la recherche",
+    "search-hide-matches-text": "Cacher les correspondances additionnelles",
+    "search-more-match-text": "correspondance de plus dans ce document",
+    "search-more-matches-text": "correspondances de plus dans ce document",
+    "search-clear-button-title": "Effacer",
+    "search-detached-cancel-button-title": "Annuler",
+    "search-submit-button-title": "Envoyer"
+  }
+}</script><link rel="stylesheet" href="css/quizlib.min.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./14-Annexes.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Annexes</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Recherche" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Méthodes quantitatives en sciences sociales : un grand bol d’R</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/SerieBoldR/MethodesQuantitatives" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Recherche"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Préface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-auteurs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">À propos des auteurs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 1. Découverte de R</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-priseenmainR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Prise en main de R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 2. Analyses univariées et représentations graphiques</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-univarie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Statistiques descriptives univariées</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-magiedesgraphiques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Magie des graphiques</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 3. Analyses bivariées</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-bivarieeQuantiQuanti.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Relation linéaire entre deux variables quantitatives</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-bivarieeQualiQuali.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Relation entre deux variables qualitatives</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-bivarieeQualiQuanti.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Relation entre une variable qualitative et une variable quantitative</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 4. Modèles de régression</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-regressionlineaire.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Régression linéaire multiple</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-GLM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Régressions linéaires généralisées (GLM)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-GLMM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Régressions à effets mixtes (GLMM)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-Multiniveau.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Régressions multiniveaux</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-GAM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Modèles généralisés additifs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 5. Analyses exploratoires multivariées</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-AnalysesFactorielles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Méthodes factorielles</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-MethodeClassification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Méthodes de classification non supervisée</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 6. Annexes et bibliographie</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-Annexes.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Annexes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bibliographie</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table des matières</h2>
+   
+  <ul>
+<li><a href="#sec-141" id="toc-sec-141" class="nav-link active" data-scroll-target="#sec-141"><span class="header-section-number">14.1</span> Table des valeurs critiques de khi-deux</a></li>
+  <li><a href="#sec-142" id="toc-sec-142" class="nav-link" data-scroll-target="#sec-142"><span class="header-section-number">14.2</span> Table des valeurs critiques de Fisher</a></li>
+  <li><a href="#sec-143" id="toc-sec-143" class="nav-link" data-scroll-target="#sec-143"><span class="header-section-number">14.3</span> Table des valeurs critiques de <em>t</em></a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/SerieBoldR/MethodesQuantitatives/issues/new" class="toc-action">Signaler un problème ou<br>formuler une suggestion</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-chap14" class="quarto-section-identifier"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Annexes</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><section id="sec-141" class="level2" data-number="14.1"><h2 data-number="14.1" class="anchored" data-anchor-id="sec-141">
+<span class="header-section-number">14.1</span> Table des valeurs critiques de khi-deux</h2>
+<p>La courte syntaxe R ci-dessous permet de générer le <a href="#tbl-tableCritiqueKhi2">tableau&nbsp;<span>14.1</span></a> avec les valeurs critiques du khi-deux pour différents degrés de signification (valeurs de <em>p</em>).</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">stargazer</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># vecteur pour les degrés de liberté de 1 à 30, puis 40 et 50</span></span>
+<span><span class="va">dl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">100</span>, <span class="fl">250</span>, <span class="fl">500</span><span class="op">)</span> </span>
+<span><span class="co"># la fonction qchisq permet d'obtenir la valeur théorique en fonction </span></span>
+<span><span class="co"># d'une valeur de p et d'un nombre de degrés de liberté</span></span>
+<span><span class="va">tableKhi2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">dl</span>,</span>
+<span>                p0.10 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">qchisq</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">0.90</span>,  df <span class="op">=</span> <span class="va">dl</span>, lower.tail <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span>                p0.05 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">qchisq</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">0.95</span>,  df <span class="op">=</span> <span class="va">dl</span>, lower.tail <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span>                p0.01 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">qchisq</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">0.99</span>,  df <span class="op">=</span> <span class="va">dl</span>, lower.tail <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span>                p0.001 <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Chisquare.html">qchisq</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">0.999</span>, df <span class="op">=</span> <span class="va">dl</span>, lower.tail <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Impression du tableau avec la library stargazer</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/stargazer/man/stargazer.html">stargazer</a></span><span class="op">(</span><span class="va">tableKhi2</span>, type <span class="op">=</span> <span class="st">"text"</span>, summary <span class="op">=</span> <span class="cn">FALSE</span>, rownames <span class="op">=</span> <span class="cn">FALSE</span>, align <span class="op">=</span> <span class="cn">TRUE</span>, digits <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>           title <span class="op">=</span> <span class="st">"Distribution des valeurs critiques du Khi2"</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-tableCritiqueKhi2" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Tableau&nbsp;14.1: Distribution des valeurs critiques du khi-deux</caption>
+<thead><tr class="header">
+<th style="text-align: right;">dl</th>
+<th style="text-align: right;">p = 0,10</th>
+<th style="text-align: right;">p = 0,05</th>
+<th style="text-align: right;">p = 0,01</th>
+<th style="text-align: right;">p = 0,001</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2,71</td>
+<td style="text-align: right;">3,84</td>
+<td style="text-align: right;">6,64</td>
+<td style="text-align: right;">10,83</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4,61</td>
+<td style="text-align: right;">5,99</td>
+<td style="text-align: right;">9,21</td>
+<td style="text-align: right;">13,82</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">6,25</td>
+<td style="text-align: right;">7,82</td>
+<td style="text-align: right;">11,35</td>
+<td style="text-align: right;">16,27</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7,78</td>
+<td style="text-align: right;">9,49</td>
+<td style="text-align: right;">13,28</td>
+<td style="text-align: right;">18,47</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">9,24</td>
+<td style="text-align: right;">11,07</td>
+<td style="text-align: right;">15,09</td>
+<td style="text-align: right;">20,52</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">10,64</td>
+<td style="text-align: right;">12,59</td>
+<td style="text-align: right;">16,81</td>
+<td style="text-align: right;">22,46</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">12,02</td>
+<td style="text-align: right;">14,07</td>
+<td style="text-align: right;">18,48</td>
+<td style="text-align: right;">24,32</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">13,36</td>
+<td style="text-align: right;">15,51</td>
+<td style="text-align: right;">20,09</td>
+<td style="text-align: right;">26,12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">14,68</td>
+<td style="text-align: right;">16,92</td>
+<td style="text-align: right;">21,67</td>
+<td style="text-align: right;">27,88</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">15,99</td>
+<td style="text-align: right;">18,31</td>
+<td style="text-align: right;">23,21</td>
+<td style="text-align: right;">29,59</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">17,27</td>
+<td style="text-align: right;">19,68</td>
+<td style="text-align: right;">24,73</td>
+<td style="text-align: right;">31,26</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">18,55</td>
+<td style="text-align: right;">21,03</td>
+<td style="text-align: right;">26,22</td>
+<td style="text-align: right;">32,91</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">19,81</td>
+<td style="text-align: right;">22,36</td>
+<td style="text-align: right;">27,69</td>
+<td style="text-align: right;">34,53</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">21,06</td>
+<td style="text-align: right;">23,68</td>
+<td style="text-align: right;">29,14</td>
+<td style="text-align: right;">36,12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">22,31</td>
+<td style="text-align: right;">25,00</td>
+<td style="text-align: right;">30,58</td>
+<td style="text-align: right;">37,70</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">23,54</td>
+<td style="text-align: right;">26,30</td>
+<td style="text-align: right;">32,00</td>
+<td style="text-align: right;">39,25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">24,77</td>
+<td style="text-align: right;">27,59</td>
+<td style="text-align: right;">33,41</td>
+<td style="text-align: right;">40,79</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">25,99</td>
+<td style="text-align: right;">28,87</td>
+<td style="text-align: right;">34,80</td>
+<td style="text-align: right;">42,31</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">27,20</td>
+<td style="text-align: right;">30,14</td>
+<td style="text-align: right;">36,19</td>
+<td style="text-align: right;">43,82</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">28,41</td>
+<td style="text-align: right;">31,41</td>
+<td style="text-align: right;">37,57</td>
+<td style="text-align: right;">45,31</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">29,61</td>
+<td style="text-align: right;">32,67</td>
+<td style="text-align: right;">38,93</td>
+<td style="text-align: right;">46,80</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">30,81</td>
+<td style="text-align: right;">33,92</td>
+<td style="text-align: right;">40,29</td>
+<td style="text-align: right;">48,27</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">32,01</td>
+<td style="text-align: right;">35,17</td>
+<td style="text-align: right;">41,64</td>
+<td style="text-align: right;">49,73</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">33,20</td>
+<td style="text-align: right;">36,42</td>
+<td style="text-align: right;">42,98</td>
+<td style="text-align: right;">51,18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">34,38</td>
+<td style="text-align: right;">37,65</td>
+<td style="text-align: right;">44,31</td>
+<td style="text-align: right;">52,62</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">35,56</td>
+<td style="text-align: right;">38,88</td>
+<td style="text-align: right;">45,64</td>
+<td style="text-align: right;">54,05</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">36,74</td>
+<td style="text-align: right;">40,11</td>
+<td style="text-align: right;">46,96</td>
+<td style="text-align: right;">55,48</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">37,92</td>
+<td style="text-align: right;">41,34</td>
+<td style="text-align: right;">48,28</td>
+<td style="text-align: right;">56,89</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">39,09</td>
+<td style="text-align: right;">42,56</td>
+<td style="text-align: right;">49,59</td>
+<td style="text-align: right;">58,30</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">40,26</td>
+<td style="text-align: right;">43,77</td>
+<td style="text-align: right;">50,89</td>
+<td style="text-align: right;">59,70</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">51,80</td>
+<td style="text-align: right;">55,76</td>
+<td style="text-align: right;">63,69</td>
+<td style="text-align: right;">73,40</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">63,17</td>
+<td style="text-align: right;">67,50</td>
+<td style="text-align: right;">76,15</td>
+<td style="text-align: right;">86,66</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">118,50</td>
+<td style="text-align: right;">124,34</td>
+<td style="text-align: right;">135,81</td>
+<td style="text-align: right;">149,45</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">250</td>
+<td style="text-align: right;">279,05</td>
+<td style="text-align: right;">287,88</td>
+<td style="text-align: right;">304,94</td>
+<td style="text-align: right;">324,83</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">540,93</td>
+<td style="text-align: right;">553,13</td>
+<td style="text-align: right;">576,49</td>
+<td style="text-align: right;">603,45</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="sec-142" class="level2" data-number="14.2"><h2 data-number="14.2" class="anchored" data-anchor-id="sec-142">
+<span class="header-section-number">14.2</span> Table des valeurs critiques de Fisher</h2>
+<p>La courte syntaxe R ci-dessous permet de générer les tableaux <a href="#tbl-CritiqueF1"><span>14.2</span></a>, <a href="#tbl-CritiqueF2"><span>14.3</span></a> et <a href="#tbl-CritiqueF3"><span>14.4</span></a> avec les valeurs critiques de <em>F</em> avec <em>p</em>&nbsp;=&nbsp;0,05.</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">stargazer</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">dl1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">15</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>, <span class="fl">70</span>, <span class="fl">80</span>, <span class="fl">90</span>, <span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">300</span>, <span class="fl">400</span>, <span class="fl">500</span>, <span class="fl">1000</span><span class="op">)</span></span>
+<span><span class="va">dl2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>, <span class="fl">70</span>, <span class="fl">80</span>, <span class="fl">90</span>, <span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">300</span>, <span class="fl">500</span>, <span class="fl">1000</span>, <span class="fl">2000</span><span class="op">)</span></span>
+<span><span class="va">matrice</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span>ncol <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">dl1</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">dl2</span><span class="op">)</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">r</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">dl1</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="kw">for</span><span class="op">(</span><span class="va">c</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">dl2</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="va">matrice</span><span class="op">[</span><span class="va">c</span>,<span class="va">r</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">qf</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">0.05</span>, <span class="va">dl1</span><span class="op">[</span><span class="va">r</span><span class="op">]</span>, <span class="va">dl2</span><span class="op">[</span><span class="va">c</span><span class="op">]</span>, lower.tail <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="va">tableF_p0.05</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>dl2 <span class="op">=</span> <span class="va">dl2</span>, <span class="va">matrice</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">tableF_p0.05</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dl2"</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"dl1="</span>,<span class="va">dl1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/stargazer/man/stargazer.html">stargazer</a></span><span class="op">(</span><span class="va">tableF_p0.05</span>, type <span class="op">=</span> <span class="st">"text"</span>, summary <span class="op">=</span> <span class="cn">FALSE</span>, rownames <span class="op">=</span> <span class="cn">FALSE</span>, align <span class="op">=</span> <span class="cn">TRUE</span>, digits <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>          title <span class="op">=</span> <span class="st">"Distribution des valeurs critiques de F avec p = 0,05"</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-CritiqueF1" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Tableau&nbsp;14.2: Distribution des valeurs critiques de F avec p = 0,05</caption>
+<colgroup>
+<col style="width: 7%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;">dl2</th>
+<th style="text-align: right;">dl1=1</th>
+<th style="text-align: right;">dl1=2</th>
+<th style="text-align: right;">dl1=3</th>
+<th style="text-align: right;">dl1=4</th>
+<th style="text-align: right;">dl1=5</th>
+<th style="text-align: right;">dl1=6</th>
+<th style="text-align: right;">dl1=7</th>
+<th style="text-align: right;">dl1=8</th>
+<th style="text-align: right;">dl1=9</th>
+<th style="text-align: right;">dl1=10</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">161,45</td>
+<td style="text-align: right;">199,50</td>
+<td style="text-align: right;">215,71</td>
+<td style="text-align: right;">224,58</td>
+<td style="text-align: right;">230,16</td>
+<td style="text-align: right;">233,99</td>
+<td style="text-align: right;">236,77</td>
+<td style="text-align: right;">238,88</td>
+<td style="text-align: right;">240,54</td>
+<td style="text-align: right;">241,88</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">18,51</td>
+<td style="text-align: right;">19,00</td>
+<td style="text-align: right;">19,16</td>
+<td style="text-align: right;">19,25</td>
+<td style="text-align: right;">19,30</td>
+<td style="text-align: right;">19,33</td>
+<td style="text-align: right;">19,35</td>
+<td style="text-align: right;">19,37</td>
+<td style="text-align: right;">19,38</td>
+<td style="text-align: right;">19,40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">10,13</td>
+<td style="text-align: right;">9,55</td>
+<td style="text-align: right;">9,28</td>
+<td style="text-align: right;">9,12</td>
+<td style="text-align: right;">9,01</td>
+<td style="text-align: right;">8,94</td>
+<td style="text-align: right;">8,89</td>
+<td style="text-align: right;">8,85</td>
+<td style="text-align: right;">8,81</td>
+<td style="text-align: right;">8,79</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">7,71</td>
+<td style="text-align: right;">6,94</td>
+<td style="text-align: right;">6,59</td>
+<td style="text-align: right;">6,39</td>
+<td style="text-align: right;">6,26</td>
+<td style="text-align: right;">6,16</td>
+<td style="text-align: right;">6,09</td>
+<td style="text-align: right;">6,04</td>
+<td style="text-align: right;">6,00</td>
+<td style="text-align: right;">5,96</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">6,61</td>
+<td style="text-align: right;">5,79</td>
+<td style="text-align: right;">5,41</td>
+<td style="text-align: right;">5,19</td>
+<td style="text-align: right;">5,05</td>
+<td style="text-align: right;">4,95</td>
+<td style="text-align: right;">4,88</td>
+<td style="text-align: right;">4,82</td>
+<td style="text-align: right;">4,77</td>
+<td style="text-align: right;">4,74</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">5,99</td>
+<td style="text-align: right;">5,14</td>
+<td style="text-align: right;">4,76</td>
+<td style="text-align: right;">4,53</td>
+<td style="text-align: right;">4,39</td>
+<td style="text-align: right;">4,28</td>
+<td style="text-align: right;">4,21</td>
+<td style="text-align: right;">4,15</td>
+<td style="text-align: right;">4,10</td>
+<td style="text-align: right;">4,06</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">5,59</td>
+<td style="text-align: right;">4,74</td>
+<td style="text-align: right;">4,35</td>
+<td style="text-align: right;">4,12</td>
+<td style="text-align: right;">3,97</td>
+<td style="text-align: right;">3,87</td>
+<td style="text-align: right;">3,79</td>
+<td style="text-align: right;">3,73</td>
+<td style="text-align: right;">3,68</td>
+<td style="text-align: right;">3,64</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">5,32</td>
+<td style="text-align: right;">4,46</td>
+<td style="text-align: right;">4,07</td>
+<td style="text-align: right;">3,84</td>
+<td style="text-align: right;">3,69</td>
+<td style="text-align: right;">3,58</td>
+<td style="text-align: right;">3,50</td>
+<td style="text-align: right;">3,44</td>
+<td style="text-align: right;">3,39</td>
+<td style="text-align: right;">3,35</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">5,12</td>
+<td style="text-align: right;">4,26</td>
+<td style="text-align: right;">3,86</td>
+<td style="text-align: right;">3,63</td>
+<td style="text-align: right;">3,48</td>
+<td style="text-align: right;">3,37</td>
+<td style="text-align: right;">3,29</td>
+<td style="text-align: right;">3,23</td>
+<td style="text-align: right;">3,18</td>
+<td style="text-align: right;">3,14</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">4,96</td>
+<td style="text-align: right;">4,10</td>
+<td style="text-align: right;">3,71</td>
+<td style="text-align: right;">3,48</td>
+<td style="text-align: right;">3,33</td>
+<td style="text-align: right;">3,22</td>
+<td style="text-align: right;">3,14</td>
+<td style="text-align: right;">3,07</td>
+<td style="text-align: right;">3,02</td>
+<td style="text-align: right;">2,98</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">4,35</td>
+<td style="text-align: right;">3,49</td>
+<td style="text-align: right;">3,10</td>
+<td style="text-align: right;">2,87</td>
+<td style="text-align: right;">2,71</td>
+<td style="text-align: right;">2,60</td>
+<td style="text-align: right;">2,51</td>
+<td style="text-align: right;">2,45</td>
+<td style="text-align: right;">2,39</td>
+<td style="text-align: right;">2,35</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">4,17</td>
+<td style="text-align: right;">3,32</td>
+<td style="text-align: right;">2,92</td>
+<td style="text-align: right;">2,69</td>
+<td style="text-align: right;">2,53</td>
+<td style="text-align: right;">2,42</td>
+<td style="text-align: right;">2,33</td>
+<td style="text-align: right;">2,27</td>
+<td style="text-align: right;">2,21</td>
+<td style="text-align: right;">2,16</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">4,08</td>
+<td style="text-align: right;">3,23</td>
+<td style="text-align: right;">2,84</td>
+<td style="text-align: right;">2,61</td>
+<td style="text-align: right;">2,45</td>
+<td style="text-align: right;">2,34</td>
+<td style="text-align: right;">2,25</td>
+<td style="text-align: right;">2,18</td>
+<td style="text-align: right;">2,12</td>
+<td style="text-align: right;">2,08</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">4,03</td>
+<td style="text-align: right;">3,18</td>
+<td style="text-align: right;">2,79</td>
+<td style="text-align: right;">2,56</td>
+<td style="text-align: right;">2,40</td>
+<td style="text-align: right;">2,29</td>
+<td style="text-align: right;">2,20</td>
+<td style="text-align: right;">2,13</td>
+<td style="text-align: right;">2,07</td>
+<td style="text-align: right;">2,03</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">4,00</td>
+<td style="text-align: right;">3,15</td>
+<td style="text-align: right;">2,76</td>
+<td style="text-align: right;">2,53</td>
+<td style="text-align: right;">2,37</td>
+<td style="text-align: right;">2,25</td>
+<td style="text-align: right;">2,17</td>
+<td style="text-align: right;">2,10</td>
+<td style="text-align: right;">2,04</td>
+<td style="text-align: right;">1,99</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">70</td>
+<td style="text-align: right;">3,98</td>
+<td style="text-align: right;">3,13</td>
+<td style="text-align: right;">2,74</td>
+<td style="text-align: right;">2,50</td>
+<td style="text-align: right;">2,35</td>
+<td style="text-align: right;">2,23</td>
+<td style="text-align: right;">2,14</td>
+<td style="text-align: right;">2,07</td>
+<td style="text-align: right;">2,02</td>
+<td style="text-align: right;">1,97</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">3,96</td>
+<td style="text-align: right;">3,11</td>
+<td style="text-align: right;">2,72</td>
+<td style="text-align: right;">2,49</td>
+<td style="text-align: right;">2,33</td>
+<td style="text-align: right;">2,21</td>
+<td style="text-align: right;">2,13</td>
+<td style="text-align: right;">2,06</td>
+<td style="text-align: right;">2,00</td>
+<td style="text-align: right;">1,95</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">3,95</td>
+<td style="text-align: right;">3,10</td>
+<td style="text-align: right;">2,71</td>
+<td style="text-align: right;">2,47</td>
+<td style="text-align: right;">2,32</td>
+<td style="text-align: right;">2,20</td>
+<td style="text-align: right;">2,11</td>
+<td style="text-align: right;">2,04</td>
+<td style="text-align: right;">1,99</td>
+<td style="text-align: right;">1,94</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">3,94</td>
+<td style="text-align: right;">3,09</td>
+<td style="text-align: right;">2,70</td>
+<td style="text-align: right;">2,46</td>
+<td style="text-align: right;">2,31</td>
+<td style="text-align: right;">2,19</td>
+<td style="text-align: right;">2,10</td>
+<td style="text-align: right;">2,03</td>
+<td style="text-align: right;">1,97</td>
+<td style="text-align: right;">1,93</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">200</td>
+<td style="text-align: right;">3,89</td>
+<td style="text-align: right;">3,04</td>
+<td style="text-align: right;">2,65</td>
+<td style="text-align: right;">2,42</td>
+<td style="text-align: right;">2,26</td>
+<td style="text-align: right;">2,14</td>
+<td style="text-align: right;">2,06</td>
+<td style="text-align: right;">1,98</td>
+<td style="text-align: right;">1,93</td>
+<td style="text-align: right;">1,88</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">3,87</td>
+<td style="text-align: right;">3,03</td>
+<td style="text-align: right;">2,63</td>
+<td style="text-align: right;">2,40</td>
+<td style="text-align: right;">2,24</td>
+<td style="text-align: right;">2,13</td>
+<td style="text-align: right;">2,04</td>
+<td style="text-align: right;">1,97</td>
+<td style="text-align: right;">1,91</td>
+<td style="text-align: right;">1,86</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">3,86</td>
+<td style="text-align: right;">3,01</td>
+<td style="text-align: right;">2,62</td>
+<td style="text-align: right;">2,39</td>
+<td style="text-align: right;">2,23</td>
+<td style="text-align: right;">2,12</td>
+<td style="text-align: right;">2,03</td>
+<td style="text-align: right;">1,96</td>
+<td style="text-align: right;">1,90</td>
+<td style="text-align: right;">1,85</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1 000</td>
+<td style="text-align: right;">3,85</td>
+<td style="text-align: right;">3,00</td>
+<td style="text-align: right;">2,61</td>
+<td style="text-align: right;">2,38</td>
+<td style="text-align: right;">2,22</td>
+<td style="text-align: right;">2,11</td>
+<td style="text-align: right;">2,02</td>
+<td style="text-align: right;">1,95</td>
+<td style="text-align: right;">1,89</td>
+<td style="text-align: right;">1,84</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2 000</td>
+<td style="text-align: right;">3,85</td>
+<td style="text-align: right;">3,00</td>
+<td style="text-align: right;">2,61</td>
+<td style="text-align: right;">2,38</td>
+<td style="text-align: right;">2,22</td>
+<td style="text-align: right;">2,10</td>
+<td style="text-align: right;">2,01</td>
+<td style="text-align: right;">1,94</td>
+<td style="text-align: right;">1,88</td>
+<td style="text-align: right;">1,84</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-CritiqueF2" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Tableau&nbsp;14.3: Distribution des valeurs critiques de F avec p = 0,05 (suite)</caption>
+<colgroup>
+<col style="width: 8%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 10%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: right;">dl2</th>
+<th style="text-align: right;">dl1=15</th>
+<th style="text-align: right;">dl1=20</th>
+<th style="text-align: right;">dl1=30</th>
+<th style="text-align: right;">dl1=40</th>
+<th style="text-align: right;">dl1=50</th>
+<th style="text-align: right;">dl1=60</th>
+<th style="text-align: right;">dl1=70</th>
+<th style="text-align: right;">dl1=80</th>
+<th style="text-align: right;">dl1=90</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">245,95</td>
+<td style="text-align: right;">248,01</td>
+<td style="text-align: right;">250,10</td>
+<td style="text-align: right;">251,14</td>
+<td style="text-align: right;">251,77</td>
+<td style="text-align: right;">252,20</td>
+<td style="text-align: right;">252,50</td>
+<td style="text-align: right;">252,72</td>
+<td style="text-align: right;">252,90</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">19,43</td>
+<td style="text-align: right;">19,45</td>
+<td style="text-align: right;">19,46</td>
+<td style="text-align: right;">19,47</td>
+<td style="text-align: right;">19,48</td>
+<td style="text-align: right;">19,48</td>
+<td style="text-align: right;">19,48</td>
+<td style="text-align: right;">19,48</td>
+<td style="text-align: right;">19,48</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">8,70</td>
+<td style="text-align: right;">8,66</td>
+<td style="text-align: right;">8,62</td>
+<td style="text-align: right;">8,59</td>
+<td style="text-align: right;">8,58</td>
+<td style="text-align: right;">8,57</td>
+<td style="text-align: right;">8,57</td>
+<td style="text-align: right;">8,56</td>
+<td style="text-align: right;">8,56</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5,86</td>
+<td style="text-align: right;">5,80</td>
+<td style="text-align: right;">5,75</td>
+<td style="text-align: right;">5,72</td>
+<td style="text-align: right;">5,70</td>
+<td style="text-align: right;">5,69</td>
+<td style="text-align: right;">5,68</td>
+<td style="text-align: right;">5,67</td>
+<td style="text-align: right;">5,67</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4,62</td>
+<td style="text-align: right;">4,56</td>
+<td style="text-align: right;">4,50</td>
+<td style="text-align: right;">4,46</td>
+<td style="text-align: right;">4,44</td>
+<td style="text-align: right;">4,43</td>
+<td style="text-align: right;">4,42</td>
+<td style="text-align: right;">4,41</td>
+<td style="text-align: right;">4,41</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3,94</td>
+<td style="text-align: right;">3,87</td>
+<td style="text-align: right;">3,81</td>
+<td style="text-align: right;">3,77</td>
+<td style="text-align: right;">3,75</td>
+<td style="text-align: right;">3,74</td>
+<td style="text-align: right;">3,73</td>
+<td style="text-align: right;">3,72</td>
+<td style="text-align: right;">3,72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3,51</td>
+<td style="text-align: right;">3,44</td>
+<td style="text-align: right;">3,38</td>
+<td style="text-align: right;">3,34</td>
+<td style="text-align: right;">3,32</td>
+<td style="text-align: right;">3,30</td>
+<td style="text-align: right;">3,29</td>
+<td style="text-align: right;">3,29</td>
+<td style="text-align: right;">3,28</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">3,22</td>
+<td style="text-align: right;">3,15</td>
+<td style="text-align: right;">3,08</td>
+<td style="text-align: right;">3,04</td>
+<td style="text-align: right;">3,02</td>
+<td style="text-align: right;">3,01</td>
+<td style="text-align: right;">2,99</td>
+<td style="text-align: right;">2,99</td>
+<td style="text-align: right;">2,98</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">3,01</td>
+<td style="text-align: right;">2,94</td>
+<td style="text-align: right;">2,86</td>
+<td style="text-align: right;">2,83</td>
+<td style="text-align: right;">2,80</td>
+<td style="text-align: right;">2,79</td>
+<td style="text-align: right;">2,78</td>
+<td style="text-align: right;">2,77</td>
+<td style="text-align: right;">2,76</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">2,85</td>
+<td style="text-align: right;">2,77</td>
+<td style="text-align: right;">2,70</td>
+<td style="text-align: right;">2,66</td>
+<td style="text-align: right;">2,64</td>
+<td style="text-align: right;">2,62</td>
+<td style="text-align: right;">2,61</td>
+<td style="text-align: right;">2,60</td>
+<td style="text-align: right;">2,59</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">2,20</td>
+<td style="text-align: right;">2,12</td>
+<td style="text-align: right;">2,04</td>
+<td style="text-align: right;">1,99</td>
+<td style="text-align: right;">1,97</td>
+<td style="text-align: right;">1,95</td>
+<td style="text-align: right;">1,93</td>
+<td style="text-align: right;">1,92</td>
+<td style="text-align: right;">1,91</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">2,01</td>
+<td style="text-align: right;">1,93</td>
+<td style="text-align: right;">1,84</td>
+<td style="text-align: right;">1,79</td>
+<td style="text-align: right;">1,76</td>
+<td style="text-align: right;">1,74</td>
+<td style="text-align: right;">1,72</td>
+<td style="text-align: right;">1,71</td>
+<td style="text-align: right;">1,70</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">1,92</td>
+<td style="text-align: right;">1,84</td>
+<td style="text-align: right;">1,74</td>
+<td style="text-align: right;">1,69</td>
+<td style="text-align: right;">1,66</td>
+<td style="text-align: right;">1,64</td>
+<td style="text-align: right;">1,62</td>
+<td style="text-align: right;">1,61</td>
+<td style="text-align: right;">1,60</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">1,87</td>
+<td style="text-align: right;">1,78</td>
+<td style="text-align: right;">1,69</td>
+<td style="text-align: right;">1,63</td>
+<td style="text-align: right;">1,60</td>
+<td style="text-align: right;">1,58</td>
+<td style="text-align: right;">1,56</td>
+<td style="text-align: right;">1,54</td>
+<td style="text-align: right;">1,53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">1,84</td>
+<td style="text-align: right;">1,75</td>
+<td style="text-align: right;">1,65</td>
+<td style="text-align: right;">1,59</td>
+<td style="text-align: right;">1,56</td>
+<td style="text-align: right;">1,53</td>
+<td style="text-align: right;">1,52</td>
+<td style="text-align: right;">1,50</td>
+<td style="text-align: right;">1,49</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">70</td>
+<td style="text-align: right;">1,81</td>
+<td style="text-align: right;">1,72</td>
+<td style="text-align: right;">1,62</td>
+<td style="text-align: right;">1,57</td>
+<td style="text-align: right;">1,53</td>
+<td style="text-align: right;">1,50</td>
+<td style="text-align: right;">1,49</td>
+<td style="text-align: right;">1,47</td>
+<td style="text-align: right;">1,46</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">1,79</td>
+<td style="text-align: right;">1,70</td>
+<td style="text-align: right;">1,60</td>
+<td style="text-align: right;">1,54</td>
+<td style="text-align: right;">1,51</td>
+<td style="text-align: right;">1,48</td>
+<td style="text-align: right;">1,46</td>
+<td style="text-align: right;">1,45</td>
+<td style="text-align: right;">1,44</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">1,78</td>
+<td style="text-align: right;">1,69</td>
+<td style="text-align: right;">1,59</td>
+<td style="text-align: right;">1,53</td>
+<td style="text-align: right;">1,49</td>
+<td style="text-align: right;">1,46</td>
+<td style="text-align: right;">1,44</td>
+<td style="text-align: right;">1,43</td>
+<td style="text-align: right;">1,42</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">1,77</td>
+<td style="text-align: right;">1,68</td>
+<td style="text-align: right;">1,57</td>
+<td style="text-align: right;">1,52</td>
+<td style="text-align: right;">1,48</td>
+<td style="text-align: right;">1,45</td>
+<td style="text-align: right;">1,43</td>
+<td style="text-align: right;">1,41</td>
+<td style="text-align: right;">1,40</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">200</td>
+<td style="text-align: right;">1,72</td>
+<td style="text-align: right;">1,62</td>
+<td style="text-align: right;">1,52</td>
+<td style="text-align: right;">1,46</td>
+<td style="text-align: right;">1,41</td>
+<td style="text-align: right;">1,39</td>
+<td style="text-align: right;">1,36</td>
+<td style="text-align: right;">1,35</td>
+<td style="text-align: right;">1,33</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">1,70</td>
+<td style="text-align: right;">1,61</td>
+<td style="text-align: right;">1,50</td>
+<td style="text-align: right;">1,43</td>
+<td style="text-align: right;">1,39</td>
+<td style="text-align: right;">1,36</td>
+<td style="text-align: right;">1,34</td>
+<td style="text-align: right;">1,32</td>
+<td style="text-align: right;">1,31</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">1,69</td>
+<td style="text-align: right;">1,59</td>
+<td style="text-align: right;">1,48</td>
+<td style="text-align: right;">1,42</td>
+<td style="text-align: right;">1,38</td>
+<td style="text-align: right;">1,35</td>
+<td style="text-align: right;">1,32</td>
+<td style="text-align: right;">1,30</td>
+<td style="text-align: right;">1,29</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1 000</td>
+<td style="text-align: right;">1,68</td>
+<td style="text-align: right;">1,58</td>
+<td style="text-align: right;">1,47</td>
+<td style="text-align: right;">1,41</td>
+<td style="text-align: right;">1,36</td>
+<td style="text-align: right;">1,33</td>
+<td style="text-align: right;">1,31</td>
+<td style="text-align: right;">1,29</td>
+<td style="text-align: right;">1,27</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2 000</td>
+<td style="text-align: right;">1,67</td>
+<td style="text-align: right;">1,58</td>
+<td style="text-align: right;">1,46</td>
+<td style="text-align: right;">1,40</td>
+<td style="text-align: right;">1,36</td>
+<td style="text-align: right;">1,32</td>
+<td style="text-align: right;">1,30</td>
+<td style="text-align: right;">1,28</td>
+<td style="text-align: right;">1,27</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-CritiqueF3" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Tableau&nbsp;14.4: Distribution des valeurs critiques de F avec p = 0,05 (suite)</caption>
+<thead><tr class="header">
+<th style="text-align: right;">dl2</th>
+<th style="text-align: right;">dl1=100</th>
+<th style="text-align: right;">dl1=200</th>
+<th style="text-align: right;">dl1=300</th>
+<th style="text-align: right;">dl1=400</th>
+<th style="text-align: right;">dl1=500</th>
+<th style="text-align: right;">dl1=1000</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">253,04</td>
+<td style="text-align: right;">253,68</td>
+<td style="text-align: right;">253,89</td>
+<td style="text-align: right;">254,00</td>
+<td style="text-align: right;">254,06</td>
+<td style="text-align: right;">254,19</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">19,49</td>
+<td style="text-align: right;">19,49</td>
+<td style="text-align: right;">19,49</td>
+<td style="text-align: right;">19,49</td>
+<td style="text-align: right;">19,49</td>
+<td style="text-align: right;">19,49</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">8,55</td>
+<td style="text-align: right;">8,54</td>
+<td style="text-align: right;">8,54</td>
+<td style="text-align: right;">8,53</td>
+<td style="text-align: right;">8,53</td>
+<td style="text-align: right;">8,53</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5,66</td>
+<td style="text-align: right;">5,65</td>
+<td style="text-align: right;">5,64</td>
+<td style="text-align: right;">5,64</td>
+<td style="text-align: right;">5,64</td>
+<td style="text-align: right;">5,63</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">4,41</td>
+<td style="text-align: right;">4,39</td>
+<td style="text-align: right;">4,38</td>
+<td style="text-align: right;">4,38</td>
+<td style="text-align: right;">4,37</td>
+<td style="text-align: right;">4,37</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">3,71</td>
+<td style="text-align: right;">3,69</td>
+<td style="text-align: right;">3,68</td>
+<td style="text-align: right;">3,68</td>
+<td style="text-align: right;">3,68</td>
+<td style="text-align: right;">3,67</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">3,27</td>
+<td style="text-align: right;">3,25</td>
+<td style="text-align: right;">3,24</td>
+<td style="text-align: right;">3,24</td>
+<td style="text-align: right;">3,24</td>
+<td style="text-align: right;">3,23</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">2,97</td>
+<td style="text-align: right;">2,95</td>
+<td style="text-align: right;">2,94</td>
+<td style="text-align: right;">2,94</td>
+<td style="text-align: right;">2,94</td>
+<td style="text-align: right;">2,93</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">2,76</td>
+<td style="text-align: right;">2,73</td>
+<td style="text-align: right;">2,72</td>
+<td style="text-align: right;">2,72</td>
+<td style="text-align: right;">2,72</td>
+<td style="text-align: right;">2,71</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">2,59</td>
+<td style="text-align: right;">2,56</td>
+<td style="text-align: right;">2,55</td>
+<td style="text-align: right;">2,55</td>
+<td style="text-align: right;">2,55</td>
+<td style="text-align: right;">2,54</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1,91</td>
+<td style="text-align: right;">1,88</td>
+<td style="text-align: right;">1,86</td>
+<td style="text-align: right;">1,86</td>
+<td style="text-align: right;">1,86</td>
+<td style="text-align: right;">1,85</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">1,70</td>
+<td style="text-align: right;">1,66</td>
+<td style="text-align: right;">1,65</td>
+<td style="text-align: right;">1,64</td>
+<td style="text-align: right;">1,64</td>
+<td style="text-align: right;">1,63</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">1,59</td>
+<td style="text-align: right;">1,55</td>
+<td style="text-align: right;">1,54</td>
+<td style="text-align: right;">1,53</td>
+<td style="text-align: right;">1,53</td>
+<td style="text-align: right;">1,52</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">1,52</td>
+<td style="text-align: right;">1,48</td>
+<td style="text-align: right;">1,47</td>
+<td style="text-align: right;">1,46</td>
+<td style="text-align: right;">1,46</td>
+<td style="text-align: right;">1,45</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">1,48</td>
+<td style="text-align: right;">1,44</td>
+<td style="text-align: right;">1,42</td>
+<td style="text-align: right;">1,41</td>
+<td style="text-align: right;">1,41</td>
+<td style="text-align: right;">1,40</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">70</td>
+<td style="text-align: right;">1,45</td>
+<td style="text-align: right;">1,40</td>
+<td style="text-align: right;">1,39</td>
+<td style="text-align: right;">1,38</td>
+<td style="text-align: right;">1,37</td>
+<td style="text-align: right;">1,36</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">1,43</td>
+<td style="text-align: right;">1,38</td>
+<td style="text-align: right;">1,36</td>
+<td style="text-align: right;">1,35</td>
+<td style="text-align: right;">1,35</td>
+<td style="text-align: right;">1,34</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">1,41</td>
+<td style="text-align: right;">1,36</td>
+<td style="text-align: right;">1,34</td>
+<td style="text-align: right;">1,33</td>
+<td style="text-align: right;">1,33</td>
+<td style="text-align: right;">1,31</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">1,39</td>
+<td style="text-align: right;">1,34</td>
+<td style="text-align: right;">1,32</td>
+<td style="text-align: right;">1,31</td>
+<td style="text-align: right;">1,31</td>
+<td style="text-align: right;">1,30</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">200</td>
+<td style="text-align: right;">1,32</td>
+<td style="text-align: right;">1,26</td>
+<td style="text-align: right;">1,24</td>
+<td style="text-align: right;">1,23</td>
+<td style="text-align: right;">1,22</td>
+<td style="text-align: right;">1,21</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">300</td>
+<td style="text-align: right;">1,30</td>
+<td style="text-align: right;">1,23</td>
+<td style="text-align: right;">1,21</td>
+<td style="text-align: right;">1,20</td>
+<td style="text-align: right;">1,19</td>
+<td style="text-align: right;">1,17</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">1,28</td>
+<td style="text-align: right;">1,21</td>
+<td style="text-align: right;">1,18</td>
+<td style="text-align: right;">1,17</td>
+<td style="text-align: right;">1,16</td>
+<td style="text-align: right;">1,14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">1 000</td>
+<td style="text-align: right;">1,26</td>
+<td style="text-align: right;">1,19</td>
+<td style="text-align: right;">1,16</td>
+<td style="text-align: right;">1,14</td>
+<td style="text-align: right;">1,13</td>
+<td style="text-align: right;">1,11</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2 000</td>
+<td style="text-align: right;">1,25</td>
+<td style="text-align: right;">1,18</td>
+<td style="text-align: right;">1,15</td>
+<td style="text-align: right;">1,13</td>
+<td style="text-align: right;">1,12</td>
+<td style="text-align: right;">1,09</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="sec-143" class="level2" data-number="14.3"><h2 data-number="14.3" class="anchored" data-anchor-id="sec-143">
+<span class="header-section-number">14.3</span> Table des valeurs critiques de <em>t</em>
+</h2>
+<p>La courte syntaxe R ci-dessous permet de générer le <a href="#tbl-tableCritiqueT">tableau&nbsp;<span>14.5</span></a> avec les valeurs critiques de <em>t</em> avec <em>p</em>&nbsp;=&nbsp;0,10, 0,05, 0,01 et 0,01.</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">stargazer</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># vecteur pour les degrés de liberté de 1 à 30, puis 40 et 50</span></span>
+<span><span class="va">dl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>, <span class="fl">70</span>, <span class="fl">80</span>, <span class="fl">90</span>, <span class="fl">100</span>, <span class="fl">250</span>, <span class="fl">500</span>, <span class="fl">1000</span>, <span class="fl">2500</span><span class="op">)</span> </span>
+<span><span class="co"># la fonction qchisq permet d'obtenir la valeur théorique en fonction </span></span>
+<span><span class="co"># d'une valeur de p et d'un nombre de degrés de liberté</span></span>
+<span><span class="va">tableT</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">dl</span>,</span>
+<span>                p0.10 <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">qt</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">1</span> <span class="op">-</span> <span class="op">(</span><span class="fl">0.10</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>,  df <span class="op">=</span> <span class="va">dl</span><span class="op">)</span>,<span class="fl">2</span><span class="op">)</span>,</span>
+<span>                p0.05 <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">qt</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">1</span> <span class="op">-</span> <span class="op">(</span><span class="fl">0.05</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>,  df <span class="op">=</span> <span class="va">dl</span><span class="op">)</span>,<span class="fl">2</span><span class="op">)</span>,</span>
+<span>                p0.01 <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">qt</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">1</span> <span class="op">-</span> <span class="op">(</span><span class="fl">0.01</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>,  df <span class="op">=</span> <span class="va">dl</span><span class="op">)</span>,<span class="fl">2</span><span class="op">)</span>,</span>
+<span>                p0.001 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">qt</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">1</span> <span class="op">-</span> <span class="op">(</span><span class="fl">0.001</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span>, df <span class="op">=</span> <span class="va">dl</span><span class="op">)</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Impression du tableau avec la library stargazer</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/stargazer/man/stargazer.html">stargazer</a></span><span class="op">(</span><span class="va">tableT</span>, type <span class="op">=</span> <span class="st">"text"</span>, summary <span class="op">=</span> <span class="cn">FALSE</span>, rownames <span class="op">=</span> <span class="cn">FALSE</span>, align <span class="op">=</span> <span class="cn">TRUE</span>, digits <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>          title<span class="op">=</span><span class="st">"Distribution des valeurs critiques de t"</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-tableCritiqueT" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Tableau&nbsp;14.5: Distribution des valeurs critiques de t</caption>
+<thead><tr class="header">
+<th style="text-align: right;">dl</th>
+<th style="text-align: right;">p = 0,10</th>
+<th style="text-align: right;">p = 0,05</th>
+<th style="text-align: right;">p = 0,01</th>
+<th style="text-align: right;">p = 0,001</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6,31</td>
+<td style="text-align: right;">12,71</td>
+<td style="text-align: right;">63,66</td>
+<td style="text-align: right;">636,62</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2,92</td>
+<td style="text-align: right;">4,30</td>
+<td style="text-align: right;">9,92</td>
+<td style="text-align: right;">31,60</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2,35</td>
+<td style="text-align: right;">3,18</td>
+<td style="text-align: right;">5,84</td>
+<td style="text-align: right;">12,92</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2,13</td>
+<td style="text-align: right;">2,78</td>
+<td style="text-align: right;">4,60</td>
+<td style="text-align: right;">8,61</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2,02</td>
+<td style="text-align: right;">2,57</td>
+<td style="text-align: right;">4,03</td>
+<td style="text-align: right;">6,87</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">1,94</td>
+<td style="text-align: right;">2,45</td>
+<td style="text-align: right;">3,71</td>
+<td style="text-align: right;">5,96</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">1,89</td>
+<td style="text-align: right;">2,36</td>
+<td style="text-align: right;">3,50</td>
+<td style="text-align: right;">5,41</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">1,86</td>
+<td style="text-align: right;">2,31</td>
+<td style="text-align: right;">3,36</td>
+<td style="text-align: right;">5,04</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">1,83</td>
+<td style="text-align: right;">2,26</td>
+<td style="text-align: right;">3,25</td>
+<td style="text-align: right;">4,78</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">1,81</td>
+<td style="text-align: right;">2,23</td>
+<td style="text-align: right;">3,17</td>
+<td style="text-align: right;">4,59</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">1,80</td>
+<td style="text-align: right;">2,20</td>
+<td style="text-align: right;">3,11</td>
+<td style="text-align: right;">4,44</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">1,78</td>
+<td style="text-align: right;">2,18</td>
+<td style="text-align: right;">3,05</td>
+<td style="text-align: right;">4,32</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">1,77</td>
+<td style="text-align: right;">2,16</td>
+<td style="text-align: right;">3,01</td>
+<td style="text-align: right;">4,22</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">1,76</td>
+<td style="text-align: right;">2,14</td>
+<td style="text-align: right;">2,98</td>
+<td style="text-align: right;">4,14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">1,75</td>
+<td style="text-align: right;">2,13</td>
+<td style="text-align: right;">2,95</td>
+<td style="text-align: right;">4,07</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">1,75</td>
+<td style="text-align: right;">2,12</td>
+<td style="text-align: right;">2,92</td>
+<td style="text-align: right;">4,01</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">1,74</td>
+<td style="text-align: right;">2,11</td>
+<td style="text-align: right;">2,90</td>
+<td style="text-align: right;">3,97</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">1,73</td>
+<td style="text-align: right;">2,10</td>
+<td style="text-align: right;">2,88</td>
+<td style="text-align: right;">3,92</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">1,73</td>
+<td style="text-align: right;">2,09</td>
+<td style="text-align: right;">2,86</td>
+<td style="text-align: right;">3,88</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">1,72</td>
+<td style="text-align: right;">2,09</td>
+<td style="text-align: right;">2,85</td>
+<td style="text-align: right;">3,85</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">21</td>
+<td style="text-align: right;">1,72</td>
+<td style="text-align: right;">2,08</td>
+<td style="text-align: right;">2,83</td>
+<td style="text-align: right;">3,82</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">22</td>
+<td style="text-align: right;">1,72</td>
+<td style="text-align: right;">2,07</td>
+<td style="text-align: right;">2,82</td>
+<td style="text-align: right;">3,79</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">1,71</td>
+<td style="text-align: right;">2,07</td>
+<td style="text-align: right;">2,81</td>
+<td style="text-align: right;">3,77</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">24</td>
+<td style="text-align: right;">1,71</td>
+<td style="text-align: right;">2,06</td>
+<td style="text-align: right;">2,80</td>
+<td style="text-align: right;">3,75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">1,71</td>
+<td style="text-align: right;">2,06</td>
+<td style="text-align: right;">2,79</td>
+<td style="text-align: right;">3,73</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">1,71</td>
+<td style="text-align: right;">2,06</td>
+<td style="text-align: right;">2,78</td>
+<td style="text-align: right;">3,71</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">1,70</td>
+<td style="text-align: right;">2,05</td>
+<td style="text-align: right;">2,77</td>
+<td style="text-align: right;">3,69</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">1,70</td>
+<td style="text-align: right;">2,05</td>
+<td style="text-align: right;">2,76</td>
+<td style="text-align: right;">3,67</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">1,70</td>
+<td style="text-align: right;">2,05</td>
+<td style="text-align: right;">2,76</td>
+<td style="text-align: right;">3,66</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">1,70</td>
+<td style="text-align: right;">2,04</td>
+<td style="text-align: right;">2,75</td>
+<td style="text-align: right;">3,65</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">40</td>
+<td style="text-align: right;">1,68</td>
+<td style="text-align: right;">2,02</td>
+<td style="text-align: right;">2,70</td>
+<td style="text-align: right;">3,55</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">1,68</td>
+<td style="text-align: right;">2,01</td>
+<td style="text-align: right;">2,68</td>
+<td style="text-align: right;">3,50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">1,67</td>
+<td style="text-align: right;">2,00</td>
+<td style="text-align: right;">2,66</td>
+<td style="text-align: right;">3,46</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">70</td>
+<td style="text-align: right;">1,67</td>
+<td style="text-align: right;">1,99</td>
+<td style="text-align: right;">2,65</td>
+<td style="text-align: right;">3,44</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">1,66</td>
+<td style="text-align: right;">1,99</td>
+<td style="text-align: right;">2,64</td>
+<td style="text-align: right;">3,42</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">90</td>
+<td style="text-align: right;">1,66</td>
+<td style="text-align: right;">1,99</td>
+<td style="text-align: right;">2,63</td>
+<td style="text-align: right;">3,40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">1,66</td>
+<td style="text-align: right;">1,98</td>
+<td style="text-align: right;">2,63</td>
+<td style="text-align: right;">3,39</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">250</td>
+<td style="text-align: right;">1,65</td>
+<td style="text-align: right;">1,97</td>
+<td style="text-align: right;">2,60</td>
+<td style="text-align: right;">3,33</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">500</td>
+<td style="text-align: right;">1,65</td>
+<td style="text-align: right;">1,96</td>
+<td style="text-align: right;">2,59</td>
+<td style="text-align: right;">3,31</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1 000</td>
+<td style="text-align: right;">1,65</td>
+<td style="text-align: right;">1,96</td>
+<td style="text-align: right;">2,58</td>
+<td style="text-align: right;">3,30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2 500</td>
+<td style="text-align: right;">1,65</td>
+<td style="text-align: right;">1,96</td>
+<td style="text-align: right;">2,58</td>
+<td style="text-align: right;">3,29</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copié");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copié");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./13-MethodeClassification.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Méthodes de classification non supervisée</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link">
+        <span class="nav-page-text">Bibliographie</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">Méthodes quantitatives en sciences sociales : un grand bol d’R.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">Ce livre a été réalisé avec <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+</body></html>

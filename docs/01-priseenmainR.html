@@ -346,12 +346,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sec-011" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="sec-011">
 <span class="header-section-number">1.1</span> Histoire et philosophie de R</h2>
 <p>R est à la fois un langage de programmation et un logiciel libre (sous la licence publique générale GNU) dédié à l’analyse statistique et soutenu par une fondation&nbsp;: <em>R Foundation for Statistical Computing</em>. Il est principalement écrit en C et en Fortran, deux langages de programmation de «&nbsp;bas niveau&nbsp;», proches du langage machine. À l’inverse, R est un langage de «&nbsp;haut niveau&nbsp;», car plus proche du langage humain.</p>
-<p>R a été créé par Ross Ihaka et Robert Gentleman à l’Université d’Auckland en Nouvelle-Zélande. Si vous avez un jour l’occasion de passer dans le coin, une plaque est affichée dans le département de statistique de l’université; ça mérite le détour (<a href="#fig-Plaque">figure&nbsp;<span class="quarto-unresolved-ref">fig-Plaque</span></a>). Une version expérimentale a été publiée en 1996, mais la première version stable ne date que de 2000. Il s’agit donc d’un logiciel relativement récent si nous le comparons à ses concurrents SPSS (1968), SAS (1976) et Stata (1984).</p>
+<p>R a été créé par Ross Ihaka et Robert Gentleman à l’Université d’Auckland en Nouvelle-Zélande. Si vous avez un jour l’occasion de passer dans le coin, une plaque est affichée dans le département de statistique de l’université; ça mérite le détour (<a href="#fig-Plaque">figure&nbsp;<span>1.1</span></a>). Une version expérimentale a été publiée en 1996, mais la première version stable ne date que de 2000. Il s’agit donc d’un logiciel relativement récent si nous le comparons à ses concurrents SPSS (1968), SAS (1976) et Stata (1984).</p>
 <div id="fig-Plaque" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap01/plaque.jpg" class="img-fluid figure-img" style="width:40.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;1.1: Lieu de pèlerinage de R</figcaption></figure>
 </div>
-<p>R a cependant réussi à s’imposer tant dans le milieu de la recherche que dans le secteur privé. Pour s’en convaincre, il suffit de lire l’excellent article concernant la popularité des logiciels d’analyse de données tiré du site <a href="http://r4stats.com/articles/popularity" target="_blank">r4stats.com</a> (<a href="#fig-ArticlesR">figure&nbsp;<span class="quarto-unresolved-ref">fig-ArticlesR</span></a>).</p>
+<p>R a cependant réussi à s’imposer tant dans le milieu de la recherche que dans le secteur privé. Pour s’en convaincre, il suffit de lire l’excellent article concernant la popularité des logiciels d’analyse de données tiré du site <a href="http://r4stats.com/articles/popularity" target="_blank">r4stats.com</a> (<a href="#fig-ArticlesR">figure&nbsp;<span>1.2</span></a>).</p>
 <div id="fig-ArticlesR" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap01/r_citations.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;1.2: Nombre d’articles trouvés sur Google Scholar (source : Robert A. Muenchen)</figcaption></figure>
@@ -378,7 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>sont disponibles sur l’un des deux principaux répertoires de <em>packages</em> R, soit <a href="https://cran.r-project.org/" target="_blank">CRAN</a> et <a href="https://www.bioconductor.org/" target="_blank">Bioconductor</a>.</p></li>
 </ul>
 <p>Toujours pour nuancer notre propos, il convient de distinguer <em>package</em> de <em>package</em>! Certains d’entre eux sont des ensembles très complexes de fonctions permettant de réaliser des analyses poussées alors que d’autres sont des projets plus modestes dont l’objectif principal est de simplifier le travail des personnes utilisant R. Ces derniers ressemblent à de petites boîtes à outils et font généralement moins l’objet d’une vérification intensive.</p>
-<p>Pour conclure cette section, l’illustration partagée sur Twitter par Darren L Dahly résume avec humour la force du logiciel R et de sa communauté (<a href="#fig-fig03">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig03</span></a>)&nbsp;: R apparaît clairement comme une communauté hétéroclite, mais diversifiée et adaptable.</p>
+<p>Pour conclure cette section, l’illustration partagée sur Twitter par Darren L Dahly résume avec humour la force du logiciel R et de sa communauté (<a href="#fig-fig03">figure&nbsp;<span>1.3</span></a>)&nbsp;: R apparaît clairement comme une communauté hétéroclite, mais diversifiée et adaptable.</p>
 <div id="fig-fig03" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap01/softwares_and_cars.jpeg" class="img-fluid figure-img" style="width:60.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;1.3: Métaphore sur les langages et programmes d’analyse statistique</figcaption></figure>
@@ -400,7 +400,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Dans cette section, nous vous proposons une visite de l’environnement de travail de R.</p>
 <section id="sec-0121" class="level3" data-number="1.2.1"><h3 data-number="1.2.1" class="anchored" data-anchor-id="sec-0121">
 <span class="header-section-number">1.2.1</span> Installation de R</h3>
-<p>La première étape pour travailler avec R est bien sûr de l’installer. Pour cela, il suffit de visiter le site web de <a href="https://cran.r-project.org/" target="_blank">CRAN</a> et de télécharger la dernière version de R en fonction de votre système d’exploitation&nbsp;: Windows, Linux ou Mac. Une fois installé, si vous démarrez R immédiatement, vous aurez accès à une console, plutôt rudimentaire, attendant sagement vos instructions (<a href="#fig-fig05">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig05</span></a>).</p>
+<p>La première étape pour travailler avec R est bien sûr de l’installer. Pour cela, il suffit de visiter le site web de <a href="https://cran.r-project.org/" target="_blank">CRAN</a> et de télécharger la dernière version de R en fonction de votre système d’exploitation&nbsp;: Windows, Linux ou Mac. Une fois installé, si vous démarrez R immédiatement, vous aurez accès à une console, plutôt rudimentaire, attendant sagement vos instructions (<a href="#fig-fig05">figure&nbsp;<span>1.4</span></a>).</p>
 <div id="fig-fig05" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap01/r_console.jpeg" class="img-fluid figure-img" style="width:85.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;1.4: Console de base de R</figcaption></figure>
@@ -408,7 +408,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Notez que vous pouvez aussi télécharger des versions plus anciennes de R en allant sur ce <a href="https://cran.r-project.org/bin/windows/base/old/" target="_blank">lien</a>. Cela peut être intéressant lorsque vous voulez reproduire des résultats d’une autre étude ou que certains <em>packages</em> ne sont plus disponibles dans les nouvelles versions.</p>
 </section><section id="sec-0122" class="level3" data-number="1.2.2"><h3 data-number="1.2.2" class="anchored" data-anchor-id="sec-0122">
 <span class="header-section-number">1.2.2</span> Environnement RStudio</h3>
-<p>Rares sont les adeptes de R qui préfèrent travailler directement avec la console classique. Nous vous recommandons vivement d’utiliser RStudio, un environnement de développement (<em>IDE</em>) dédié à R offrant une intégration très intéressante d’une console, d’un éditeur de texte, d’une fenêtre de visualisation des données et d’une autre pour les graphiques, d’un accès à la documentation, etc. En d’autres termes, si R est un vélo minimaliste, RStudio permet d’y rajouter des freins, des vitesses, un porte-bagages, des garde-boues et une selle confortable. Vous pouvez <a href="https://rstudio.com/products/rstudio/download" target="_blank">télécharger</a> et installer RStudio sur Windows, Linux et Mac. La version de base est gratuite, mais l’entreprise qui développe ce logiciel propose aussi des versions commerciales du logiciel qui assurent essentiellement une assistance technique. Il existe d’autres environnements de développement pour travailler avec R (Visual Studio Code, Jupyter, Tinn-R, Radiant, RIDE, etc.), mais RStudio offre à ce jour la meilleure option en termes de facilité d’installation, de prise en main et de fonctionnalités proposées (voir l’interface de RStudio à la <a href="#fig-fig06">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig06</span></a>).</p>
+<p>Rares sont les adeptes de R qui préfèrent travailler directement avec la console classique. Nous vous recommandons vivement d’utiliser RStudio, un environnement de développement (<em>IDE</em>) dédié à R offrant une intégration très intéressante d’une console, d’un éditeur de texte, d’une fenêtre de visualisation des données et d’une autre pour les graphiques, d’un accès à la documentation, etc. En d’autres termes, si R est un vélo minimaliste, RStudio permet d’y rajouter des freins, des vitesses, un porte-bagages, des garde-boues et une selle confortable. Vous pouvez <a href="https://rstudio.com/products/rstudio/download" target="_blank">télécharger</a> et installer RStudio sur Windows, Linux et Mac. La version de base est gratuite, mais l’entreprise qui développe ce logiciel propose aussi des versions commerciales du logiciel qui assurent essentiellement une assistance technique. Il existe d’autres environnements de développement pour travailler avec R (Visual Studio Code, Jupyter, Tinn-R, Radiant, RIDE, etc.), mais RStudio offre à ce jour la meilleure option en termes de facilité d’installation, de prise en main et de fonctionnalités proposées (voir l’interface de RStudio à la <a href="#fig-fig06">figure&nbsp;<span>1.5</span></a>).</p>
 <div id="fig-fig06" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap01/r_studio_01.jpeg" class="img-fluid figure-img" style="width:85.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;1.5: Environnement de base de RStudio</figcaption></figure>
@@ -416,13 +416,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Avant d’aller plus loin, notez que&nbsp;:</p>
 <ul>
 <li><p>La console actuellement ouverte dans RStudio vous informe de la version de R que vous utilisez. Vous pouvez en effet avoir plusieurs versions de R installées sur votre ordinateur et passer de l’une à l’autre avec RStudio. Pour cela, naviguez dans l’onglet <em>Tools/Global Options</em> et dans le volet <em>General</em>, puis sélectionnez la version de R que vous souhaitez utiliser.</p></li>
-<li><p>L’aspect de RStudio peut être modifié en naviguant dans l’onglet <em>Tools/Global Options</em> et dans le volet <em>Appearance</em>. Nous avons une préférence pour le mode sombre avec le style <em>pastel on dark</em> (<a href="#fig-fig07">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig07</span></a>), mais libre à vous de choisir le style qui vous convient.</p></li>
+<li><p>L’aspect de RStudio peut être modifié en naviguant dans l’onglet <em>Tools/Global Options</em> et dans le volet <em>Appearance</em>. Nous avons une préférence pour le mode sombre avec le style <em>pastel on dark</em> (<a href="#fig-fig07">figure&nbsp;<span>1.6</span></a>), mais libre à vous de choisir le style qui vous convient.</p></li>
 </ul>
 <div id="fig-fig07" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap01/r_studio_02.jpeg" class="img-fluid figure-img" style="width:85.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;1.6: RStudio avec le style pastel on dark</figcaption></figure>
 </div>
-<p>Une fois ces détails réglés, vous pouvez ouvrir votre première feuille de code en allant dans l’onglet <em>File/New File/R Script</em>. Votre environnement est maintenant découpé en quatre fenêtres (<a href="#fig-fig08">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig08</span></a>)&nbsp;:</p>
+<p>Une fois ces détails réglés, vous pouvez ouvrir votre première feuille de code en allant dans l’onglet <em>File/New File/R Script</em>. Votre environnement est maintenant découpé en quatre fenêtres (<a href="#fig-fig08">figure&nbsp;<span>1.7</span></a>)&nbsp;:</p>
 <ol type="1">
 <li><p>L’éditeur de code, vous permettant d’écrire le script que vous voulez exécuter et de garder une trace de votre travail. Ce script peut être enregistré sur votre ordinateur avec l’extension <strong>.R</strong>, mais ce n’est qu’un simple fichier texte.</p></li>
 <li><p>La console vous permettant d’exécuter votre code R et de voir les résultats s’afficher au fur et à mesure.</p></li>
@@ -433,11 +433,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figure class="figure"><p><img src="images/Chap01/r_studio_03.jpeg" class="img-fluid figure-img" style="width:85.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;1.7: Fenêtres de RStudio</figcaption></figure>
 </div>
-<p>Prenons un bref exemple&nbsp;: tapez la syntaxe suivante dans l’éditeur de code (fenêtre 1 à la <a href="#fig-fig08">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig08</span></a>)&nbsp;:</p>
+<p>Prenons un bref exemple&nbsp;: tapez la syntaxe suivante dans l’éditeur de code (fenêtre 1 à la <a href="#fig-fig08">figure&nbsp;<span>1.7</span></a>)&nbsp;:</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ma_somme</span> <span class="op">&lt;-</span> <span class="fl">4</span><span class="op">+</span><span class="fl">4</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Sélectionnez ensuite cette syntaxe (mettre en surbrillance avec la souris) et utilisez le raccourci <em>Ctrl+Entrée</em> ou cliquez sur le bouton <em>Run</em> (avec la flèche verte) pour envoyer cette syntaxe à la console qui l’exécutera immédiatement. Notez que rien ne se passe tant que le code n’est pas envoyé à la console. Il s’agit donc de deux étapes distinctes&nbsp;: écrire son code, puis l’envoyer à la console. Constatez également qu’un objet <em>ma_somme</em> est apparu dans votre environnement et que sa valeur est bien 8. Votre console se «&nbsp;souvient&nbsp;» de cette valeur&nbsp;: elle est actuellement stockée dans votre mémoire vive sous le nom de <em>ma_somme</em> (<a href="#fig-fig09">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig09</span></a>).</p>
+<p>Sélectionnez ensuite cette syntaxe (mettre en surbrillance avec la souris) et utilisez le raccourci <em>Ctrl+Entrée</em> ou cliquez sur le bouton <em>Run</em> (avec la flèche verte) pour envoyer cette syntaxe à la console qui l’exécutera immédiatement. Notez que rien ne se passe tant que le code n’est pas envoyé à la console. Il s’agit donc de deux étapes distinctes&nbsp;: écrire son code, puis l’envoyer à la console. Constatez également qu’un objet <em>ma_somme</em> est apparu dans votre environnement et que sa valeur est bien 8. Votre console se «&nbsp;souvient&nbsp;» de cette valeur&nbsp;: elle est actuellement stockée dans votre mémoire vive sous le nom de <em>ma_somme</em> (<a href="#fig-fig09">figure&nbsp;<span>1.8</span></a>).</p>
 <div id="fig-fig09" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap01/r_studio_04.jpeg" class="img-fluid figure-img" style="width:85.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;1.8: Exécuter du code dans RStudio</figcaption></figure>
@@ -477,7 +477,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Cela signifie que le <em>package</em> que vous tentez de charger n’est pas encore installé sur votre ordinateur. Dans ce cas, réessayer de l’installer avec la fonction <code>install.packages</code>. Si le problème persiste, vérifiez que vous n’avez pas fait une faute de frappe dans le nom du <em>package.</em> Vous pouvez également redémarrer RStudio et réessayer d’installer ce <em>package</em>.</p>
 </section></section><section id="aide-disponible" class="level3" data-number="1.2.4"><h3 data-number="1.2.4" class="anchored" data-anchor-id="aide-disponible">
 <span class="header-section-number">1.2.4</span> Aide disponible</h3>
-<p>Lorsque vous installez des <em>packages</em> dans R, vous téléchargez aussi leur documentation. Tous les <em>packages</em> de <em>CRAN</em> disposent d’une documentation, ce qui n’est pas forcément vrai pour ceux sur <em>GitHub</em>. Dans RStudio, vous pouvez accéder à la documentation des <em>packages</em> dans l’onglet <strong>Packages</strong> (<a href="#fig-fig010">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig010</span></a>). Vous pouvez utiliser la barre de recherche pour retrouver rapidement un <em>package</em> installé. Si vous cliquez sur le nom du <em>package</em>, vous accédez directement à sa documentation dans cette fenêtre.</p>
+<p>Lorsque vous installez des <em>packages</em> dans R, vous téléchargez aussi leur documentation. Tous les <em>packages</em> de <em>CRAN</em> disposent d’une documentation, ce qui n’est pas forcément vrai pour ceux sur <em>GitHub</em>. Dans RStudio, vous pouvez accéder à la documentation des <em>packages</em> dans l’onglet <strong>Packages</strong> (<a href="#fig-fig010">figure&nbsp;<span>1.9</span></a>). Vous pouvez utiliser la barre de recherche pour retrouver rapidement un <em>package</em> installé. Si vous cliquez sur le nom du <em>package</em>, vous accédez directement à sa documentation dans cette fenêtre.</p>
 <div id="fig-fig010" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap01/rstudio_packages.jpeg" class="img-fluid figure-img" style="width:45.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;1.9: Description des packages</figcaption></figure>
@@ -551,7 +551,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Avec cette nouvelle expression, nous indiquons à R que nous souhaitons déclarer une nouvelle variable appelée <code>ma_somme2</code>, et que cette variable aura pour valeur <code>ma_somme + ma_somme</code>, soit <code>7 + 7</code>. Sans surprise, <code>ma_somme2</code> a pour valeur 14.</p>
 <p>Notez que la mémoire vive (l’environnement) est vidée lorsque vous fermez R. Autrement dit, R perd complètement la mémoire lorsque vous le fermez. Vous pouvez bien sûr recréer vos objets en relançant les mêmes syntaxes. C’est pourquoi vous devez conserver vos feuilles de codes et ne pas seulement travailler dans la console. La console ne garde aucune trace de votre travail. Pensez donc à bien enregistrer votre code!</p>
-<p>Nous verrons dans une prochaine section comment sauvegarder des objets et les recharger dans une session ultérieure de R (<a href="#sec-017">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-017</span></a>). Ce type d’opération est pertinent quand le temps de calcul nécessaire à la production de certains objets est très long.</p>
+<p>Nous verrons dans une prochaine section comment sauvegarder des objets et les recharger dans une session ultérieure de R (<a href="#sec-017">section&nbsp;<span>1.6</span></a>). Ce type d’opération est pertinent quand le temps de calcul nécessaire à la production de certains objets est très long.</p>
 </section><section id="sec-0_133" class="level3" data-number="1.3.3"><h3 data-number="1.3.3" class="anchored" data-anchor-id="sec-0_133">
 <span class="header-section-number">1.3.3</span> Fonctions et arguments</h3>
 <p>Dans R, nous manipulons le plus souvent nos objets avec des <strong>fonctions</strong>. Une fonction est elle-même un objet, mais qui a la particularité de pouvoir effectuer des opérations sur d’autres objets. Par exemple, déclarons l’objet <code>taille</code> avec une valeur de 175,897&nbsp;:</p>
@@ -565,7 +565,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>[1] 176</code></pre>
 </div>
 </div>
-<p>Pour effectuer leurs opérations, les fonctions ont généralement besoin d’<strong>arguments</strong>. Ici, <code>taille</code> est un argument passé à la fonction <code>round</code>. Si nous regardons la documentation de <code>round</code> avec <code><a href="https://rdrr.io/r/base/Round.html">help(round)</a></code> (<a href="#fig-fig011">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig011</span></a>), nous constatons que cette fonction prend en réalité deux arguments&nbsp;: <em>x</em> et <em>digits</em>. Le premier est le nombre que nous souhaitons arrondir et le second est le nombre de décimales à conserver. Nous pouvons lire dans la documentation que la valeur par défaut de <em>digits</em> est 0, ce qui explique que <code>round(taille)</code> a produit le résultat de 176.</p>
+<p>Pour effectuer leurs opérations, les fonctions ont généralement besoin d’<strong>arguments</strong>. Ici, <code>taille</code> est un argument passé à la fonction <code>round</code>. Si nous regardons la documentation de <code>round</code> avec <code><a href="https://rdrr.io/r/base/Round.html">help(round)</a></code> (<a href="#fig-fig011">figure&nbsp;<span>1.10</span></a>), nous constatons que cette fonction prend en réalité deux arguments&nbsp;: <em>x</em> et <em>digits</em>. Le premier est le nombre que nous souhaitons arrondir et le second est le nombre de décimales à conserver. Nous pouvons lire dans la documentation que la valeur par défaut de <em>digits</em> est 0, ce qui explique que <code>round(taille)</code> a produit le résultat de 176.</p>
 <div id="fig-fig011" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap01/help_round.jpeg" class="img-fluid figure-img" style="width:35.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;1.10: Arguments de la fonction <code>round</code></figcaption></figure>
@@ -581,7 +581,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/now.html">now</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2024-07-05 18:38:42 EDT"</code></pre>
+<pre><code>[1] "2024-07-05 19:09:37 EDT"</code></pre>
 </div>
 </div>
 <p>Par contre, si nous essayons de lancer la fonction <code>round</code> sans argument, nous obtenons une erreur&nbsp;:</p>
@@ -683,7 +683,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Nous avons vu que les fonctions permettent de manipuler des objets. Nous pouvons également effectuer un grand nombre d’opérations avec les opérateurs.</p>
 <section id="sec-01351" class="level4" data-number="1.3.5.1"><h4 data-number="1.3.5.1" class="anchored" data-anchor-id="sec-01351">
 <span class="header-section-number">1.3.5.1</span> Opérateurs mathématiques</h4>
-<p>Les opérateurs mathématiques (<a href="#tbl-OperateurMath">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-OperateurMath</span></a>) permettent d’effectuer des calculs avec des données de type numérique.</p>
+<p>Les opérateurs mathématiques (<a href="#tbl-OperateurMath">tableau&nbsp;<span>1.1</span></a>) permettent d’effectuer des calculs avec des données de type numérique.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-OperateurMath" class="anchored">
@@ -751,7 +751,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section><section id="sec-01352" class="level4" data-number="1.3.5.2"><h4 data-number="1.3.5.2" class="anchored" data-anchor-id="sec-01352">
 <span class="header-section-number">1.3.5.2</span> Opérateurs relationnels</h4>
-<p>Les opérateurs relationnels (<a href="#tbl-OperateurRelationnels">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-OperateurRelationnels</span></a>) permettent de vérifier des conditions dans R. Ils renvoient un booléen, <code>TRUE</code> si la condition est vérifiée et <code>FALSE</code> si ce n’est pas le cas.</p>
+<p>Les opérateurs relationnels (<a href="#tbl-OperateurRelationnels">tableau&nbsp;<span>1.2</span></a>) permettent de vérifier des conditions dans R. Ils renvoient un booléen, <code>TRUE</code> si la condition est vérifiée et <code>FALSE</code> si ce n’est pas le cas.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-OperateurRelationnels" class="anchored">
@@ -807,7 +807,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section><section id="sec-01353" class="level4" data-number="1.3.5.3"><h4 data-number="1.3.5.3" class="anchored" data-anchor-id="sec-01353">
 <span class="header-section-number">1.3.5.3</span> Opérateurs logiques</h4>
-<p>Les opérateurs logiques (<a href="#tbl-tableOperateurLogi">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-tableOperateurLogi</span></a>) permettent de combiner plusieurs conditions&nbsp;:</p>
+<p>Les opérateurs logiques (<a href="#tbl-tableOperateurLogi">tableau&nbsp;<span>1.3</span></a>) permettent de combiner plusieurs conditions&nbsp;:</p>
 <ul>
 <li><p>L’opérateur <strong>ET</strong> (<code>&amp;</code>) permet de vérifier que deux conditions (l’une ET l’autre) sont TRUE. Si l’une des deux est FALSE, il renvoie FALSE.</p></li>
 <li><p>L’opérateur <strong>OU</strong> (<code>|</code>) permet de vérifier que l’une des deux conditions est TRUE (l’une OU l’autre). Si les deux sont FALSE, alors il renvoie FALSE.</p></li>
@@ -1013,7 +1013,7 @@ tailles 175.5 180.3 168.2 172.8 167.6</code></pre>
 <pre><code>[1] 2 5</code></pre>
 </div>
 </div>
-<p>Comme vous pouvez le constater, la fonction <code>cbind</code> permet de concaténer des vecteurs comme s’ils étaient les colonnes d’une matrice, alors que <code>rbind</code> les combine comme s’ils étaient les lignes d’une matrice. La <a href="#fig-fig012">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig012</span></a> présente graphiquement le passage du vecteur à la matrice.</p>
+<p>Comme vous pouvez le constater, la fonction <code>cbind</code> permet de concaténer des vecteurs comme s’ils étaient les colonnes d’une matrice, alors que <code>rbind</code> les combine comme s’ils étaient les lignes d’une matrice. La <a href="#fig-fig012">figure&nbsp;<span>1.11</span></a> présente graphiquement le passage du vecteur à la matrice.</p>
 <div id="fig-fig012" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap01/vecteur_to_matrix.png" class="img-fluid figure-img" style="width:30.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;1.11: Du vecteur à la matrice</figcaption></figure>
@@ -1036,7 +1036,7 @@ tailles TRUE TRUE TRUE TRUE TRUE</code></pre>
 </section><section id="sec-01363" class="level4" data-number="1.3.6.3"><h4 data-number="1.3.6.3" class="anchored" data-anchor-id="sec-01363">
 <span class="header-section-number">1.3.6.3</span> <em>Arrays</em>
 </h4>
-<p>S’il est rare de travailler avec des matrices, il est encore plus rare de manipuler des <em>arrays</em>. Un <em>array</em> est une matrice spéciale qui peut avoir plus que deux dimensions. Un cas simple serait un <em>array</em> en trois dimensions&nbsp;: lignes, colonnes, profondeur, que nous pourrions représenter comme un cube, ou une série de matrices de mêmes dimensions et empilées. Au-delà de trois dimensions, il devient difficile de les représenter mentalement. Cette structure de données peut être utilisée pour représenter les différentes bandes spectrales d’une image satellitaire. Les lignes et les colonnes délimiteraient les pixels de l’image et la profondeur délimiterait les différentes bandes composant l’image (<a href="#fig-fig012">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig012</span></a>).</p>
+<p>S’il est rare de travailler avec des matrices, il est encore plus rare de manipuler des <em>arrays</em>. Un <em>array</em> est une matrice spéciale qui peut avoir plus que deux dimensions. Un cas simple serait un <em>array</em> en trois dimensions&nbsp;: lignes, colonnes, profondeur, que nous pourrions représenter comme un cube, ou une série de matrices de mêmes dimensions et empilées. Au-delà de trois dimensions, il devient difficile de les représenter mentalement. Cette structure de données peut être utilisée pour représenter les différentes bandes spectrales d’une image satellitaire. Les lignes et les colonnes délimiteraient les pixels de l’image et la profondeur délimiterait les différentes bandes composant l’image (<a href="#fig-fig012">figure&nbsp;<span>1.11</span></a>).</p>
 <div id="fig-fig013" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap01/array.png" class="img-fluid figure-img" style="width:15.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;1.12: Un array avec trois dimensions</figcaption></figure>
@@ -1082,7 +1082,7 @@ tailles TRUE TRUE TRUE TRUE TRUE</code></pre>
 </section><section id="sec-01364" class="level4" data-number="1.3.6.4"><h4 data-number="1.3.6.4" class="anchored" data-anchor-id="sec-01364">
 <span class="header-section-number">1.3.6.4</span> <em>DataFrames</em>
 </h4>
-<p>S’il est rare de manipuler des matrices et des <em>arrays</em>, le <em>DataFrame</em> (tableau de données en français) est la structure de données la plus souvent utilisée. Dans cette structure, chaque ligne du tableau représente un individu et chaque colonne représente une caractéristique de cet individu. Ces colonnes ont des noms qui permettent facilement d’accéder à leurs valeurs. Créons un <em>DataFrame</em> (<a href="#tbl-tabfirsttable">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-tabfirsttable</span></a>) à partir de nos quatre vecteurs et de la fonction <code>data.frame</code>.</p>
+<p>S’il est rare de manipuler des matrices et des <em>arrays</em>, le <em>DataFrame</em> (tableau de données en français) est la structure de données la plus souvent utilisée. Dans cette structure, chaque ligne du tableau représente un individu et chaque colonne représente une caractéristique de cet individu. Ces colonnes ont des noms qui permettent facilement d’accéder à leurs valeurs. Créons un <em>DataFrame</em> (<a href="#tbl-tabfirsttable">tableau&nbsp;<span>1.4</span></a>) à partir de nos quatre vecteurs et de la fonction <code>data.frame</code>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb88"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>  <span class="st">"age"</span> <span class="op">=</span> <span class="va">ages</span>,</span>
@@ -1138,7 +1138,7 @@ tailles TRUE TRUE TRUE TRUE TRUE</code></pre>
 </div>
 </div>
 </div>
-<p>Dans RStudio, vous pouvez visualiser votre tableau de données avec la fonction <code>View(df)</code>. Comme vous pouvez le constater, chaque vecteur est devenu une colonne de votre tableau de données <em>df</em>. La <a href="#fig-fig013">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig013</span></a> résume ce passage d’une simple donnée à un <em>DataFrame</em> en passant par un vecteur.</p>
+<p>Dans RStudio, vous pouvez visualiser votre tableau de données avec la fonction <code>View(df)</code>. Comme vous pouvez le constater, chaque vecteur est devenu une colonne de votre tableau de données <em>df</em>. La <a href="#fig-fig013">figure&nbsp;<span>1.13</span></a> résume ce passage d’une simple donnée à un <em>DataFrame</em> en passant par un vecteur.</p>
 <div id="fig-fig013" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap01/vecteur_to_dataframe.png" class="img-fluid figure-img" style="width:25.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;1.13: De la donnée au DataFrame</figcaption></figure>
@@ -1323,7 +1323,7 @@ tailles TRUE TRUE TRUE TRUE TRUE</code></pre>
 </div>
 </section><section id="sec-01416" class="level4" data-number="1.4.1.6"><h4 data-number="1.4.1.6" class="anchored" data-anchor-id="sec-01416">
 <span class="header-section-number">1.4.1.6</span> Lecture d’un fichier <em>xlsx</em> (Excel)</h4>
-<p>Lire un fichier Excel dans R n’est pas toujours une tâche facile. Généralement, nous recommandons d’exporter le fichier en question au format <em>csv</em> dans un premier temps, puis de le lire avec la fonction <code>read.csv</code> dans un second temps (<a href="#sec-01411">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-01411</span></a>).</p>
+<p>Lire un fichier Excel dans R n’est pas toujours une tâche facile. Généralement, nous recommandons d’exporter le fichier en question au format <em>csv</em> dans un premier temps, puis de le lire avec la fonction <code>read.csv</code> dans un second temps (<a href="#sec-01411">section&nbsp;<span>1.4.1.1</span></a>).</p>
 <p>Il est néanmoins possible de lire directement un fichier <em>xlsx</em> avec le <em>package</em> <code>xlsx</code>. Ce dernier requiert que le logiciel JAVA soit installé sur votre ordinateur (Windows, Mac ou Linux). Si vous utilisez la version 64 bit de R, vous devrez télécharger et installer la version 64 bit de JAVA. Une fois que ce logiciel tiers est installé, il ne vous restera plus qu’à installer (<code>install.packages("xlsx")</code>) et charger (<code><a href="https://github.com/colearendt/xlsx">library(xlsx)</a></code>) le <em>package</em> <code>xlsx</code>. Sous windows, il est possible que vous deviez également installer manuellement le <em>package</em> <code>rJava</code> et indiquer à R où se trouve JAVA sur votre ordinateur. La procédure est détaillée <a href="https://cimentadaj.github.io/blog/2018-05-25-installing-rjava-on-windows-10/installing-rjava-on-windows-10/">ici</a>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb116"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/colearendt/xlsx">xlsx</a></span><span class="op">)</span></span>
@@ -1358,7 +1358,7 @@ tailles TRUE TRUE TRUE TRUE TRUE</code></pre>
 <pre><code>Le DataFrame df6 a 951 observations et 48 colonnes</code></pre>
 </div>
 </div>
-<p>Si nous comparons les temps d’exécution (<a href="#tbl-tableduration">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-tableduration</span></a>), nous constatons que la lecture des fichiers <em>xlsx</em> peut être extrêmement longue si nous ne spécifions pas le type des colonnes, ce qui peut devenir problématique pour des fichiers volumineux. Notez également que la lecture d’un fichier <em>csv</em> devient de plus en plus laborieuse à mesure que sa taille augmente. Si vous devez un jour charger des fichiers <em>csv</em> de plusieurs gigaoctets, nous vous recommandons vivement d’utiliser la fonction <code>fread</code> du <em>package</em> <code>data.table</code> qui est beaucoup plus rapide.</p>
+<p>Si nous comparons les temps d’exécution (<a href="#tbl-tableduration">tableau&nbsp;<span>1.5</span></a>), nous constatons que la lecture des fichiers <em>xlsx</em> peut être extrêmement longue si nous ne spécifions pas le type des colonnes, ce qui peut devenir problématique pour des fichiers volumineux. Notez également que la lecture d’un fichier <em>csv</em> devient de plus en plus laborieuse à mesure que sa taille augmente. Si vous devez un jour charger des fichiers <em>csv</em> de plusieurs gigaoctets, nous vous recommandons vivement d’utiliser la fonction <code>fread</code> du <em>package</em> <code>data.table</code> qui est beaucoup plus rapide.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-tableduration" class="anchored">
@@ -1375,11 +1375,11 @@ tailles TRUE TRUE TRUE TRUE TRUE</code></pre>
 </tr>
 <tr class="even">
 <td style="text-align: right;">read.dbf</td>
-<td style="text-align: left;">0,02</td>
+<td style="text-align: left;">0,04</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">read.spss</td>
-<td style="text-align: left;">0,00</td>
+<td style="text-align: left;">0,01</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">read.dta</td>
@@ -1387,15 +1387,15 @@ tailles TRUE TRUE TRUE TRUE TRUE</code></pre>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">read.sas7bdat</td>
-<td style="text-align: left;">0,51</td>
+<td style="text-align: left;">0,49</td>
 </tr>
 <tr class="even">
 <td style="text-align: right;">read.xlsx</td>
-<td style="text-align: left;">12,44</td>
+<td style="text-align: left;">11,84</td>
 </tr>
 <tr class="odd">
 <td style="text-align: right;">read.xlsx2</td>
-<td style="text-align: left;">0,47</td>
+<td style="text-align: left;">0,48</td>
 </tr>
 </tbody>
 </table>
@@ -1409,7 +1409,7 @@ tailles TRUE TRUE TRUE TRUE TRUE</code></pre>
 <section id="sec-01421" class="level4" data-number="1.4.2.1"><h4 data-number="1.4.2.1" class="anchored" data-anchor-id="sec-01421">
 <span class="header-section-number">1.4.2.1</span> Petit mot sur le <code>tidyverse</code>
 </h4>
-<p><code>tidyverse</code> est un ensemble de <em>packages</em> conçus pour faciliter la structuration et la manipulation des données dans R. Avant d’aller plus loin, il est important d’aborder brièvement un débat actuel dans la Communauté R. Entre 2010 et 2020, l’utilisation du <code>tidyverse</code> s’est peu à peu répandue. Développé et maintenu par Hadley Wickham, <code>tidyverse</code> introduit une philosophie et une grammaire spécifiques qui diffèrent du langage R traditionnel. Une partie de la communauté a pour ainsi dire complètement embrassé le <code>tidyverse</code> et de nombreux <em>packages</em>, en dehors du <code>tidyverse</code>, ont adopté sa grammaire et sa philosophie. À l’inverse, une autre partie de la communauté est contre cette évolution (<a href="https://blog.ephorie.de/why-i-dont-use-the-tidyverse" target="_blank">voir l’article du blogue suivant</a>). Les arguments pour et contre <code>tidyverse</code> sont résumés dans le (<a href="#tbl-Tidyverse">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-Tidyverse</span></a>).</p>
+<p><code>tidyverse</code> est un ensemble de <em>packages</em> conçus pour faciliter la structuration et la manipulation des données dans R. Avant d’aller plus loin, il est important d’aborder brièvement un débat actuel dans la Communauté R. Entre 2010 et 2020, l’utilisation du <code>tidyverse</code> s’est peu à peu répandue. Développé et maintenu par Hadley Wickham, <code>tidyverse</code> introduit une philosophie et une grammaire spécifiques qui diffèrent du langage R traditionnel. Une partie de la communauté a pour ainsi dire complètement embrassé le <code>tidyverse</code> et de nombreux <em>packages</em>, en dehors du <code>tidyverse</code>, ont adopté sa grammaire et sa philosophie. À l’inverse, une autre partie de la communauté est contre cette évolution (<a href="https://blog.ephorie.de/why-i-dont-use-the-tidyverse" target="_blank">voir l’article du blogue suivant</a>). Les arguments pour et contre <code>tidyverse</code> sont résumés dans le (<a href="#tbl-Tidyverse">tableau&nbsp;<span>1.6</span></a>).</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-Tidyverse" class="anchored">
@@ -1535,7 +1535,7 @@ tailles TRUE TRUE TRUE TRUE TRUE</code></pre>
 </div>
 </section></section><section id="sec-01423" class="level4" data-number="1.4.2.3"><h4 data-number="1.4.2.3" class="anchored" data-anchor-id="sec-01423">
 <span class="header-section-number">1.4.2.3</span> Calcul de nouvelles variables</h4>
-<p>Il est possible d’utiliser les colonnes de type numérique pour calculer de nouvelles colonnes en utilisant les opérateurs mathématiques vus dans la <a href="#sec-0135">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0135</span></a>. Prenons un exemple concret&nbsp;: calculons la densité de population par secteur de recensement dans notre <em>DataFrame</em>, puis affichons un résumé de cette nouvelle variable.</p>
+<p>Il est possible d’utiliser les colonnes de type numérique pour calculer de nouvelles colonnes en utilisant les opérateurs mathématiques vus dans la <a href="#sec-0135">section&nbsp;<span>1.3.5</span></a>. Prenons un exemple concret&nbsp;: calculons la densité de population par secteur de recensement dans notre <em>DataFrame</em>, puis affichons un résumé de cette nouvelle variable.</p>
 <div class="cell">
 <div class="sourceCode" id="cb132"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Calcul de la densité</span></span>
 <span><span class="va">df</span><span class="op">$</span><span class="va">pop_density_2016</span> <span class="op">&lt;-</span> <span class="va">df</span><span class="op">$</span><span class="va">Pop2016</span> <span class="op">/</span> <span class="va">df</span><span class="op">$</span><span class="va">KM2</span></span>
@@ -1828,7 +1828,7 @@ tailles TRUE TRUE TRUE TRUE TRUE</code></pre>
 </div>
 </div>
 </div>
-<p>Nous observons clairement deux pics, un premier entre 0 et 100 (entre 7 h et 8 h 30 environ) et un second plus important entre 550 et 650 (entre 16 h et 17 h 30 environ), ce qui correspond sans surprise aux heures de pointe (<a href="#fig-fig015">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig015</span></a>). Il est intéressant de noter que plus d’accidents se produisent à l’heure de pointe du soir qu’à celle du matin.</p>
+<p>Nous observons clairement deux pics, un premier entre 0 et 100 (entre 7 h et 8 h 30 environ) et un second plus important entre 550 et 650 (entre 16 h et 17 h 30 environ), ce qui correspond sans surprise aux heures de pointe (<a href="#fig-fig015">figure&nbsp;<span>1.14</span></a>). Il est intéressant de noter que plus d’accidents se produisent à l’heure de pointe du soir qu’à celle du matin.</p>
 </section><section id="sec-014264" class="level5" data-number="1.4.2.6.4"><h5 data-number="1.4.2.6.4" class="anchored" data-anchor-id="sec-014264">
 <span class="header-section-number">1.4.2.6.4</span> Fuseau horaire</h5>
 <p>Lorsque nous travaillons avec des données provenant de différents endroits dans le monde ou que nous devons tenir compte des heures d’été et d’hiver, il convient de tenir compte du fuseau horaire. Pour créer une date avec un fuseau horaire, il est possible d’utiliser le paramètre <code>tz</code> dans la fonction <code>as_datetime</code> et d’utiliser l’identifiant du fuseau approprié. Dans notre cas, les données d’accident ont été collectées à Montréal, qui a un décalage de -5 heures par rapport au temps de référence UTC (+1 heure en été). Le code spécifique de ce fuseau horaire est <em>EDT</em>; il est facile de trouver ces codes avec le site web <a href="https://www.timeanddate.com/time/map/">timeanddate.com</a>.</p>
@@ -1843,7 +1843,7 @@ tailles TRUE TRUE TRUE TRUE TRUE</code></pre>
 <section id="sec-014271" class="level5" data-number="1.4.2.7.1"><h5 data-number="1.4.2.7.1" class="anchored" data-anchor-id="sec-014271">
 <span class="header-section-number">1.4.2.7.1</span> Cas binaire avec <code>ifelse</code>
 </h5>
-<p>Si nous ne souhaitons créer que deux catégories, le plus simple est d’utiliser la fonction <code>ifelse</code>. Cette fonction évalue une condition (<a href="#sec-0135">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0135</span></a>) pour chaque ligne d’un <em>DataFrame</em> et produit un nouveau vecteur. Créons donc une variable binaire indiquant si une collision a eu lieu durant les heures de pointe ou hors heures de pointe. Nous devons alors évaluer les conditions suivantes&nbsp;:</p>
+<p>Si nous ne souhaitons créer que deux catégories, le plus simple est d’utiliser la fonction <code>ifelse</code>. Cette fonction évalue une condition (<a href="#sec-0135">section&nbsp;<span>1.3.5</span></a>) pour chaque ligne d’un <em>DataFrame</em> et produit un nouveau vecteur. Créons donc une variable binaire indiquant si une collision a eu lieu durant les heures de pointe ou hors heures de pointe. Nous devons alors évaluer les conditions suivantes&nbsp;:</p>
 <p>Est-ce que l’accident a eu lieu entre 7 h (0) <strong>ET</strong> 9 h (120), <strong>OU</strong> entre 16 h 30 (570) <strong>ET</strong> 18 h 30 (690)?</p>
 <div class="cell">
 <div class="sourceCode" id="cb174"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">accidents_df</span><span class="op">$</span><span class="va">diff_time_num</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1968,10 +1968,10 @@ FALSE  TRUE
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
-<p>Vous pouvez utiliser, dans les deux cas, tous les opérateurs vus dans les sections <a href="#sec-01351"><span class="quarto-unresolved-ref ref-noprefix">sec-01351</span></a> et <a href="#sec-01353"><span class="quarto-unresolved-ref ref-noprefix">sec-01353</span></a>. L’enjeu est d’arriver à créer un vecteur booléen final permettant d’identifier les observations à conserver.</p>
+<p>Vous pouvez utiliser, dans les deux cas, tous les opérateurs vus dans les sections <a href="#sec-01351"><span>1.3.5.1</span></a> et <a href="#sec-01353"><span>1.3.5.3</span></a>. L’enjeu est d’arriver à créer un vecteur booléen final permettant d’identifier les observations à conserver.</p>
 </section><section id="sec-014282" class="level5" data-number="1.4.2.8.2"><h5 data-number="1.4.2.8.2" class="anchored" data-anchor-id="sec-014282">
 <span class="header-section-number">1.4.2.8.2</span> Sous-sélection des colonnes</h5>
-<p>Nous avons déjà vu comment sélectionner des colonnes en utilisant leur nom ou leur index dans la <a href="#sec-014221">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-014221</span></a>. Ajoutons ici un cas particulier où nous souhaitons sélectionner des colonnes selon une condition. Par exemple, nous pourrions vouloir conserver que les colonnes comprenant le mot <em>Length</em>. Pour cela, nous utilisons la fonction <code>grepl</code>, permettant de déterminer si des caractères sont présents dans une chaîne de caractères.</p>
+<p>Nous avons déjà vu comment sélectionner des colonnes en utilisant leur nom ou leur index dans la <a href="#sec-014221">section&nbsp;<span>1.4.2.2.1</span></a>. Ajoutons ici un cas particulier où nous souhaitons sélectionner des colonnes selon une condition. Par exemple, nous pourrions vouloir conserver que les colonnes comprenant le mot <em>Length</em>. Pour cela, nous utilisons la fonction <code>grepl</code>, permettant de déterminer si des caractères sont présents dans une chaîne de caractères.</p>
 <div class="cell">
 <div class="sourceCode" id="cb195"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nom_cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">nom_cols</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2026,7 +2026,7 @@ FALSE  TRUE
 <p>Terminons cette section avec la fusion de <em>DataFrames</em>. Nous distinguons deux méthodes répondant à des besoins différents&nbsp;: par ajout ou par jointure.</p>
 <section id="sec-014291" class="level5" data-number="1.4.2.9.1"><h5 data-number="1.4.2.9.1" class="anchored" data-anchor-id="sec-014291">
 <span class="header-section-number">1.4.2.9.1</span> Fusion de <em>DataFrames</em> par ajout</h5>
-<p>Ajouter deux <em>DataFrames</em> peut se faire en fonction de leurs colonnes ou en fonction de leurs lignes. Dans ces deux cas, nous utilisons respectivement les fonctions <code>cbind</code> et <code>rbind</code>. La <a href="#fig-fig016">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig016</span></a> résume graphiquement le fonctionnement des deux fonctions.</p>
+<p>Ajouter deux <em>DataFrames</em> peut se faire en fonction de leurs colonnes ou en fonction de leurs lignes. Dans ces deux cas, nous utilisons respectivement les fonctions <code>cbind</code> et <code>rbind</code>. La <a href="#fig-fig016">figure&nbsp;<span>1.15</span></a> résume graphiquement le fonctionnement des deux fonctions.</p>
 <div id="fig-fig016" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap01/rbind_cbind.png" class="img-fluid figure-img" style="width:30.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;1.15: Fusion de DataFrames</figcaption></figure>
@@ -2059,7 +2059,7 @@ FALSE  TRUE
 <li><p>La jointure complète permettant de combiner les éléments présents dans A <strong>ou</strong> B.</p></li>
 <li><p>La jointure à gauche, permettant de ne conserver que les éléments présents dans A même s’ils n’ont pas de correspondance dans B.</p></li>
 </ul>
-<p>Ces trois jointures sont présentées à la <a href="#fig-fig017">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig017</span></a>; pour ces trois cas, la colonne commune se nomme <em>id</em>.</p>
+<p>Ces trois jointures sont présentées à la <a href="#fig-fig017">figure&nbsp;<span>1.16</span></a>; pour ces trois cas, la colonne commune se nomme <em>id</em>.</p>
 <div id="fig-fig017" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap01/merging.png" class="img-fluid figure-img" style="width:30.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;1.16: Jointure de DataFrames</figcaption></figure>
@@ -2200,7 +2200,7 @@ FALSE  TRUE
 </ol>
 <ol start="7" type="1">
 <li>
-<strong>Exploiter les commentaires délimitant les sections dans RStudio</strong>&nbsp;: il est possible d’écrire des commentaires d’une certaine façon pour que l’IDE les détecte comme des délimiteurs de sections. L’intérêt principal est que nous pouvons ensuite facilement naviguer entre ces sections en utilisant RStudio comme montré à la <a href="#fig-sectionsRstudio">figure&nbsp;<span class="quarto-unresolved-ref">fig-sectionsRstudio</span></a>, mais aussi masquer des sections afin de faciliter la lecture du reste du code. Pour délimiter une section, il suffit d’ajouter une ligne de commentaire comprenant quatre fois les caractères <code>-</code>, <code>=</code> ou <code>#</code> à la suite.</li>
+<strong>Exploiter les commentaires délimitant les sections dans RStudio</strong>&nbsp;: il est possible d’écrire des commentaires d’une certaine façon pour que l’IDE les détecte comme des délimiteurs de sections. L’intérêt principal est que nous pouvons ensuite facilement naviguer entre ces sections en utilisant RStudio comme montré à la <a href="#fig-sectionsRstudio">figure&nbsp;<span>1.17</span></a>, mais aussi masquer des sections afin de faciliter la lecture du reste du code. Pour délimiter une section, il suffit d’ajouter une ligne de commentaire comprenant quatre fois les caractères <code>-</code>, <code>=</code> ou <code>#</code> à la suite.</li>
 </ol>
 <div class="cell">
 <div class="sourceCode" id="cb219"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Voici ma section 1 ----------------------------------</span></span>
@@ -2221,7 +2221,7 @@ FALSE  TRUE
 </div>
 <ol start="8" type="1">
 <li>
-<strong>Adopter une structure globale pour vos projets</strong>&nbsp;: au-delà du script, il est nécessaire de bien structurer vos projets, le plus important étant d’utiliser une structure commune à chaque projet pour vous faciliter le travail. Nous proposons à la <a href="#fig-structFolder">figure&nbsp;<span class="quarto-unresolved-ref">fig-structFolder</span></a> un exemple de structure assez générale pouvant être utilisée dans la plupart des cas. Elle sépare notamment les données originales des données structurées, ainsi que les fonctions complémentaires et la structuration des données du principal bloc d’analyse.</li>
+<strong>Adopter une structure globale pour vos projets</strong>&nbsp;: au-delà du script, il est nécessaire de bien structurer vos projets, le plus important étant d’utiliser une structure commune à chaque projet pour vous faciliter le travail. Nous proposons à la <a href="#fig-structFolder">figure&nbsp;<span>1.18</span></a> un exemple de structure assez générale pouvant être utilisée dans la plupart des cas. Elle sépare notamment les données originales des données structurées, ainsi que les fonctions complémentaires et la structuration des données du principal bloc d’analyse.</li>
 </ol>
 <div id="fig-structFolder" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap01/structurationprojet.png" class="img-fluid figure-img" style="width:50.0%"></p>
@@ -2236,7 +2236,7 @@ FALSE  TRUE
 <div class="cell">
 <div class="sourceCode" id="cb220"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html">save.image</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">'chemin/vers/mon/fichier/session.RData'</span>, compress <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Vous pouvez aussi utiliser le bouton d’enregistrement dans l’onglet <em>Environnement</em> dans RStudio (<a href="#fig-saveobj">figure&nbsp;<span class="quarto-unresolved-ref">fig-saveobj</span></a>).</p>
+<p>Vous pouvez aussi utiliser le bouton d’enregistrement dans l’onglet <em>Environnement</em> dans RStudio (<a href="#fig-saveobj">figure&nbsp;<span>1.19</span></a>).</p>
 <div id="fig-saveobj" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap01/save_session.png" class="img-fluid figure-img" style="width:25.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;1.19: Bouton enregistrer la session</figcaption></figure>
@@ -2249,14 +2249,14 @@ FALSE  TRUE
 <div class="cell">
 <div class="sourceCode" id="cb222"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">'chemin/vers/mon/fichier/mes_objet.RData'</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>ou d’utiliser le bouton <em>ouvrir</em> de l’onglet <em>Environnement</em> dans RStudio (<a href="#fig-loadobj">figure&nbsp;<span class="quarto-unresolved-ref">fig-loadobj</span></a>).</p>
+<p>ou d’utiliser le bouton <em>ouvrir</em> de l’onglet <em>Environnement</em> dans RStudio (<a href="#fig-loadobj">figure&nbsp;<span>1.20</span></a>).</p>
 <div id="fig-loadobj" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap01/load_session.png" class="img-fluid figure-img" style="width:25.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;1.20: Bouton charger un fichier RDA</figcaption></figure>
 </div>
 </section><section id="sec-018" class="level2" data-number="1.7"><h2 data-number="1.7" class="anchored" data-anchor-id="sec-018">
 <span class="header-section-number">1.7</span> Session de travail</h2>
-<p>Comme vous avez pu le constater dans les sections <a href="#sec-017"><span class="quarto-unresolved-ref">sec-017</span></a> et <a href="#sec-0141"><span class="quarto-unresolved-ref">sec-0141</span></a>, il est nécessaire de connaître les chemins vers les fichiers que vous souhaitez utiliser dans votre code R. Si tous ces fichiers sont organisés dans un même dossier (ce que nous vous recommandons à la <a href="#fig-structFolder">figure&nbsp;<span class="quarto-unresolved-ref">fig-structFolder</span></a>, il est possible de définir un répertoire de travail avec la fonction <code>setwd</code>. Il est recommandé d’effectuer cette étape au début de votre code R, après le chargement des <em>packages</em>. Ainsi, vous n’aurez pas besoin de réécrire à chaque fois le chemin complet pour accéder à vos fichiers.</p>
+<p>Comme vous avez pu le constater dans les sections <a href="#sec-017"><span>Section&nbsp;1.6</span></a> et <a href="#sec-0141"><span>Section&nbsp;1.4.1</span></a>, il est nécessaire de connaître les chemins vers les fichiers que vous souhaitez utiliser dans votre code R. Si tous ces fichiers sont organisés dans un même dossier (ce que nous vous recommandons à la <a href="#fig-structFolder">figure&nbsp;<span>1.18</span></a>, il est possible de définir un répertoire de travail avec la fonction <code>setwd</code>. Il est recommandé d’effectuer cette étape au début de votre code R, après le chargement des <em>packages</em>. Ainsi, vous n’aurez pas besoin de réécrire à chaque fois le chemin complet pour accéder à vos fichiers.</p>
 <div class="cell">
 <div class="sourceCode" id="cb223"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Chemin complet</span></span>
 <span><span class="va">mes_donnes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"C:/projets/articles/2022/mon_projet/data/mes_donnes.csv"</span><span class="op">)</span></span>
@@ -2280,7 +2280,7 @@ FALSE  TRUE
 <li>La seconde est l’utilisation de la fonctionnalité <a href="https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects">projects</a> de RStudio.</li>
 </ul></section><section id="sec-019" class="level2" data-number="1.8"><h2 data-number="1.8" class="anchored" data-anchor-id="sec-019">
 <span class="header-section-number">1.8</span> Conclusion et ressources pertinentes</h2>
-<p>Voilà qui conclut ce chapitre sur les bases du langage R. Vous avez maintenant les connaissances nécessaires pour commencer à travailler. N’hésitez pas à revenir sur les différentes sous-sections au besoin! Quelques ressources pertinentes qui pourraient vous être utiles sont aussi reportées au <a href="#tbl-tableRessources">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-tableRessources</span></a></p>
+<p>Voilà qui conclut ce chapitre sur les bases du langage R. Vous avez maintenant les connaissances nécessaires pour commencer à travailler. N’hésitez pas à revenir sur les différentes sous-sections au besoin! Quelques ressources pertinentes qui pourraient vous être utiles sont aussi reportées au <a href="#tbl-tableRessources">tableau&nbsp;<span>1.7</span></a></p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-tableRessources" class="anchored">
@@ -2375,7 +2375,7 @@ function handleAnswers(quiz, question, no, correct) {
 Avec quelle fonction peut-on sélectionner son répertoire de travail?
 </div>
 <div>
-Relisez au besoin la <a href="#sec-018">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-018</span></a>.
+Relisez au besoin la <a href="#sec-018">section&nbsp;<span>1.7</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -2420,7 +2420,7 @@ Relisez au besoin la <a href="#sec-018">section&nbsp;<span class="quarto-unresol
 Installer RStudio est suffisant pour pouvoir utiliser R.
 </div>
 <div>
-Relisez au besoin le début de la <a href="#sec-012">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-012</span></a>.
+Relisez au besoin le début de la <a href="#sec-012">section&nbsp;<span>1.2</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -2449,7 +2449,7 @@ Relisez au besoin le début de la <a href="#sec-012">section&nbsp;<span class="q
 Un package doit être réinstallé à chaque fois que l’on souhaite l’utiliser.
 </div>
 <div>
-Relisez au besoin la <a href="#sec-0123">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0123</span></a>.
+Relisez au besoin la <a href="#sec-0123">section&nbsp;<span>1.2.3</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -2478,7 +2478,7 @@ Relisez au besoin la <a href="#sec-0123">section&nbsp;<span class="quarto-unreso
 La brique de données élémentaire dans R est :
 </div>
 <div>
-Relisez au besoin la <a href="#sec-0136">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0136</span></a>.
+Relisez au besoin la <a href="#sec-0136">section&nbsp;<span>1.3.6</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -2523,7 +2523,7 @@ Relisez au besoin la <a href="#sec-0136">section&nbsp;<span class="quarto-unreso
 Un vecteur peut contenir :
 </div>
 <div>
-Relisez au besoin la <a href="#sec-0136">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0136</span></a>.
+Relisez au besoin la <a href="#sec-0136">section&nbsp;<span>1.3.6</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -2568,7 +2568,7 @@ Relisez au besoin la <a href="#sec-0136">section&nbsp;<span class="quarto-unreso
 La jointure et la concaténation de DataFrames désignent exactement la même opération.
 </div>
 <div>
-Relisez au besoin la <a href="#sec-01429">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-01429</span></a>.
+Relisez au besoin la <a href="#sec-01429">section&nbsp;<span>1.4.2.9</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -2597,7 +2597,7 @@ Relisez au besoin la <a href="#sec-01429">section&nbsp;<span class="quarto-unres
 Comparativement à une jointure complète, une jointure interne génère un DataFrame avec :
 </div>
 <div>
-Relisez le deuxième encadré à la <a href="#sec-014292">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-014292</span></a>.
+Relisez le deuxième encadré à la <a href="#sec-014292">section&nbsp;<span>1.4.2.9.2</span></a>.
 </div>
 <div class="quizlib-question-answers">
 

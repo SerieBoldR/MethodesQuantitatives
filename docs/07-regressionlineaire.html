@@ -345,7 +345,7 @@ div.csl-indent {
   </div>
   
 
-</header><p>Dans ce chapitre, nous présentons la méthode de régression certainement la plus utilisée en sciences sociales&nbsp;: la régression linéaire multiple. À titre de rappel, dans la <a href="#sec-044">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-044</span></a>, nous avons vu que la régression linéaire simple, basée sur la méthode des moindres carrés ordinaires (MCO), permet d’expliquer et de prédire une variable continue en fonction d’une autre variable. Toutefois, quel que soit le domaine d’étude, il est rare que le recours à une seule variable explicative (<em>X</em>) permette de prédire efficacement une variable continue (<em>Y</em>). La régression linéaire multiple est simplement une extension de la régression linéaire simple&nbsp;: elle permet ainsi de prédire et d’expliquer une variable dépendante (<em>Y</em>) en fonction de plusieurs variables indépendantes (explicatives).</p>
+</header><p>Dans ce chapitre, nous présentons la méthode de régression certainement la plus utilisée en sciences sociales&nbsp;: la régression linéaire multiple. À titre de rappel, dans la <a href="04-bivarieeQuantiQuanti.html#sec-044">section&nbsp;<span>4.4</span></a>, nous avons vu que la régression linéaire simple, basée sur la méthode des moindres carrés ordinaires (MCO), permet d’expliquer et de prédire une variable continue en fonction d’une autre variable. Toutefois, quel que soit le domaine d’étude, il est rare que le recours à une seule variable explicative (<em>X</em>) permette de prédire efficacement une variable continue (<em>Y</em>). La régression linéaire multiple est simplement une extension de la régression linéaire simple&nbsp;: elle permet ainsi de prédire et d’expliquer une variable dépendante (<em>Y</em>) en fonction de plusieurs variables indépendantes (explicatives).</p>
 <p>Plus spécifiquement, nous abordons ici les principes et les hypothèses de la régression linéaire multiple, comment mesurer la qualité d’ajustement du modèle, introduire des variables explicatives particulières (variable qualitative dichotomique ou polytomique, variable d’interaction, etc.), interpréter les sorties d’un modèle de régression et finalement la mettre en œuvre dans R.</p>
 <div class="bloc_package">
 <div class="bloc_package-header">
@@ -367,31 +367,31 @@ div.csl-indent {
 <li>Pour obtenir les coefficients standardisés&nbsp;:
 <ul>
 <li>
-<code>QuantPsyc</code> avec la fonction <code>lm.beta</code> (<a href="#sec-0742">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0742</span></a>).</li>
+<code>QuantPsyc</code> avec la fonction <code>lm.beta</code> (<a href="#sec-0742">section&nbsp;<span>7.4.2</span></a>).</li>
 </ul>
 </li>
 <li>Pour les effets marginaux des variables indépendantes&nbsp;:
 <ul>
 <li>
-<code>ggeffects</code> avec la fonction <code>ggpredict</code> (<a href="#sec-0774">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0774</span></a>).</li>
+<code>ggeffects</code> avec la fonction <code>ggpredict</code> (<a href="#sec-0774">section&nbsp;<span>7.7.4</span></a>).</li>
 </ul>
 </li>
 <li>Pour vérifier la normalité des résidus&nbsp;:
 <ul>
 <li>
-<code>DescTools</code> avec les fonctions <code>Skewness</code> et <code>Kurtosis</code> et <code>JarqueBeraTest</code> (<a href="#sec-0762">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0762</span></a>).</li>
+<code>DescTools</code> avec les fonctions <code>Skewness</code> et <code>Kurtosis</code> et <code>JarqueBeraTest</code> (<a href="#sec-0762">section&nbsp;<span>7.6.2</span></a>).</li>
 </ul>
 </li>
 <li>Pour vérifier l’homoscédasticité des résidus&nbsp;:
 <ul>
 <li>
-<code>lmtest</code> avec la fonction <code>bptest</code> pour le test de Breusch-Pagan (<a href="#sec-07733">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-07733</span></a>).</li>
+<code>lmtest</code> avec la fonction <code>bptest</code> pour le test de Breusch-Pagan (<a href="#sec-07733">section&nbsp;<span>7.7.3.3</span></a>).</li>
 </ul>
 </li>
 <li>Pour vérifier la multicolinéarité excessive&nbsp;:
 <ul>
 <li>
-<code>car</code> avec la fonction <code>vif</code> (<a href="#sec-07734">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-07734</span></a>).</li>
+<code>car</code> avec la fonction <code>vif</code> (<a href="#sec-07734">section&nbsp;<span>7.7.3.4</span></a>).</li>
 </ul>
 </li>
 <li>Autre <em>package</em>&nbsp;:
@@ -405,7 +405,7 @@ div.csl-indent {
 </div>
 <section id="sec-071" class="level2" data-number="7.1"><h2 data-number="7.1" class="anchored" data-anchor-id="sec-071">
 <span class="header-section-number">7.1</span> Objectifs de la régression linéaire multiple et construction d’un modèle de régression</h2>
-<p>Selon Barbara G. Tabachnich et Linda S. Fidell <span class="citation" data-cites="tabachnick2007">(<a href="#ref-tabachnick2007" role="doc-biblioref">2007</a>)</span>, un modèle de régression permet de répondre à deux objectifs principaux relevant chacun d’une approche de modélisation particulière.</p>
+<p>Selon Barbara G. Tabachnich et Linda S. Fidell <span class="citation" data-cites="tabachnick2007">(<a href="references.html#ref-tabachnick2007" role="doc-biblioref">2007</a>)</span>, un modèle de régression permet de répondre à deux objectifs principaux relevant chacun d’une approche de modélisation particulière.</p>
 <p>La première approche a pour objectif d’identifier les relations entre une variable dépendante (VD) et plusieurs variables indépendantes (VI). Il s’agit alors de déterminer si ces relations sont positives ou négatives, significatives ou non et d’évaluer leur ampleur. La construction du modèle de régression repose alors sur un cadre théorique et la formulation d’hypothèses, sur les relations entre chacune des VI et la VD.</p>
 <p>La seconde approche est exploratoire et très utilisée en forage ou en fouille de données (<em>data mining</em> en anglais). Parmi un grand ensemble de variables disponibles dans un jeu de données, elle vise à identifier la ou les variables permettant de prédire le plus efficacement (précisément) une variable dépendante. Parfois, ce type de démarche ne repose ni sur un cadre théorique ni sur la formulation d’hypothèses entre les VI et la VD. Dans des cas extrêmes, on s’intéresse uniquement à la capacité de prédiction du modèle, et ce, sans analyser les associations entre les VI et la VD. L’objectif étant d’obtenir le modèle le plus efficace possible afin de prédire à l’avenir la valeur de la variable dépendante pour des observations pour lesquelles elle est inconnue. Pour ce faire, nous avons recours à des régressions séquentielles (<em>stepwise regressions</em>) dans lesquelles les variables peuvent être ajoutées une à une au modèle ou retirées de celui-ci; nous conserverons dans le modèle final uniquement celles qui ont un apport explicatif significatif. Signalons d’emblée que dans le reste du chapitre, comme du livre, nous ne nous étendons pas plus sur cette approche de modélisation, et ce, pour deux raisons. D’une part, cette approche met souvent en évidence des relations significatives entre des variables sans qu’il y ait une relation de causalité entre elles. D’autre part, en sciences sociales, un modèle de régression doit être basé sur un cadre théorique et conceptuel élaboré à la suite à d’une revue de littérature rigoureuse.</p>
 <div class="bloc_attention">
@@ -417,8 +417,8 @@ div.csl-indent {
 </div>
 <div class="bloc_attention-body">
 <p>Pour bien construire un modèle de régression, il convient de définir un cadre conceptuel élaboré à la suite à une revue de littérature sur le sujet de recherche. Ce cadre conceptuel permet d’identifier les dimensions et les concepts clefs permettant d’expliquer le phénomène à l’étude. Par la suite, pour chacun de ces concepts ou les dimensions, il est alors possible 1)&nbsp;d’identifier les différentes variables indépendantes qui sont introduites dans le modèle et 2)&nbsp;de formuler une hypothèse pour chacune d’elles. Par exemple, pour telle ou telle variable explicative, on s’attendra à ce qu’elle fasse augmenter ou diminuer significativement la variable dépendante. De nouveau, la formulation de cette hypothèse doit s’appuyer sur une interprétation théorique de la relation entre la VI et la VD.</p>
-<p>Prenons en guise d’exemple une étude récente portant sur la multiexposition des cyclistes au bruit et à la pollution atmosphérique <span class="citation" data-cites="2020_3">(<a href="#ref-2020_3" role="doc-biblioref">Gelb et Apparicio 2020</a>)</span>. Dans cet article, les auteurs s’intéressent aux caractéristiques de l’environnement urbain qui contribuent à augmenter ou réduire l’exposition des cyclistes à la pollution de l’air et au bruit routier. Pour ce faire, une collecte de données primaires a été réalisée avec trois cyclistes dans les rues de Paris du 4 au 7 septembre 2017. Au total, 64 heures et 964 kilomètres ont ainsi été parcourus à vélo afin de maximiser la couverture de la ville de Paris et les types d’environnements urbains traversés.</p>
-<p>Leur cadre conceptuel est schématisé à la <a href="#fig-cadreconcept">figure&nbsp;<span class="quarto-unresolved-ref">fig-cadreconcept</span></a>. Les deux variables indépendantes (à expliquer) sont l’exposition au dioxyde d’azote (NO<sub>2</sub>) et l’exposition au bruit (mesurée en décibel dB(A)). Avant d’identifier les caractéristiques de l’environnement urbain affectant ces deux expositions, plusieurs facteurs, dits <strong>variables de contrôle</strong>, sont considérés. Par exemple, la concentration de NO<sub>2</sub> varie en fonction des conditions météorologiques (vent, température et humidité) et de la pollution d’arrière-plan (variant selon le moment de la journée, le jour de la semaine et la localisation géographique au sein de la ville). Ces dimensions ne sont pas le centre d’intérêt direct de l’étude. En effet, les auteurs s’intéressent aux impacts des caractéristiques locales de l’environnement urbain. Pour pouvoir les identifier sans biais, il est nécessaire de contrôler (filtrer) l’ensemble de ces autres facteurs.</p>
+<p>Prenons en guise d’exemple une étude récente portant sur la multiexposition des cyclistes au bruit et à la pollution atmosphérique <span class="citation" data-cites="2020_3">(<a href="references.html#ref-2020_3" role="doc-biblioref">Gelb et Apparicio 2020</a>)</span>. Dans cet article, les auteurs s’intéressent aux caractéristiques de l’environnement urbain qui contribuent à augmenter ou réduire l’exposition des cyclistes à la pollution de l’air et au bruit routier. Pour ce faire, une collecte de données primaires a été réalisée avec trois cyclistes dans les rues de Paris du 4 au 7 septembre 2017. Au total, 64 heures et 964 kilomètres ont ainsi été parcourus à vélo afin de maximiser la couverture de la ville de Paris et les types d’environnements urbains traversés.</p>
+<p>Leur cadre conceptuel est schématisé à la <a href="#fig-cadreconcept">figure&nbsp;<span>7.1</span></a>. Les deux variables indépendantes (à expliquer) sont l’exposition au dioxyde d’azote (NO<sub>2</sub>) et l’exposition au bruit (mesurée en décibel dB(A)). Avant d’identifier les caractéristiques de l’environnement urbain affectant ces deux expositions, plusieurs facteurs, dits <strong>variables de contrôle</strong>, sont considérés. Par exemple, la concentration de NO<sub>2</sub> varie en fonction des conditions météorologiques (vent, température et humidité) et de la pollution d’arrière-plan (variant selon le moment de la journée, le jour de la semaine et la localisation géographique au sein de la ville). Ces dimensions ne sont pas le centre d’intérêt direct de l’étude. En effet, les auteurs s’intéressent aux impacts des caractéristiques locales de l’environnement urbain. Pour pouvoir les identifier sans biais, il est nécessaire de contrôler (filtrer) l’ensemble de ces autres facteurs.</p>
 <p>Dans leur cadre conceptuel, les auteurs regroupent les caractéristiques locales de l’environnement urbain en trois grandes dimensions&nbsp;: les caractéristiques du segment (type de rues ou de voies cyclables empruntés, intersections traversées, pente et vitesse), celles de la forme urbaine (densité résidentielle, végétation, ouverture de la rue et occupations du sol) et celles du trafic (nombre et types de véhicules croisés, congestion et zones 30 km/h). Une fois ce cadre conceptuel construit, il reste alors à identifier les variables qui permettent d’opérationnaliser chacun de concepts retenus.</p>
 <div id="fig-cadreconcept" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap07/CadreTheorique.jpg" class="img-fluid figure-img" style="width:80.0%"></p>
@@ -428,14 +428,14 @@ div.csl-indent {
 <p>Dans un modèle de régression, nous distinguons habituellement trois types de variables&nbsp;: la variable dépendante (<em>Y</em>) que nous souhaitons prédire ou expliquer et les variables indépendantes (<em>X</em>) qui peuvent être soit des variables de contrôle (<em>covariates</em> en anglais), soit des variables explicatives. Les premières sont des facteurs qu’il faut prendre en compte (contrôler) avant d’évaluer nos variables d’intérêt (explicatives).</p>
 <p>Dans l’exemple précédent, les chercheurs voulaient évaluer l’impact des caractéristiques de l’environnement urbain (variables explicatives) sur les expositions des cyclistes au dioxyde d’azote et au bruit, et ce, une fois contrôlés les effets de facteurs reconnus comme ayant un impact significatif sur la concentration de ces polluants (conditions météorologiques et la pollution d’arrière-plan). Autrement dit, si les variables de contrôle n’avaient pas été prises en compte, l’étude des variables d’intérêt serait biaisée par les effets de ces facteurs qui n’auraient pas été contrôlés. À titre d’exemple, il est possible que les zones de circulation limitées à 30 km/h soient concentrées dans les quartiers centraux et denses de Paris. Dans ces quartiers, la pollution d’arrière-plan a tendance à être supérieure. Si nous ne tenons pas compte de cette pollution d’arrière-plan, nous pourrions arriver à la conclusion que les zones de 30 km/h sont des milieux dans lesquels les cyclistes sont plus exposés à la pollution atmosphérique.</p>
 <p><strong>Construction de modèles de régression imbriqués, incrémentiels</strong></p>
-<p>En lien avec le cadre conceptuel du modèle, il est fréquent de construire plusieurs modèles emboîtés. Par exemple, à partir du cadre conceptuel (<a href="#fig-cadreconcept">figure&nbsp;<span class="quarto-unresolved-ref">fig-cadreconcept</span></a>), les auteurs auraient très bien pu construire quatre modèles&nbsp;:</p>
+<p>En lien avec le cadre conceptuel du modèle, il est fréquent de construire plusieurs modèles emboîtés. Par exemple, à partir du cadre conceptuel (<a href="#fig-cadreconcept">figure&nbsp;<span>7.1</span></a>), les auteurs auraient très bien pu construire quatre modèles&nbsp;:</p>
 <ul>
 <li><p>un premier avec uniquement les variables de contrôle (modèle A);</p></li>
 <li><p>un second incluant les variables de contrôle et les variables explicatives de la dimension des caractéristiques du segment (modèle B);</p></li>
 <li><p>un troisième reprenant les variables du modèle B dans lequel sont introduites les variables explicatives relatives à la forme urbaine (modèle C);</p></li>
 <li><p>un dernier modèle dans lequel sont ajoutées les variables explicatives relatives aux conditions du trafic (modèle D).</p></li>
 </ul>
-<p>L’intérêt d’une telle approche est qu’elle permet d’évaluer successivement l’apport explicatif de chacune des dimensions du modèle; nous y reviendrons dans la <a href="#sec-0732">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0732</span></a>.</p>
+<p>L’intérêt d’une telle approche est qu’elle permet d’évaluer successivement l’apport explicatif de chacune des dimensions du modèle; nous y reviendrons dans la <a href="#sec-0732">section&nbsp;<span>7.3.2</span></a>.</p>
 <p>Nous disons alors que deux modèles sont imbriqués lorsque le modèle avec le plus de variables comprend également <strong>toutes</strong> les variables du modèle avec le moins de variables.</p>
 </div>
 </div>
@@ -508,7 +508,7 @@ Y = X\beta + \epsilon
 <p><strong>Parties expliquée et non expliquée de la régression linéaire multiple</strong></p>
 </div>
 <div class="bloc_attention-body">
-<p>Vous aurez compris que, comme pour la régression linéaire simple (<a href="#sec-044">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-044</span></a>), l’équation de la régression linéaire multiple comprend aussi une partie expliquée et une autre non expliquée (stochastique) par le modèle&nbsp;: <span id="eq-regmultiple6"><span class="math display">\[
+<p>Vous aurez compris que, comme pour la régression linéaire simple (<a href="04-bivarieeQuantiQuanti.html#sec-044">section&nbsp;<span>4.4</span></a>), l’équation de la régression linéaire multiple comprend aussi une partie expliquée et une autre non expliquée (stochastique) par le modèle&nbsp;: <span id="eq-regmultiple6"><span class="math display">\[
 Y  = \underbrace{\beta_{0} + \beta_{1}X_{i} + \beta_{2}X_{i} +\ldots+ \beta_{k}X_{k}}_{\mbox{partie expliquée par le modèle}}+ \underbrace{\epsilon}_{\mbox{partie non expliquée (stochastique)}}
 \tag{7.6}\]</span></span></p>
 <p><span id="eq-regmultiple8"><span class="math display">\[
@@ -522,17 +522,17 @@ Y  = \underbrace{X\beta}_{\mbox{partie expliquée par le modèle}}+ \underbrace{
 <ul>
 <li><p><strong>Hypothèse 1</strong>. <em>La variable dépendante doit être continue et non-bornée</em>. Quant aux variables indépendantes (VI), elles peuvent être quantitatives (discrètes ou continues) et qualitatives (nominale ou ordinale).</p></li>
 <li><p><strong>Hypothèse 2</strong>. <em>La variance de chaque VI doit être supérieure à 0</em>. Autrement dit, toutes les observations ne peuvent avoir la même valeur.</p></li>
-<li><p><strong>Hypothèse 3</strong>. <em>Indépendance des termes d’erreur</em>. Les résidus des observations (<span class="math inline">\(\epsilon_{1}, \epsilon_{2}, \ldots, \epsilon_{n}\)</span>) ne doivent pas être corrélés entre eux. Autrement dit, les observations doivent être indépendantes les unes des autres, ce qui n’est souvent pas le cas pour des mesures temporelles. Par exemple, l’application du cadre conceptuel sur la modélisation de l’exposition des cyclistes au bruit et à la pollution atmosphérique (<a href="#fig-cadreconcept">figure&nbsp;<span class="quarto-unresolved-ref">fig-cadreconcept</span></a>)) est basée sur des données primaires collectées lors de trajets réalisés à vélo dans une ville donnée. Par conséquent, deux observations qui se suivent ont bien plus de chances de se ressembler – du point de vue des mesures de pollution et des caractéristiques de l’environnement urbain – que deux observations tirées au hasard dans le jeu de données. Ce problème d’autocorrélation temporelle doit être contrôlé, sinon, les coefficients de régression seront biaisés.</p></li>
+<li><p><strong>Hypothèse 3</strong>. <em>Indépendance des termes d’erreur</em>. Les résidus des observations (<span class="math inline">\(\epsilon_{1}, \epsilon_{2}, \ldots, \epsilon_{n}\)</span>) ne doivent pas être corrélés entre eux. Autrement dit, les observations doivent être indépendantes les unes des autres, ce qui n’est souvent pas le cas pour des mesures temporelles. Par exemple, l’application du cadre conceptuel sur la modélisation de l’exposition des cyclistes au bruit et à la pollution atmosphérique (<a href="#fig-cadreconcept">figure&nbsp;<span>7.1</span></a>)) est basée sur des données primaires collectées lors de trajets réalisés à vélo dans une ville donnée. Par conséquent, deux observations qui se suivent ont bien plus de chances de se ressembler – du point de vue des mesures de pollution et des caractéristiques de l’environnement urbain – que deux observations tirées au hasard dans le jeu de données. Ce problème d’autocorrélation temporelle doit être contrôlé, sinon, les coefficients de régression seront biaisés.</p></li>
 <li><p><strong>Hypothèse 4</strong>. <em>Normalité des résidus</em> avec une moyenne centrée sur zéro.</p></li>
 <li><p><strong>Hypothèse 5</strong>. <em>Absence de colinéarité parfaite entre les variables explicatives</em>. Par exemple, dans un modèle, nous ne pouvons pas introduire à la fois les pourcentages de locataires et de propriétaires, car pour chaque observation, la somme des deux donne 100&nbsp;%. Nous avons donc une corrélation parfaite entre ces deux variables&nbsp;: le coefficient de corrélation de Pearson entre ces deux variables est égal à 1. Par conséquent, le modèle ne peut pas être estimé avec ces deux variables et l’une des deux est automatiquement ôtée.</p></li>
 <li><p><strong>Hypothèse 6</strong>. <em>Homoscédasticité des erreurs (ou absence d’hétéroscédasticité)</em>. Les résidus doivent avoir une variance constante, c’est-à-dire qu’elle doit être la même pour chaque observation. Il y a homoscédasticité lorsqu’il y a une absence de corrélation entre les résidus et les valeurs prédites. Si cette condition n’est pas respectée, nous parlons alors d’hétéroscédasticité.</p></li>
-<li><p><strong>Hypothèse 7</strong>. <em>Le modèle est bien spécifié</em>. Un modèle est mal spécifié (construit) quand «&nbsp;une ou plusieurs variables non pertinentes sont incluses dans le modèle&nbsp;» ou «&nbsp;qu’une ou plusieurs variables pertinentes sont exclues du modèle&nbsp;» <span class="citation" data-cites="bressoux2010">(<a href="#ref-bressoux2010" role="doc-biblioref">Bressoux 2010, 138‑139</a>)</span>. Concrètement, l’inclusion d’une variable non pertinente ou l’omission d’une variable peut entraîner une mauvaise estimation des effets des variables explicatives du modèle.</p></li>
+<li><p><strong>Hypothèse 7</strong>. <em>Le modèle est bien spécifié</em>. Un modèle est mal spécifié (construit) quand «&nbsp;une ou plusieurs variables non pertinentes sont incluses dans le modèle&nbsp;» ou «&nbsp;qu’une ou plusieurs variables pertinentes sont exclues du modèle&nbsp;» <span class="citation" data-cites="bressoux2010">(<a href="references.html#ref-bressoux2010" role="doc-biblioref">Bressoux 2010, 138‑139</a>)</span>. Concrètement, l’inclusion d’une variable non pertinente ou l’omission d’une variable peut entraîner une mauvaise estimation des effets des variables explicatives du modèle.</p></li>
 </ul>
-<p>Pour connaître les conséquences de la violation de chacune de ces hypothèses, vous pourrez notamment consulter l’excellent ouvrage de Bressoux <span class="citation" data-cites="bressoux2010">(<a href="#ref-bressoux2010" role="doc-biblioref">2010, 103‑110</a>)</span>. Retenez ici que le non-respect de ces hypothèses produit des coefficients de régression biaisés.</p>
+<p>Pour connaître les conséquences de la violation de chacune de ces hypothèses, vous pourrez notamment consulter l’excellent ouvrage de Bressoux <span class="citation" data-cites="bressoux2010">(<a href="references.html#ref-bressoux2010" role="doc-biblioref">2010, 103‑110</a>)</span>. Retenez ici que le non-respect de ces hypothèses produit des coefficients de régression biaisés.</p>
 </section></section><section id="sec-073" class="level2" data-number="7.3"><h2 data-number="7.3" class="anchored" data-anchor-id="sec-073">
 <span class="header-section-number">7.3</span> Évaluation de la qualité d’ajustement du modèle</h2>
-<p>Pour illustrer la régression linéaire multiple, nous utilisons un jeu de données tiré d’un article portant sur la distribution spatiale de la végétation sur l’île de Montréal abordée sous l’angle de l’équité environnementale <span class="citation" data-cites="apparicio2016spatial">(<a href="#ref-apparicio2016spatial" role="doc-biblioref">Apparicio et al. 2016</a>)</span>. Dans cette étude, les auteurs veulent vérifier si certains groupes de population (personnes à faible revenu, minorités visibles, personnes âgées et enfants de moins de 15 ans) ont ou non une accessibilité plus limitée à la végétation urbaine. En d’autres termes, cet article tente de répondre à la question suivante&nbsp;: une fois contrôlées les caractéristiques de la forme urbaine (densité de population et âge du bâti), est-ce que les quatre groupes de population résident dans des îlots urbains avec proportionnellement moins ou plus de végétation?</p>
-<p>Dans le <a href="#tbl-datareg">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-datareg</span></a>, sont reportées les variables utilisées (calculées au niveau des îlots de l’île de Montréal) introduites dans le modèle de régression&nbsp;:</p>
+<p>Pour illustrer la régression linéaire multiple, nous utilisons un jeu de données tiré d’un article portant sur la distribution spatiale de la végétation sur l’île de Montréal abordée sous l’angle de l’équité environnementale <span class="citation" data-cites="apparicio2016spatial">(<a href="references.html#ref-apparicio2016spatial" role="doc-biblioref">Apparicio et al. 2016</a>)</span>. Dans cette étude, les auteurs veulent vérifier si certains groupes de population (personnes à faible revenu, minorités visibles, personnes âgées et enfants de moins de 15 ans) ont ou non une accessibilité plus limitée à la végétation urbaine. En d’autres termes, cet article tente de répondre à la question suivante&nbsp;: une fois contrôlées les caractéristiques de la forme urbaine (densité de population et âge du bâti), est-ce que les quatre groupes de population résident dans des îlots urbains avec proportionnellement moins ou plus de végétation?</p>
+<p>Dans le <a href="#tbl-datareg">tableau&nbsp;<span>7.1</span></a>, sont reportées les variables utilisées (calculées au niveau des îlots de l’île de Montréal) introduites dans le modèle de régression&nbsp;:</p>
 <ul>
 <li><p>le pourcentage de la superficie de l’îlot couverte par de la végétation, soit la variable indépendante (VI);</p></li>
 <li><p>deux variables indépendantes de contrôle (VC) relatives à la forme urbaine;</p></li>
@@ -652,11 +652,11 @@ Y  = \underbrace{X\beta}_{\mbox{partie expliquée par le modèle}}+ \underbrace{
 </div>
 <section id="sec-0731" class="level3" data-number="7.3.1"><h3 data-number="7.3.1" class="anchored" data-anchor-id="sec-0731">
 <span class="header-section-number">7.3.1</span> Mesures de la qualité d’un modèle</h3>
-<p>Comme pour la régression linéaire simple (<a href="#sec-044">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-044</span></a>), les trois mesures les plus couramment utilisées pour évaluer la qualité d’un modèle sont&nbsp;:</p>
+<p>Comme pour la régression linéaire simple (<a href="04-bivarieeQuantiQuanti.html#sec-044">section&nbsp;<span>4.4</span></a>), les trois mesures les plus couramment utilisées pour évaluer la qualité d’un modèle sont&nbsp;:</p>
 <ul>
-<li><p>Le <strong>coefficient de détermination</strong> (R<sup>2</sup>) qui indique la proportion de la variance de la variable dépendante expliquée par les variables indépendantes du modèle (<a href="#eq-regmR2">équation&nbsp;<span class="quarto-unresolved-ref">eq-regmR2</span></a>). Il varie ainsi de 0 à&nbsp;1.</p></li>
-<li><p>La <strong>statistique de Fisher</strong> qui permet d’évaluer la significativité globale du modèle (<a href="#eq-regmFFisher">équation&nbsp;<span class="quarto-unresolved-ref">eq-regmFFisher</span></a>). Dans le cas d’une régression linéaire multiple, l’hypothèse nulle du test <em>F</em> est que toutes les valeurs des coefficients de régression des variables indépendantes sont égales à 0; autrement dit, qu’aucune des variables indépendantes n’a d’effet sur la variable dépendante. Tel que décrit à la <a href="#sec-0443">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0443</span></a>, il est possible d’obtenir une valeur de <em>p</em> rattachée à la statistique <em>F</em> avec <em>k</em> degrés de liberté au dénominateur et <em>n-k-1</em> degrés de liberté au numérateur (<em>k</em> et <em>n</em> étant respectivement le nombre de variables indépendantes et le nombre d’observations). Lorsque la valeur de <em>p</em> est inférieure à 0,05, nous pourrons en conclure que le modèle est globalement significatif, c’est-à-dire qu’au moins un coefficient de régression est significativement différent de zéro. Notez qu’il est plutôt rare qu’un modèle de régression, comprenant plusieurs variables indépendantes, soit globalement non significatif (P&nbsp;&gt;&nbsp;0,05), et ce, surtout s’il est basé sur un cadre conceptuel et théorique solide. Le test de la statistique de Fisher est donc facile à passer et ne constitue pas une preuve absolue de la pertinence du modèle.</p></li>
-<li><p><strong>L’erreur quadratique moyenne (RMSE)</strong> qui indique l’erreur absolue moyenne du modèle exprimée dans l’unité de mesure de la variable dépendante, autrement dit l’écart absolu moyen entre les valeurs observées et prédites du modèle (<a href="#eq-regmRMSE">équation&nbsp;<span class="quarto-unresolved-ref">eq-regmRMSE</span></a>). Une valeur élevée indique que le modèle se trompe largement en moyenne et inversement.</p></li>
+<li><p>Le <strong>coefficient de détermination</strong> (R<sup>2</sup>) qui indique la proportion de la variance de la variable dépendante expliquée par les variables indépendantes du modèle (<a href="#eq-regmR2">équation&nbsp;<span>7.9</span></a>). Il varie ainsi de 0 à&nbsp;1.</p></li>
+<li><p>La <strong>statistique de Fisher</strong> qui permet d’évaluer la significativité globale du modèle (<a href="#eq-regmFFisher">équation&nbsp;<span>7.10</span></a>). Dans le cas d’une régression linéaire multiple, l’hypothèse nulle du test <em>F</em> est que toutes les valeurs des coefficients de régression des variables indépendantes sont égales à 0; autrement dit, qu’aucune des variables indépendantes n’a d’effet sur la variable dépendante. Tel que décrit à la <a href="04-bivarieeQuantiQuanti.html#sec-0443">section&nbsp;<span>4.4.3</span></a>, il est possible d’obtenir une valeur de <em>p</em> rattachée à la statistique <em>F</em> avec <em>k</em> degrés de liberté au dénominateur et <em>n-k-1</em> degrés de liberté au numérateur (<em>k</em> et <em>n</em> étant respectivement le nombre de variables indépendantes et le nombre d’observations). Lorsque la valeur de <em>p</em> est inférieure à 0,05, nous pourrons en conclure que le modèle est globalement significatif, c’est-à-dire qu’au moins un coefficient de régression est significativement différent de zéro. Notez qu’il est plutôt rare qu’un modèle de régression, comprenant plusieurs variables indépendantes, soit globalement non significatif (P&nbsp;&gt;&nbsp;0,05), et ce, surtout s’il est basé sur un cadre conceptuel et théorique solide. Le test de la statistique de Fisher est donc facile à passer et ne constitue pas une preuve absolue de la pertinence du modèle.</p></li>
+<li><p><strong>L’erreur quadratique moyenne (RMSE)</strong> qui indique l’erreur absolue moyenne du modèle exprimée dans l’unité de mesure de la variable dépendante, autrement dit l’écart absolu moyen entre les valeurs observées et prédites du modèle (<a href="#eq-regmRMSE">équation&nbsp;<span>7.11</span></a>). Une valeur élevée indique que le modèle se trompe largement en moyenne et inversement.</p></li>
 </ul>
 <div class="bloc_attention">
 <div class="bloc_attention-header">
@@ -692,7 +692,7 @@ RMSE = \sqrt{\frac{\sum_{i=1}^n (y_{i}-\widehat{y})^2}{n}} = \sqrt{\frac{SCR}{n}
 \tag{7.11}\]</span></span></p>
 </div>
 </div>
-<p>Globalement, plus un modèle de régression est efficace, plus les valeurs du R<sup>2</sup> et de la statistique <em>F</em> sont élevées et inversement, plus celle de RMSE est faible. En effet, remarquez qu’à l’<a href="#eq-regmFFisher">équation&nbsp;<span class="quarto-unresolved-ref">eq-regmFFisher</span></a>, la statistique <em>F</em> peut être obtenue à partir du R<sup>2</sup>; par conséquent, plus la valeur du R<sup>2</sup> est forte (proche de 1), plus celle de <em>F</em> est aussi élevée. Notez aussi que plus un modèle est performant, plus la partie expliquée par le modèle (SCE) est importante et plus celle non expliquée (SCR) est faible; ce qui signifie que plus le R<sup>2</sup> est proche de 1 (<a href="#eq-regmR2">équation&nbsp;<span class="quarto-unresolved-ref">eq-regmR2</span></a>), plus le RMSE – calculé à partir du SCR – est faible (<a href="#eq-regmRMSE">équation&nbsp;<span class="quarto-unresolved-ref">eq-regmRMSE</span></a>).</p>
+<p>Globalement, plus un modèle de régression est efficace, plus les valeurs du R<sup>2</sup> et de la statistique <em>F</em> sont élevées et inversement, plus celle de RMSE est faible. En effet, remarquez qu’à l’<a href="#eq-regmFFisher">équation&nbsp;<span>7.10</span></a>, la statistique <em>F</em> peut être obtenue à partir du R<sup>2</sup>; par conséquent, plus la valeur du R<sup>2</sup> est forte (proche de 1), plus celle de <em>F</em> est aussi élevée. Notez aussi que plus un modèle est performant, plus la partie expliquée par le modèle (SCE) est importante et plus celle non expliquée (SCR) est faible; ce qui signifie que plus le R<sup>2</sup> est proche de 1 (<a href="#eq-regmR2">équation&nbsp;<span>7.9</span></a>), plus le RMSE – calculé à partir du SCR – est faible (<a href="#eq-regmRMSE">équation&nbsp;<span>7.11</span></a>).</p>
 <p>La syntaxe R ci-dessous illustre comment calculer les différentes variances (SCT, SCE et SCR) à partir des valeurs observées et prédites par le modèle, puis les valeurs du R<sup>2</sup>, de <em>F</em> et du RMSE. Nous verrons par la suite qu’il est possible d’obtenir directement ces valeurs à partir de la fonction <code>summary(VotreModele)</code>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Chargement des données</span></span>
@@ -747,7 +747,7 @@ RMSE = 14.1575</code></pre>
 <p>Notez que ce principe de parcimonie ne signifie pas que vous devez systématiquement retirer toutes les variables non significatives de votre analyse. En effet, il peut y avoir un intérêt théorique à démontrer l’absence de relation entre des variables. Il s’agit plutôt d’une ligne de conduite à garder à l’esprit lors de l’élaboration du cadre théorique et de l’interprétation des résultats.</p>
 </div>
 </div>
-<p>Mathématiquement, plus nous ajoutons de variables supplémentaires dans un modèle, plus le R<sup>2</sup> augmente. On ne peut donc pas utiliser directement le R<sup>2</sup> pour comparer deux modèles de régression ne comprenant pas le même nombre de variables indépendantes. Nous privilégions alors l’utilisation du R<sup>2</sup> ajusté qui, comme illustré dans l’<a href="#eq-R2ajuste">équation&nbsp;<span class="quarto-unresolved-ref">eq-R2ajuste</span></a>, tient compte à la fois des nombres d’observations et des variables indépendantes utilisées pour construire le modèle.</p>
+<p>Mathématiquement, plus nous ajoutons de variables supplémentaires dans un modèle, plus le R<sup>2</sup> augmente. On ne peut donc pas utiliser directement le R<sup>2</sup> pour comparer deux modèles de régression ne comprenant pas le même nombre de variables indépendantes. Nous privilégions alors l’utilisation du R<sup>2</sup> ajusté qui, comme illustré dans l’<a href="#eq-R2ajuste">équation&nbsp;<span>7.12</span></a>, tient compte à la fois des nombres d’observations et des variables indépendantes utilisées pour construire le modèle.</p>
 <p><span id="eq-R2ajuste"><span class="math display">\[
 R^2_{\text {ajusté}}= 1 - \frac{(1-R^2)(n-1)}{n-k-1} \mbox{ avec } R^2_{\text {ajusté}} \in \left[0,1\right]
 \tag{7.12}\]</span></span></p>
@@ -757,7 +757,7 @@ F_{\text {incrémentiel}}= \frac{\frac{R^2_2-R^2_1}{k_2-k_1}} {\frac{1-R^2_2}{n-
 \tag{7.13}\]</span></span></p>
 <p>avec <span class="math inline">\(R^2_1\)</span> et <span class="math inline">\(R^2_2\)</span> étant les coefficients de détermination des modèles 1 et 2 et <span class="math inline">\(k_1\)</span> et <span class="math inline">\(k_2\)</span> étant les nombres de variables indépendantes qu’ils comprennent (<span class="math inline">\(k_2 &gt; k_1\)</span>).</p>
 <p>Illustrons le tout avec deux modèles. Dans la syntaxe R ci-dessous, nous avons construit un premier modèle avec uniquement les variables de contrôle (<code>modele1</code>), soit deux variables indépendantes (<code>HABHA</code> et <code>AgeMedian</code>). Puis, dans un second modèle (<code>modele2</code>), nous ajoutons comme variables indépendantes les pourcentages des quatre groupes de population (<code>Pct_014</code>, <code>Pct_65P</code>, <code>Pct_MV</code>, <code>Pct_FR</code>). Repérez comment sont calculés les R<sup>2</sup> ajustés pour les modèles et le <em>F</em> incrémentiel.</p>
-<p>Le R<sup>2</sup> ajusté passe de 0,269 à 0,418 des modèles 1 à 2 signalant que l’ajout des quatre variables indépendantes augmente considérablement la variance expliquée. Autrement dit, le second modèle est bien plus performant. Le <em>F</em> incrémentiel s’élève à 653,8 et est significatif (<em>p</em> &lt; 0,001). Notez que la syntaxe ci-dessous illustre comment calculer les valeurs du R<sup>2</sup> ajusté et du <em>F</em> incrémentiel à partir des équations <a href="#eq-R2ajuste"><span class="quarto-unresolved-ref ref-noprefix">eq-R2ajuste</span></a> et <a href="#eq-Fincrementiel"><span class="quarto-unresolved-ref ref-noprefix">eq-Fincrementiel</span></a>. Sachez toutefois qu’il est possible d’obtenir directement le R<sup>2</sup> ajusté avec la fonction <code>summary(VotreModele)</code> et le <em>F</em> incrémentiel avec la fonction <code>anova(modele1, modele2)</code>.</p>
+<p>Le R<sup>2</sup> ajusté passe de 0,269 à 0,418 des modèles 1 à 2 signalant que l’ajout des quatre variables indépendantes augmente considérablement la variance expliquée. Autrement dit, le second modèle est bien plus performant. Le <em>F</em> incrémentiel s’élève à 653,8 et est significatif (<em>p</em> &lt; 0,001). Notez que la syntaxe ci-dessous illustre comment calculer les valeurs du R<sup>2</sup> ajusté et du <em>F</em> incrémentiel à partir des équations <a href="#eq-R2ajuste"><span>7.12</span></a> et <a href="#eq-Fincrementiel"><span>7.13</span></a>. Sachez toutefois qu’il est possible d’obtenir directement le R<sup>2</sup> ajusté avec la fonction <code>summary(VotreModele)</code> et le <em>F</em> incrémentiel avec la fonction <code>anova(modele1, modele2)</code>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">modele1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">VegPct</span> <span class="op">~</span> <span class="va">HABHA</span><span class="op">+</span><span class="va">AgeMedian</span>, data <span class="op">=</span> <span class="va">DataFinal</span><span class="op">)</span></span>
 <span><span class="va">modele2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">VegPct</span> <span class="op">~</span> <span class="va">HABHA</span><span class="op">+</span><span class="va">AgeMedian</span><span class="op">+</span><span class="va">Pct_014</span><span class="op">+</span><span class="va">Pct_65P</span><span class="op">+</span><span class="va">Pct_MV</span><span class="op">+</span><span class="va">Pct_FR</span>, data <span class="op">=</span> <span class="va">DataFinal</span><span class="op">)</span></span>
@@ -850,7 +850,7 @@ F-statistic:  1223 on 6 and 10203 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <section id="sec-0741" class="level3" data-number="7.4.1"><h3 data-number="7.4.1" class="anchored" data-anchor-id="sec-0741">
 <span class="header-section-number">7.4.1</span> Coefficients de régression&nbsp;: évaluer l’effet des variables indépendantes</h3>
-<p>Les différents résultats pour les coefficients sont reportés au <a href="#tbl-dataregmodel2">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-dataregmodel2</span></a>.</p>
+<p>Les différents résultats pour les coefficients sont reportés au <a href="#tbl-dataregmodel2">tableau&nbsp;<span>7.2</span></a>.</p>
 <p><strong>La constante</strong> (<span class="math inline">\(\beta_0\)</span>) est la valeur attendue de la variable dépendante (<em>Y</em>) quand les valeurs de toutes les variables indépendantes sont égales à 0. Pour ce modèle, quand les variables indépendantes sont égales à 0, plus du quart de la superficie des îlots serait en moyenne couverte par de la végétation (<span class="math inline">\(\beta_0\)</span>&nbsp;=&nbsp;26,36). Notez que la constante n’a pas toujours une interprétation pratique. Il est par exemple très invraisemblable d’avoir un îlot avec de la population dans lequel il n’y aurait aucune personne à faible revenu, aucune personne ne déclarant appartenir à une minorité visible, aucun enfant de moins de 15 ans et aucune personne âgée de 65 ans et plus. La constante a donc avant tout un rôle mathématique dans le modèle.</p>
 <p><strong>Le coefficient de régression</strong> (<span class="math inline">\(\beta_1\)</span> à <span class="math inline">\(\beta_k\)</span>) indique le changement de la variable dépendante (<em>Y</em>) lorsque la variable indépendante augmente d’une unité, toutes choses étant égales par ailleurs. Il permet ainsi d’évaluer l’effet d’une augmentation d’une unité dans laquelle est mesurée la VI sur la VD.</p>
 <div class="bloc_attention">
@@ -966,7 +966,7 @@ F-statistic:  1223 on 6 and 10203 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 </div>
 </div>
-<p>À partir des coefficients du <a href="#tbl-dataregmodel2">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-dataregmodel2</span></a>, l’équation du modèle de régression s’écrit alors comme suit&nbsp;:</p>
+<p>À partir des coefficients du <a href="#tbl-dataregmodel2">tableau&nbsp;<span>7.2</span></a>, l’équation du modèle de régression s’écrit alors comme suit&nbsp;:</p>
 <p><code>VegPct = 26,356 − 0,070 HABHA  + 0,011 AgeMedian + 1,084 Pct_014 + 0,401 Pct_65P −0,031 Pct_MV − 0,348 Pct_FR + e</code></p>
 <p><strong>Comment interpréter un coefficient de régression pour une variable indépendante?</strong></p>
 <p>Le signe du coefficient de régression indique si la variable indépendante est associée positivement ou négativement avec la variable dépendante. Par exemple, plus la densité de population est importante à travers les îlots de l’île de Montréal, plus la couverture végétale diminue.</p>
@@ -978,7 +978,7 @@ F-statistic:  1223 on 6 and 10203 DF,  p-value: &lt; 2.2e-16</code></pre>
 </section><section id="sec-0742" class="level3" data-number="7.4.2"><h3 data-number="7.4.2" class="anchored" data-anchor-id="sec-0742">
 <span class="header-section-number">7.4.2</span> Coefficients de régression standardisés&nbsp;: repérer les variables les plus importantes du modèle</h3>
 <p>Un coefficient de régression est exprimé dans les unités de mesure des variables indépendante (VI) et dépendante (VD)&nbsp;: une augmentation d’une unité de la VI a un effet de <span class="math inline">\(\beta\)</span> (valeur de coefficient) unité de mesure sur la VD, toutes choses étant égales par ailleurs. Prenons l’exemple d’un modèle fictif dans lequel une variable indépendante mesurée en mètres obtient un coefficient de régression de 0,000502. Si cette variable était exprimée en kilomètres et non en mètres, son coefficient serait alors de 0,502 (<span class="math inline">\(0,000502 \times 1000 = 0,502\)</span>). Cela explique que pour certaines variables, il est souvent préférable de modifier l’unité de mesure, particulièrement pour les variables de distance ou de revenu. Par exemple, dans un modèle de régression, nous introduisons habituellement une variable de revenu par tranche de mille dollars ou le loyer mensuel par tranche de cent dollars, puisque les coefficients du revenu ou de loyer exprimé en dollars risquent d’être extrêmement faibles. Concrètement, cela signifie que nous divisons la variable <em>revenu</em> par 1000 et celle du <em>loyer</em> par 100 avant de l’introduire dans le modèle.</p>
-<p>Du fait de leur unités de mesure souvent différentes, vous aurez compris que nous ne pouvons pas comparer directement les coefficients de régression afin de repérer la ou les variables indépendantes (<em>X</em>) qui ont les effets (impacts) les plus importants sur la variable dépendante (<em>Y</em>). Pour remédier à ce problème, nous utilisons les <strong>coefficients de régression standardisés</strong>. Ces coefficients standardisés sont simplement les valeurs de coefficients de régression qui seraient obtenus si toutes les variables du modèle (VD et VI) étaient préalablement centrées réduites (soit avec une moyenne égale à 0 et un écart-type égal à 1; consultez la <a href="#sec-02552">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-02552</span></a> pour un rappel). Puisque toutes les variables du modèle sont exprimées en écarts-types, les coefficients standardisés permettent ainsi d’évaluer <strong>l’effet relatif</strong> des VI sur la VD. Cela permet ainsi de repérer la ou les variables les plus «&nbsp;importantes&nbsp;» du modèle.</p>
+<p>Du fait de leur unités de mesure souvent différentes, vous aurez compris que nous ne pouvons pas comparer directement les coefficients de régression afin de repérer la ou les variables indépendantes (<em>X</em>) qui ont les effets (impacts) les plus importants sur la variable dépendante (<em>Y</em>). Pour remédier à ce problème, nous utilisons les <strong>coefficients de régression standardisés</strong>. Ces coefficients standardisés sont simplement les valeurs de coefficients de régression qui seraient obtenus si toutes les variables du modèle (VD et VI) étaient préalablement centrées réduites (soit avec une moyenne égale à 0 et un écart-type égal à 1; consultez la <a href="02-univarie.html#sec-02552">section&nbsp;<span>2.5.5.2</span></a> pour un rappel). Puisque toutes les variables du modèle sont exprimées en écarts-types, les coefficients standardisés permettent ainsi d’évaluer <strong>l’effet relatif</strong> des VI sur la VD. Cela permet ainsi de repérer la ou les variables les plus «&nbsp;importantes&nbsp;» du modèle.</p>
 <p><strong>L’interprétation d’un coefficient de régression standardisé est donc la suivante&nbsp;: il indique le changement en termes d’unités d’écart-type de la variable dépendante (Y) à chaque ajout d’un écart-type de la variable indépendante, toutes choses étant égales par ailleurs</strong>.</p>
 <p>Le coefficient de régression standardisé peut être aussi facilement calculé en utilisant les écarts-types des deux variables VI et VD&nbsp;:</p>
 <p><span id="eq-CoefStand"><span class="math display">\[
@@ -987,7 +987,7 @@ F-statistic:  1223 on 6 and 10203 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>La syntaxe R ci-dessous illustre trois façons d’obtenir les coefficients standardisés&nbsp;:</p>
 <ul>
 <li><p>en centrant et réduisant préalablement les variables avec la fonction <code>scale</code> avant de construire le modèle avec la fonction <code>lm</code>;</p></li>
-<li><p>en calculant les écarts-types de VD et de VI et en appliquant l’<a href="#eq-CoefStand">équation&nbsp;<span class="quarto-unresolved-ref">eq-CoefStand</span></a>;</p></li>
+<li><p>en calculant les écarts-types de VD et de VI et en appliquant l’<a href="#eq-CoefStand">équation&nbsp;<span>7.14</span></a>;</p></li>
 <li><p>avec la fonction <code>lm.beta</code> du <em>package</em> <code>QuantPsyc</code>. Cette dernière méthode est moins «&nbsp;verbeuse&nbsp;» (deux lignes de code uniquement), mais nécessite de charger un <em>package</em> supplémentaire.</p></li>
 </ul>
 <div class="cell">
@@ -1098,7 +1098,7 @@ F-statistic:  1223 on 6 and 10203 DF,  p-value: &lt; 2.2e-16</code></pre>
 \beta_{z}= 1,084 \times \frac{5,295}{18,562}=0,309
 \tag{7.15}\]</span></span></p>
 <p>avec 1,084 étant le coefficient de régression de <code>Pct_014</code>, 5,295 et 18,562 étant respectivement les écarts-types de <code>Pct_014</code> (variable indépendante) et de <code>VegPct</code> (variable dépendante).</p>
-<p>Au <a href="#tbl-CoefStand2">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-CoefStand2</span></a>, nous constatons que la valeur absolue du coefficient de régression pour <code>HABHA</code> est inférieure à celle de <code>Pct_65P</code> (−0,070 <em>versus</em> 0,401), ce qui n’est pas le cas pour leur coefficient standardisé (−0,281 <em>versus</em> 0,179). Rappelez-vous aussi que nous ne pouvons pas directement comparer les effets de ces deux variables à partir des coefficients de régression puisqu’elles sont exprimées dans des unités de mesure différentes&nbsp;: <code>HABHA</code> est exprimée en habitants par hectare et <code>Pct_65P</code> en pourcentage. À la lecture des coefficients standardisés, nous pouvons en conclure que la variable <code>HABHA</code> a un effet relatif plus important que <code>Pct_65P</code> (−0,281 <em>versus</em> 0,179).</p>
+<p>Au <a href="#tbl-CoefStand2">tableau&nbsp;<span>7.3</span></a>, nous constatons que la valeur absolue du coefficient de régression pour <code>HABHA</code> est inférieure à celle de <code>Pct_65P</code> (−0,070 <em>versus</em> 0,401), ce qui n’est pas le cas pour leur coefficient standardisé (−0,281 <em>versus</em> 0,179). Rappelez-vous aussi que nous ne pouvons pas directement comparer les effets de ces deux variables à partir des coefficients de régression puisqu’elles sont exprimées dans des unités de mesure différentes&nbsp;: <code>HABHA</code> est exprimée en habitants par hectare et <code>Pct_65P</code> en pourcentage. À la lecture des coefficients standardisés, nous pouvons en conclure que la variable <code>HABHA</code> a un effet relatif plus important que <code>Pct_65P</code> (−0,281 <em>versus</em> 0,179).</p>
 </section><section id="sec-0743" class="level3" data-number="7.4.3"><h3 data-number="7.4.3" class="anchored" data-anchor-id="sec-0743">
 <span class="header-section-number">7.4.3</span> Significativité des coefficients de régression&nbsp;: valeurs de <em>t</em> et de <em>p</em>
 </h3>
@@ -1106,7 +1106,7 @@ F-statistic:  1223 on 6 and 10203 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p><span id="eq-ValeurT"><span class="math display">\[
 t=\frac{\beta_k - 0}{s(\beta_k)}  
 \tag{7.16}\]</span></span></p>
-<p>avec <span class="math inline">\(s(\beta_k)\)</span> étant l’erreur type du coefficient de régression. Notez que dans l’<a href="#eq-ValeurT">équation&nbsp;<span class="quarto-unresolved-ref">eq-ValeurT</span></a>, nous indiquons habituellement <span class="math inline">\(-0\)</span>, pour signaler que l’on veut vérifier si le coefficient est différent de 0. En guise d’exemple, au <a href="#tbl-dataregmodel2">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-dataregmodel2</span></a>, la valeur de <em>t</em> de la variable <code>HABHA</code> est bien égale à&nbsp;:</p>
+<p>avec <span class="math inline">\(s(\beta_k)\)</span> étant l’erreur type du coefficient de régression. Notez que dans l’<a href="#eq-ValeurT">équation&nbsp;<span>7.16</span></a>, nous indiquons habituellement <span class="math inline">\(-0\)</span>, pour signaler que l’on veut vérifier si le coefficient est différent de 0. En guise d’exemple, au <a href="#tbl-dataregmodel2">tableau&nbsp;<span>7.2</span></a>, la valeur de <em>t</em> de la variable <code>HABHA</code> est bien égale à&nbsp;:</p>
 <p><span class="math inline">\(\mbox{−0,070401 / 0,002202 = −31,975}\)</span>.</p>
 <div class="bloc_attention">
 <div class="bloc_attention-header">
@@ -1118,10 +1118,10 @@ t=\frac{\beta_k - 0}{s(\beta_k)}
 <div class="bloc_attention-body">
 <ol type="1">
 <li><p>Poser l’hypothèse nulle (<em>H<sub>0</sub></em>) stipulant que le coefficient est égal à 0, soit <span class="math inline">\(H_0 : \beta_k = 0\)</span>. L’hypothèse alternative (<em>H<sub>1</sub></em>) est que le coefficient est différent de 0, soit <span class="math inline">\(H_1 : B_k \neq 0\)</span>.</p></li>
-<li><p>Calculer la valeur de <em>t</em>, soit le coefficient de régression divisé par son erreur type (<a href="#eq-ValeurT">équation&nbsp;<span class="quarto-unresolved-ref">eq-ValeurT</span></a>).</p></li>
+<li><p>Calculer la valeur de <em>t</em>, soit le coefficient de régression divisé par son erreur type (<a href="#eq-ValeurT">équation&nbsp;<span>7.16</span></a>).</p></li>
 <li><p>Calculer le nombre de degrés de liberté, soit <span class="math inline">\(dl = n − k - 1\)</span>, <em>n</em> et <em>k</em> étant respectivement les nombres d’observations et de variables indépendantes.</p></li>
 <li><p>Choisir un seuil de signification alpha (5&nbsp;%, 1&nbsp;% ou 0,1&nbsp;%, soit <em>p</em>&nbsp;=&nbsp;0,05, 0,01 ou 0,01).</p></li>
-<li><p>Trouver la valeur critique de <em>t</em> dans la table T de Student (<a href="#sec-143">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-143</span></a>) avec <em>p</em> et le nombre de degrés de liberté (<em>dl</em>).</p></li>
+<li><p>Trouver la valeur critique de <em>t</em> dans la table T de Student (<a href="14-Annexes.html#sec-143">section&nbsp;<span>14.3</span></a>) avec <em>p</em> et le nombre de degrés de liberté (<em>dl</em>).</p></li>
 <li><p>Valider ou réfuter l’hypothèse nulle (<em>H<sub>0</sub></em>)&nbsp;:</p></li>
 </ol>
 <ul>
@@ -1141,16 +1141,16 @@ t=\frac{\beta_k - 0}{s(\beta_k)}
 <p>Si un coefficient est significatif au seuil de 5&nbsp;% dans notre modèle, cela signifie que si, pour l’ensemble d’une population, la valeur du coefficient est de 0 en réalité, alors nous avions moins de 5&nbsp;% de chances de collecter un échantillon (pour cette population) ayant produit un coefficient aussi fort que celui que nous observons dans notre propre échantillon. Par conséquent, il serait très invraisemblable que le coefficient soit 0 puisque nous avons effectivement collecté un tel échantillon. Il s’agit d’une forme d’argumentation par l’absurde propre à la statistique fréquentiste.</p>
 <p>Notez que si 100 études étaient conduites sur le même sujet et dans les mêmes conditions, nous nous attendrions à ce que 5 d’entre elles trouvent un coefficient significatif, du fait de la variation des échantillons. Ce constat souligne le fait que la recherche est un effort collectif et qu’une seule étude n’est pas suffisante pour trancher sur un sujet. Les revues systématiques de la littérature sont donc des travaux particulièrement importants pour la construction du consensus scientifique.</p>
 <p><strong>Ne pas confondre significativité et effet de la variable indépendante</strong></p>
-<p>Attention, un coefficient significatif n’est pas toujours intéressant! Autrement dit, bien qu’il soit significatif à un seuil donné (par exemple, <em>p</em>&nbsp;=&nbsp;0,05), cela ne veut pas dire pour autant qu’il ait un effet important sur la variable dépendante. Il faut donc analyser simultanément les valeurs de <em>p</em> et des coefficients de régression. Afin de mieux saisir l’effet d’un coefficient significatif, il est intéressant de représenter graphiquement l’effet marginal d’une variable indépendante (VI) sur une variable dépendante (VD), une fois contrôlées les autres VI du modèle de régression (<a href="#sec-0774">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0774</span></a>).</p>
+<p>Attention, un coefficient significatif n’est pas toujours intéressant! Autrement dit, bien qu’il soit significatif à un seuil donné (par exemple, <em>p</em>&nbsp;=&nbsp;0,05), cela ne veut pas dire pour autant qu’il ait un effet important sur la variable dépendante. Il faut donc analyser simultanément les valeurs de <em>p</em> et des coefficients de régression. Afin de mieux saisir l’effet d’un coefficient significatif, il est intéressant de représenter graphiquement l’effet marginal d’une variable indépendante (VI) sur une variable dépendante (VD), une fois contrôlées les autres VI du modèle de régression (<a href="#sec-0774">section&nbsp;<span>7.7.4</span></a>).</p>
 </div>
 </div>
-<p>Prenons deux variables indépendantes du <a href="#tbl-dataregmodel2">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-dataregmodel2</span></a> – <code>HABHA</code> et <code>AgeMedian</code> – et vérifions si leurs coefficients de régression respectifs (−0,070 et 0,011) sont significatifs. Appliquons la démarche décrite dans l’encadré ci-dessus&nbsp;:</p>
+<p>Prenons deux variables indépendantes du <a href="#tbl-dataregmodel2">tableau&nbsp;<span>7.2</span></a> – <code>HABHA</code> et <code>AgeMedian</code> – et vérifions si leurs coefficients de régression respectifs (−0,070 et 0,011) sont significatifs. Appliquons la démarche décrite dans l’encadré ci-dessus&nbsp;:</p>
 <ol type="1">
 <li><p>Nous posons l’hypothèse nulle stipulant que la valeur de ces deux coefficients est égale à 0, soit <span class="math inline">\(H_0 : \beta_k = 0\)</span>.</p></li>
 <li><p>La valeur de <em>t</em> est égale à <code>−0,070401 / 0,002202 = −31,97139</code> pour <code>HABHA</code> et à <code>0,010790 / 0,006369 = 1,694144</code> pour <code>AgeMedian</code>.</p></li>
 <li><p>Le nombre de degrés de liberté est égal à <span class="math inline">\(\mbox{dl} = \mbox{n}-\mbox{k}-\mbox{1} = \mbox{10 210} − \mbox{6} - \mbox{1} = \mbox{10 203}\)</span>.</p></li>
 <li><p>Nous choisissons respectivement les seuils <span class="math inline">\(\alpha\)</span> de 0,10, 0,05, 0,01 ou 0,001.</p></li>
-<li><p>Avec 10210 degrés de liberté, les valeurs critiques de la table T de Student (<a href="#sec-133">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-133</span></a>) sont de 1,65 (<em>p</em>&nbsp;=&nbsp;0,10), 1,96 (<em>p</em>&nbsp;=&nbsp;0,05), 2,58 (<em>p</em>&nbsp;=&nbsp;0,01), 3,29 (<em>p</em>&nbsp;=&nbsp;0,001).</p></li>
+<li><p>Avec 10210 degrés de liberté, les valeurs critiques de la table T de Student (<a href="13-MethodeClassification.html#sec-133">section&nbsp;<span>13.3</span></a>) sont de 1,65 (<em>p</em>&nbsp;=&nbsp;0,10), 1,96 (<em>p</em>&nbsp;=&nbsp;0,05), 2,58 (<em>p</em>&nbsp;=&nbsp;0,01), 3,29 (<em>p</em>&nbsp;=&nbsp;0,001).</p></li>
 <li><p>Il reste à valider ou réfuter l’hypothèse nulle (<em>H<sub>0</sub></em>)&nbsp;:</p></li>
 </ol>
 <ul>
@@ -1193,7 +1193,7 @@ Pct_MV       -2.990   0.003
 Pct_FR      -29.918   0.000</code></pre>
 </div>
 </div>
-<p>D’autre part, la fonction <code>summary</code> renvoie d’emblée les valeurs de <em>t</em> et de <em>p</em>. Par convention, R, comme la plupart des logiciels d’analyses statistiques, utilise aussi des symboles pour indiquer le seuil de signification du coefficient (voir <a href="#tbl-CoefStand2">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-CoefStand2</span></a>)&nbsp;:</p>
+<p>D’autre part, la fonction <code>summary</code> renvoie d’emblée les valeurs de <em>t</em> et de <em>p</em>. Par convention, R, comme la plupart des logiciels d’analyses statistiques, utilise aussi des symboles pour indiquer le seuil de signification du coefficient (voir <a href="#tbl-CoefStand2">tableau&nbsp;<span>7.3</span></a>)&nbsp;:</p>
 <p>’***’ <em>p</em> &lt;= 0,001</p>
 <p>’**’ <em>p</em> &lt;= 0,01</p>
 <p>’*’ <em>p</em> &lt;= 0,05</p>
@@ -1250,7 +1250,7 @@ IC_{\beta_k}=  \left[ \beta_k - t_{\alpha/2} \times s(\beta_k) ; \beta_k + t_{\a
 <p><span id="eq-IC999"><span class="math display">\[
 \mbox{Intervalle à 99,9 \%\: } IC_{\beta_k}=  \left[ \beta_k - 3,29 \times s(\beta_k) ; \beta_k + 3,29 \times s(\beta_k)  \right]
 \tag{7.20}\]</span></span></p>
-<p>La syntaxe R ci-dessous illustre comment calculer les intervalles de confiance à 95&nbsp;% à partir de l’<a href="#eq-ICcoef">équation&nbsp;<span class="quarto-unresolved-ref">eq-ICcoef</span></a>. Rappelez-vous toutefois qu’il est bien plus simple d’utiliser la fonction <code>confint</code>:</p>
+<p>La syntaxe R ci-dessous illustre comment calculer les intervalles de confiance à 95&nbsp;% à partir de l’<a href="#eq-ICcoef">équation&nbsp;<span>7.17</span></a>. Rappelez-vous toutefois qu’il est bien plus simple d’utiliser la fonction <code>confint</code>:</p>
 <ul>
 <li><code>round(confint(Modele1, level=.95),3)</code></li>
 <li><code>round(confint(Modele1, level=.99),3)</code></li>
@@ -1339,11 +1339,11 @@ Pct_FR      -0.387  -0.310</code></pre>
 <span class="header-section-number">7.5.1</span> Exploration des relations non linéaires</h3>
 <section id="sec-07511" class="level4" data-number="7.5.1.1"><h4 data-number="7.5.1.1" class="anchored" data-anchor-id="sec-07511">
 <span class="header-section-number">7.5.1.1</span> Variable indépendante avec une fonction polynomiale</h4>
-<p>Dans la <a href="#sec-041">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-041</span></a>, nous avons vu que la relation entre deux variables continues n’est pas toujours linéaire; elle peut être aussi curvilinéaire. Pour explorer les relations curvilinéaires, nous introduisons la variable indépendante sous la forme polynomiale d’ordre 2 (voir le prochain encadré). L’équation de régression s’écrit alors&nbsp;:</p>
+<p>Dans la <a href="04-bivarieeQuantiQuanti.html#sec-041">section&nbsp;<span>4.1</span></a>, nous avons vu que la relation entre deux variables continues n’est pas toujours linéaire; elle peut être aussi curvilinéaire. Pour explorer les relations curvilinéaires, nous introduisons la variable indépendante sous la forme polynomiale d’ordre 2 (voir le prochain encadré). L’équation de régression s’écrit alors&nbsp;:</p>
 <p><span id="eq-regpolyordre2"><span class="math display">\[
 Y = b_{0} + b_{1}X_{1} + b_{11}X_{1}^2 + b_{2}X_{2} +\ldots+ b_{k}X_{k} + e
 \tag{7.21}\]</span></span></p>
-<p>Dans l’<a href="#eq-regpolyordre2">équation&nbsp;<span class="quarto-unresolved-ref">eq-regpolyordre2</span></a>, la première variable indépendante est introduite dans le modèle de régression à la fois dans sa forme originelle et mise au carré&nbsp;: <span class="math inline">\(b_{1}X_{1} + b_{11}X_{1}^2\)</span>. Un coefficient différent est ajusté pour chacune de ces deux versions de la variable <span class="math inline">\(X_{1}\)</span>.</p>
+<p>Dans l’<a href="#eq-regpolyordre2">équation&nbsp;<span>7.21</span></a>, la première variable indépendante est introduite dans le modèle de régression à la fois dans sa forme originelle et mise au carré&nbsp;: <span class="math inline">\(b_{1}X_{1} + b_{11}X_{1}^2\)</span>. Un coefficient différent est ajusté pour chacune de ces deux versions de la variable <span class="math inline">\(X_{1}\)</span>.</p>
 <p>La démographie est probablement la discipline des sciences sociales qui a le plus recours aux régressions polynomiales. En effet, la variable <code>âge</code> est souvent introduite comme variable explicative dans sa forme originale et mise au carré. L’objectif est de vérifier si l’âge partage ou non une relation curvilinéaire avec un phénomène donné&nbsp;: par exemple, il pourrait y être associé positivement jusqu’à un certain seuil (45 ans par exemple), puis négativement à partir de ce seuil.</p>
 <div class="bloc_aller_loin">
 <div class="bloc_aller_loin-header">
@@ -1353,7 +1353,7 @@ Y = b_{0} + b_{1}X_{1} + b_{11}X_{1}^2 + b_{2}X_{2} +\ldots+ b_{k}X_{k} + e
 <p><strong>Régression polynomiale et nombre d’ordres</strong></p>
 </div>
 <div class="bloc_aller_loin-body">
-<p>Sachez qu’il est aussi possible de construire des régressions polynomiales avec plus de deux ordres. Par exemple, une régression polynomiale d’ordre 3 comprend une variable dans sa forme originelle, puis mise au carré et au cube. Cela a l’inconvénient d’augmenter corollairement le nombre de coefficients. Nous verrons au <a href="#sec-chap11">chapitre&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-chap11</span></a> qu’il existe une solution plus élégante et efficace&nbsp;: le recours aux modèles de régressions linéaires généralisés additifs avec des <em>splines</em>. Dans le cadre de cette section, nous nous limitons à des régressions polynomiales d’ordre 2.</p>
+<p>Sachez qu’il est aussi possible de construire des régressions polynomiales avec plus de deux ordres. Par exemple, une régression polynomiale d’ordre 3 comprend une variable dans sa forme originelle, puis mise au carré et au cube. Cela a l’inconvénient d’augmenter corollairement le nombre de coefficients. Nous verrons au <a href="11-GAM.html">chapitre&nbsp;<span>11</span></a> qu’il existe une solution plus élégante et efficace&nbsp;: le recours aux modèles de régressions linéaires généralisés additifs avec des <em>splines</em>. Dans le cadre de cette section, nous nous limitons à des régressions polynomiales d’ordre 2.</p>
 <p><span id="eq-regpolyordre2b"><span class="math display">\[
 \mbox{Ordre 2 : } Y = b_{0} + b_{1}X_{1} + b_{11}X_{}^2 + b_{2}X_{2} +\ldots+ b_{k}X_{k} + e
 \tag{7.22}\]</span></span></p>
@@ -1459,7 +1459,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <p><strong>Construction d’un graphique des effets marginaux</strong></p>
 <p>Pour visualiser la relation linéaire et curvilinéaire, nous vous proposons de réaliser un graphique des effets marginaux à partir de la syntaxe ci-dessous.</p>
-<p>Les graphiques des effets marginaux permettent de visualiser l’impact d’une variable indépendante sur la variable dépendante d’une régression. Nous nous basons pour cela sur les prédictions effectuées par le modèle. Admettons que nous nous intéressons à l’effet de la variable <em>X<sub>1</sub></em> sur la variable <em>Y</em>. Il est possible de créer de nouvelles données fictives pour lesquelles l’ensemble des autres variables <em>X</em> sont fixées à leur moyenne respective, et seule <em>X<sub>1</sub></em> est autorisée à varier. En utilisant l’équation de régression du modèle sur ces données fictives, nous pouvons observer l’évolution de la valeur prédite de <em>Y</em> quand <em>X<sub>1</sub></em> augmente ou diminue, et ce, toutes choses étant égales par ailleurs (puisque toutes les autres variables ont une valeur fixe). Cette approche est particulièrement intéressante pour décrire des effets non linéaires obtenus avec des polynomiales, mais aussi des interactions comme nous le verrons plus tard. Elle est également utilisée dans les modèles linéaires généralisés (GLM) et additifs (GAM) (chapitres <a href="#sec-chap08"><span class="quarto-unresolved-ref ref-noprefix">sec-chap08</span></a> et <a href="#sec-chap11"><span class="quarto-unresolved-ref ref-noprefix">sec-chap11</span></a>). Notez qu’il est aussi important de représenter, sur ce type de graphique, l’incertitude de la prédiction. Pour cela, il est possible de construire des intervalles de confiance à 95&nbsp;% autour de la prédiction en utilisant l’erreur standard de la prédiction (renvoyée par la fonction <code>predict</code>).</p>
+<p>Les graphiques des effets marginaux permettent de visualiser l’impact d’une variable indépendante sur la variable dépendante d’une régression. Nous nous basons pour cela sur les prédictions effectuées par le modèle. Admettons que nous nous intéressons à l’effet de la variable <em>X<sub>1</sub></em> sur la variable <em>Y</em>. Il est possible de créer de nouvelles données fictives pour lesquelles l’ensemble des autres variables <em>X</em> sont fixées à leur moyenne respective, et seule <em>X<sub>1</sub></em> est autorisée à varier. En utilisant l’équation de régression du modèle sur ces données fictives, nous pouvons observer l’évolution de la valeur prédite de <em>Y</em> quand <em>X<sub>1</sub></em> augmente ou diminue, et ce, toutes choses étant égales par ailleurs (puisque toutes les autres variables ont une valeur fixe). Cette approche est particulièrement intéressante pour décrire des effets non linéaires obtenus avec des polynomiales, mais aussi des interactions comme nous le verrons plus tard. Elle est également utilisée dans les modèles linéaires généralisés (GLM) et additifs (GAM) (chapitres <a href="08-GLM.html"><span>8</span></a> et <a href="11-GAM.html"><span>11</span></a>). Notez qu’il est aussi important de représenter, sur ce type de graphique, l’incertitude de la prédiction. Pour cela, il est possible de construire des intervalles de confiance à 95&nbsp;% autour de la prédiction en utilisant l’erreur standard de la prédiction (renvoyée par la fonction <code>predict</code>).</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="co"># Statistique sur la variable AgeMedian qui varie de 0 à 226 ans</span></span>
@@ -1522,11 +1522,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 </div>
-<p>La <a href="#fig-calculRegPoly2">figure&nbsp;<span class="quarto-unresolved-ref">fig-calculRegPoly2</span></a> démontre bien que la relation linéaire n’est pas significative&nbsp;: la pente est extrêmement faible, ce qui signale que l’effet de l’âge médian est presque nul (B&nbsp;=&nbsp;0,0108, <em>p</em>&nbsp;=&nbsp;0,0902). En revanche, la relation curvilinéaire est plus intéressante&nbsp;: la couverture végétale croît quand l’âge médian des bâtiments dans l’îlot augmente de 0 à 60&nbsp;ans environ, puis elle décroît.</p>
+<p>La <a href="#fig-calculRegPoly2">figure&nbsp;<span>7.2</span></a> démontre bien que la relation linéaire n’est pas significative&nbsp;: la pente est extrêmement faible, ce qui signale que l’effet de l’âge médian est presque nul (B&nbsp;=&nbsp;0,0108, <em>p</em>&nbsp;=&nbsp;0,0902). En revanche, la relation curvilinéaire est plus intéressante&nbsp;: la couverture végétale croît quand l’âge médian des bâtiments dans l’îlot augmente de 0 à 60&nbsp;ans environ, puis elle décroît.</p>
 </section><section id="sec-07512" class="level4" data-number="7.5.1.2"><h4 data-number="7.5.1.2" class="anchored" data-anchor-id="sec-07512">
 <span class="header-section-number">7.5.1.2</span> Variable indépendante sous forme logarithmique</h4>
-<p>Une autre manière d’explorer une relation non linéaire est d’intégrer la variable sous forme logarithmique <span class="citation" data-cites="hanck2019introduction">(<a href="#ref-hanck2019introduction" role="doc-biblioref">Hanck et al. 2019, 212‑218</a>)</span>. L’interprétation du coefficient de régression est alors plus complexe&nbsp;: 1&nbsp;% d’augmentation de la variable <span class="math inline">\(X_k\)</span> entraîne un changement de <span class="math inline">\(\mbox{0,01} \times \beta_k\)</span> de la variable dépendante. Autrement dit, il n’est plus exprimé dans les unités de mesure originales des deux variables.</p>
-<p>Au <a href="#tbl-regmodeleLog">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-regmodeleLog</span></a>, le coefficient de <code>-6,855</code> pour la variable <code>logHABHA</code> s’interprète alors comme suit&nbsp;: un changement de 1&nbsp;% de la variable densité de population entraîne une diminution de <span class="math inline">\(\mbox{0,01} \times -\mbox{6,855 =} -\mbox{0,07}\)</span> de la couverture végétale dans l’île, toutes choses étant égales par ailleurs.</p>
+<p>Une autre manière d’explorer une relation non linéaire est d’intégrer la variable sous forme logarithmique <span class="citation" data-cites="hanck2019introduction">(<a href="references.html#ref-hanck2019introduction" role="doc-biblioref">Hanck et al. 2019, 212‑218</a>)</span>. L’interprétation du coefficient de régression est alors plus complexe&nbsp;: 1&nbsp;% d’augmentation de la variable <span class="math inline">\(X_k\)</span> entraîne un changement de <span class="math inline">\(\mbox{0,01} \times \beta_k\)</span> de la variable dépendante. Autrement dit, il n’est plus exprimé dans les unités de mesure originales des deux variables.</p>
+<p>Au <a href="#tbl-regmodeleLog">tableau&nbsp;<span>7.4</span></a>, le coefficient de <code>-6,855</code> pour la variable <code>logHABHA</code> s’interprète alors comme suit&nbsp;: un changement de 1&nbsp;% de la variable densité de population entraîne une diminution de <span class="math inline">\(\mbox{0,01} \times -\mbox{6,855 =} -\mbox{0,07}\)</span> de la couverture végétale dans l’île, toutes choses étant égales par ailleurs.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-regmodeleLog" class="anchored">
@@ -1641,7 +1641,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Puisque l’interprétation du coefficient de régression de <span class="math inline">\(log(\beta_k)\)</span> est plus complexe, il convient de s’assurer que son apport au modèle est justifié, et ce, de deux façons&nbsp;:</p>
 <ul>
 <li><p><strong>Comparez les mesures d’ajustement des deux modèles (surtout les R<sup>2</sup> ajustés)</strong>. Si le R<sup>2</sup> ajusté du modèle avec <span class="math inline">\(log(\beta_k)\)</span> est plus élevé que celui avec <span class="math inline">\(\beta_k\)</span>, alors la transformation logarithmique fait de votre variable indépendante un meilleur prédicteur, toutes choses étant égales par ailleurs.</p></li>
-<li><p><strong>Construisez les graphiques des effets marginaux</strong> de votre variable afin de vérifier si la relation qu’elle partage avec votre VD est plutôt logarithmique que linéaire (<a href="#fig-EffetMarginalVariableLogEtNon">figure&nbsp;<span class="quarto-unresolved-ref">fig-EffetMarginalVariableLogEtNon</span></a>). Notez que cette approche graphique peut aussi ne donner aucune indication lorsque vos données sont très dispersées ou que la relation est faible entre votre variable dépendante et indépendante.</p></li>
+<li><p><strong>Construisez les graphiques des effets marginaux</strong> de votre variable afin de vérifier si la relation qu’elle partage avec votre VD est plutôt logarithmique que linéaire (<a href="#fig-EffetMarginalVariableLogEtNon">figure&nbsp;<span>7.3</span></a>). Notez que cette approche graphique peut aussi ne donner aucune indication lorsque vos données sont très dispersées ou que la relation est faible entre votre variable dépendante et indépendante.</p></li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/">ggpubr</a></span><span class="op">)</span></span>
@@ -1688,9 +1688,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </section></section><section id="sec-0752" class="level3" data-number="7.5.2"><h3 data-number="7.5.2" class="anchored" data-anchor-id="sec-0752">
 <span class="header-section-number">7.5.2</span> Variable indépendante qualitative dichotomique</h3>
-<p>Il est très fréquent d’introduire une variable qualitative dichotomique comme variable explicative ou de contrôle dans un modèle. À titre de rappel, une variable dichotomique comprend deux modalités (<a href="#sec-0212">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0212</span></a>).</p>
+<p>Il est très fréquent d’introduire une variable qualitative dichotomique comme variable explicative ou de contrôle dans un modèle. À titre de rappel, une variable dichotomique comprend deux modalités (<a href="02-univarie.html#sec-0212">section&nbsp;<span>2.1.2</span></a>).</p>
 <p>Dans le modèle ci-dessous, nous voulons vérifier si un îlot situé sur le territoire de la ville de Montréal a proportionnellement moins de végétation qu’un îlot situé dans une autre municipalité de l’île de Montréal, toutes choses étant égales par ailleurs. Pour ce faire, nous créons une variable binaire dénommée <code>VilleMtl</code> qui prend la valeur de 1 pour les îlots de la ville de Montréal et 0 pour ceux d’une autre municipalité.</p>
-<p>Nous obtenons ainsi un coefficient de régression pour <code>VilleMtl</code> de -7,699 (<a href="#tbl-regmodeleDich2">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-regmodeleDich2</span></a>). Cela signifie que si toutes les autres variables indépendantes du modèle étaient constantes, alors un îlot de la ville de Montréal aurait en moyenne une valeur de -7,7&nbsp;% de moins de végétation comparativement à un îlot situé dans une autre municipalité.</p>
+<p>Nous obtenons ainsi un coefficient de régression pour <code>VilleMtl</code> de -7,699 (<a href="#tbl-regmodeleDich2">tableau&nbsp;<span>7.5</span></a>). Cela signifie que si toutes les autres variables indépendantes du modèle étaient constantes, alors un îlot de la ville de Montréal aurait en moyenne une valeur de -7,7&nbsp;% de moins de végétation comparativement à un îlot situé dans une autre municipalité.</p>
 <div class="cell">
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Création d'une variable muette pour Montréal (0 ou 1)</span></span>
 <span><span class="va">DataFinal</span><span class="op">$</span><span class="va">VilleMtl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">DataFinal</span><span class="op">$</span><span class="va">SDRNOM</span> <span class="op">==</span> <span class="st">"Montréal"</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span></span>
@@ -1831,10 +1831,10 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Pour une variable dichotomique, le coefficient indique le changement de <em>Y</em> quand les observations appartiennent à la modalité qui a la valeur de 1 (ici la ville de Montréal), comparativement à celle qui a la valeur de 0 (autres municipalités de l’île de Montréal), toutes choses étant égales par ailleurs.</p>
 <p>La modalité qui a la valeur de 0 est alors appelée <strong>modalité ou catégorie de référence</strong>.</p>
 <p>Autrement dit, si la variable avait été codée&nbsp;: 0 pour la ville de Montréal et 1 pour les autres municipalités, alors le coefficient aurait été de 7,699.</p>
-<p>Pour éviter d’oublier quelle est la modalité de référence (valeur de 0), nous verrons plus tard (dans la section mise en œuvre des modèles de régression dans R (<a href="#sec-077">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-077</span></a>) qu’il peut être préférable de définir un facteur avec la fonction <code>as.factor</code> et d’indiquer la catégorie de référence avec la fonction <code>relevel(x, ref)</code>.</p>
+<p>Pour éviter d’oublier quelle est la modalité de référence (valeur de 0), nous verrons plus tard (dans la section mise en œuvre des modèles de régression dans R (<a href="#sec-077">section&nbsp;<span>7.7</span></a>) qu’il peut être préférable de définir un facteur avec la fonction <code>as.factor</code> et d’indiquer la catégorie de référence avec la fonction <code>relevel(x, ref)</code>.</p>
 </div>
 </div>
-<p>Comme pour une variable indépendante introduite avec une fonction polynomiale, il peut être très intéressant d’illustrer l’effet marginal de la variable dichotomique avec un graphique qui montre l’écart entre les moyennes des deux modalités, une fois contrôlées les autres variables indépendantes (<a href="#fig-EffetMarginalDich">figure&nbsp;<span class="quarto-unresolved-ref">fig-EffetMarginalDich</span></a>). Notez que dans ce graphique, les barres d’erreurs situées au sommet des rectangles représentent les intervalles à 95&nbsp;% des prédictions du modèle.</p>
+<p>Comme pour une variable indépendante introduite avec une fonction polynomiale, il peut être très intéressant d’illustrer l’effet marginal de la variable dichotomique avec un graphique qui montre l’écart entre les moyennes des deux modalités, une fois contrôlées les autres variables indépendantes (<a href="#fig-EffetMarginalDich">figure&nbsp;<span>7.4</span></a>). Notez que dans ce graphique, les barres d’erreurs situées au sommet des rectangles représentent les intervalles à 95&nbsp;% des prédictions du modèle.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-EffetMarginalDich" class="quarto-figure quarto-figure-center anchored">
@@ -1845,14 +1845,14 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </section><section id="sec-0753" class="level3" data-number="7.5.3"><h3 data-number="7.5.3" class="anchored" data-anchor-id="sec-0753">
 <span class="header-section-number">7.5.3</span> Variable indépendante qualitative polytomique</h3>
-<p>Il est possible d’introduire une variable qualitative polytomique comme variable explicative ou de contrôle dans un modèle. À titre de rappel, une variable polytomique comprend plus de deux modalités, qu’elle soit nominale ou ordinale (<a href="#sec-0212">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0212</span></a>).</p>
+<p>Il est possible d’introduire une variable qualitative polytomique comme variable explicative ou de contrôle dans un modèle. À titre de rappel, une variable polytomique comprend plus de deux modalités, qu’elle soit nominale ou ordinale (<a href="02-univarie.html#sec-0212">section&nbsp;<span>2.1.2</span></a>).</p>
 <p>En guise d’exemple, une variable qualitative pourrait être&nbsp;: différents groupes de population (groupes d’âge, minorités visibles, catégories socioprofessionnelles, etc.), différents territoires ou régions (ville centrale, première couronne, deuxième couronne, etc.), une variable continue transformée en quatre ou cinq catégories ordinales selon les quartiles ou les quintiles.</p>
 <section id="sec-07531" class="level4" data-number="7.5.3.1"><h4 data-number="7.5.3.1" class="anchored" data-anchor-id="sec-07531">
 <span class="header-section-number">7.5.3.1</span> Comment construire un modèle de régression avec une variable explicative qualitative polytomique?</h4>
 <p>Prenons l’exemple d’un modèle de régression comprenant deux variables indépendantes&nbsp;: l’une continue (<code>X1</code>), l’autre qualitative (<code>X2</code>) avec quatre modalités (A, B, C et D). L’introduction de la variable qualitative dans le modèle revient à&nbsp;:</p>
 <ul>
-<li><p>Transformer chaque modalité en variable muette (binaire). Nous avons ainsi quatre nouvelles variables binaires&nbsp;: <code>X2A</code>, <code>X2B</code>, <code>X2C</code> et <code>X2D</code>. Par exemple, pour <code>X2A</code>, les observations de la modalité <em>A</em> se verront affecter la valeur de 1 versus 0 pour les autres observations. La même démarche s’applique à <code>X2B</code>, <code>X2C</code> et <code>X2D</code> (voir <a href="#tbl-transfVarQMuettes">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-transfVarQMuettes</span></a>).</p></li>
-<li><p>Toutes les modalités transformées en variables muettes sont introduites dans le modèle comme variables indépendantes <strong>sauf celle servant de catégorie de référence</strong>. Pourquoi sauf une? Si nous mettions toutes les modalités en variable muette, alors chaque observation serait repérée par une valeur de 1, «&nbsp;il y aurait alors une parfaite multicolinéarité et aucune solution unique pour les coefficients de régression ne pourrait être trouvée&nbsp;» <span class="citation" data-cites="bressoux2010">(<a href="#ref-bressoux2010" role="doc-biblioref">Bressoux 2010, 128</a>)</span>.</p></li>
+<li><p>Transformer chaque modalité en variable muette (binaire). Nous avons ainsi quatre nouvelles variables binaires&nbsp;: <code>X2A</code>, <code>X2B</code>, <code>X2C</code> et <code>X2D</code>. Par exemple, pour <code>X2A</code>, les observations de la modalité <em>A</em> se verront affecter la valeur de 1 versus 0 pour les autres observations. La même démarche s’applique à <code>X2B</code>, <code>X2C</code> et <code>X2D</code> (voir <a href="#tbl-transfVarQMuettes">tableau&nbsp;<span>7.6</span></a>).</p></li>
+<li><p>Toutes les modalités transformées en variables muettes sont introduites dans le modèle comme variables indépendantes <strong>sauf celle servant de catégorie de référence</strong>. Pourquoi sauf une? Si nous mettions toutes les modalités en variable muette, alors chaque observation serait repérée par une valeur de 1, «&nbsp;il y aurait alors une parfaite multicolinéarité et aucune solution unique pour les coefficients de régression ne pourrait être trouvée&nbsp;» <span class="citation" data-cites="bressoux2010">(<a href="references.html#ref-bressoux2010" role="doc-biblioref">Bressoux 2010, 128</a>)</span>.</p></li>
 <li><p>Par exemple, si nous choisissons la modalité <em>A</em> comme catégorie de référence, l’équation de régression s’écrit alors&nbsp;:</p></li>
 </ul>
 <p><span id="eq-regvarpoly1"><span class="math display">\[
@@ -1882,8 +1882,8 @@ Y = b_{0} + b_{1}X_{1} + b_{2A}X_{2A} + b_{2B}X_{2B} + b_{2C}X_{2C} + e
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">44,27</td>
-<td style="text-align: right;">18,71</td>
+<td style="text-align: right;">50,09</td>
+<td style="text-align: right;">24,51</td>
 <td style="text-align: center;">A</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">0</td>
@@ -1892,8 +1892,8 @@ Y = b_{0} + b_{1}X_{1} + b_{2A}X_{2A} + b_{2B}X_{2B} + b_{2C}X_{2C} + e
 </tr>
 <tr class="even">
 <td style="text-align: right;">2</td>
-<td style="text-align: right;">38,12</td>
-<td style="text-align: right;">22,08</td>
+<td style="text-align: right;">59,54</td>
+<td style="text-align: right;">16,67</td>
 <td style="text-align: center;">A</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">0</td>
@@ -1902,8 +1902,8 @@ Y = b_{0} + b_{1}X_{1} + b_{2A}X_{2A} + b_{2B}X_{2B} + b_{2C}X_{2C} + e
 </tr>
 <tr class="odd">
 <td style="text-align: right;">3</td>
-<td style="text-align: right;">60,94</td>
-<td style="text-align: right;">18,88</td>
+<td style="text-align: right;">44,26</td>
+<td style="text-align: right;">17,64</td>
 <td style="text-align: center;">A</td>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">0</td>
@@ -1912,8 +1912,8 @@ Y = b_{0} + b_{1}X_{1} + b_{2A}X_{2A} + b_{2B}X_{2B} + b_{2C}X_{2C} + e
 </tr>
 <tr class="even">
 <td style="text-align: right;">4</td>
-<td style="text-align: right;">46,03</td>
-<td style="text-align: right;">19,77</td>
+<td style="text-align: right;">58,92</td>
+<td style="text-align: right;">20,19</td>
 <td style="text-align: center;">B</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">1</td>
@@ -1922,8 +1922,8 @@ Y = b_{0} + b_{1}X_{1} + b_{2A}X_{2A} + b_{2B}X_{2B} + b_{2C}X_{2C} + e
 </tr>
 <tr class="odd">
 <td style="text-align: right;">5</td>
-<td style="text-align: right;">45,61</td>
-<td style="text-align: right;">16,16</td>
+<td style="text-align: right;">41,23</td>
+<td style="text-align: right;">17,16</td>
 <td style="text-align: center;">B</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">1</td>
@@ -1932,8 +1932,8 @@ Y = b_{0} + b_{1}X_{1} + b_{2A}X_{2A} + b_{2B}X_{2B} + b_{2C}X_{2C} + e
 </tr>
 <tr class="even">
 <td style="text-align: right;">6</td>
-<td style="text-align: right;">51,43</td>
-<td style="text-align: right;">22,61</td>
+<td style="text-align: right;">23,25</td>
+<td style="text-align: right;">19,65</td>
 <td style="text-align: center;">B</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">1</td>
@@ -1942,8 +1942,8 @@ Y = b_{0} + b_{1}X_{1} + b_{2A}X_{2A} + b_{2B}X_{2B} + b_{2C}X_{2C} + e
 </tr>
 <tr class="odd">
 <td style="text-align: right;">7</td>
-<td style="text-align: right;">35,56</td>
-<td style="text-align: right;">16,06</td>
+<td style="text-align: right;">41,04</td>
+<td style="text-align: right;">25,97</td>
 <td style="text-align: center;">C</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
@@ -1952,8 +1952,8 @@ Y = b_{0} + b_{1}X_{1} + b_{2A}X_{2A} + b_{2B}X_{2B} + b_{2C}X_{2C} + e
 </tr>
 <tr class="even">
 <td style="text-align: right;">8</td>
-<td style="text-align: right;">38,75</td>
-<td style="text-align: right;">23,77</td>
+<td style="text-align: right;">52,68</td>
+<td style="text-align: right;">15,92</td>
 <td style="text-align: center;">C</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
@@ -1962,8 +1962,8 @@ Y = b_{0} + b_{1}X_{1} + b_{2A}X_{2A} + b_{2B}X_{2B} + b_{2C}X_{2C} + e
 </tr>
 <tr class="odd">
 <td style="text-align: right;">9</td>
-<td style="text-align: right;">45,91</td>
-<td style="text-align: right;">11,70</td>
+<td style="text-align: right;">56,24</td>
+<td style="text-align: right;">24,84</td>
 <td style="text-align: center;">D</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
@@ -1972,8 +1972,8 @@ Y = b_{0} + b_{1}X_{1} + b_{2A}X_{2A} + b_{2B}X_{2B} + b_{2C}X_{2C} + e
 </tr>
 <tr class="even">
 <td style="text-align: right;">10</td>
-<td style="text-align: right;">65,31</td>
-<td style="text-align: right;">23,83</td>
+<td style="text-align: right;">33,43</td>
+<td style="text-align: right;">18,37</td>
 <td style="text-align: center;">D</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
@@ -1987,7 +1987,7 @@ Y = b_{0} + b_{1}X_{1} + b_{2A}X_{2A} + b_{2B}X_{2B} + b_{2C}X_{2C} + e
 </div>
 </section><section id="sec-07532" class="level4" data-number="7.5.3.2"><h4 data-number="7.5.3.2" class="anchored" data-anchor-id="sec-07532">
 <span class="header-section-number">7.5.3.2</span> Comment interpréter les coefficients des modalités d’une variable explicative qualitative polytomique</h4>
-<p>Les coefficients des différentes modalités s’interprètent en fonction de la catégorie de référence. Dans l’exemple ci-dessous, nous avons inclus la ville de Montréal comme catégorie de référence (<a href="#tbl-ModeleVarPoly1">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-ModeleVarPoly1</span></a>). Toutes choses étant égales par ailleurs, nous pouvons alors constater que &nbsp;:</p>
+<p>Les coefficients des différentes modalités s’interprètent en fonction de la catégorie de référence. Dans l’exemple ci-dessous, nous avons inclus la ville de Montréal comme catégorie de référence (<a href="#tbl-ModeleVarPoly1">tableau&nbsp;<span>7.7</span></a>). Toutes choses étant égales par ailleurs, nous pouvons alors constater que &nbsp;:</p>
 <ul>
 <li><p>en moyenne, les îlots résidentiels de Senneville et de Baie-D’Urfé ont respectivement 23,235&nbsp;% et 21,400&nbsp;% plus de végétation que ceux de la ville de Montréal.</p></li>
 <li><p>la seule municipalité comprenant en moyenne moins de végétation dans ses îlots résidentiels est Montréal-Est (-13,334&nbsp;%).</p></li>
@@ -2213,7 +2213,7 @@ Y = b_{0} + b_{1}X_{1} + b_{2A}X_{2A} + b_{2B}X_{2B} + b_{2C}X_{2C} + e
 </div>
 </div>
 </div>
-<p>Utilisons maintenant comme référence la municipalité qui avait le coefficient le plus fort dans le modèle précédent, soit Senneville (<a href="#tbl-ModeleVarPoly2">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-ModeleVarPoly2</span></a>). Bien entendu, les coefficients des variables continues et de la constante ne changent pas. Par contre, les coefficients de toutes les municipalités sont négatifs puisque la municipalité de Senneville est celle qui a proportionnellement le plus de végétation dans ses îlots, toutes choses étant égales par ailleurs.</p>
+<p>Utilisons maintenant comme référence la municipalité qui avait le coefficient le plus fort dans le modèle précédent, soit Senneville (<a href="#tbl-ModeleVarPoly2">tableau&nbsp;<span>7.8</span></a>). Bien entendu, les coefficients des variables continues et de la constante ne changent pas. Par contre, les coefficients de toutes les municipalités sont négatifs puisque la municipalité de Senneville est celle qui a proportionnellement le plus de végétation dans ses îlots, toutes choses étant égales par ailleurs.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-ModeleVarPoly2" class="anchored">
@@ -2433,7 +2433,7 @@ Y = b_{0} + b_{1}X_{1} + b_{2A}X_{2A} + b_{2B}X_{2B} + b_{2C}X_{2C} + e
 </div>
 </div>
 </div>
-<p>À l’inverse, si nous utilisons Montréal-Est comme modalité de référence, soit la municipalité avec le coefficient le plus faible dans le premier modèle, tous les coefficients deviendront positifs (<a href="#tbl-ModeleVarPoly3">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-ModeleVarPoly3</span></a>).</p>
+<p>À l’inverse, si nous utilisons Montréal-Est comme modalité de référence, soit la municipalité avec le coefficient le plus faible dans le premier modèle, tous les coefficients deviendront positifs (<a href="#tbl-ModeleVarPoly3">tableau&nbsp;<span>7.9</span></a>).</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-ModeleVarPoly3" class="anchored">
@@ -2673,7 +2673,7 @@ Y = b_{0} + b_{1}X_{1} + b_{2A}X_{2A} + b_{2B}X_{2B} + b_{2C}X_{2C} + e
 </div>
 </section><section id="sec-07533" class="level4" data-number="7.5.3.3"><h4 data-number="7.5.3.3" class="anchored" data-anchor-id="sec-07533">
 <span class="header-section-number">7.5.3.3</span> Effet marginal d’une variable explicative qualitative polytomique</h4>
-<p>Comme pour une variable dichotomique, il est possible d’illustrer l’effet marginal de la variable qualitative dichotomique avec un graphique. Quelle que soit la catégorie de référence choisie, le graphique est le même. La <a href="#fig-EffetMarginalPoly">figure&nbsp;<span class="quarto-unresolved-ref">fig-EffetMarginalPoly</span></a> illustre ainsi la valeur moyenne, avec son intervalle de confiance à 95&nbsp;%, de la végétation dans les îlots résidentiels de chacune des municipalités de la région de Montréal, <em>ceteris paribus</em>.</p>
+<p>Comme pour une variable dichotomique, il est possible d’illustrer l’effet marginal de la variable qualitative dichotomique avec un graphique. Quelle que soit la catégorie de référence choisie, le graphique est le même. La <a href="#fig-EffetMarginalPoly">figure&nbsp;<span>7.5</span></a> illustre ainsi la valeur moyenne, avec son intervalle de confiance à 95&nbsp;%, de la végétation dans les îlots résidentiels de chacune des municipalités de la région de Montréal, <em>ceteris paribus</em>.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-EffetMarginalPoly" class="quarto-figure quarto-figure-center anchored">
@@ -2691,7 +2691,7 @@ Y = b_{0} + b_{1}X_{1} + b_{2A}X_{2A} + b_{2B}X_{2B} + b_{2C}X_{2C} + e
 Y = \beta_{0} + \beta_{1}X_{1} + \beta_{2}X_{2} + \beta_{3}(X_{1}\times X_{2}) +\ldots+ \beta_{k}X_{k} + e
 \tag{7.27}\]</span></span></p>
 <p>Un nouveau coefficient (<span class="math inline">\(\beta_{3}\)</span>) s’ajoute pour l’interaction (la multiplication) entre les deux variables continues. <strong>Pourquoi ajouter une interaction entre deux variables?</strong> L’objectif est d’évaluer l’effet d’une augmentation de <span class="math inline">\(\beta_{1}\)</span> en fonction d’un niveau donné de <span class="math inline">\(\beta_{2}\)</span> et inversement. Cela permet ainsi de répondre à la question suivante&nbsp;: l’effet de la variable <span class="math inline">\(\beta_{1}\)</span> est-il influencé par la variable <span class="math inline">\(\beta_{2}\)</span> et inversement?</p>
-<p>Prenons un exemple concret pour illustrer le tout. Premièrement, nous ajoutons <code>DistCBDkm</code> comme VI, soit la distance au centre-ville exprimée en kilomètres. Notez que pour ne pas surspécifier le modèle, les variables dichotomique <code>VilleMtl</code> ou polytomique <code>Municipalité</code> ont été préalablement ôtées. Le coefficient (B&nbsp;=&nbsp;0,659, <em>p</em>&nbsp;&lt;&nbsp;0,001) signale que plus nous nous éloignons du centre-ville, plus la couverture végétale des îlots augmente significativement. En guise d’exemple, toutes choses étant égales par ailleurs, un îlot situé à dix kilomètres du centre-ville aura en moyenne 6,59&nbsp;% plus de végétation (<a href="#tbl-ModeleInteraction1">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-ModeleInteraction1</span></a>).</p>
+<p>Prenons un exemple concret pour illustrer le tout. Premièrement, nous ajoutons <code>DistCBDkm</code> comme VI, soit la distance au centre-ville exprimée en kilomètres. Notez que pour ne pas surspécifier le modèle, les variables dichotomique <code>VilleMtl</code> ou polytomique <code>Municipalité</code> ont été préalablement ôtées. Le coefficient (B&nbsp;=&nbsp;0,659, <em>p</em>&nbsp;&lt;&nbsp;0,001) signale que plus nous nous éloignons du centre-ville, plus la couverture végétale des îlots augmente significativement. En guise d’exemple, toutes choses étant égales par ailleurs, un îlot situé à dix kilomètres du centre-ville aura en moyenne 6,59&nbsp;% plus de végétation (<a href="#tbl-ModeleInteraction1">tableau&nbsp;<span>7.10</span></a>).</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-ModeleInteraction1" class="anchored">
@@ -2783,8 +2783,8 @@ Y = \beta_{0} + \beta_{1}X_{1} + \beta_{2}X_{2} + \beta_{3}(X_{1}\times X_{2}) +
 </div>
 </div>
 </div>
-<p>Dans ce modèle (<a href="#tbl-ModeleInteraction1">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-ModeleInteraction1</span></a>), les pourcentages d’enfants de moins de 15 ans et de 65 ans et plus (<code>Pct_014</code> et <code>Pct_65P</code>) sont associés positivement à la variable dépendante tandis que le pourcentage de personnes à faible revenu (<code>Pct_FR</code>) est associé négativement.</p>
-<p>Que se passe-t-il si nous introduisons une variable d’interaction entre <code>DistCBDkm</code> et <code>Pct_FR</code> (<a href="#tbl-ModeleInteraction2">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-ModeleInteraction2</span></a>)? L’effet du pourcentage de personnes à faible revenu (%) est significatif et négatif lorsqu’il est mis en interaction avec la distance au centre-ville. Cela indique que plus l’îlot est éloigné du centre-ville, plus <code>Pct_FR</code> a un effet négatif sur la couverture végétale (B&nbsp;=&nbsp;−0,011, <em>p</em>&nbsp;&lt;&nbsp;0,001).</p>
+<p>Dans ce modèle (<a href="#tbl-ModeleInteraction1">tableau&nbsp;<span>7.10</span></a>), les pourcentages d’enfants de moins de 15 ans et de 65 ans et plus (<code>Pct_014</code> et <code>Pct_65P</code>) sont associés positivement à la variable dépendante tandis que le pourcentage de personnes à faible revenu (<code>Pct_FR</code>) est associé négativement.</p>
+<p>Que se passe-t-il si nous introduisons une variable d’interaction entre <code>DistCBDkm</code> et <code>Pct_FR</code> (<a href="#tbl-ModeleInteraction2">tableau&nbsp;<span>7.11</span></a>)? L’effet du pourcentage de personnes à faible revenu (%) est significatif et négatif lorsqu’il est mis en interaction avec la distance au centre-ville. Cela indique que plus l’îlot est éloigné du centre-ville, plus <code>Pct_FR</code> a un effet négatif sur la couverture végétale (B&nbsp;=&nbsp;−0,011, <em>p</em>&nbsp;&lt;&nbsp;0,001).</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-ModeleInteraction2" class="anchored">
@@ -2884,8 +2884,8 @@ Y = \beta_{0} + \beta_{1}X_{1} + \beta_{2}X_{2} + \beta_{3}(X_{1}\times X_{2}) +
 </div>
 </div>
 </div>
-<p>À nouveau, il est possible de représenter l’effet de cette interaction à l’aide d’un graphique des effets marginaux. Notez cependant que nous devons représenter l’effet simultané de deux variables indépendantes sur notre variable dépendante, ce qu’il est possible de faire avec une carte de chaleur. La <a href="#fig-ModeleInteraction2heat">figure&nbsp;<span class="quarto-unresolved-ref">fig-ModeleInteraction2heat</span></a> représente donc l’effet moyen de l’interaction sur la prédiction dans le premier panneau, ainsi que l’intervalle de confiance à 95&nbsp;% de la prédiction dans les deuxième et troisième panneaux.</p>
-<p>Nous constatons ainsi que le modèle prédit des valeurs de végétation les plus faibles lorsque le pourcentage de personnes à faible revenu est élevé et que la distance au centre-ville est élevée (en haut à droite à la <a href="#fig-ModeleInteraction2heat">figure&nbsp;<span class="quarto-unresolved-ref">fig-ModeleInteraction2heat</span></a>). En revanche, les valeurs les plus élevées de végétation sont atteintes lorsque la distance au centre-ville est élevée et que le pourcentage de personnes à faible revenu est faible (en bas à droite). Il semble donc que l’éloignement au centre-ville soit associé avec une augmentation de la densité végétale, mais que cette augmentation puisse être mitigée par l’augmentation parallèle du pourcentage de personnes à faible revenu.</p>
+<p>À nouveau, il est possible de représenter l’effet de cette interaction à l’aide d’un graphique des effets marginaux. Notez cependant que nous devons représenter l’effet simultané de deux variables indépendantes sur notre variable dépendante, ce qu’il est possible de faire avec une carte de chaleur. La <a href="#fig-ModeleInteraction2heat">figure&nbsp;<span>7.6</span></a> représente donc l’effet moyen de l’interaction sur la prédiction dans le premier panneau, ainsi que l’intervalle de confiance à 95&nbsp;% de la prédiction dans les deuxième et troisième panneaux.</p>
+<p>Nous constatons ainsi que le modèle prédit des valeurs de végétation les plus faibles lorsque le pourcentage de personnes à faible revenu est élevé et que la distance au centre-ville est élevée (en haut à droite à la <a href="#fig-ModeleInteraction2heat">figure&nbsp;<span>7.6</span></a>). En revanche, les valeurs les plus élevées de végétation sont atteintes lorsque la distance au centre-ville est élevée et que le pourcentage de personnes à faible revenu est faible (en bas à droite). Il semble donc que l’éloignement au centre-ville soit associé avec une augmentation de la densité végétale, mais que cette augmentation puisse être mitigée par l’augmentation parallèle du pourcentage de personnes à faible revenu.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-ModeleInteraction2heat" class="quarto-figure quarto-figure-center anchored">
@@ -2894,7 +2894,7 @@ Y = \beta_{0} + \beta_{1}X_{1} + \beta_{2}X_{2} + \beta_{3}(X_{1}\times X_{2}) +
 </div>
 </div>
 </div>
-<p>Notez que dans la <a href="#fig-ModeleInteraction2heat">figure&nbsp;<span class="quarto-unresolved-ref">fig-ModeleInteraction2heat</span></a>, la relation entre les deux variables indépendantes et la variable dépendante apparaît non linéaire du fait de l’interaction. À titre de comparaison, si nous utilisons les prédictions du modèle 5 (sans interaction), nous obtenons les prédictions présentées à la <a href="#fig-ModeleInteraction2heat2">figure&nbsp;<span class="quarto-unresolved-ref">fig-ModeleInteraction2heat2</span></a>. Vous pouvez constater sur cette figure sans interaction que les deux effets des variables indépendantes sont linéaires puisque toutes les lignes sont parallèles.</p>
+<p>Notez que dans la <a href="#fig-ModeleInteraction2heat">figure&nbsp;<span>7.6</span></a>, la relation entre les deux variables indépendantes et la variable dépendante apparaît non linéaire du fait de l’interaction. À titre de comparaison, si nous utilisons les prédictions du modèle 5 (sans interaction), nous obtenons les prédictions présentées à la <a href="#fig-ModeleInteraction2heat2">figure&nbsp;<span>7.7</span></a>. Vous pouvez constater sur cette figure sans interaction que les deux effets des variables indépendantes sont linéaires puisque toutes les lignes sont parallèles.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-ModeleInteraction2heat2" class="quarto-figure quarto-figure-center anchored">
@@ -2909,11 +2909,11 @@ Y = \beta_{0} + \beta_{1}X_{1} + \beta_{2}X_{2} + \beta_{3}(X_{1}\times X_{2}) +
 <p><span id="eq-reginteractioncontinuedicho"><span class="math display">\[
 Y = \beta_{0} + \beta_{1}X_{1} + \beta_{2}D_{2} + \beta_{3}(X_{1}\times D_{2}) +\ldots+ \beta_{k}X_{k} + e
 \tag{7.28}\]</span></span></p>
-<p>Pour interpréter le coefficient <span class="math inline">\(B_3\)</span>, il convient alors de bien connaître le nom de la modalité ayant la valeur de 1 (0 étant la modalité de référence). Dans le modèle présenté au <a href="#tbl-ModeleInteractionBinaire">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-ModeleInteractionBinaire</span></a>, nous avons multiplié la variable dichotomique ville de Montréal (<code>VilleMtl</code>) avec le pourcentage de personnes à faible revenu (<code>Pct_FR</code>). Les résultats de ce modèle démontrent que, toutes choses étant égales par ailleurs&nbsp;:</p>
+<p>Pour interpréter le coefficient <span class="math inline">\(B_3\)</span>, il convient alors de bien connaître le nom de la modalité ayant la valeur de 1 (0 étant la modalité de référence). Dans le modèle présenté au <a href="#tbl-ModeleInteractionBinaire">tableau&nbsp;<span>7.12</span></a>, nous avons multiplié la variable dichotomique ville de Montréal (<code>VilleMtl</code>) avec le pourcentage de personnes à faible revenu (<code>Pct_FR</code>). Les résultats de ce modèle démontrent que, toutes choses étant égales par ailleurs&nbsp;:</p>
 <ul>
 <li><p>À chaque augmentation d’une unité du pourcentage à faible revenu (<code>Pct_FR</code>), le pourcentage de la couverture végétale diminue significativement de −0,444.</p></li>
 <li><p>Comparativement à un îlot situé dans une autre municipalité de l’île de Montréal, un îlot de la ville de Montréal a en moyenne −9,804 de couverture végétale.</p></li>
-<li><p>À chaque augmentation d’une unité de <code>Pct_FR</code> pour un îlot de la Ville Montréal, la couverture végétale augmente de 0,166 comparativement à une autre municipalité de l’île. En d’autres termes, le <code>Pct_FR</code> sur le territoire de la ville de Montréal est associé à une diminution de la couverture végétale moins forte que les autres municipalités, comme illustré à la <a href="#fig-ModeleInteractionBinaire">figure&nbsp;<span class="quarto-unresolved-ref">fig-ModeleInteractionBinaire</span></a>) (pentes en rouge et en bleu).</p></li>
+<li><p>À chaque augmentation d’une unité de <code>Pct_FR</code> pour un îlot de la Ville Montréal, la couverture végétale augmente de 0,166 comparativement à une autre municipalité de l’île. En d’autres termes, le <code>Pct_FR</code> sur le territoire de la ville de Montréal est associé à une diminution de la couverture végétale moins forte que les autres municipalités, comme illustré à la <a href="#fig-ModeleInteractionBinaire">figure&nbsp;<span>7.8</span></a>) (pentes en rouge et en bleu).</p></li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
@@ -3014,7 +3014,7 @@ Y = \beta_{0} + \beta_{1}X_{1} + \beta_{2}D_{2} + \beta_{3}(X_{1}\times D_{2}) +
 </div>
 </div>
 </div>
-<p>L’interaction entre une variable qualitative et une variable quantitative peut être représentée par un graphique des effets marginaux. La pente (coefficient) de la variable quantitative varie en fonction des deux catégories de la variable qualitative dichotomique (<a href="#fig-ModeleInteractionBinaire">figure&nbsp;<span class="quarto-unresolved-ref">fig-ModeleInteractionBinaire</span></a>).</p>
+<p>L’interaction entre une variable qualitative et une variable quantitative peut être représentée par un graphique des effets marginaux. La pente (coefficient) de la variable quantitative varie en fonction des deux catégories de la variable qualitative dichotomique (<a href="#fig-ModeleInteractionBinaire">figure&nbsp;<span>7.8</span></a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-ModeleInteractionBinaire" class="quarto-figure quarto-figure-center anchored">
@@ -3033,7 +3033,7 @@ Y = \beta_{0} + \beta_{1}X_{1} + \beta_{2}D_{2} + \beta_{3}(X_{1}\times D_{2}) +
 <p><strong>Variable d’interaction entre deux variables dichotomiques</strong></p>
 </div>
 <div class="bloc_aller_loin-body">
-<p>Nous avons vu qu’il est possible d’introduire une variable d’interaction entre deux variables continues ou entre une variable continue et une autre dichotomique. Sachez qu’il est aussi possible d’introduire une interaction entre deux variables dichotomiques. Sur le sujet, vous pouvez consulter la section 8.3 de l’excellent ouvrage de Hanck et al. <span class="citation" data-cites="hanck2019introduction">(<a href="#ref-hanck2019introduction" role="doc-biblioref">2019</a>)</span>.</p>
+<p>Nous avons vu qu’il est possible d’introduire une variable d’interaction entre deux variables continues ou entre une variable continue et une autre dichotomique. Sachez qu’il est aussi possible d’introduire une interaction entre deux variables dichotomiques. Sur le sujet, vous pouvez consulter la section 8.3 de l’excellent ouvrage de Hanck et al. <span class="citation" data-cites="hanck2019introduction">(<a href="references.html#ref-hanck2019introduction" role="doc-biblioref">2019</a>)</span>.</p>
 </div>
 </div>
 </section></section></section><section id="sec-076" class="level2" data-number="7.6"><h2 data-number="7.6" class="anchored" data-anchor-id="sec-076">
@@ -3043,7 +3043,7 @@ Y = \beta_{0} + \beta_{1}X_{1} + \beta_{2}D_{2} + \beta_{3}(X_{1}\times D_{2}) +
 <section id="sec-0761" class="level3" data-number="7.6.1"><h3 data-number="7.6.1" class="anchored" data-anchor-id="sec-0761">
 <span class="header-section-number">7.6.1</span> Nombre d’observations</h3>
 <p>Tous les auteurs ne s’entendent pas sur le nombre d’observations minimal que devrait comprendre une régression linéaire multiple, tant s’en faut! Parallèlement, d’autres auteurs proposent aussi des méthodes de simulation pour estimer les coefficients de régression sur un jeu de données comprenant peu d’observations. Bien qu’aucune règle ne soit bien établie, la question du nombre d’observations mérite d’être posée puisqu’un modèle basé sur trop peu d’observations risque de produire des coefficients de régression peu fiables. Par faible fiabilité des coefficients, nous entendons que la suppression d’une ou de plusieurs observations pourrait drastiquement changer l’effet et/ou la significativité d’une ou de plusieurs variables explicatives.</p>
-<p>Dans un ouvrage classique intitulé <em>Using Multivariate Statistics</em>, Barbara Tabachnick et Linda Fidell <span class="citation" data-cites="tabachnick2007">(<a href="#ref-tabachnick2007" role="doc-biblioref">2007, 123‑124</a>)</span> proposent deux règles de pouce (à la louche)&nbsp;:</p>
+<p>Dans un ouvrage classique intitulé <em>Using Multivariate Statistics</em>, Barbara Tabachnick et Linda Fidell <span class="citation" data-cites="tabachnick2007">(<a href="references.html#ref-tabachnick2007" role="doc-biblioref">2007, 123‑124</a>)</span> proposent deux règles de pouce (à la louche)&nbsp;:</p>
 <ol type="1">
 <li><p><span class="math inline">\(n \geq 50 + 8k\)</span> avec <span class="math inline">\(n\)</span> et <span class="math inline">\(k\)</span> étant respectivement les nombres d’observations et de variables indépendantes, pour tester le coefficient de corrélation multiple (R<sup>2</sup>).</p></li>
 <li><p><span class="math inline">\(n \geq 104 + k\)</span> pour tester individuellement chaque variable indépendante.</p></li>
@@ -3051,11 +3051,11 @@ Y = \beta_{0} + \beta_{1}X_{1} + \beta_{2}D_{2} + \beta_{3}(X_{1}\times D_{2}) +
 <p>Dans le modèle, nous avons 10&nbsp;210 observations et variables indépendantes. Les deux conditions sont donc largement respectées.</p>
 </section><section id="sec-0762" class="level3" data-number="7.6.2"><h3 data-number="7.6.2" class="anchored" data-anchor-id="sec-0762">
 <span class="header-section-number">7.6.2</span> Normalité des résidus</h3>
-<p>Pour vérifier si les résidus sont normalement distribués, trois démarches largement décrites dans la <a href="#sec-0254">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0254</span></a> peuvent être utilisées&nbsp;:</p>
+<p>Pour vérifier si les résidus sont normalement distribués, trois démarches largement décrites dans la <a href="02-univarie.html#sec-0254">section&nbsp;<span>2.5.4</span></a> peuvent être utilisées&nbsp;:</p>
 <ul>
 <li>le calcul des coefficients d’asymétrie et d’aplatissement;</li>
 <li>les tests de normalité, particulièrement celui de Jarque-Bera basé sur un test multiplicateur de Lagrange;</li>
-<li>les graphiques (histogramme avec courbe normale et diagramme quantile-quantile) (<a href="#fig-VerifierNormaliteResidus">figure&nbsp;<span class="quarto-unresolved-ref">fig-VerifierNormaliteResidus</span></a>).</li>
+<li>les graphiques (histogramme avec courbe normale et diagramme quantile-quantile) (<a href="#fig-VerifierNormaliteResidus">figure&nbsp;<span>7.9</span></a>).</li>
 </ul>
 <p>Les deux premières démarches étant parfois très restrictives, nous accordons habituellement une attention particulière aux graphiques.</p>
 <p>Pour notre modèle, les coefficients d’asymétrie (−0,263) et d’aplatissement (1,149) signalent que la distribution est plutôt symétrique, mais leptokurtique, c’est-à-dire que les valeurs des résidus sont bien réparties autour de 0, mais avec une faible dispersion. Puisque la valeur de <em>p</em> associée au test de Jarque-Bera est inférieure à 0,05, nous pouvons en conclure que la distribution des résidus est anormale. La forme pointue de la distribution est d’ailleurs confirmée à la lecture de l’histogramme avec la courbe normale et du diagramme quantile-quantile.</p>
@@ -3080,7 +3080,7 @@ X-squared = 513.15, df = 2, p-value &lt; 2.2e-16</code></pre>
 </div>
 </section><section id="sec-0763" class="level3" data-number="7.6.3"><h3 data-number="7.6.3" class="anchored" data-anchor-id="sec-0763">
 <span class="header-section-number">7.6.3</span> Linéarité et homoscédasticité des résidus</h3>
-<p>Un modèle est efficace si la dispersion des résidus est homogène sur tout le spectre des valeurs prédites de la variable dépendante. Dans le cas d’une absence d’homoscédasticité – appelée problème d’hétéroscédasticité –, le nuage de points construit à partir des résidus et des valeurs prédites (<a href="#fig-VerifierHomoscedasticite">figure&nbsp;<span class="quarto-unresolved-ref">fig-VerifierHomoscedasticite</span></a>) prend la forme d’une trompette ou d’un entonnoir&nbsp;: les résidus sont alors faibles quand les valeurs prédites sont faibles et sont de plus en plus élevés au fur et à mesure que les valeurs prédites augmentent.</p>
+<p>Un modèle est efficace si la dispersion des résidus est homogène sur tout le spectre des valeurs prédites de la variable dépendante. Dans le cas d’une absence d’homoscédasticité – appelée problème d’hétéroscédasticité –, le nuage de points construit à partir des résidus et des valeurs prédites (<a href="#fig-VerifierHomoscedasticite">figure&nbsp;<span>7.10</span></a>) prend la forme d’une trompette ou d’un entonnoir&nbsp;: les résidus sont alors faibles quand les valeurs prédites sont faibles et sont de plus en plus élevés au fur et à mesure que les valeurs prédites augmentent.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-VerifierHomoscedasticite" class="quarto-figure quarto-figure-center anchored">
@@ -3118,13 +3118,13 @@ BP = 1722, df = 8, p-value &lt; 2.2e-16</code></pre>
 X_1 = b_0 + b_2X_2 +\ldots+ b_kX_k + e
 \tag{7.29}\]</span></span></p>
 <ol start="2" type="1">
-<li>À partir de cette équation, nous obtenons ainsi un <span class="math inline">\(R^2\)</span> qui nous indique la proportion de la variance de <span class="math inline">\(X_1\)</span> expliquée par les autres VI. Par convention, nous calculons la tolérance (<a href="#eq-ToleranceVIF">équation&nbsp;<span class="quarto-unresolved-ref">eq-ToleranceVIF</span></a>) qui indique la proportion de la variance de <span class="math inline">\(X_k\)</span> n’étant pas expliquée par les autres VI. En guise d’exemple, une valeur de tolérance égale à 0,1 signale que 90&nbsp;% de la variance de <span class="math inline">\(X_k\)</span> est expliqué par les autres variables, ce qui est un problème de multicolinéarité en soit. Concrètement, plus la valeur de la tolérance est proche de zéro, plus c’est problématique.</li>
+<li>À partir de cette équation, nous obtenons ainsi un <span class="math inline">\(R^2\)</span> qui nous indique la proportion de la variance de <span class="math inline">\(X_1\)</span> expliquée par les autres VI. Par convention, nous calculons la tolérance (<a href="#eq-ToleranceVIF">équation&nbsp;<span>7.30</span></a>) qui indique la proportion de la variance de <span class="math inline">\(X_k\)</span> n’étant pas expliquée par les autres VI. En guise d’exemple, une valeur de tolérance égale à 0,1 signale que 90&nbsp;% de la variance de <span class="math inline">\(X_k\)</span> est expliqué par les autres variables, ce qui est un problème de multicolinéarité en soit. Concrètement, plus la valeur de la tolérance est proche de zéro, plus c’est problématique.</li>
 </ol>
 <p><span id="eq-ToleranceVIF"><span class="math display">\[
 \mbox{Tolérance}_k=1-R_k^2=\frac{1}{VIF_k}
 \tag{7.30}\]</span></span></p>
 <ol start="3" type="1">
-<li>Puis, nous calculons le facteur d’inflation de la variance (<a href="#eq-VIF">équation&nbsp;<span class="quarto-unresolved-ref">eq-VIF</span></a>). Là encore, des règles de pouce (à la louche) sont utilisées. Certains considéreront une valeur de VIF supérieur à 10 (soit une tolérance à 0,1 ou inférieure) comme problématique, d’autres retiendront le seuil de 5 plus conservateur (soit une tolérance à 0,2 ou inférieure).</li>
+<li>Puis, nous calculons le facteur d’inflation de la variance (<a href="#eq-VIF">équation&nbsp;<span>7.31</span></a>). Là encore, des règles de pouce (à la louche) sont utilisées. Certains considéreront une valeur de VIF supérieur à 10 (soit une tolérance à 0,1 ou inférieure) comme problématique, d’autres retiendront le seuil de 5 plus conservateur (soit une tolérance à 0,2 ou inférieure).</li>
 </ol>
 <p><span id="eq-VIF"><span class="math display">\[
 VIF_k = \frac{1}{1-R_k^2}
@@ -3145,7 +3145,7 @@ Pct_FR             1.818  1           1.348</code></pre>
 </section><section id="sec-07642" class="level4" data-number="7.6.4.2"><h4 data-number="7.6.4.2" class="anchored" data-anchor-id="sec-07642">
 <span class="header-section-number">7.6.4.2</span> Comment régler un problème de multicolinéarité?</h4>
 <ul>
-<li><p>La prudence est de mise! Si une ou plusieurs variables présentent une valeur de VIF supérieure à 5, construisez une matrice de corrélation de Pearson (<a href="#sec-0437">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0437</span></a>) et repérez les valeurs de corrélation supérieures à 0,8 ou inférieures à −0,8. Vous repérerez ainsi les corrélations problématiques entre deux variables indépendantes du modèle.</p></li>
+<li><p>La prudence est de mise! Si une ou plusieurs variables présentent une valeur de VIF supérieure à 5, construisez une matrice de corrélation de Pearson (<a href="04-bivarieeQuantiQuanti.html#sec-0437">section&nbsp;<span>4.3.7</span></a>) et repérez les valeurs de corrélation supérieures à 0,8 ou inférieures à −0,8. Vous repérerez ainsi les corrélations problématiques entre deux variables indépendantes du modèle.</p></li>
 <li><p>Refaites ensuite un modèle en ôtant la variable indépendante avec la plus forte valeur de VIF (7 ou 12 par exemple), et revérifiez les valeurs de VIF. Refaites cette étape si le problème de multicolinéarité excessive persiste.</p></li>
 </ul>
 <div class="bloc_attention">
@@ -3177,11 +3177,11 @@ Pct_014:DistCBDkm  16.713  1           4.088</code></pre>
 <span class="header-section-number">7.6.5</span> Absence d’observations aberrantes</h3>
 <section id="sec-07661" class="level4" data-number="7.6.5.1"><h4 data-number="7.6.5.1" class="anchored" data-anchor-id="sec-07661">
 <span class="header-section-number">7.6.5.1</span> Détection des observations très influentes du modèle</h4>
-<p>Lors de l’analyse des corrélations (<a href="#sec-043">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-043</span></a>), nous avons vu que des valeurs extrêmes peuvent avoir un impact important sur le coefficient de corrélation de Pearson. Le même principe s’applique à la régression multiple, pour laquelle nous nous s’attendrions à ce que chaque observation joue un rôle équivalent dans la détermination de l’équation du modèle.</p>
+<p>Lors de l’analyse des corrélations (<a href="04-bivarieeQuantiQuanti.html#sec-043">section&nbsp;<span>4.3</span></a>), nous avons vu que des valeurs extrêmes peuvent avoir un impact important sur le coefficient de corrélation de Pearson. Le même principe s’applique à la régression multiple, pour laquelle nous nous s’attendrions à ce que chaque observation joue un rôle équivalent dans la détermination de l’équation du modèle.</p>
 <p>Autrement dit, il est possible que certaines observations avec des valeurs extrêmes – fortement dissemblables des autres – aient une influence importante, voire démesurée, dans l’estimation du modèle. Concrètement, cela signifie que si elles étaient ôtées, les coefficients de régression et la qualité d’ajustement du modèle pourraient changer drastiquement. Deux mesures sont habituellement utilisées pour évaluer l’influence de chaque observation sur le modèle&nbsp;:</p>
 <ul>
 <li>
-<strong>La statistique de la distance de Cook</strong> qui mesure l’influence de chaque observation sur les résultats du modèle. Brièvement, la distance de Cook évalue l’influence de l’observation <em>i</em> en la supprimant du modèle (<a href="#eq-DistanceCook">équation&nbsp;<span class="quarto-unresolved-ref">eq-DistanceCook</span></a>). Plus sa valeur est élevée, plus l’observation joue un rôle important dans la détermination de l’équation de régression.</li>
+<strong>La statistique de la distance de Cook</strong> qui mesure l’influence de chaque observation sur les résultats du modèle. Brièvement, la distance de Cook évalue l’influence de l’observation <em>i</em> en la supprimant du modèle (<a href="#eq-DistanceCook">équation&nbsp;<span>7.32</span></a>). Plus sa valeur est élevée, plus l’observation joue un rôle important dans la détermination de l’équation de régression.</li>
 </ul>
 <p><span id="eq-DistanceCook"><span class="math display">\[
 D_i = \frac{\sum_{j=1}^n(\widehat{y}_i-\widehat{y}_{i(j)})^2}{ks^2}
@@ -3205,7 +3205,7 @@ Observations avec une valeur supérieure ou égale aux différents seuils
  16/n = 133 soit 1.3 %</code></pre>
 </div>
 </div>
-<p>Le critère de <span class="math inline">\(4/n\)</span> étant plutôt sévère, nous privilégions généralement celui de <span class="math inline">\(8/n\)</span>, voire <span class="math inline">\(16/n\)</span>. Il est aussi possible de construire un nuage de points pour les repérer (<a href="#fig-GraphCookLev">figure&nbsp;<span class="quarto-unresolved-ref">fig-GraphCookLev</span></a>).</p>
+<p>Le critère de <span class="math inline">\(4/n\)</span> étant plutôt sévère, nous privilégions généralement celui de <span class="math inline">\(8/n\)</span>, voire <span class="math inline">\(16/n\)</span>. Il est aussi possible de construire un nuage de points pour les repérer (<a href="#fig-GraphCookLev">figure&nbsp;<span>7.11</span></a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-GraphCookLev" class="quarto-figure quarto-figure-center anchored">
@@ -3220,7 +3220,7 @@ Observations avec une valeur supérieure ou égale aux différents seuils
 <ul>
 <li><p><strong>Recourir à des régressions <em>boostrap</em></strong>, ce qui permet généralement de supprimer l’effet de ces observations. Brièvement, le principe général est de créer un nombre élevé d’échantillons du jeu de données initial (1000 à 2000 itérations par exemple) et de construire un modèle de régression pour chacun d’eux. On obtiendra ainsi des intervalles de confiance pour les coefficients de régression et les mesures d’ajustement du modèle.</p></li>
 <li><p><strong>Supprimer les observations trop influentes</strong> (avec l’un des critères de <span class="math inline">\(4/n\)</span>, <span class="math inline">\(8/n\)</span> et <span class="math inline">\(16/n\)</span> vus plus haut). Une fois supprimées, il convient 1) de recalculer le modèle, 2) de refaire le diagnostic de la régression au complet et finalement, 3) de comparer les modèles avant et après suppression des valeurs trop influentes, notamment la qualité d’ajustement du modèle (R<sup>2</sup> ajusté) et les coefficients de régression. Des changements importants indiqueront que le premier modèle est potentiellement biaisé.</p></li>
-<li><p><strong>Utiliser un modèle linéaire généralisé (GLM)</strong> permettant d’utiliser une distribution différente correspondant plus à votre jeu de données (<a href="#sec-chap08">chapitre&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-chap08</span></a>).</p></li>
+<li><p><strong>Utiliser un modèle linéaire généralisé (GLM)</strong> permettant d’utiliser une distribution différente correspondant plus à votre jeu de données (<a href="08-GLM.html">chapitre&nbsp;<span>8</span></a>).</p></li>
 </ul></section></section></section><section id="sec-077" class="level2" data-number="7.7"><h2 data-number="7.7" class="anchored" data-anchor-id="sec-077">
 <span class="header-section-number">7.7</span> Mise en œuvre dans R</h2>
 <section id="sec-0771" class="level3" data-number="7.7.1"><h3 data-number="7.7.1" class="anchored" data-anchor-id="sec-0771">
@@ -3282,7 +3282,7 @@ Observations avec une valeur supérieure ou égale aux différents seuils
 <span>                data <span class="op">=</span> <span class="va">DataFinal</span><span class="op">)</span></span>
 <span><span class="co"># summary(Modele7)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>À la <a href="#fig-OutputRegression">figure&nbsp;<span class="quarto-unresolved-ref">fig-OutputRegression</span></a>, les résultats de la régression linéaire multiple, obtenus avec la <code>summary(monModele)</code>, sont présentés en quatre sections distinctes&nbsp;:</p>
+<p>À la <a href="#fig-OutputRegression">figure&nbsp;<span>7.12</span></a>, les résultats de la régression linéaire multiple, obtenus avec la <code>summary(monModele)</code>, sont présentés en quatre sections distinctes&nbsp;:</p>
 <ol type="a">
 <li><p>Le rappel de l’équation du modèle.</p></li>
 <li><p>Quelques statistiques descriptives sur les résidus du modèle, soit la différence entre les valeurs observées et prédites.</p></li>
@@ -3310,7 +3310,7 @@ Pct_FR                -0.3659445   -0.32269562</code></pre>
 </div>
 </section><section id="sec-0772" class="level3" data-number="7.7.2"><h3 data-number="7.7.2" class="anchored" data-anchor-id="sec-0772">
 <span class="header-section-number">7.7.2</span> Comparaison des modèles</h3>
-<p>Tel que détaillé à la <a href="#sec-0732">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0732</span></a>, pour comparer des modèles imbriqués, il convient d’analyser les valeurs du R<sup>2</sup> ajusté et du <em>F</em> incrémentiel, ce qui peut être fait en trois étapes.</p>
+<p>Tel que détaillé à la <a href="#sec-0732">section&nbsp;<span>7.3.2</span></a>, pour comparer des modèles imbriqués, il convient d’analyser les valeurs du R<sup>2</sup> ajusté et du <em>F</em> incrémentiel, ce qui peut être fait en trois étapes.</p>
 <p><strong>Première étape.</strong> Il peut être judicieux d’afficher l’équation des différents modèles afin de se remémorer les VI introduites dans chacun d’eux, et ce, avec la fonction <code>MonModèle$call$formula</code>.</p>
 <div class="cell">
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Rappel des équations des huit modèles </span></span>
@@ -3646,7 +3646,7 @@ Observations avec une valeur supérieure ou égale aux différents seuils
  16/n = 132 soit 1.29  %</code></pre>
 </div>
 </div>
-<p>Vous pouvez également construire un nuage de points avec la distance de Cook et l’effet de levier (<em>leverage value</em>) pour repérer visuellement les observations très influentes (<a href="#fig-DiaGraphCookLev">figure&nbsp;<span class="quarto-unresolved-ref">fig-DiaGraphCookLev</span></a>).</p>
+<p>Vous pouvez également construire un nuage de points avec la distance de Cook et l’effet de levier (<em>leverage value</em>) pour repérer visuellement les observations très influentes (<a href="#fig-DiaGraphCookLev">figure&nbsp;<span>7.15</span></a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb91"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-forge.r-project.org/projects/car/">car</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/">ggpubr</a></span><span class="op">)</span></span>
@@ -3717,7 +3717,7 @@ Modèle sans les observations très influentes (n=9925), 0.5684</code></pre>
 <li><p>l’asymétrie est très similaire (-0,260 à -0,265);</p></li>
 <li><p>l’aplatissement s’est amélioré (1,183 à 0,164);</p></li>
 <li><p>le test de Jarque-Bera signale toujours un problème de normalité (<em>p</em>&nbsp;&lt;&nbsp;0,001), mais sa valeur a nettement diminué (548,7 à 131,24);</p></li>
-<li><p>les graphiques démontrent une nette amélioration de la normalité des résidus (<a href="#fig-ResidusCompa">figure&nbsp;<span class="quarto-unresolved-ref">fig-ResidusCompa</span></a>).</p></li>
+<li><p>les graphiques démontrent une nette amélioration de la normalité des résidus (<a href="#fig-ResidusCompa">figure&nbsp;<span>7.16</span></a>).</p></li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb95"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># 1. coefficients d’asymétrie et d’aplatissement </span></span>
@@ -4198,7 +4198,7 @@ function handleAnswers(quiz, question, no, correct) {
 Quels modèles sont imbriqués?
 </div>
 <div>
-Relisez au besoin la <a href="#sec-0732">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0732</span></a>.
+Relisez au besoin la <a href="#sec-0732">section&nbsp;<span>7.3.2</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -4227,7 +4227,7 @@ Relisez au besoin la <a href="#sec-0732">section&nbsp;<span class="quarto-unreso
 Quelle mesure relative à la qualité d’ajustement du modèle indique la proportion de la variance de la variable dépendante expliquée par les variables indépendantes du modèle?
 </div>
 <div>
-Relisez au besoin la <a href="#sec-0731">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0731</span></a>.
+Relisez au besoin la <a href="#sec-0731">section&nbsp;<span>7.3.1</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -4272,7 +4272,7 @@ Relisez au besoin la <a href="#sec-0731">section&nbsp;<span class="quarto-unreso
 Le R2 ajusté permet de comparer des modèles avec des nombres de variables indépendantes et/ou d’observations différents
 </div>
 <div>
-Relisez au besoin le début de la <a href="#sec-0732">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0732</span></a>.
+Relisez au besoin le début de la <a href="#sec-0732">section&nbsp;<span>7.3.2</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -4301,7 +4301,7 @@ Relisez au besoin le début de la <a href="#sec-0732">section&nbsp;<span class="
 Comment repérer les variables les plus importantes du modèle?
 </div>
 <div>
-Relisez au besoin la <a href="#sec-0742">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0742</span></a>.
+Relisez au besoin la <a href="#sec-0742">section&nbsp;<span>7.4.2</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -4338,7 +4338,7 @@ Relisez au besoin la <a href="#sec-0742">section&nbsp;<span class="quarto-unreso
 Comment évaluer la significativité des coefficients?
 </div>
 <div>
-Relisez au besoin la <a href="#sec-0743">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0743</span></a>.
+Relisez au besoin la <a href="#sec-0743">section&nbsp;<span>7.4.3</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -4383,7 +4383,7 @@ Relisez au besoin la <a href="#sec-0743">section&nbsp;<span class="quarto-unreso
 Pour un nombre très élevé d’observations, quelle affirmation est vraie pour les valeurs de t et de p?
 </div>
 <div>
-Relisez au besoin la [section <a href="#sec-0743"><span class="quarto-unresolved-ref">sec-0743</span></a>).
+Relisez au besoin la [section <a href="#sec-0743"><span>Section&nbsp;7.4.3</span></a>).
 </div>
 <div class="quizlib-question-answers">
 
@@ -4420,7 +4420,7 @@ Relisez au besoin la [section <a href="#sec-0743"><span class="quarto-unresolved
 Une variable indépendante dont l’intervalle de confiance à 95 % du coefficient de régression est de [-15,06 ; 28,17] est-elle significatif au seuil de p = 0,05?
 </div>
 <div>
-Relisez au besoin la <a href="#sec-0744">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0744</span></a>.
+Relisez au besoin la <a href="#sec-0744">section&nbsp;<span>7.4.4</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -4449,7 +4449,7 @@ Relisez au besoin la <a href="#sec-0744">section&nbsp;<span class="quarto-unreso
 Comment poser un diagnostic sur un modèle de régression linéaire?
 </div>
 <div>
-Relisez le deuxième encadré à la <a href="#sec-076">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-076</span></a>.
+Relisez le deuxième encadré à la <a href="#sec-076">section&nbsp;<span>7.6</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -4514,7 +4514,7 @@ Vérifier votre résultat
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-apparicio2016spatial" class="csl-entry" role="listitem">
 Apparicio, Philippe, Thi-Thanh-Hien Pham, Anne-Marie Séguin et Jean Dubé. 2016. <span>«&nbsp;Spatial distribution of vegetation in and around city blocks on the Island of Montreal: A double environmental inequity?&nbsp;»</span> <em>Applied Geography</em> 76: 128‑136. <a href="http://dx.doi.org/10.1016/j.apgeog.2016.09.023">http://dx.doi.org/10.1016/j.apgeog.2016.09.023</a>.
 </div>
