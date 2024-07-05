@@ -422,13 +422,13 @@ div.csl-indent {
 </div>
 <section id="sec-031" class="level2" data-number="3.1"><h2 data-number="3.1" class="anchored" data-anchor-id="sec-031">
 <span class="header-section-number">3.1</span> Philosophie du ggplot2</h2>
-<p>Le <em>package</em> <code>ggplot2</code> fait partie du <code>tidyverse</code> et dispose d’une logique de fonctionnement particulière. Cette dernière se nomme <em>The Grammar of Graphics</em> (les deux G sont d’ailleurs à l’origine du nom <code>ggplot2</code>), proposée par Hadley Wickham (le créateur du <code>tidyverse</code>!) dans un article intitulé <em>A layered grammar of graphics</em> <span class="citation" data-cites="wickham2010layered">(<a href="references.html#ref-wickham2010layered" role="doc-biblioref">Wickham 2010</a>)</span>. Nous proposons de synthétiser ici les concepts et principes centraux qui sous-tendent la production de graphiques avec <code>ggplot2</code>.</p>
+<p>Le <em>package</em> <code>ggplot2</code> fait partie du <code>tidyverse</code> et dispose d’une logique de fonctionnement particulière. Cette dernière se nomme <em>The Grammar of Graphics</em> (les deux G sont d’ailleurs à l’origine du nom <code>ggplot2</code>), proposée par Hadley Wickham (le créateur du <code>tidyverse</code>!) dans un article intitulé <em>A layered grammar of graphics</em> <span class="citation" data-cites="wickham2010layered">(<a href="#ref-wickham2010layered" role="doc-biblioref">Wickham 2010</a>)</span>. Nous proposons de synthétiser ici les concepts et principes centraux qui sous-tendent la production de graphiques avec <code>ggplot2</code>.</p>
 <section id="sec-0311" class="level3" data-number="3.1.1"><h3 data-number="3.1.1" class="anchored" data-anchor-id="sec-0311">
 <span class="header-section-number">3.1.1</span> Grammaire</h3>
-<p>Hadley Wickham propose une grammaire pour unifier la création de graphiques. L’idée est donc de dépasser les simples dénominations comme un nuage de points, un diagramme en boîte, un graphique en ligne, etc., pour comprendre ce qui relie tous ces graphiques. Ces éléments communs et centraux sont les géométries, les échelles et systèmes de coordonnées, et les annotations (<a href="#fig-fig30">figure&nbsp;<span>3.1</span></a>)&nbsp;:</p>
+<p>Hadley Wickham propose une grammaire pour unifier la création de graphiques. L’idée est donc de dépasser les simples dénominations comme un nuage de points, un diagramme en boîte, un graphique en ligne, etc., pour comprendre ce qui relie tous ces graphiques. Ces éléments communs et centraux sont les géométries, les échelles et systèmes de coordonnées, et les annotations (<a href="#fig-fig30">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig30</span></a>)&nbsp;:</p>
 <div id="fig-fig30" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap03/composantes.png" class="img-fluid figure-img" style="width:70.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;3.1: Trois composantes d’un graphique, adapté de <span class="citation" data-cites="wickham2010layered">Wickham (<a href="references.html#ref-wickham2010layered" role="doc-biblioref">2010</a>)</span></figcaption></figure>
+<figcaption class="figure-caption">Figure&nbsp;3.1: Trois composantes d’un graphique, adapté de <span class="citation" data-cites="wickham2010layered">Wickham (<a href="#ref-wickham2010layered" role="doc-biblioref">2010</a>)</span></figcaption></figure>
 </div>
 <ul>
 <li><p>Les <strong>géométries</strong> sont les formes utilisées pour représenter les données. Il peut s’agir de points, de lignes, de cercles, de rectangles, d’arcs de cercle, etc.</p></li>
@@ -453,7 +453,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Pour le moment, le graphique est vide (<a href="#fig-fig31">figure&nbsp;<span>3.2</span></a>). La seconde étape consiste à lui ajouter des données (au travers du paramètre <code>data</code>) et à définir les dimensions à associer aux données (avec le paramètre <code>mapping</code> et la fonction <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code>). Dans notre cas, nous voulons utiliser les coordonnées <em>X</em> pour représenter la largeur des sépales, et les coordonnées <em>Y</em> pour représenter la longueur des sépales. Enfin, nous souhaitons représenter les observations par des points, nous utiliserons donc la géométrie <code>geom_point</code>.</p>
+<p>Pour le moment, le graphique est vide (<a href="#fig-fig31">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig31</span></a>). La seconde étape consiste à lui ajouter des données (au travers du paramètre <code>data</code>) et à définir les dimensions à associer aux données (avec le paramètre <code>mapping</code> et la fonction <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code>). Dans notre cas, nous voulons utiliser les coordonnées <em>X</em> pour représenter la largeur des sépales, et les coordonnées <em>Y</em> pour représenter la longueur des sépales. Enfin, nous souhaitons représenter les observations par des points, nous utiliserons donc la géométrie <code>geom_point</code>.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Sepal.Length</span>, y <span class="op">=</span> <span class="va">Sepal.Width</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">iris</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -464,7 +464,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Ce graphique ne comprend qu’un seul calque avec une géométrie de type point (<a href="#fig-fig32">figure&nbsp;<span>3.3</span></a>). Chaque calque est ajouté avec l’opérateur <code>+</code> qui permet de superposer des calques, le dernier apparaissant au-dessus des autres. Les arguments <code>mapping</code> et <code>data</code> sont définis ici dans la fonction <code>ggplot</code> et sont donc appliqués à tous les calques qui composent le graphique. Il est aussi possible de définir <code>mapping</code> et <code>data</code> au sein des fonctions des géométries&nbsp;:</p>
+<p>Ce graphique ne comprend qu’un seul calque avec une géométrie de type point (<a href="#fig-fig32">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig32</span></a>). Chaque calque est ajouté avec l’opérateur <code>+</code> qui permet de superposer des calques, le dernier apparaissant au-dessus des autres. Les arguments <code>mapping</code> et <code>data</code> sont définis ici dans la fonction <code>ggplot</code> et sont donc appliqués à tous les calques qui composent le graphique. Il est aussi possible de définir <code>mapping</code> et <code>data</code> au sein des fonctions des géométries&nbsp;:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Sepal.Length</span>, y <span class="op">=</span> <span class="va">Sepal.Width</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">iris</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -475,7 +475,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>La troisième étape consiste à ajouter au graphique des annotations. Pour notre cas, il faudrait ajouter un titre, un sous-titre et des intitulés plus clairs pour les axes <em>X</em> et <em>Y</em>, ce qu’il est possible de faire avec la fonction <code>labs</code> (<a href="#fig-fig34">figure&nbsp;<span>3.5</span></a>).</p>
+<p>La troisième étape consiste à ajouter au graphique des annotations. Pour notre cas, il faudrait ajouter un titre, un sous-titre et des intitulés plus clairs pour les axes <em>X</em> et <em>Y</em>, ce qu’il est possible de faire avec la fonction <code>labs</code> (<a href="#fig-fig34">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig34</span></a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Sepal.Length</span>, y <span class="op">=</span> <span class="va">Sepal.Width</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">iris</span><span class="op">)</span> <span class="op">+</span></span>
@@ -491,7 +491,7 @@ div.csl-indent {
 </div>
 </section><section id="sec-0312" class="level3" data-number="3.1.2"><h3 data-number="3.1.2" class="anchored" data-anchor-id="sec-0312">
 <span class="header-section-number">3.1.2</span> Types de géométries</h3>
-<p>Le <em>package</em> <code>ggplot2</code> permet d’utiliser un très grand nombre de géométries différentes. Dans le <a href="#tbl-geometries">tableau&nbsp;<span>3.1</span></a>, nous avons reporté les principales géométries disponibles afin que vous puissiez vous faire une idée du «&nbsp;bestiaire&nbsp;» existant. Il ne s’agit que d’un extrait des principales fonctions. Sachez qu’il existe aussi des <em>packages</em> proposant des géométries supplémentaires pour compléter <code>ggplot2</code>.</p>
+<p>Le <em>package</em> <code>ggplot2</code> permet d’utiliser un très grand nombre de géométries différentes. Dans le <a href="#tbl-geometries">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-geometries</span></a>, nous avons reporté les principales géométries disponibles afin que vous puissiez vous faire une idée du «&nbsp;bestiaire&nbsp;» existant. Il ne s’agit que d’un extrait des principales fonctions. Sachez qu’il existe aussi des <em>packages</em> proposant des géométries supplémentaires pour compléter <code>ggplot2</code>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-geometries" class="anchored">
@@ -647,7 +647,7 @@ div.csl-indent {
 <span class="header-section-number">3.1.4</span> Utilisation des thèmes</h3>
 <p>De nombreux autres éléments peuvent être modifiés dans un graphique comme les paramètres des polices, l’arrière-plan, la grille de repères, etc. Il peut être fastidieux de paramétrer tous ces éléments. Une option intéressante est d’utiliser des thèmes déjà préconstruits. Le <em>package</em> <code>ggplot2</code> propose une dizaine de thèmes&nbsp;: constatons leur impact sur le graphique précédent.</p>
 <ul>
-<li>Le thème classique (<code>theme_classic</code>) (<a href="#fig-fig38">figure&nbsp;<span>3.9</span></a>)</li>
+<li>Le thème classique (<code>theme_classic</code>) (<a href="#fig-fig38">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig38</span></a>)</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -665,7 +665,7 @@ div.csl-indent {
 </div>
 </div>
 <ul>
-<li>Le thème gris (<code>theme_gray</code>) (<a href="#fig-fig39">figure&nbsp;<span>3.10</span></a>)</li>
+<li>Le thème gris (<code>theme_gray</code>) (<a href="#fig-fig39">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig39</span></a>)</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -683,7 +683,7 @@ div.csl-indent {
 </div>
 </div>
 <ul>
-<li>Le thème noir et blanc (<code>theme_bw</code>) (<a href="#fig-fig310">figure&nbsp;<span>3.11</span></a>)</li>
+<li>Le thème noir et blanc (<code>theme_bw</code>) (<a href="#fig-fig310">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig310</span></a>)</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -701,7 +701,7 @@ div.csl-indent {
 </div>
 </div>
 <ul>
-<li>Le thème minimal (<code>theme_minimal</code>) (<a href="#fig-fig311">figure&nbsp;<span>3.12</span></a>)</li>
+<li>Le thème minimal (<code>theme_minimal</code>) (<a href="#fig-fig311">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig311</span></a>)</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -720,7 +720,7 @@ div.csl-indent {
 </div>
 <p>Il est aussi possible d’utiliser le <em>package</em> <code>ggthemes</code> qui apporte des thèmes complémentaires intéressants dont&nbsp;:</p>
 <ul>
-<li>Le thème <em>tufte</em> (<code>theme_tufte</code>, à l’ancienne…) (<a href="#fig-fig312">figure&nbsp;<span>3.13</span></a>)</li>
+<li>Le thème <em>tufte</em> (<code>theme_tufte</code>, à l’ancienne…) (<a href="#fig-fig312">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig312</span></a>)</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://jrnold.github.io/ggthemes/">ggthemes</a></span><span class="op">)</span></span>
@@ -739,7 +739,7 @@ div.csl-indent {
 </div>
 </div>
 <ul>
-<li>Le thème <em>economist</em> (<code>theme_economist</code>, inspiré de la revue du même nom) (<a href="#fig-fig313">figure&nbsp;<span>3.14</span></a>)</li>
+<li>Le thème <em>economist</em> (<code>theme_economist</code>, inspiré de la revue du même nom) (<a href="#fig-fig313">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig313</span></a>)</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -757,7 +757,7 @@ div.csl-indent {
 </div>
 </div>
 <ul>
-<li>Le thème <em>solarized</em> (<code>theme_solarized</code>, plus original) (<a href="#fig-fig314">figure&nbsp;<span>3.15</span></a>)</li>
+<li>Le thème <em>solarized</em> (<code>theme_solarized</code>, plus original) (<a href="#fig-fig314">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig314</span></a>)</li>
 </ul>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -784,7 +784,7 @@ div.csl-indent {
 </ol>
 <section id="sec-03141" class="level4" data-number="3.1.5.1"><h4 data-number="3.1.5.1" class="anchored" data-anchor-id="sec-03141">
 <span class="header-section-number">3.1.5.1</span> <code>ggplot2</code> et ses facettes</h4>
-<p>Nous pourrions souhaiter réaliser une figure composite avec le jeu de données <em>iris</em> et séparer notre nuage de points en trois graphiques distincts selon l’espèce des iris (<a href="#fig-fig315">figure&nbsp;<span>3.16</span></a>). Pour cela, il faut au préalable convertir la variable <em>espèce</em> en facteur.</p>
+<p>Nous pourrions souhaiter réaliser une figure composite avec le jeu de données <em>iris</em> et séparer notre nuage de points en trois graphiques distincts selon l’espèce des iris (<a href="#fig-fig315">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig315</span></a>). Pour cela, il faut au préalable convertir la variable <em>espèce</em> en facteur.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">iris</span><span class="op">$</span><span class="va">Species_fac</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span></span>
 <span></span>
@@ -802,7 +802,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Notez que le nom de la variable (ici <code>Species_fac</code>) doit être spécifié au sein d’une sous-fonction <code>vars</code>&nbsp;: <code>vars(Species_fac)</code>. Nous aurions aussi pu réaliser le graphique sur une seule ligne en spécifiant <code>ncol = 3</code> (<a href="#fig-fig316">figure&nbsp;<span>3.17</span></a>).</p>
+<p>Notez que le nom de la variable (ici <code>Species_fac</code>) doit être spécifié au sein d’une sous-fonction <code>vars</code>&nbsp;: <code>vars(Species_fac)</code>. Nous aurions aussi pu réaliser le graphique sur une seule ligne en spécifiant <code>ncol = 3</code> (<a href="#fig-fig316">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig316</span></a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>mapping <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Sepal.Length</span>, y <span class="op">=</span> <span class="va">Sepal.Width</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">iris</span><span class="op">)</span> <span class="op">+</span></span>
@@ -820,7 +820,7 @@ div.csl-indent {
 </div>
 </section><section id="sec-03142" class="level4" data-number="3.1.5.2"><h4 data-number="3.1.5.2" class="anchored" data-anchor-id="sec-03142">
 <span class="header-section-number">3.1.5.2</span> Arrangement des graphiques</h4>
-<p>La solution avec les facettes est très pratique, mais également très limitée puisqu’elle ne permet pas de créer une figure avec des graphiques combinant plusieurs types de géométries. <code>ggarrange</code> du <em>package</em> <code>ggpubr</code> permet tout simplement de combiner des graphiques déjà existant. Créons deux nuages de points comparant plusieurs variables en fonction de l’espèce des iris, puis combinons-les (<a href="#fig-fig317">figure&nbsp;<span>3.18</span></a>). Attribuons également aux points une couleur en fonction de l’espèce des fleurs, afin de mieux les distinguer en associant la variable <code>Species</code> au paramètre <code>color</code>.</p>
+<p>La solution avec les facettes est très pratique, mais également très limitée puisqu’elle ne permet pas de créer une figure avec des graphiques combinant plusieurs types de géométries. <code>ggarrange</code> du <em>package</em> <code>ggpubr</code> permet tout simplement de combiner des graphiques déjà existant. Créons deux nuages de points comparant plusieurs variables en fonction de l’espèce des iris, puis combinons-les (<a href="#fig-fig317">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig317</span></a>). Attribuons également aux points une couleur en fonction de l’espèce des fleurs, afin de mieux les distinguer en associant la variable <code>Species</code> au paramètre <code>color</code>.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rpkgs.datanovia.com/ggpubr/">ggpubr</a></span><span class="op">)</span></span>
 <span></span>
@@ -867,7 +867,7 @@ div.csl-indent {
 <span class="header-section-number">3.1.6</span> Couleur</h3>
 <p>Dans un graphique, la couleur peut être utilisée à la fois pour représenter une variable quantitative (dégradé de couleur ou mise en classes), ou une variable qualitative (couleur par catégorie). Dans <code>ggplot2</code>, il est possible d’attribuer une couleur au contour des géométries avec l’argument <code>color</code> et au remplissage avec l’argument <code>fill</code>. Il est possible de spécifier une couleur de trois façons dans R&nbsp;:</p>
 <ul>
-<li>En utilisant le nom de la couleur dans une chaîne de caractère&nbsp;: <code>"chartreuse4"</code>. R dispose de 657&nbsp;noms de couleurs prédéfinis. Pour tous les afficher, utilisez la fonction <code><a href="https://rdrr.io/r/grDevices/colors.html">colors()</a></code>, qui permet de les visualiser (<a href="#fig-colors">figure&nbsp;<span>3.19</span></a>).</li>
+<li>En utilisant le nom de la couleur dans une chaîne de caractère&nbsp;: <code>"chartreuse4"</code>. R dispose de 657&nbsp;noms de couleurs prédéfinis. Pour tous les afficher, utilisez la fonction <code><a href="https://rdrr.io/r/grDevices/colors.html">colors()</a></code>, qui permet de les visualiser (<a href="#fig-colors">figure&nbsp;<span class="quarto-unresolved-ref">fig-colors</span></a>).</li>
 </ul>
 <div id="fig-colors" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap03/all_colors.png" class="img-fluid figure-img" style="width:100.0%"></p>
@@ -877,7 +877,7 @@ div.csl-indent {
 <li><p>En indiquant le code hexadécimal de la couleur. Il s’agit d’une suite de six lettres et de chiffres précédée par un dièse&nbsp;: <code>"#99ff33"</code>.</p></li>
 <li><p>En utilisant une notation RGB (rouge, vert, bleu, transparence). Cette notation doit contenir quatre nombres entre 0 et 1 (0&nbsp;% et 100&nbsp;%), indiquant respectivement la quantité de rouge, de vert, de bleu et la transparence. Ces quatre nombres sont donnés comme argument à la fonction <code>rgb</code>&nbsp;: <code>rgb(0.6, 1, 0.2, 0)</code>.</p></li>
 </ul>
-<p>Le choix des couleurs est un problème plus complexe que la manière de les spécifier. Il existe d’ailleurs tout un pan de la sémiologie graphique dédié à la question du choix et de l’association des couleurs. Une première ressource intéressante est <a href="https://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3" target="_blank">ColorBrewer</a>. Il s’agit d’une sélection de palettes de couleurs particulièrement efficaces et dont certaines sont même adaptées pour les personnes daltoniennes (<a href="#fig-colorBrewer">figure&nbsp;<span>3.20</span></a>). Il est possible d’accéder directement aux palettes dans R grâce au <em>package</em> <code>RColorBrewer</code> et la fonction <code>brewer.pal</code>&nbsp;:</p>
+<p>Le choix des couleurs est un problème plus complexe que la manière de les spécifier. Il existe d’ailleurs tout un pan de la sémiologie graphique dédié à la question du choix et de l’association des couleurs. Une première ressource intéressante est <a href="https://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=3" target="_blank">ColorBrewer</a>. Il s’agit d’une sélection de palettes de couleurs particulièrement efficaces et dont certaines sont même adaptées pour les personnes daltoniennes (<a href="#fig-colorBrewer">figure&nbsp;<span class="quarto-unresolved-ref">fig-colorBrewer</span></a>). Il est possible d’accéder directement aux palettes dans R grâce au <em>package</em> <code>RColorBrewer</code> et la fonction <code>brewer.pal</code>&nbsp;:</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">RColorBrewer</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/RColorBrewer/man/ColorBrewer.html">display.brewer.all</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -907,7 +907,7 @@ div.csl-indent {
 <p>L’histogramme permet de décrire graphiquement la forme de la distribution d’une variable. Pour le réaliser, nous utilisons la fonction <code>geom_histogram</code>. Le paramètre le plus important est le nombre de barres (<code>bins</code>) qui composent l’histogramme. Plus ce nombre est grand, plus l’histogramme est précis et, à l’inverse, plus il est petit, plus l’histogramme est simplifié. En revanche, il faut éviter d’utiliser un nombre de barres trop élevé comparativement au nombre d’observations disponibles dans le jeu de données, sinon l’histogramme risque d’avoir plein de trous.</p>
 <section id="sec-03211" class="level4" data-number="3.2.1.1"><h4 data-number="3.2.1.1" class="anchored" data-anchor-id="sec-03211">
 <span class="header-section-number">3.2.1.1</span> Histogramme simple</h4>
-<p>Générons quatre variables ayant respectivement une distribution gaussienne, Student, Gamma et bêta, puis réalisons un histogramme pour chacune de ces variables et combinons-les avec la fonction <code>ggarrange</code> (<a href="#fig-fig318">figure&nbsp;<span>3.21</span></a>).</p>
+<p>Générons quatre variables ayant respectivement une distribution gaussienne, Student, Gamma et bêta, puis réalisons un histogramme pour chacune de ces variables et combinons-les avec la fonction <code>ggarrange</code> (<a href="#fig-fig318">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig318</span></a>).</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">distribs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
 <span>  gaussien <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1000</span>, mean <span class="op">=</span> <span class="fl">5</span>, sd <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span>,</span>
@@ -942,7 +942,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>Notez que cette syntaxe est très lourde. Dans le cas présent, il serait plus judicieux d’utiliser la fonction <code>facet_wrap</code>. Pour cela, nous devons au préalable empiler nos données, ce qui signifie changer la forme du <em>DataFrame</em> actuel, qui comprend quatre colonnes (gaussien, Gamma, bêta et student) et 1000 observations, pour qu’il n’ait plus que deux colonnes (la valeur originale et le nom de l’ancienne colonne) et 4000 observations. La <a href="#fig-fig319">figure&nbsp;<span>3.22</span></a> décrit graphiquement ce processus qui peut être effectué avec la fonction <code>melt</code> du <em>package</em> <code>reshape2</code>.</p>
+<p>Notez que cette syntaxe est très lourde. Dans le cas présent, il serait plus judicieux d’utiliser la fonction <code>facet_wrap</code>. Pour cela, nous devons au préalable empiler nos données, ce qui signifie changer la forme du <em>DataFrame</em> actuel, qui comprend quatre colonnes (gaussien, Gamma, bêta et student) et 1000 observations, pour qu’il n’ait plus que deux colonnes (la valeur originale et le nom de l’ancienne colonne) et 4000 observations. La <a href="#fig-fig319">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig319</span></a> décrit graphiquement ce processus qui peut être effectué avec la fonction <code>melt</code> du <em>package</em> <code>reshape2</code>.</p>
 <div id="fig-fig319" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap03/melting.png" class="img-fluid figure-img" style="width:30.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;3.22: Empiler les données d’un DataFrame</figcaption></figure>
@@ -1400,7 +1400,7 @@ of ggplot2 3.3.4.</code></pre>
 </div>
 </section><section id="sec-0327" class="level3" data-number="3.2.7"><h3 data-number="3.2.7" class="anchored" data-anchor-id="sec-0327">
 <span class="header-section-number">3.2.7</span> Graphique en barres</h3>
-<p>Les graphiques en barres permettent de représenter des quantités (hauteur des barres) réparties dans des catégories (une barre par catégorie). Nous proposons ici un exemple avec des données de déplacements issues de l’<em>Enquête origine-destination 2017 - Région Québec-Lévis</em>, au niveau des grands secteurs. La <a href="#fig-fig342">figure&nbsp;<span>3.44</span></a>, tirée du <a href="https://www.transports.gouv.qc.ca/fr/ministere/Planification-transports/enquetes-origine-destination/quebec/2017/Documents/EOD17_faits_saillants_VF.pdf">rapport</a> intitulé <em>La mobilité des personnes dans la région de Québec-Lévis (Volet Enquête-ménages&nbsp;: faits saillants)</em> délimite ces grands secteurs.</p>
+<p>Les graphiques en barres permettent de représenter des quantités (hauteur des barres) réparties dans des catégories (une barre par catégorie). Nous proposons ici un exemple avec des données de déplacements issues de l’<em>Enquête origine-destination 2017 - Région Québec-Lévis</em>, au niveau des grands secteurs. La <a href="#fig-fig342">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig342</span></a>, tirée du <a href="https://www.transports.gouv.qc.ca/fr/ministere/Planification-transports/enquetes-origine-destination/quebec/2017/Documents/EOD17_faits_saillants_VF.pdf">rapport</a> intitulé <em>La mobilité des personnes dans la région de Québec-Lévis (Volet Enquête-ménages&nbsp;: faits saillants)</em> délimite ces grands secteurs.</p>
 <div id="fig-fig343" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap03/carte_secteurs.jpg" class="img-fluid figure-img" style="width:100.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;3.45: Grands secteurs de Québec</figcaption></figure>
@@ -1722,14 +1722,14 @@ V6  86504  112379 Arr. de Sainte-Foy-Sillery-Cap-Rouge (Québec)    F</code></pr
 <span>        groupnameFontsize <span class="op">=</span> <span class="fl">12</span>, groupnamePadding <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div id="fig-fig349" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure"><div class="chorddiag html-widget html-fill-item" id="htmlwidget-5f93a7a3f4e76d8a018c" style="width:100%;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-5f93a7a3f4e76d8a018c">{"x":{"matrix":[[0,0,0,0,0,0,0,0,21163,3246,4710,12213,455,4864,481,133],[0,0,0,0,0,0,0,0,2645,20763,6293,10805,925,5543,309,126],[0,0,0,0,0,0,0,0,1376,1720,22274,8538,2547,8611,841,330],[0,0,0,0,0,0,0,0,2217,2696,6244,37369,703,11141,813,393],[0,0,0,0,0,0,0,0,1084,2451,10163,7996,22309,8672,774,413],[0,0,0,0,0,0,0,0,1178,1292,8178,15126,1198,52359,2002,1260],[0,0,0,0,0,0,0,0,169,189,978,2041,86,2534,21266,2877],[0,0,0,0,0,0,0,0,270,196,1556,2580,165,4942,5061,13245],[21163,2645,1376,2217,1084,1178,169,270,0,0,0,0,0,0,0,0],[3246,20763,1720,2696,2451,1292,189,196,0,0,0,0,0,0,0,0],[4710,6293,22274,6244,10163,8178,978,1556,0,0,0,0,0,0,0,0],[12213,10805,8538,37369,7996,15126,2041,2580,0,0,0,0,0,0,0,0],[455,925,2547,703,22309,1198,86,165,0,0,0,0,0,0,0,0],[4864,5543,8611,11141,8672,52359,2534,4942,0,0,0,0,0,0,0,0],[481,309,841,813,774,2002,21266,5061,0,0,0,0,0,0,0,0],[133,126,330,393,413,1260,2877,13245,0,0,0,0,0,0,0,0]],"options":{"type":"bipartite","width":null,"height":null,"margin":100,"showGroupnames":true,"groupNames":["Arr. de Beauport","Arr. de Charlesbourg","Arr. des Rivières","Arr. de la Cité-Limoilou","Arr. de la Haute-St-Charles","Arr. de Sainte-Foy-Sillery-Cap-Rouge","Arr.de Desjardins","Arr. des Chutes–de-la-Chaudière-Est","Arr. de Beauport","Arr. de Charlesbourg","Arr. des Rivières","Arr. de la Cité-Limoilou","Arr. de la Haute-St-Charles","Arr. de Sainte-Foy-Sillery-Cap-Rouge","Arr.de Desjardins","Arr. des Chutes–de-la-Chaudière-Est"],"groupColors":["#a491d3","#818aa3","#C5DCA0","#F5F2B8","#F9DAD0","#F45B69","#22181C","#5A0001"],"groupThickness":0.1,"groupPadding":0.03490658503988659,"groupnamePadding":[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5],"groupnameFontsize":12,"groupedgeColor":null,"chordedgeColor":"white","categoryNames":null,"categorynamePadding":100,"categorynameFontsize":28,"showTicks":false,"tickInterval":1000,"ticklabelFontsize":10,"fadeLevel":0.1,"showTooltips":true,"showZeroTooltips":true,"tooltipNames":["Arr. de Beauport","Arr. de Charlesbourg","Arr. des Rivières","Arr. de la Cité-Limoilou","Arr. de la Haute-St-Charles","Arr. de Sainte-Foy-Sillery-Cap-Rouge","Arr.de Desjardins","Arr. des Chutes–de-la-Chaudière-Est","Arr. de Beauport","Arr. de Charlesbourg","Arr. des Rivières","Arr. de la Cité-Limoilou","Arr. de la Haute-St-Charles","Arr. de Sainte-Foy-Sillery-Cap-Rouge","Arr.de Desjardins","Arr. des Chutes–de-la-Chaudière-Est"],"tooltipFontsize":12,"tooltipUnit":"","tooltipGroupConnector":" &#x25B6; ","precision":"null","clickAction":null,"clickGroupAction":null}},"evals":[],"jsHooks":[]}</script><figcaption class="figure-caption">Figure&nbsp;3.51: Diagramme d’accord</figcaption></figure>
+<figure class="figure"><div class="chorddiag html-widget html-fill-item" id="htmlwidget-2b88bd15b96c8ca74752" style="width:100%;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-2b88bd15b96c8ca74752">{"x":{"matrix":[[0,0,0,0,0,0,0,0,21163,3246,4710,12213,455,4864,481,133],[0,0,0,0,0,0,0,0,2645,20763,6293,10805,925,5543,309,126],[0,0,0,0,0,0,0,0,1376,1720,22274,8538,2547,8611,841,330],[0,0,0,0,0,0,0,0,2217,2696,6244,37369,703,11141,813,393],[0,0,0,0,0,0,0,0,1084,2451,10163,7996,22309,8672,774,413],[0,0,0,0,0,0,0,0,1178,1292,8178,15126,1198,52359,2002,1260],[0,0,0,0,0,0,0,0,169,189,978,2041,86,2534,21266,2877],[0,0,0,0,0,0,0,0,270,196,1556,2580,165,4942,5061,13245],[21163,2645,1376,2217,1084,1178,169,270,0,0,0,0,0,0,0,0],[3246,20763,1720,2696,2451,1292,189,196,0,0,0,0,0,0,0,0],[4710,6293,22274,6244,10163,8178,978,1556,0,0,0,0,0,0,0,0],[12213,10805,8538,37369,7996,15126,2041,2580,0,0,0,0,0,0,0,0],[455,925,2547,703,22309,1198,86,165,0,0,0,0,0,0,0,0],[4864,5543,8611,11141,8672,52359,2534,4942,0,0,0,0,0,0,0,0],[481,309,841,813,774,2002,21266,5061,0,0,0,0,0,0,0,0],[133,126,330,393,413,1260,2877,13245,0,0,0,0,0,0,0,0]],"options":{"type":"bipartite","width":null,"height":null,"margin":100,"showGroupnames":true,"groupNames":["Arr. de Beauport","Arr. de Charlesbourg","Arr. des Rivières","Arr. de la Cité-Limoilou","Arr. de la Haute-St-Charles","Arr. de Sainte-Foy-Sillery-Cap-Rouge","Arr.de Desjardins","Arr. des Chutes–de-la-Chaudière-Est","Arr. de Beauport","Arr. de Charlesbourg","Arr. des Rivières","Arr. de la Cité-Limoilou","Arr. de la Haute-St-Charles","Arr. de Sainte-Foy-Sillery-Cap-Rouge","Arr.de Desjardins","Arr. des Chutes–de-la-Chaudière-Est"],"groupColors":["#a491d3","#818aa3","#C5DCA0","#F5F2B8","#F9DAD0","#F45B69","#22181C","#5A0001"],"groupThickness":0.1,"groupPadding":0.03490658503988659,"groupnamePadding":[5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5],"groupnameFontsize":12,"groupedgeColor":null,"chordedgeColor":"white","categoryNames":null,"categorynamePadding":100,"categorynameFontsize":28,"showTicks":false,"tickInterval":1000,"ticklabelFontsize":10,"fadeLevel":0.1,"showTooltips":true,"showZeroTooltips":true,"tooltipNames":["Arr. de Beauport","Arr. de Charlesbourg","Arr. des Rivières","Arr. de la Cité-Limoilou","Arr. de la Haute-St-Charles","Arr. de Sainte-Foy-Sillery-Cap-Rouge","Arr.de Desjardins","Arr. des Chutes–de-la-Chaudière-Est","Arr. de Beauport","Arr. de Charlesbourg","Arr. des Rivières","Arr. de la Cité-Limoilou","Arr. de la Haute-St-Charles","Arr. de Sainte-Foy-Sillery-Cap-Rouge","Arr.de Desjardins","Arr. des Chutes–de-la-Chaudière-Est"],"tooltipFontsize":12,"tooltipUnit":"","tooltipGroupConnector":" &#x25B6; ","precision":"null","clickAction":null,"clickGroupAction":null}},"evals":[],"jsHooks":[]}</script><figcaption class="figure-caption">Figure&nbsp;3.51: Diagramme d’accord</figcaption></figure>
 </div>
 </div>
 <p>Le graphique permet de remarquer que la plupart des flux s’effectuent au sein d’un même secteur. La majorité des déplacements se font au sein du secteur Sainte-Foy (segment rouge central). Nous pouvons cependant constater que les secteurs des Rivières, de la Cité-Limoilou et de la Haute-Saint-Charles attirent une plus grande quantité et diversité de flux. Si vous lisez ce livre dans un navigateur web (et pas au format <em>pdf</em>), le graphique est interactif! En plaçant votre souris sur un lien, vous verrez s’afficher le nombre de déplacements qu’il représente.</p>
 </section><section id="sec-0333" class="level3" data-number="3.3.3"><h3 data-number="3.3.3" class="anchored" data-anchor-id="sec-0333">
 <span class="header-section-number">3.3.3</span> Nuage de mots</h3>
-<p>Un nuage de mots est un graphique utilisé en analyse de texte pour représenter les mots les plus importants d’un document. Mesurer l’importance des termes dans un document est une discipline à part entière (<em>Natural Language Processing</em>). Nous proposons un simple exemple ici avec la méthode <em>TextRank</em> (basée sur la théorie des graphes) proposée par <span class="citation" data-cites="mihalcea2004textrank">Mihalcea et Tarau (<a href="references.html#ref-mihalcea2004textrank" role="doc-biblioref">2004</a>)</span> et implémentée dans le <em>package</em> <code>textrank</code>. Nous avons également besoin des <em>packages</em> <code>udpipe</code> (fournissant des dictionnaires linguistiques), <code>RColorBrewer</code> (pour sélectionner une palette de couleurs) et <code>wordcloud2</code> (pour générer le graphique). En guise d’exemple, nous avons choisi d’extraire les textes de deux schémas d’aménagement et de développement (SAD), ceux des agglomérations de Québec et de Montréal en vigueur en 2020. Il s’agit de deux documents de planification définissant les lignes directrices de l’organisation physique du territoire des municipalités régionales de comté (MRC) ou des agglomérations. Pour ces deux documents, nous nous concentrons sur le chapitre portant sur les grandes orientations d’aménagement et de développement, soit les pages 30 à 135 pour Québec et 30 à 97 pour Montréal. Pour extraire les textes des fichiers <em>pdf</em>, nous utilisons le <em>package</em> <code>pdftools</code>.</p>
+<p>Un nuage de mots est un graphique utilisé en analyse de texte pour représenter les mots les plus importants d’un document. Mesurer l’importance des termes dans un document est une discipline à part entière (<em>Natural Language Processing</em>). Nous proposons un simple exemple ici avec la méthode <em>TextRank</em> (basée sur la théorie des graphes) proposée par <span class="citation" data-cites="mihalcea2004textrank">Mihalcea et Tarau (<a href="#ref-mihalcea2004textrank" role="doc-biblioref">2004</a>)</span> et implémentée dans le <em>package</em> <code>textrank</code>. Nous avons également besoin des <em>packages</em> <code>udpipe</code> (fournissant des dictionnaires linguistiques), <code>RColorBrewer</code> (pour sélectionner une palette de couleurs) et <code>wordcloud2</code> (pour générer le graphique). En guise d’exemple, nous avons choisi d’extraire les textes de deux schémas d’aménagement et de développement (SAD), ceux des agglomérations de Québec et de Montréal en vigueur en 2020. Il s’agit de deux documents de planification définissant les lignes directrices de l’organisation physique du territoire des municipalités régionales de comté (MRC) ou des agglomérations. Pour ces deux documents, nous nous concentrons sur le chapitre portant sur les grandes orientations d’aménagement et de développement, soit les pages 30 à 135 pour Québec et 30 à 97 pour Montréal. Pour extraire les textes des fichiers <em>pdf</em>, nous utilisons le <em>package</em> <code>pdftools</code>.</p>
 <p>Nous devons donc réaliser les étapes suivantes pour produire le nuage de mots&nbsp;:</p>
 <ol type="1">
 <li>Extraire les sections qui nous intéressent des fichiers <em>pdf</em>.</li>
@@ -1873,7 +1873,7 @@ V6  86504  112379 Arr. de Sainte-Foy-Sillery-Cap-Rouge (Québec)    F</code></pr
 <span><span class="va">spatialdf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="st">"data/bivariee/IlotsVeg2006.shp"</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reading layer `IlotsVeg2006' from data source 
-  `C:\Users\appariciop\OneDrive - USherbrooke\____TEMP\_____QUATRO_MethodesQuanti\data\bivariee\IlotsVeg2006.shp' 
+  `C:\Users\appariciop\OneDrive - USherbrooke\Articles Publies ne pas supprimer\_Livres\BolR_MethodesQuantitatives\data\bivariee\IlotsVeg2006.shp' 
   using driver `ESRI Shapefile'
 Simple feature collection with 10213 features and 12 fields
 Geometry type: MULTIPOLYGON
@@ -1980,7 +1980,7 @@ Projected CRS: NAD83 / MTM zone 8</code></pre>
 </div>
 </section><section id="sec-035" class="level2" data-number="3.5"><h2 data-number="3.5" class="anchored" data-anchor-id="sec-035">
 <span class="header-section-number">3.5</span> Exportation des graphiques</h2>
-<p>Tous les graphiques que nous avons construits dans ce chapitre peuvent être exportés assez facilement. Dans RStudio, vous pouvez directement cliquer sur le bouton <em>Export</em> (<a href="#fig-fig356">figure&nbsp;<span>3.58</span></a>) pour enregistrer votre figure au format image ou au format <em>pdf</em> (vectoriel). Notez qu’avec la seconde option, vous pourrez retoucher votre graphique avec un logiciel externe comme <em>Inkscape</em> ou <em>Illustrator</em>.</p>
+<p>Tous les graphiques que nous avons construits dans ce chapitre peuvent être exportés assez facilement. Dans RStudio, vous pouvez directement cliquer sur le bouton <em>Export</em> (<a href="#fig-fig356">figure&nbsp;<span class="quarto-unresolved-ref">fig-fig356</span></a>) pour enregistrer votre figure au format image ou au format <em>pdf</em> (vectoriel). Notez qu’avec la seconde option, vous pourrez retoucher votre graphique avec un logiciel externe comme <em>Inkscape</em> ou <em>Illustrator</em>.</p>
 <div id="fig-fig356" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap03/export.jpg" class="img-fluid figure-img" style="width:40.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;3.58: Exporter un graphique dans RStudio</figcaption></figure>
@@ -2028,7 +2028,7 @@ Projected CRS: NAD83 / MTM zone 8</code></pre>
 </ul>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-mihalcea2004textrank" class="csl-entry" role="listitem">
 Mihalcea, Rada et Paul Tarau. 2004. <span>«&nbsp;Textrank: Bringing order into text.&nbsp;»</span> In <em>Proceedings of the 2004 conference on empirical methods in natural language processing</em>, 404‑411. s.n.
 </div>

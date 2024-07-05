@@ -383,7 +383,7 @@ div.csl-indent {
 <li><p><strong>Échantillons indépendants (dits non appariés)</strong>&nbsp;: les observations de deux groupes qui n’ont aucun lien entre eux. Par exemple, nous souhaitons vérifier si les moyennes du sentiment de sécurité des hommes et des femmes, ou encore si, les moyennes des loyers entre deux villes sont statistiquement différentes. Ainsi, les tailles des deux échantillons peuvent être différentes (<span class="math inline">\(n_a \neq n_b\)</span>).</p></li>
 <li><p><strong>Échantillons dépendants (dits appariés)</strong>&nbsp;: les individus des deux groupes sont les mêmes et sont donc associés par paires. Autrement dit, nous avons deux séries de valeurs de taille identique <span class="math inline">\(n_a = n_b\)</span> et <span class="math inline">\(n_{ai}\)</span> est le même individu que <span class="math inline">\(n_{bi}\)</span>. Ce type d’analyse est souvent utilisée en études cliniques&nbsp;: pour <span class="math inline">\(n\)</span> individus, nous disposons d’une mesure quantitative de leur état de santé pour deux séries (l’une avant le traitement, l’autre une fois le traitement terminé). Cela permet de comparer les mêmes individus avant et après un traitement; nous parlons alors d’étude, d’expérience ou d’analyse pré-post. Concrètement, nous cherchons à savoir si la moyenne des différences des observations avant et après est significativement différente de 0. Si c’est le cas, nous pouvons conclure que l’expérimentation a eu un impact sur le phénomène mesuré (variable continue). Ce type d’analyse pré-post peut aussi être utilisé pour évaluer l’impact du réaménagement d’un espace public (rue commerciale, place publique, parc, etc.). Par exemple, nous pourrions questionner le même échantillon de commerçant(e)s ou personnes l’utilisant avant et après le réaménagement d’une artère commerciale.</p></li>
 </ul>
-<p><strong>Condition d’application</strong>. Pour utiliser les tests de Student et de Welch, la variable continue doit être normalement distribuée. Si elle est fortement anormale, nous utiliserons le test non paramétrique de Wilcoxon (<a href="#sec-0612">section&nbsp;<span>6.1.2</span></a>). Il existe trois principaux tests pour comparer les moyennes de deux groupes&nbsp;:</p>
+<p><strong>Condition d’application</strong>. Pour utiliser les tests de Student et de Welch, la variable continue doit être normalement distribuée. Si elle est fortement anormale, nous utiliserons le test non paramétrique de Wilcoxon (<a href="#sec-0612">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0612</span></a>). Il existe trois principaux tests pour comparer les moyennes de deux groupes&nbsp;:</p>
 <ul>
 <li><p>Test de Student (test <em>t</em>) avec échantillons indépendants et variances similaires (méthode <em>pooled</em>). Les variances de deux groupes sont semblables quand leur ratio varie de 0,5 à 2, soit <span class="math inline">\(\mbox{0,5}&lt; (S^2_{X_A}/S^2_{X_B})&lt;\mbox{2}\)</span>.</p></li>
 <li><p>Test de Welch (appelé aussi Satterthwaite) avec échantillons indépendants quand les variances des deux groupes sont dissemblables.</p></li>
@@ -393,7 +393,7 @@ div.csl-indent {
 <ul>
 <li><p>Nous posons l’hypothèse nulle (<em>H<sub>0</sub></em>), soit que les moyennes des deux groupes <em>A</em> et <em>B</em> ne sont pas différentes (<span class="math inline">\(\bar{X}_{A}=\bar{X}_{B}\)</span>) ou, autrement dit, la différence des deux moyennes est nulle (<span class="math inline">\(\bar{X}_{A}-\bar{X}_{B}=0\)</span>). L’hypothèse alternative (<em>H<sub>1</sub></em>) est donc <span class="math inline">\(\bar{X}_{A}\ne\bar{X}_{B}\)</span>.</p></li>
 <li><p>Nous calculons la valeur de <em>t</em> et le nombre de degrés de liberté. La valeur de <em>t</em> est négative quand la moyenne du groupe A est inférieure au groupe B et inversement.</p></li>
-<li><p>Nous comparons la valeur absolue de <em>t</em> (<span class="math inline">\(\mbox{|t|}\)</span>) avec celle issue de la table des valeurs critiques de T (<a href="13-MethodeClassification.html#sec-132">section&nbsp;<span>13.2</span></a>) avec le bon nombre de degrés de liberté et en choisissant un degré de signification (habituellement, <em>p</em>&nbsp;=&nbsp;0,05). Si <span class="math inline">\(\mbox{|t|}\)</span> est supérieure à la valeur <em>t</em> critique, alors les moyennes sont statistiquement différentes au degré de signification retenu.</p></li>
+<li><p>Nous comparons la valeur absolue de <em>t</em> (<span class="math inline">\(\mbox{|t|}\)</span>) avec celle issue de la table des valeurs critiques de T (<a href="#sec-132">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-132</span></a>) avec le bon nombre de degrés de liberté et en choisissant un degré de signification (habituellement, <em>p</em>&nbsp;=&nbsp;0,05). Si <span class="math inline">\(\mbox{|t|}\)</span> est supérieure à la valeur <em>t</em> critique, alors les moyennes sont statistiquement différentes au degré de signification retenu.</p></li>
 <li><p>Si les moyennes sont statistiquement différentes, nous pouvons calculer la taille de l’effet.</p></li>
 </ul>
 <p><strong>Cas 1. Test de Student pour des échantillons indépendants avec des variances similaires (méthode <em>pooled</em>).</strong> La valeur de <em>t</em> est le ratio entre la différence des moyennes des deux groupes (numérateur) et l’erreur type groupée des deux échantillons (dénominateur)&nbsp;:</p>
@@ -410,7 +410,7 @@ t = \frac{\bar{X}_{A}-\bar{X}_{B}}{\sqrt{\frac{S^2_{X_A}}{n_A}+\frac{S^2_{X_B}}{
 <li><p>Au cas 1, 60&nbsp;cyclistes utilisant un vélo personnel roulant en moyenne à 18&nbsp;km/h (écart-type de 1,5) et 50&nbsp;autres utilisant un système de vélopartage avec une vitesse moyenne de 15&nbsp;km/h (écart-type de 1,5).</p></li>
 <li><p>Au cas 2, 60&nbsp;cyclistes utilisant un vélo personnel roulant en moyenne à 16&nbsp;km/h (écart-type de 3) et 50&nbsp;autres utilisant un système de vélopartage avec une vitesse moyenne de 15 km/h (écart-type de 1,5). Ce faible écart des moyennes, combiné à une plus forte variance réduit la significativité de la différence entre les deux groupes.</p></li>
 </ul>
-<p>D’emblée, l’analyse visuelle des boîtes à moustaches (<a href="#fig-ttest1">figure&nbsp;<span>6.1</span></a>) signale qu’au cas 1, contrairement au cas 2, les groupes sont plus homogènes (boîtes plus compactes) et les moyennes semblent différentes (les boîtes sont centrées différemment sur l’axe des ordonnées). Cela est confirmé par les résultats des tests.</p>
+<p>D’emblée, l’analyse visuelle des boîtes à moustaches (<a href="#fig-ttest1">figure&nbsp;<span class="quarto-unresolved-ref">fig-ttest1</span></a>) signale qu’au cas 1, contrairement au cas 2, les groupes sont plus homogènes (boîtes plus compactes) et les moyennes semblent différentes (les boîtes sont centrées différemment sur l’axe des ordonnées). Cela est confirmé par les résultats des tests.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://rpkgs.datanovia.com/ggpubr/">"ggpubr"</a></span><span class="op">)</span></span>
@@ -497,13 +497,13 @@ t = \frac{\bar{X}_{A}-\bar{X}_{B}}{\sqrt{\frac{S^2_{X_A}}{n_A}+\frac{S^2_{X_B}}{
 <span><span class="fu">tstudent_independants</span><span class="op">(</span><span class="va">Velo1A</span>, <span class="va">Velo1B</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
- groupe A (n = 60), moy = 17.3, 
-           variance = 2.8, écart-type = 1.7
- groupe B (n = 50), moy = 15.1, 
-          variance = 2.2, écart-type = 1.5
- ratio variance = 1.29
- t-test (variances égales): t(dl = 108) = 7.2321, p = 0
- t-Welch (variances inégales): t(dl = 107.653) = 7.3166, p = 0
+ groupe A (n = 60), moy = 18, 
+           variance = 3, écart-type = 1.7
+ groupe B (n = 50), moy = 15, 
+          variance = 2.1, écart-type = 1.4
+ ratio variance = 1.46
+ t-test (variances égales): t(dl = 108) = 9.7652, p = 0
+ t-Welch (variances inégales): t(dl = 107.995) = 9.9354, p = 0
  Variances semblables. Utilisez le test de Student!
  Les moyennes des deux groupes sont significativement différentes.</code></pre>
 </div>
@@ -511,15 +511,15 @@ t = \frac{\bar{X}_{A}-\bar{X}_{B}}{\sqrt{\frac{S^2_{X_A}}{n_A}+\frac{S^2_{X_B}}{
 <span><span class="fu">tstudent_independants</span><span class="op">(</span><span class="va">Velo2A</span>, <span class="va">Velo2B</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
- groupe A (n = 60), moy = 16.2, 
-           variance = 14.7, écart-type = 3.8
+ groupe A (n = 60), moy = 15.6, 
+           variance = 11.7, écart-type = 3.4
  groupe B (n = 50), moy = 14.9, 
-          variance = 2.7, écart-type = 1.6
- ratio variance = 5.51
- t-test (variances égales): t(dl = 108) = 2.2311, p = 0.027743
- t-Welch (variances inégales): t(dl = 82.76) = 2.3776, p = 0.019729
+          variance = 2, écart-type = 1.4
+ ratio variance = 5.72
+ t-test (variances égales): t(dl = 108) = 1.3623, p = 0.175933
+ t-Welch (variances inégales): t(dl = 82.013) = 1.4531, p = 0.150022
  Variances dissemblables. Utilisez le test de Welch-Satterwaithe!
- Les moyennes des deux groupes sont significativement différentes.</code></pre>
+ Les moyennes des deux groupes ne sont pas significativement différentes.</code></pre>
 </div>
 <div class="cell-output-display">
 <div id="fig-ttest1" class="quarto-figure quarto-figure-center anchored">
@@ -547,7 +547,7 @@ t = \frac{\bar{D}-\mu_0}{\sigma_D / \sqrt{n}}
 <li><p>Au cas 1, les valeurs de risque ont une moyenne de 70 avant l’expérimentation et de 50 après l’expérimentation, avec des écarts-types de 5.</p></li>
 <li><p>Au cas 2, les valeurs de risque ont une moyenne de 70 avant et de 66 après, avec des écarts-types de 5.</p></li>
 </ul>
-<p>D’emblée, l’analyse visuelle des boîtes à moustaches (<a href="#fig-ttest2">figure&nbsp;<span>6.2</span></a>) pairées montre que la perception du risque semble avoir nettement diminué après l’expérimentation pour le cas 1, mais pas pour le cas 2. Cela est confirmé par les résultats des tests.</p>
+<p>D’emblée, l’analyse visuelle des boîtes à moustaches (<a href="#fig-ttest2">figure&nbsp;<span class="quarto-unresolved-ref">fig-ttest2</span></a>) pairées montre que la perception du risque semble avoir nettement diminué après l’expérimentation pour le cas 1, mais pas pour le cas 2. Cela est confirmé par les résultats des tests.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://rpkgs.datanovia.com/ggpubr/">"ggpubr"</a></span><span class="op">)</span></span>
@@ -598,21 +598,21 @@ t = \frac{\bar{D}-\mu_0}{\sigma_D / \sqrt{n}}
 <span><span class="fu">tstudent_dependants</span><span class="op">(</span><span class="va">Avant1</span>, <span class="va">Apres1</span>, mu <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
- groupe A : moy = 71, var = 24.1, sd = 4.9
- groupe B : moy = 50, var = 20.7, sd = 4.5
- Moyenne des différences = 21
- Ecart-type des différences = 6.2
- t(dl = 49) = 23.81, p = 0
+ groupe A : moy = 71, var = 21, sd = 4.6
+ groupe B : moy = 50.7, var = 24.1, sd = 4.9
+ Moyenne des différences = 20.3
+ Ecart-type des différences = 5.9
+ t(dl = 49) = 24.35, p = 0
  La moyenne des différences entre les échantillons est significative</code></pre>
 </div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tstudent_dependants</span><span class="op">(</span><span class="va">Avant2</span>, <span class="va">Apres2</span>, mu <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
- groupe A : moy = 70.6, var = 18.6, sd = 4.3
- groupe B : moy = 64.7, var = 36.1, sd = 6
- Moyenne des différences = 5.9
- Ecart-type des différences = 7.4
- t(dl = 49) = 5.67, p = 0
+ groupe A : moy = 67.4, var = 21.7, sd = 4.7
+ groupe B : moy = 65.4, var = 18.4, sd = 4.3
+ Moyenne des différences = 2.1
+ Ecart-type des différences = 6
+ t(dl = 49) = 2.41, p = 0.02
  La moyenne des différences entre les échantillons est significative</code></pre>
 </div>
 <div class="cell-output-display">
@@ -644,7 +644,7 @@ g = d- \left(1- \frac{3}{4(n_A+n_B)-9} \right)
 \Delta = \frac{\bar{X}_{A}-\bar{X}_{B}}{\sigma_B}
 \tag{6.7}\]</span></span></p>
 <p>Finalement, pour des échantillons dépendants (pairés), le delta de Glass s’écrit&nbsp;: <span class="math inline">\(d = \bar{D}/{\sigma_D}\)</span> avec <span class="math inline">\(\bar{D}\)</span> et <span class="math inline">\(\sigma_D\)</span> étant la moyenne et l’écart-type des différences entre les observations.</p>
-<p><strong>Comment interpréter le <em>d</em> de Cohen?</strong> Un effet est considéré comme faible avec <span class="math inline">\(\lvert d \rvert\)</span> à 0,2, modéré à 0,50 et fort à 0,80 <span class="citation" data-cites="cohen1992">(<a href="references.html#ref-cohen1992" role="doc-biblioref">Cohen 1992</a>)</span>. Notez que ces seuils ne sont que des conventions pour vous guider à interpréter la mesure de Cohen. D’ailleurs, dans son livre intitulé <em>Statistical power analysis for the behavioral sciences</em>, il écrit&nbsp;: «&nbsp;all conventions are arbitrary. One can only demand of them that they not be unreasonable&nbsp;» <span class="citation" data-cites="cohen2013">(<a href="references.html#ref-cohen2013" role="doc-biblioref">Cohen 2013</a>)</span>. Plus récemment, Sawilowsky <span class="citation" data-cites="sawilowsky2009">(<a href="references.html#ref-sawilowsky2009" role="doc-biblioref">2009</a>)</span> a ajouté d’autres seuils à ceux proposés par Cohen (<a href="#tbl-convcohen">tableau&nbsp;<span>6.1</span></a>).</p>
+<p><strong>Comment interpréter le <em>d</em> de Cohen?</strong> Un effet est considéré comme faible avec <span class="math inline">\(\lvert d \rvert\)</span> à 0,2, modéré à 0,50 et fort à 0,80 <span class="citation" data-cites="cohen1992">(<a href="#ref-cohen1992" role="doc-biblioref">Cohen 1992</a>)</span>. Notez que ces seuils ne sont que des conventions pour vous guider à interpréter la mesure de Cohen. D’ailleurs, dans son livre intitulé <em>Statistical power analysis for the behavioral sciences</em>, il écrit&nbsp;: «&nbsp;all conventions are arbitrary. One can only demand of them that they not be unreasonable&nbsp;» <span class="citation" data-cites="cohen2013">(<a href="#ref-cohen2013" role="doc-biblioref">Cohen 2013</a>)</span>. Plus récemment, Sawilowsky <span class="citation" data-cites="sawilowsky2009">(<a href="#ref-sawilowsky2009" role="doc-biblioref">2009</a>)</span> a ajouté d’autres seuils à ceux proposés par Cohen (<a href="#tbl-convcohen">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-convcohen</span></a>).</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-convcohen" class="anchored">
@@ -706,7 +706,7 @@ g = d- \left(1- \frac{3}{4(n_A+n_B)-9} \right)
 <li><p><code>x, y</code> qui sont tous deux des vecteurs numériques (variable continue).</p></li>
 </ul>
 <p><strong>Exemple de test pour des échantillons indépendants</strong></p>
-<p>La <a href="#fig-locataires">figure&nbsp;<span>6.3</span></a> représente la cartographie du pourcentage de locataires par secteur de recensement (SR) pour la région métropolitaine de recensement de Montréal (RMR) en 2016, soit une variable continue. L’objectif est de vérifier si la moyenne de ce pourcentage des SR de l’agglomération de Montréal est significativement différente de celles de SR hors de l’agglomération.</p>
+<p>La <a href="#fig-locataires">figure&nbsp;<span class="quarto-unresolved-ref">fig-locataires</span></a> représente la cartographie du pourcentage de locataires par secteur de recensement (SR) pour la région métropolitaine de recensement de Montréal (RMR) en 2016, soit une variable continue. L’objectif est de vérifier si la moyenne de ce pourcentage des SR de l’agglomération de Montréal est significativement différente de celles de SR hors de l’agglomération.</p>
 <div id="fig-locataires" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap06/FigureLocataires.jpg" class="img-fluid figure-img" style="width:90.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;6.3: Pourcentage de locataires par secteur de recensement, région métropolitaine de recensement de Montréal, 2016</figcaption></figure>
@@ -947,7 +947,7 @@ mean difference
 <p>En études urbaines et en géographie, le recours aux données agrégées (non individuelles) est fréquent, par exemple au niveau des secteurs de recensement (comprenant généralement entre 2500 à 8000 habitants). Dans ce contexte, un secteur de recensement plus peuplé devrait avoir un poids plus important dans l’analyse. Il est possible d’utiliser les versions pondérées des tests présentés précédemment. Prenons deux exemples pour illustrer le tout&nbsp;:</p>
 <ul>
 <li><p>Pour chaque secteur de recensement des îles de Montréal et de Laval, nous avons calculé la distance au parc le plus proche à travers le réseau de rues avec un système d’information géographique (SIG). Nous souhaitons vérifier si les personnes âgées de moins de 15 ans résidant sur l’île de Montréal bénéficient en moyenne d’une meilleure accessibilité au parc.</p></li>
-<li><p>Dans une étude sur la concentration de polluants atmosphériques dans l’environnement autour des écoles primaires montréalaises, Carrier <em>et al.</em> <span class="citation" data-cites="carrier2014">(<a href="references.html#ref-carrier2014" role="doc-biblioref">2014</a>)</span> souhaitaient vérifier si les élèves fréquentant les écoles les plus défavorisées sont plus exposé(e)s au dioxyde d’azote (NO<sub>2</sub>) dans leur milieu scolaire. Pour ce faire, ils ont réalisé un test <em>t</em> sur un tableau avec comme observations les écoles primaires et trois variables&nbsp;: la moyenne de NO<sub>2</sub> (variable continue), les quintiles extrêmes d’un indice de défavorisation (premier et dernier quintiles, variable qualitative) et le nombre d’élèves par école (variable pour la pondération).</p></li>
+<li><p>Dans une étude sur la concentration de polluants atmosphériques dans l’environnement autour des écoles primaires montréalaises, Carrier <em>et al.</em> <span class="citation" data-cites="carrier2014">(<a href="#ref-carrier2014" role="doc-biblioref">2014</a>)</span> souhaitaient vérifier si les élèves fréquentant les écoles les plus défavorisées sont plus exposé(e)s au dioxyde d’azote (NO<sub>2</sub>) dans leur milieu scolaire. Pour ce faire, ils ont réalisé un test <em>t</em> sur un tableau avec comme observations les écoles primaires et trois variables&nbsp;: la moyenne de NO<sub>2</sub> (variable continue), les quintiles extrêmes d’un indice de défavorisation (premier et dernier quintiles, variable qualitative) et le nombre d’élèves par école (variable pour la pondération).</p></li>
 </ul>
 <p>Pour réaliser un test <em>t</em> pondéré, nous pouvons utiliser la fonction <code>t_test</code> du package <code>sjstats</code>.</p>
 </div>
@@ -1089,8 +1089,8 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <span>             <span class="st">", moy = "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df1</span><span class="op">$</span><span class="va">Apres</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>50 observations
-POST. median = 69, moy = 69.2
-PRE.  median = 49, moy = 47.5</code></pre>
+POST. median = 73, moy = 71.8
+PRE.  median = 53, moy = 51.3</code></pre>
 </div>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test</a></span><span class="op">(</span><span class="va">df1</span><span class="op">$</span><span class="va">Avant</span>, <span class="va">df1</span><span class="op">$</span><span class="va">Apres</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1098,7 +1098,7 @@ PRE.  median = 49, moy = 47.5</code></pre>
     Wilcoxon signed rank test with continuity correction
 
 data:  df1$Avant and df1$Apres
-V = 1222, p-value = 1.369e-09
+V = 1275, p-value = 7.726e-10
 alternative hypothesis: true location shift is not equal to 0</code></pre>
 </div>
 </div>
@@ -1141,9 +1141,9 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <span class="header-section-number">6.2.1.1</span> Calcul des trois variances pour l’ANOVA</h4>
 <p>L’ANOVA repose sur le calcul de trois variances&nbsp;:</p>
 <ul>
-<li><p><strong>la variance totale</strong> (<em>VT</em>) de la variable dépendante continue, soit la somme des carrés des écarts à la moyenne de l’ensemble de la population (<a href="#eq-anova1">équation&nbsp;<span>6.8</span></a>);</p></li>
-<li><p>la <strong>variance intergroupe</strong> (<em>Var<sub>inter</sub></em>) ou variance expliquée (<em>VE</em>), soit la somme des carrés des écarts entre la moyenne de chaque groupe et la moyenne de l’ensemble du jeu de données multipliées par le nombre d’individus appartenant à chacun des groupes (<a href="#eq-anova2">équation&nbsp;<span>6.9</span></a>);</p></li>
-<li><p>la <strong>variance intragroupe</strong> (<em>Var<sub>intra</sub></em>) ou variance non expliquée (<em>VNE</em>), soit la somme des variances des groupes de la variable indépendante (<a href="#eq-anova3">équation&nbsp;<span>6.10</span></a>).</p></li>
+<li><p><strong>la variance totale</strong> (<em>VT</em>) de la variable dépendante continue, soit la somme des carrés des écarts à la moyenne de l’ensemble de la population (<a href="#eq-anova1">équation&nbsp;<span class="quarto-unresolved-ref">eq-anova1</span></a>);</p></li>
+<li><p>la <strong>variance intergroupe</strong> (<em>Var<sub>inter</sub></em>) ou variance expliquée (<em>VE</em>), soit la somme des carrés des écarts entre la moyenne de chaque groupe et la moyenne de l’ensemble du jeu de données multipliées par le nombre d’individus appartenant à chacun des groupes (<a href="#eq-anova2">équation&nbsp;<span class="quarto-unresolved-ref">eq-anova2</span></a>);</p></li>
+<li><p>la <strong>variance intragroupe</strong> (<em>Var<sub>intra</sub></em>) ou variance non expliquée (<em>VNE</em>), soit la somme des variances des groupes de la variable indépendante (<a href="#eq-anova3">équation&nbsp;<span class="quarto-unresolved-ref">eq-anova3</span></a>).</p></li>
 </ul>
 <p><span id="eq-anova1"><span class="math display">\[
 VT=\sum_{i=1}^n (y_{i}-\overline{y})^2
@@ -1155,7 +1155,7 @@ Var_{inter} \mbox{ ou } VE=n_{g_1}\sum_{i\in{g_1}}(\overline{y_{g_1}}-\overline{
 Var_{intra} \mbox{ ou } VNE=\sum_{i\in{g_1}}(y_{i}-\overline{y_{g_1}})^2 + \sum_{i\in{g_2}}(y_{i}-\overline{y_{g_2}})^2 + ... + \sum_{i\in{g_n}}(y_{i}-\overline{y_{g_k}})^2
 \tag{6.10}\]</span></span></p>
 <p>où <span class="math inline">\(\overline{y}\)</span> est la moyenne de l’ensemble de la population; <span class="math inline">\(\overline{y_{g_1}}\)</span>, <span class="math inline">\(\overline{y_{g_2}}\)</span>, <span class="math inline">\(\overline{y_{g_k}}\)</span> sont respectivement les moyennes des groupes 1 à <em>k</em> (<em>k</em> étant le nombre de modalités de la variable qualitative) et <span class="math inline">\(n_{g_1}\)</span>,<span class="math inline">\(n_{g_2}\)</span> et <span class="math inline">\(n_{g_k}\)</span> sont les nombres d’observations dans les groupes 1 à <em>k</em>.</p>
-<p>La variance totale (<em>VT</em>) est égale à la somme de la variance intergroupe (expliquée) et la variance intragroupe (non expliquée) (<a href="#eq-anova5">équation&nbsp;<span>6.11</span></a>). Le ratio entre la variance intergroupe (expliquée) et la variance totale est dénommé <em>Eta<sup>2</sup></em> (<a href="#eq-anova6">équation&nbsp;<span>6.12</span></a>). Il varie de 0 à 1 et exprime la proportion de la variance de la variable continue qui est expliquée par les différentes modalités de la variable qualitative.</p>
+<p>La variance totale (<em>VT</em>) est égale à la somme de la variance intergroupe (expliquée) et la variance intragroupe (non expliquée) (<a href="#eq-anova5">équation&nbsp;<span class="quarto-unresolved-ref">eq-anova5</span></a>). Le ratio entre la variance intergroupe (expliquée) et la variance totale est dénommé <em>Eta<sup>2</sup></em> (<a href="#eq-anova6">équation&nbsp;<span class="quarto-unresolved-ref">eq-anova6</span></a>). Il varie de 0 à 1 et exprime la proportion de la variance de la variable continue qui est expliquée par les différentes modalités de la variable qualitative.</p>
 <p><span id="eq-anova5"><span class="math display">\[
 VT = Var_{inter} + Var_{intra} \mbox{ ou } VT = VNE + VE
 \tag{6.11}\]</span></span></p>
@@ -1170,7 +1170,7 @@ VT = Var_{inter} + Var_{intra} \mbox{ ou } VT = VNE + VE
 <p><strong>La décomposition de la variance totale : une notion fondamentale en statistique</strong></p>
 </div>
 <div class="bloc_astuce-body">
-<p>La <strong>variance totale</strong> est égale à la somme des variances intragroupe et intergroupe. Nous verrons qu’elle est aussi utilisée pour évaluer la qualité d’une partition d’une population en plusieurs groupes dans le chapitre sur les méthodes de classification (<a href="13-MethodeClassification.html">chapitre&nbsp;<span>13</span></a>). En ANOVA, nous retenons que&nbsp;:</p>
+<p>La <strong>variance totale</strong> est égale à la somme des variances intragroupe et intergroupe. Nous verrons qu’elle est aussi utilisée pour évaluer la qualité d’une partition d’une population en plusieurs groupes dans le chapitre sur les méthodes de classification (<a href="#sec-chap13">chapitre&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-chap13</span></a>). En ANOVA, nous retenons que&nbsp;:</p>
 <ul>
 <li><p>plus la variance intragroupe est faible, plus les différents groupes sont homogènes;</p></li>
 <li><p>plus la variance intergroupe est forte, plus les moyennes des groupes sont différentes et donc plus les groupes sont dissemblables.</p></li>
@@ -1178,7 +1178,7 @@ VT = Var_{inter} + Var_{intra} \mbox{ ou } VT = VNE + VE
 <p>Autrement dit, plus la variance intergroupe (<strong>dissimilarité</strong> des groupes) est maximisée et corollairement plus la variance intragroupe (<strong>homogénéité</strong> de chacun des groupes) est minimisée, plus les groupes sont clairement distincts et plus l’ANOVA est performante.</p>
 </div>
 </div>
-<p>Examinons un premier jeu de données fictives sur la vitesse de déplacement de cyclistes (variable continue exprimée en km/h) et une variable qualitative comprenant trois groupes de cyclistes utilisant soit un vélo personnel (<em>n<sub>A</sub></em> = 5), soit en libre-service (<em>n<sub>B</sub></em> = 7), soit électrique (<em>n<sub>C</sub></em> = 6) (<a href="#tbl-aovfictive1">tableau&nbsp;<span>6.2</span></a>). D’emblée, nous notons que les moyennes de vitesse des trois groupes sont différentes&nbsp;: 17,6&nbsp;km/h pour les cyclistes avec leur vélo personnel, 12,3&nbsp;km/h celles et ceux avec des vélos en libre-service et 23,1 km/h pour les cyclistes avec un vélo électrique. Pour chaque observation, la troisième colonne du tableau représente les écarts à la moyenne globale mis au carré, tandis que les colonnes suivantes représentent la déviation au carré de chaque observation à la moyenne de son groupe d’appartenance. Ainsi, pour la première observation, nous avons <span class="math inline">\((\mbox{16,900} - \mbox{17,339})^2 = \mbox{0,193}\)</span> et <span class="math inline">\((\mbox{16,900} - \mbox{17,580})^2~ = \mbox{0,462}\)</span>. Les valeurs des trois variances sont les suivantes&nbsp;:</p>
+<p>Examinons un premier jeu de données fictives sur la vitesse de déplacement de cyclistes (variable continue exprimée en km/h) et une variable qualitative comprenant trois groupes de cyclistes utilisant soit un vélo personnel (<em>n<sub>A</sub></em> = 5), soit en libre-service (<em>n<sub>B</sub></em> = 7), soit électrique (<em>n<sub>C</sub></em> = 6) (<a href="#tbl-aovfictive1">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-aovfictive1</span></a>). D’emblée, nous notons que les moyennes de vitesse des trois groupes sont différentes&nbsp;: 17,6&nbsp;km/h pour les cyclistes avec leur vélo personnel, 12,3&nbsp;km/h celles et ceux avec des vélos en libre-service et 23,1 km/h pour les cyclistes avec un vélo électrique. Pour chaque observation, la troisième colonne du tableau représente les écarts à la moyenne globale mis au carré, tandis que les colonnes suivantes représentent la déviation au carré de chaque observation à la moyenne de son groupe d’appartenance. Ainsi, pour la première observation, nous avons <span class="math inline">\((\mbox{16,900} - \mbox{17,339})^2 = \mbox{0,193}\)</span> et <span class="math inline">\((\mbox{16,900} - \mbox{17,580})^2~ = \mbox{0,462}\)</span>. Les valeurs des trois variances sont les suivantes&nbsp;:</p>
 <ul>
 <li>la <strong>variance totale</strong> (<em>VT</em>) est donc égale à la somme de la troisième colonne (<span class="math inline">\(\mbox{424,663}\)</span>).</li>
 <li>la <strong>variance intergroupe</strong> (expliquée, <em>VE</em>), elle est égale à <span class="math inline">\(\mbox{5}\times(\mbox{17,580-17,339})^2+\mbox{7}\times(\mbox{12,257-17,339})^2+\mbox{6}\times(\mbox{23,067-17,339})^2 = \mbox{377,904}\)</span>.</li>
@@ -1467,7 +1467,7 @@ VT = Var_{inter} + Var_{intra} \mbox{ ou } VT = VNE + VE
 </div>
 </div>
 </div>
-<p>Examinons un deuxième jeu de données fictives pour lequel le type de vélo utilisé n’aurait que peu d’effet sur la vitesse des cyclistes (<a href="#tbl-aovfictive2">tableau&nbsp;<span>6.3</span></a>). D’emblée, les moyennes des trois groupes semblent très similaires (19,3, 17,9 et 18,7). Les valeurs des trois variances sont les suivantes&nbsp;:</p>
+<p>Examinons un deuxième jeu de données fictives pour lequel le type de vélo utilisé n’aurait que peu d’effet sur la vitesse des cyclistes (<a href="#tbl-aovfictive2">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-aovfictive2</span></a>). D’emblée, les moyennes des trois groupes semblent très similaires (19,3, 17,9 et 18,7). Les valeurs des trois variances sont les suivantes&nbsp;:</p>
 <ul>
 <li>la <strong>variance totale</strong> (<em>VT</em>) est égale à <span class="math inline">\(\mbox{121,756}\)</span>.</li>
 <li>la <strong>variance intergroupe</strong> (expliquée, <em>VE</em>) est égale à <span class="math inline">\(\mbox{5}\times(\mbox{19,300-18,528})^2+\mbox{7}\times(\mbox{17,871-18,528})^2+\mbox{6}\times(\mbox{18,650-18,528})^2 = \mbox{6,087}\)</span>.</li>
@@ -1699,7 +1699,7 @@ VT = Var_{inter} + Var_{intra} \mbox{ ou } VT = VNE + VE
 <p><span id="eq-anovaF"><span class="math display">\[
 F = \frac{\frac{Var{inter}}{k-1}}{\frac{Var{intra}}{n-k}}\mbox{ ou } F = \frac{\frac{VE}{k-1}}{\frac{VNE}{n-k}}
 \tag{6.13}\]</span></span></p>
-<p>où <span class="math inline">\(n\)</span> et <span class="math inline">\(k\)</span> sont respectivement les nombres d’observations et de modalités de la variable qualitative. L’hypothèse nulle (les moyennes sont égales) est rejetée si la valeur du <em>F</em> calculé est supérieure à la valeur critique de la table <em>F</em> avec les degrés de liberté <em>(k-1, n-k)</em> et un seuil <span class="math inline">\(\alpha\)</span> (<em>p</em>=0,05 habituellement) (voir la table des valeurs critiques de <em>F</em>, <a href="13-MethodeClassification.html#sec-132">section&nbsp;<span>13.2</span></a>). Notez que nous utilisons rarement la table <em>F</em> puisqu’avec la fonction <code>aov</code>, nous obtenons directement la valeur <em>F</em> et celle de <em>p</em> qui lui est associée. Concrètement, si le test <em>F</em> est significatif (avec <em>p</em> &lt; 0,05), plus la valeur de <em>F</em> est élevée, plus la différence entre les moyennes est élevée.</p>
+<p>où <span class="math inline">\(n\)</span> et <span class="math inline">\(k\)</span> sont respectivement les nombres d’observations et de modalités de la variable qualitative. L’hypothèse nulle (les moyennes sont égales) est rejetée si la valeur du <em>F</em> calculé est supérieure à la valeur critique de la table <em>F</em> avec les degrés de liberté <em>(k-1, n-k)</em> et un seuil <span class="math inline">\(\alpha\)</span> (<em>p</em>=0,05 habituellement) (voir la table des valeurs critiques de <em>F</em>, <a href="#sec-132">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-132</span></a>). Notez que nous utilisons rarement la table <em>F</em> puisqu’avec la fonction <code>aov</code>, nous obtenons directement la valeur <em>F</em> et celle de <em>p</em> qui lui est associée. Concrètement, si le test <em>F</em> est significatif (avec <em>p</em> &lt; 0,05), plus la valeur de <em>F</em> est élevée, plus la différence entre les moyennes est élevée.</p>
 <p>Appliquons rapidement la démarche du test <em>F</em> à nos deux jeux de données fictives qui comprennent 3&nbsp;modalités pour la variable qualitative et 18 observations. Avec <span class="math inline">\(\alpha\)</span> = 0,05, 2&nbsp;degrés de liberté (3-1) au numérateur et 15 au dénominateur (18-3), la valeur critique de F est de 3,68. Nous en concluons alors que&nbsp;:</p>
 <ul>
 <li><p>Pour le cas A, le <em>F</em> calculé est égal à <span class="math inline">\(\mbox{(377,904 / 2) / (46,758 / 15) = 60,62}\)</span>. Il est supérieur à la valeur <em>F</em> critique; les moyennes sont donc statistiquement différentes au seuil 0,05. Autrement dit, nous aurions eu moins de 5&nbsp;% de chance d’obtenir un échantillon produisant ces résultats si en réalité la différence entre les moyennes était de 0.</p></li>
@@ -1708,11 +1708,11 @@ F = \frac{\frac{Var{inter}}{k-1}}{\frac{Var{intra}}{n-k}}\mbox{ ou } F = \frac{\
 <span class="header-section-number">6.2.1.3</span> Conditions d’application de l’ANOVA et solutions de rechange</h4>
 <p>Trois conditions d’application doivent être vérifiées avant d’effectuer une analyse de variance sur un jeu de données&nbsp;:</p>
 <ul>
-<li><p><strong>Normalité des groupes.</strong> Le test de Fisher repose sur le postulat que les échantillons (groupes) sont normalement distribués. Pour le vérifier, nous avons recours au test de normalité de Shapiro–Wilk (<a href="02-univarie.html#sec-025413">section&nbsp;<span>2.5.4.1.3</span></a>). Rappelez-vous toutefois que ce test est très restrictif, surtout pour de grands échantillons.</p></li>
+<li><p><strong>Normalité des groupes.</strong> Le test de Fisher repose sur le postulat que les échantillons (groupes) sont normalement distribués. Pour le vérifier, nous avons recours au test de normalité de Shapiro–Wilk (<a href="#sec-025413">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-025413</span></a>). Rappelez-vous toutefois que ce test est très restrictif, surtout pour de grands échantillons.</p></li>
 <li><p><strong>Homoscédasticité</strong>. La variance dans les échantillons doit être la même (homogénéité des variances). Pour vérifier cette condition, nous utilisons les tests de Levene, de Bartlett ou de Breusch-Pagan.</p></li>
 <li><p><strong>Indépendance des observations (pseudo-réplication).</strong> Chaque individu doit appartenir à un et un seul groupe. En d’autres termes, les observations ne sont pas indépendantes si plusieurs mesures (variable continue) sont faites sur un même individu. Si c’est le cas, nous utiliserons alors une analyse de variance sur des mesures répétées (voir le bloc à la fin du chapitre).</p></li>
 </ul>
-<p><strong>Quelles sont les conséquences si les conditions d’application ne sont pas respectées?</strong> La non-vérification des conditions d’application cause deux problèmes distincts&nbsp;: elle affecte la puissance du test (sa capacité à détecter un effet, si celui-ci existe réellement) et le taux d’erreur de type 1 (la probabilité de trouver un résultat significatif alors qu’aucune relation n’existe réellement, soit un faux positif) <span class="citation" data-cites="glass1972consequences lix1996consequences">(<a href="references.html#ref-glass1972consequences" role="doc-biblioref">Glass, Peckham et Sanders 1972</a>; <a href="references.html#ref-lix1996consequences" role="doc-biblioref">Lix, Keselman et Keselman 1996</a>)</span>.</p>
+<p><strong>Quelles sont les conséquences si les conditions d’application ne sont pas respectées?</strong> La non-vérification des conditions d’application cause deux problèmes distincts&nbsp;: elle affecte la puissance du test (sa capacité à détecter un effet, si celui-ci existe réellement) et le taux d’erreur de type 1 (la probabilité de trouver un résultat significatif alors qu’aucune relation n’existe réellement, soit un faux positif) <span class="citation" data-cites="glass1972consequences lix1996consequences">(<a href="#ref-glass1972consequences" role="doc-biblioref">Glass, Peckham et Sanders 1972</a>; <a href="#ref-lix1996consequences" role="doc-biblioref">Lix, Keselman et Keselman 1996</a>)</span>.</p>
 <ul>
 <li><p>Si la distribution est asymétrique plutôt que centrée (comme pour une distribution normale), la puissance et le taux d’erreur de type 1 sont tous les deux peu affectés, car le test est non orienté (la différence de moyennes peut être négative ou positive).</p></li>
 <li><p>Si la distribution est leptocurtique (pointue, avec des extrémités de la distribution plus importantes), le taux d’erreur de type 1 est peu affecté; en revanche, la puissance du test est réduite. L’inverse s’observe si la distribution est platicurtique (aplatie, c’est-à-dire avec des extrémités de la distribution plus réduites.</p></li>
@@ -1734,7 +1734,7 @@ F = \frac{\frac{Var{inter}}{k-1}}{\frac{Var{intra}}{n-k}}\mbox{ ou } F = \frac{\
 <p>Le test non paramétrique de Kruskal-Wallis est une solution de rechange à l’ANOVA classique lorsque le jeu de données présente de graves problèmes de normalité et d’hétéroscédasticité. Cette méthode représente une ANOVA appliquée à une variable continue transformée préalablement en rangs. Du fait de la transformation en rangs, nous ne vérifions plus si les moyennes sont différentes, mais bel et bien si les médianes de la variable continue sont différentes. Pour ce faire, nous utiliserons la fonction <code>kruskal.test</code>.</p>
 </section><section id="sec-0623" class="level3" data-number="6.2.3"><h3 data-number="6.2.3" class="anchored" data-anchor-id="sec-0623">
 <span class="header-section-number">6.2.3</span> Mise en œuvre dans R</h3>
-<p>Dans une étude récente, Apparicio <em>et al.</em> <span class="citation" data-cites="2018_1">(<a href="references.html#ref-2018_1" role="doc-biblioref">2018</a>)</span> ont comparé les expositions au bruit et à la pollution atmosphérique aux heures de pointe à Montréal en fonction du mode de transport utilisé. Pour ce faire, trois équipes de trois personnes ont été constituées&nbsp;: une personne à vélo, une autre en automobile et une dernière se déplaçant en transport en commun, équipées de capteurs de pollution, de sonomètres, de vêtements biométriques et d’une montre GPS. Chaque matin, à huit heures précises, les membres de chaque équipe ont réalisé un trajet d’un quartier périphérique de Montréal vers un pôle d’enseignement (université) ou d’emploi localisé au centre-ville. Le trajet inverse était réalisé le soir à 17&nbsp;h. Au total, une centaine de trajets ont ainsi été réalisés. Des analyses de variance ont ainsi permis de comparer les trois modes (automobile, vélo et transport en commun) en fonction des temps de déplacement, des niveaux d’exposition au bruit, des niveaux d’exposition au dioxyde d’azote et de la dose totale inhalée de dioxyde d’azote. Nous vous proposons ici d’analyser une partie de ces données.</p>
+<p>Dans une étude récente, Apparicio <em>et al.</em> <span class="citation" data-cites="2018_1">(<a href="#ref-2018_1" role="doc-biblioref">2018</a>)</span> ont comparé les expositions au bruit et à la pollution atmosphérique aux heures de pointe à Montréal en fonction du mode de transport utilisé. Pour ce faire, trois équipes de trois personnes ont été constituées&nbsp;: une personne à vélo, une autre en automobile et une dernière se déplaçant en transport en commun, équipées de capteurs de pollution, de sonomètres, de vêtements biométriques et d’une montre GPS. Chaque matin, à huit heures précises, les membres de chaque équipe ont réalisé un trajet d’un quartier périphérique de Montréal vers un pôle d’enseignement (université) ou d’emploi localisé au centre-ville. Le trajet inverse était réalisé le soir à 17&nbsp;h. Au total, une centaine de trajets ont ainsi été réalisés. Des analyses de variance ont ainsi permis de comparer les trois modes (automobile, vélo et transport en commun) en fonction des temps de déplacement, des niveaux d’exposition au bruit, des niveaux d’exposition au dioxyde d’azote et de la dose totale inhalée de dioxyde d’azote. Nous vous proposons ici d’analyser une partie de ces données.</p>
 <section id="sec-06231" class="level4" data-number="6.2.3.1"><h4 data-number="6.2.3.1" class="anchored" data-anchor-id="sec-06231">
 <span class="header-section-number">6.2.3.1</span> Première ANOVA&nbsp;: différences entre les temps de déplacement</h4>
 <p>Comme première analyse de variance, nous vérifions si les moyennes des temps de déplacement sont différentes entre les trois modes de transport.</p>
@@ -1756,7 +1756,7 @@ F = \frac{\frac{Var{inter}}{k-1}}{\frac{Var{intra}}{n-k}}\mbox{ ou } F = \frac{\
 3 3. TC   DureeMinute    33  41.6  11.4</code></pre>
 </div>
 </div>
-<p>Pour visualiser la distribution des données pour les trois groupes, vous pouvez créer des graphiques de densité et en violon (<a href="#fig-Anova1a">figure&nbsp;<span>6.4</span></a>). La juxtaposition des trois distributions montre que les distributions des valeurs pour les trois groupes sont globalement similaires. Cela est corroboré par le fait que les boîtes du graphique en violon sont situées à la même hauteur. Autrement dit, à la lecture des deux graphiques, il ne semble pas y avoir de différences significatives entre les trois groupes en termes de temps de déplacement.</p>
+<p>Pour visualiser la distribution des données pour les trois groupes, vous pouvez créer des graphiques de densité et en violon (<a href="#fig-Anova1a">figure&nbsp;<span class="quarto-unresolved-ref">fig-Anova1a</span></a>). La juxtaposition des trois distributions montre que les distributions des valeurs pour les trois groupes sont globalement similaires. Cela est corroboré par le fait que les boîtes du graphique en violon sont situées à la même hauteur. Autrement dit, à la lecture des deux graphiques, il ne semble pas y avoir de différences significatives entre les trois groupes en termes de temps de déplacement.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://rpkgs.datanovia.com/ggpubr/">"ggpubr"</a></span><span class="op">)</span></span>
@@ -1783,7 +1783,7 @@ F = \frac{\frac{Var{inter}}{k-1}}{\frac{Var{intra}}{n-k}}\mbox{ ou } F = \frac{\
 </div>
 </div>
 </div>
-<p>Nous pouvons vérifier si les échantillons sont normalement distribués avec la fonction <code>shapiro_test</code> du package <code>rstatix</code>. À titre de rappel, l’hypothèse nulle (<em>H<sub>0</sub></em>) de ce test est que la distribution est normale. Par conséquent, quand la valeur de <em>p</em> associée à la statistique de Shapiro est supérieure à 0,05, alors nous ne pouvons rejeter l’hypothèse d’une distribution normale (autrement dit, la distribution est anormale). À la lecture des résultats ci-dessous, seul le groupe utilisant le transport en commun présente une distribution proche de la normalité (<em>p</em>&nbsp;=&nbsp;0,0504). Ce test étant très restrictif, il est fortement conseillé de visualiser le diagramme quantile-quantile pour chaque groupe (graphique QQ plot) (<a href="#fig-Qqplot">figure&nbsp;<span>6.5</span></a>). Ces graphiques sont utilisés pour déterminer visuellement si une distribution empirique (observée sur des données), s’approche d’une distribution théorique (ici la loi normale). Si effectivement les deux distributions sont proches, les points du diagramme devraient tous tomber sur une ligne droite parfaite. Un intervalle de confiance (représenté ici en gris) peut être construit pour obtenir une interprétation plus nuancée. Dans notre cas, seules deux observations pour le vélo et deux autres pour l’automobile s’éloignent vraiment de la ligne droite. Nous pouvons considérer que ces trois distributions s’approchent d’une distribution normale.</p>
+<p>Nous pouvons vérifier si les échantillons sont normalement distribués avec la fonction <code>shapiro_test</code> du package <code>rstatix</code>. À titre de rappel, l’hypothèse nulle (<em>H<sub>0</sub></em>) de ce test est que la distribution est normale. Par conséquent, quand la valeur de <em>p</em> associée à la statistique de Shapiro est supérieure à 0,05, alors nous ne pouvons rejeter l’hypothèse d’une distribution normale (autrement dit, la distribution est anormale). À la lecture des résultats ci-dessous, seul le groupe utilisant le transport en commun présente une distribution proche de la normalité (<em>p</em>&nbsp;=&nbsp;0,0504). Ce test étant très restrictif, il est fortement conseillé de visualiser le diagramme quantile-quantile pour chaque groupe (graphique QQ plot) (<a href="#fig-Qqplot">figure&nbsp;<span class="quarto-unresolved-ref">fig-Qqplot</span></a>). Ces graphiques sont utilisés pour déterminer visuellement si une distribution empirique (observée sur des données), s’approche d’une distribution théorique (ici la loi normale). Si effectivement les deux distributions sont proches, les points du diagramme devraient tous tomber sur une ligne droite parfaite. Un intervalle de confiance (représenté ici en gris) peut être construit pour obtenir une interprétation plus nuancée. Dans notre cas, seules deux observations pour le vélo et deux autres pour l’automobile s’éloignent vraiment de la ligne droite. Nous pouvons considérer que ces trois distributions s’approchent d’une distribution normale.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://dplyr.tidyverse.org">"dplyr"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://rpkgs.datanovia.com/ggpubr/">"ggpubr"</a></span><span class="op">)</span></span>
@@ -1895,7 +1895,7 @@ Mode      | 0.02 | [0.00, 1.00]
 3 3. TC   laeq      1207  74.0  6.79</code></pre>
 </div>
 </div>
-<p>À la lecture des graphiques de densité et en violon (<a href="#fig-Anova1b">figure&nbsp;<span>6.6</span></a>), il semble clair que les niveaux d’exposition au bruit sont plus faibles pour les automobilistes et plus élevés pour les cyclistes et surtout les personnes en transport en commun. En outre, la distribution des valeurs d’exposition au bruit dans le transport en commun semble bimodale. Cela s’explique par le fait que les niveaux de bruit sont beaucoup plus élevés dans le métro que dans les autobus.</p>
+<p>À la lecture des graphiques de densité et en violon (<a href="#fig-Anova1b">figure&nbsp;<span class="quarto-unresolved-ref">fig-Anova1b</span></a>), il semble clair que les niveaux d’exposition au bruit sont plus faibles pour les automobilistes et plus élevés pour les cyclistes et surtout les personnes en transport en commun. En outre, la distribution des valeurs d’exposition au bruit dans le transport en commun semble bimodale. Cela s’explique par le fait que les niveaux de bruit sont beaucoup plus élevés dans le métro que dans les autobus.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb70"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://ggplot2.tidyverse.org">"ggplot2"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://rpkgs.datanovia.com/ggpubr/">"ggpubr"</a></span><span class="op">)</span></span>
@@ -1921,7 +1921,7 @@ Mode      | 0.02 | [0.00, 1.00]
 </div>
 </div>
 </div>
-<p>Le test de Shapiro et les graphiques QQ plot (<a href="#fig-Qqplot2">figure&nbsp;<span>6.7</span></a>) révèlent que les distributions des trois groupes sont anormales. Ce résultat n’est pas surprenant si l’on tient compte de la nature logarithmique de l’échelle décibel.</p>
+<p>Le test de Shapiro et les graphiques QQ plot (<a href="#fig-Qqplot2">figure&nbsp;<span class="quarto-unresolved-ref">fig-Qqplot2</span></a>) révèlent que les distributions des trois groupes sont anormales. Ce résultat n’est pas surprenant si l’on tient compte de la nature logarithmique de l’échelle décibel.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb71"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://dplyr.tidyverse.org">"dplyr"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://rpkgs.datanovia.com/ggpubr/">"ggpubr"</a></span><span class="op">)</span></span>
@@ -2087,7 +2087,7 @@ P value adjustment method: BH </code></pre>
 </div>
 </section></section><section id="sec-063" class="level2" data-number="6.3"><h2 data-number="6.3" class="anchored" data-anchor-id="sec-063">
 <span class="header-section-number">6.3</span> Conclusion sur la troisième partie</h2>
-<p>Dans le cadre de cette troisième partie du livre, nous avons abordé les principales méthodes exploratoires et confirmatoires bivariées permettant d’évaluer la relation entre deux variables. La <a href="#fig-PrincipalesAnalysesBivariees">figure&nbsp;<span>6.8</span></a> propose un résumé de ces méthodes.</p>
+<p>Dans le cadre de cette troisième partie du livre, nous avons abordé les principales méthodes exploratoires et confirmatoires bivariées permettant d’évaluer la relation entre deux variables. La <a href="#fig-PrincipalesAnalysesBivariees">figure&nbsp;<span class="quarto-unresolved-ref">fig-PrincipalesAnalysesBivariees</span></a> propose un résumé de ces méthodes.</p>
 <div id="fig-PrincipalesAnalysesBivariees" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap06/PrincipalesMethoBivariees.jpg" class="img-fluid figure-img" style="width:65.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;6.8: Principales méthodes bivariées</figcaption></figure>
@@ -2151,7 +2151,7 @@ function handleAnswers(quiz, question, no, correct) {
 Comment comparer les moyennes de deux groupes?
 </div>
 <div>
-Relisez au besoin la <a href="#sec-0611">section&nbsp;<span>6.1.1</span></a>.
+Relisez au besoin la <a href="#sec-0611">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0611</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -2196,7 +2196,7 @@ Relisez au besoin la <a href="#sec-0611">section&nbsp;<span>6.1.1</span></a>.
 Comment comparer les médianes de plus de deux groupes?
 </div>
 <div>
-Relisez au besoin la <a href="#sec-0612">section&nbsp;<span>6.1.2</span></a>.
+Relisez au besoin la <a href="#sec-0612">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0612</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -2241,7 +2241,7 @@ Relisez au besoin la <a href="#sec-0612">section&nbsp;<span>6.1.2</span></a>.
 Les observations de deux groupes qui n’ont aucun lien entre eux; les tailles des deux échantillons peuvent être différentes. Cette affirmation s’applique à des
 </div>
 <div>
-Relisez au besoin le début de la <a href="#sec-0611">section&nbsp;<span>6.1.1</span></a>.
+Relisez au besoin le début de la <a href="#sec-0611">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0611</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -2270,7 +2270,7 @@ Relisez au besoin le début de la <a href="#sec-0611">section&nbsp;<span>6.1.1</
 Lorsque les variances des deux groupes sont dissemblables, quel test utilisez-vous?
 </div>
 <div>
-Relisez au besoin la <a href="#sec-0611">section&nbsp;<span>6.1.1</span></a>.
+Relisez au besoin la <a href="#sec-0611">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0611</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -2307,7 +2307,7 @@ Relisez au besoin la <a href="#sec-0611">section&nbsp;<span>6.1.1</span></a>.
 Ces boîtes à moustaches s’appliquent à des :
 </div>
 <img src="images/quiz/Quiz_Chap06_Question_05.jpg" alt="" style="width: 50%;display: block;margin-left: auto;margin-right: auto;margin-bottom: 0.5em;margin-top: 0.5em;"><div>
-Relisez au besoin la <a href="#sec-06111">section&nbsp;<span>6.1.1.1</span></a>.
+Relisez au besoin la <a href="#sec-06111">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-06111</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -2336,7 +2336,7 @@ Relisez au besoin la <a href="#sec-06111">section&nbsp;<span>6.1.1.1</span></a>.
 Plus la variance intergroupe (dissimilarité des groupes) est maximisée et corollairement plus la variance intragroupe (homogénéité de chacun des groupes) est minimisée, plus les groupes sont clairement distincts et plus l’ANOVA est performante. Selon vous, à la lecture de ces graphiques, l’ANOVA risque-t-elle d’être très performante?
 </div>
 <img src="images/quiz/Quiz_Chap06_Question_06.jpg" alt="" style="width: 50%;display: block;margin-left: auto;margin-right: auto;margin-bottom: 0.5em;margin-top: 0.5em;"><div>
-Relisez au besoin la <a href="#sec-06211">section&nbsp;<span>6.2.1.1</span></a>.
+Relisez au besoin la <a href="#sec-06211">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-06211</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -2365,7 +2365,7 @@ Relisez au besoin la <a href="#sec-06211">section&nbsp;<span>6.2.1.1</span></a>.
 Quelles sont les trois conditions d’application de l’ANOVA?
 </div>
 <div>
-Relisez au besoin la <a href="#sec-06213">section&nbsp;<span>6.2.1.3</span></a>.
+Relisez au besoin la <a href="#sec-06213">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-06213</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -2418,7 +2418,7 @@ Relisez au besoin la <a href="#sec-06213">section&nbsp;<span>6.2.1.3</span></a>.
 Le test non paramétrique de Kruskal-Wallis permet de comparer les médianes de plus de deux groupes.
 </div>
 <div>
-Relisez au besoin la <a href="#sec-0622">section&nbsp;<span>6.2.2</span></a>.
+Relisez au besoin la <a href="#sec-0622">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0622</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -2447,7 +2447,7 @@ Relisez au besoin la <a href="#sec-0622">section&nbsp;<span>6.2.2</span></a>.
 Sur quelle(s) variances est basée l’ANOVA?
 </div>
 <div>
-Relire le deuxième encadré à la <a href="#sec-06211">section&nbsp;<span>6.2.1.1</span></a>.
+Relire le deuxième encadré à la <a href="#sec-06211">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-06211</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -2484,7 +2484,7 @@ Relire le deuxième encadré à la <a href="#sec-06211">section&nbsp;<span>6.2.1
 Quelles sont les variantes de l’ANOVA?
 </div>
 <div>
-Relire le deuxième encadré à la <a href="#sec-0624">section&nbsp;<span>6.2.4</span></a>.
+Relire le deuxième encadré à la <a href="#sec-0624">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-0624</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -2565,7 +2565,7 @@ Vérifier votre résultat
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-2018_1" class="csl-entry" role="listitem">
 Apparicio, Philippe, Jérémy Gelb, Mathieu Carrier, Marie-Ève Mathieu et Simon Kingham. 2018. <span>«&nbsp;Exposure to noise and air pollution by mode of transportation during rush hours in Montreal.&nbsp;»</span> <em>Journal of Transport Geography</em> 70: 182‑192. <a href="https://doi.org/10.1016/j.jtrangeo.2018.06.007">https://doi.org/10.1016/j.jtrangeo.2018.06.007</a>.
 </div>

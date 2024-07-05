@@ -1,0 +1,3245 @@
+{
+    "sources": [
+        {
+            "URL": "https://doi.org/10.1186/s12942-021-00272-2",
+            "author": [
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Gelb",
+                    "given": "Jérémy"
+                },
+                {
+                    "family": "Jarry",
+                    "given": "Vincent"
+                },
+                {
+                    "family": "Lesage-Mann",
+                    "given": "Élaine"
+                }
+            ],
+            "container-title": "International journal of health geographics",
+            "id": "2021_1",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "page": "1-16",
+            "title": "Cycling in one of the most polluted cities in the world: Exposure to noise and air pollution and potential adverse health impacts in delhi",
+            "title-short": "Cycling in one of the most polluted cities in the world",
+            "type": "article-journal",
+            "volume": "20"
+        },
+        {
+            "URL": "https://doi.org/10.5334/jors.300",
+            "author": [
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Maignan",
+                    "given": "David"
+                },
+                {
+                    "family": "Gelb",
+                    "given": "Jérémy"
+                }
+            ],
+            "container-title": "Journal of Open Research Software",
+            "id": "2021_2",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "title": "VIFECO: An open-source software for counting features on a video",
+            "title-short": "VIFECO",
+            "type": "article-journal",
+            "volume": "9"
+        },
+        {
+            "URL": "https://doi.org/10.1080/01441647.2021.1895361",
+            "author": [
+                {
+                    "family": "Gelb",
+                    "given": "Jérémy"
+                },
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                }
+            ],
+            "container-title": "Transport Reviews",
+            "id": "2021_3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "page": "1-24",
+            "title": "Cyclists’ exposure to atmospheric and noise pollution: A systematic literature review",
+            "title-short": "Cyclists’ exposure to atmospheric and noise pollution",
+            "type": "article-journal"
+        },
+        {
+            "URL": "https://doi.org/10.4000/cybergeo.36414",
+            "author": [
+                {
+                    "family": "Gelb",
+                    "given": "Jérémy"
+                },
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                }
+            ],
+            "container-title": "Cybergeo: European Journal of Geography",
+            "id": "2021_4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "title": "Apport de la classification floue c-means spatiale en géographie: Essai de taxinomie socio-résidentielle et environnementale à lyon",
+            "title-short": "Apport de la classification floue c-means spatiale en géographie",
+            "type": "article-journal"
+        },
+        {
+            "URL": "https://doi.org/10.3390/acoustics2010006",
+            "author": [
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Gelb",
+                    "given": "Jérémy"
+                }
+            ],
+            "container-title": "Acoustics",
+            "id": "2020_1",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "page": "73-86",
+            "title": "Cyclists′ exposure to road traffic noise: A comparison of three north american and european cities",
+            "title-short": "Cyclists′ exposure to road traffic noise",
+            "type": "article-journal",
+            "volume": "2"
+        },
+        {
+            "URL": "https://dx.doi.org/10.3390%2Fijerph17041220",
+            "author": [
+                {
+                    "family": "Buregeya",
+                    "given": "Jean Marie"
+                },
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Gelb",
+                    "given": "Jérémy"
+                }
+            ],
+            "container-title": "International Journal of Environmental Research and Public Health",
+            "id": "2020_2",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "page": "1220",
+            "title": "Short-term impact of traffic-related particulate matter and noise exposure on cardiac function",
+            "type": "article-journal",
+            "volume": "17"
+        },
+        {
+            "URL": "https://doi.org/10.3390/atmos11040422",
+            "author": [
+                {
+                    "family": "Gelb",
+                    "given": "Jérémy"
+                },
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                }
+            ],
+            "container-title": "Atmosphere",
+            "id": "2020_3",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "page": "422",
+            "title": "Modelling cyclists’ multi-exposure to air and noise pollution with low-cost sensors: The case of paris",
+            "title-short": "Modelling cyclists’ multi-exposure to air and noise pollution with low-cost sensors",
+            "type": "article-journal",
+            "volume": "11"
+        },
+        {
+            "URL": "https://doi.org/10.4000/cybergeo.32391",
+            "author": [
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Gelb",
+                    "given": "Jérémy"
+                },
+                {
+                    "family": "Mathieu",
+                    "given": "Marie-Ève"
+                }
+            ],
+            "container-title": "Cybergeo: European Journal of Geography",
+            "id": "2019_1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "title": "Un atlas-web pour comparer l’exposition individuelle aux pollutions atmosphérique et sonore selon le mode de transport",
+            "type": "article-journal",
+            "volume": "903"
+        },
+        {
+            "URL": "https://doi.org/10.1111/cag.12511",
+            "author": [
+                {
+                    "family": "Delaunay",
+                    "given": "Déborah"
+                },
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Séguin",
+                    "given": "Anne-Marie"
+                },
+                {
+                    "family": "Gelb",
+                    "given": "Jérémy"
+                },
+                {
+                    "family": "Carrier",
+                    "given": "Mathieu"
+                }
+            ],
+            "container-title": "The Canadian Geographer/Le Géographe canadien",
+            "id": "2019_2",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "page": "184-197",
+            "title": "L’identification des zones calmes et un diagnostic d’équité environnementale à montréal",
+            "type": "article-journal",
+            "volume": "63"
+        },
+        {
+            "URL": "https://doi.org/10.1016/j.apacoust.2018.12.031",
+            "author": [
+                {
+                    "family": "Gelb",
+                    "given": "Jérémy"
+                },
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                }
+            ],
+            "container-title": "Applied Acoustics",
+            "id": "2019_3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "page": "332-343",
+            "title": "Noise exposure of cyclists in ho chi minh city: A spatio-temporal analysis using non-linear models",
+            "title-short": "Noise exposure of cyclists in ho chi minh city",
+            "type": "article-journal",
+            "volume": "148"
+        },
+        {
+            "URL": "https://doi.org/10.1016/j.jtrangeo.2018.06.007",
+            "author": [
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Gelb",
+                    "given": "Jérémy"
+                },
+                {
+                    "family": "Carrier",
+                    "given": "Mathieu"
+                },
+                {
+                    "family": "Mathieu",
+                    "given": "Marie-Ève"
+                },
+                {
+                    "family": "Kingham",
+                    "given": "Simon"
+                }
+            ],
+            "container-title": "Journal of Transport Geography",
+            "id": "2018_1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "page": "182-192",
+            "title": "Exposure to noise and air pollution by mode of transportation during rush hours in montreal",
+            "type": "article-journal",
+            "volume": "70"
+        },
+        {
+            "URL": "https://doi.org/10.1186/s12942-017-0105-9",
+            "author": [
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Gelb",
+                    "given": "Jérémy"
+                },
+                {
+                    "family": "Dubé",
+                    "given": "Anne-Sophie"
+                },
+                {
+                    "family": "Kingham",
+                    "given": "Simon"
+                },
+                {
+                    "family": "Gauvin",
+                    "given": "Lise"
+                },
+                {
+                    "family": "Robitaille",
+                    "given": "Éric"
+                }
+            ],
+            "container-title": "International journal of health geographics",
+            "id": "2017_1",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "32",
+            "title": "The approaches to measuring the potential spatial access to urban health services revisited: Distance types and aggregation-error issues",
+            "title-short": "The approaches to measuring the potential spatial access to urban health services revisited",
+            "type": "article-journal",
+            "volume": "16"
+        },
+        {
+            "URL": "https://doi.org/10.1016/j.jtrangeo.2016.09.014",
+            "author": [
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Carrier",
+                    "given": "Mathieu"
+                },
+                {
+                    "family": "Gelb",
+                    "given": "Jérémy"
+                },
+                {
+                    "family": "Séguin",
+                    "given": "Anne-Marie"
+                },
+                {
+                    "family": "Kingham",
+                    "given": "Simon"
+                }
+            ],
+            "container-title": "Journal of Transport Geography",
+            "id": "2016_1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "page": "63-69",
+            "title": "Cyclists’ exposure to air pollution and road traffic noise in central city neighbourhoods of montreal",
+            "type": "article-journal",
+            "volume": "57"
+        },
+        {
+            "URL": "http://dx.doi.org/10.1016/j.landurbplan.2012.06.002",
+            "author": [
+                {
+                    "family": "Pham",
+                    "given": "Thi-Thanh-Hien"
+                },
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Séguin",
+                    "given": "Anne-Marie"
+                },
+                {
+                    "family": "Landry",
+                    "given": "Shawn"
+                },
+                {
+                    "family": "Gagnon",
+                    "given": "Martin"
+                }
+            ],
+            "container-title": "Landscape and urban planning",
+            "id": "PhamApparicioSeguin2012",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "page": "214-224",
+            "title": "Spatial distribution of vegetation in montreal: An uneven distribution or environmental inequity?",
+            "title-short": "Spatial distribution of vegetation in montreal",
+            "type": "article-journal",
+            "volume": "107"
+        },
+        {
+            "URL": "http://www.theses.fr/2002LEMA3007",
+            "author": [
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                }
+            ],
+            "genre": "PhD thesis",
+            "id": "TheseApparicio",
+            "issued": {
+                "date-parts": [
+                    [
+                        2002
+                    ]
+                ]
+            },
+            "publisher": "Université du Maine",
+            "title": "Apport des systèmes d’information géographique à l’étude de l’insertion des HLM dans les quartiers montréalais",
+            "type": "thesis"
+        },
+        {
+            "URL": "https://doi.org/10.3917/eg.351.85",
+            "author": [
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Séguin",
+                    "given": "Anne-Marie"
+                }
+            ],
+            "container-title": "LEspace geographique",
+            "id": "apparicio2006",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2006
+                    ]
+                ]
+            },
+            "page": "63-85",
+            "title": "L’insertion des HLM montréalaises dans le milieu social environnant",
+            "type": "article-journal",
+            "volume": "35"
+        },
+        {
+            "URL": "https://doi.org/10.1037/0033-2909.112.1.155",
+            "author": [
+                {
+                    "family": "Cohen",
+                    "given": "Jacob"
+                }
+            ],
+            "container-title": "Psychological bulletin",
+            "id": "cohen1992",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        1992
+                    ]
+                ]
+            },
+            "page": "155-159",
+            "title": "A power primer",
+            "type": "article-journal",
+            "volume": "112"
+        },
+        {
+            "author": [
+                {
+                    "family": "Cohen",
+                    "given": "Jacob"
+                }
+            ],
+            "id": "cohen2013",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "publisher": "Academic press",
+            "title": "Statistical power analysis for the behavioral sciences",
+            "type": "book"
+        },
+        {
+            "URL": "https://doi.org/10.22237/jmasm/1257035100",
+            "author": [
+                {
+                    "family": "Sawilowsky",
+                    "given": "Shlomo S"
+                }
+            ],
+            "container-title": "Journal of Modern Applied Statistical Methods",
+            "id": "sawilowsky2009",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2009
+                    ]
+                ]
+            },
+            "page": "467-474",
+            "title": "New effect size rules of thumb",
+            "type": "article-journal",
+            "volume": "8"
+        },
+        {
+            "URL": "https://doi.org/10.1016/j.cstp.2014.06.003",
+            "author": [
+                {
+                    "family": "Carrier",
+                    "given": "Mathieu"
+                },
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Séguin",
+                    "given": "Anne-Marie"
+                },
+                {
+                    "family": "Crouse",
+                    "given": "Dan"
+                }
+            ],
+            "container-title": "Case Studies on Transport Policy",
+            "id": "carrier2014",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "page": "61-69",
+            "title": "Ambient air pollution concentration in montreal and environmental equity: Are children at risk at school?",
+            "title-short": "Ambient air pollution concentration in montreal and environmental equity",
+            "type": "article-journal",
+            "volume": "2"
+        },
+        {
+            "URL": "https://doi.org/10.1056/nejmon1211064",
+            "author": [
+                {
+                    "family": "Messerli",
+                    "given": "Franz H."
+                }
+            ],
+            "container-title": "The new England Journal of Medicine",
+            "id": "Messerli",
+            "issue": "16",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "page": "1563-1564",
+            "title": "Chocolate consumption, cognitive function, and nobel laureates",
+            "type": "article-journal",
+            "volume": "367"
+        },
+        {
+            "author": [
+                {
+                    "family": "Bressoux",
+                    "given": "Pascal"
+                }
+            ],
+            "id": "bressoux2010",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010
+                    ]
+                ]
+            },
+            "publisher": "De boeck",
+            "title": "Modélisation statistique appliquée aux sciences sociales",
+            "type": "book"
+        },
+        {
+            "URL": "https://www.frontiersin.org/articles/10.3389/fnhum.2012.00200",
+            "author": [
+                {
+                    "family": "Schwarzkopf",
+                    "given": "Dietrich"
+                },
+                {
+                    "dropping-particle": "de",
+                    "family": "Haas",
+                    "given": "Benjamin"
+                },
+                {
+                    "family": "Rees",
+                    "given": "Geraint"
+                }
+            ],
+            "container-title": "Frontiers in Human Neuroscience",
+            "id": "Schwarzkopf2012",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "page": "200",
+            "title": "Better ways to improve standards in brain-behavior correlation analysis",
+            "type": "article-journal",
+            "volume": "6"
+        },
+        {
+            "author": [
+                {
+                    "family": "Raudenbush",
+                    "given": "Stephen W"
+                },
+                {
+                    "family": "Bryk",
+                    "given": "Anthony S"
+                }
+            ],
+            "id": "raudenbush2002hierarchical",
+            "issued": {
+                "date-parts": [
+                    [
+                        2002
+                    ]
+                ]
+            },
+            "publisher": "Sage",
+            "title": "Hierarchical linear models: Applications and data analysis methods",
+            "title-short": "Hierarchical linear models",
+            "type": "book",
+            "volume": "1"
+        },
+        {
+            "URL": "https://doi.org/10.1007/BF02294395",
+            "author": [
+                {
+                    "family": "Wilcox",
+                    "given": "Rand R"
+                }
+            ],
+            "container-title": "Psychometrika",
+            "id": "wilcox1994percentage",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        1994
+                    ]
+                ]
+            },
+            "page": "601-616",
+            "title": "The percentage bend correlation coefficient",
+            "type": "article-journal",
+            "volume": "59"
+        },
+        {
+            "author": [
+                {
+                    "family": "Chambers",
+                    "given": "John M"
+                }
+            ],
+            "id": "chambers1998programming",
+            "issued": {
+                "date-parts": [
+                    [
+                        1998
+                    ]
+                ]
+            },
+            "publisher": "Springer Science & Business Media",
+            "title": "Programming with data: A guide to the s language",
+            "title-short": "Programming with data",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Chambers",
+                    "given": "John M"
+                }
+            ],
+            "id": "chambers1998programming",
+            "issued": {
+                "date-parts": [
+                    [
+                        1998
+                    ]
+                ]
+            },
+            "publisher": "Springer Science & Business Media",
+            "title": "Programming with data: A guide to the s language",
+            "title-short": "Programming with data",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Glass",
+                    "given": "Gene V"
+                },
+                {
+                    "family": "Peckham",
+                    "given": "Percy D"
+                },
+                {
+                    "family": "Sanders",
+                    "given": "James R"
+                }
+            ],
+            "container-title": "Review of educational research",
+            "id": "glass1972consequences",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        1972
+                    ]
+                ]
+            },
+            "page": "237-288",
+            "title": "Consequences of failure to meet assumptions underlying the fixed effects analyses of variance and covariance",
+            "type": "article-journal",
+            "volume": "42"
+        },
+        {
+            "URL": "https://doi.org/10.3102/00346543066004579",
+            "author": [
+                {
+                    "family": "Lix",
+                    "given": "Lisa M"
+                },
+                {
+                    "family": "Keselman",
+                    "given": "Joanne C"
+                },
+                {
+                    "family": "Keselman",
+                    "given": "HJ"
+                }
+            ],
+            "container-title": "Review of educational research",
+            "id": "lix1996consequences",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        1996
+                    ]
+                ]
+            },
+            "page": "579-619",
+            "title": "Consequences of assumption violations revisited: A quantitative review of alternatives to the one-way analysis of variance f test",
+            "title-short": "Consequences of assumption violations revisited",
+            "type": "article-journal",
+            "volume": "66"
+        },
+        {
+            "author": [
+                {
+                    "family": "Pumain",
+                    "given": "Denise"
+                },
+                {
+                    "family": "Béguin",
+                    "given": "Michèle"
+                }
+            ],
+            "id": "pumain1994",
+            "issued": {
+                "date-parts": [
+                    [
+                        1994
+                    ]
+                ]
+            },
+            "publisher": "Armand Colin",
+            "title": "La représentation des données géographiques: Statistique et cartographie",
+            "title-short": "La représentation des données géographiques",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Sanders",
+                    "given": "Lena"
+                }
+            ],
+            "id": "sanders1989analyse",
+            "issued": {
+                "date-parts": [
+                    [
+                        1989
+                    ]
+                ]
+            },
+            "publisher": "GIP Reclus",
+            "title": "L’analyse statistique des données en géographie",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Bourdieu",
+                    "given": "Pierre"
+                }
+            ],
+            "container-title": "Handbook of theory and research for the sociology of education",
+            "id": "bourdieu1986forms",
+            "issued": {
+                "date-parts": [
+                    [
+                        1986
+                    ]
+                ]
+            },
+            "page": "241-258",
+            "publisher": "Westport",
+            "title": "The forms of capital",
+            "type": "chapter"
+        },
+        {
+            "URL": "http://dx.doi.org/10.1198/jcgs.2009.07098",
+            "author": [
+                {
+                    "family": "Wickham",
+                    "given": "Hadley"
+                }
+            ],
+            "container-title": "Journal of Computational and Graphical Statistics",
+            "id": "wickham2010layered",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010
+                    ]
+                ]
+            },
+            "page": "3-28",
+            "title": "A layered grammar of graphics",
+            "type": "article-journal",
+            "volume": "19"
+        },
+        {
+            "URL": "https://doi.org/10.1002/9780470689646.ch1",
+            "author": [
+                {
+                    "family": "Rose",
+                    "given": "Stuart"
+                },
+                {
+                    "family": "Engel",
+                    "given": "Dave"
+                },
+                {
+                    "family": "Cramer",
+                    "given": "Nick"
+                },
+                {
+                    "family": "Cowley",
+                    "given": "Wendy"
+                }
+            ],
+            "container-title": "Text mining: applications and theory",
+            "id": "rose2010automatic",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010
+                    ]
+                ]
+            },
+            "page": "1-20",
+            "title": "Automatic keyword extraction from individual documents",
+            "type": "article-journal",
+            "volume": "1"
+        },
+        {
+            "author": [
+                {
+                    "family": "Sobol",
+                    "given": "IM"
+                }
+            ],
+            "container-title": "Mathematics and Computers in Simulation",
+            "id": "Sobol1993",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        1993
+                    ]
+                ]
+            },
+            "page": "407-414",
+            "title": "Sensitivity estimates for nonlinear mathematical models",
+            "type": "article-journal",
+            "volume": "1"
+        },
+        {
+            "URL": "https://www.jstor.org/stable/2988433",
+            "author": [
+                {
+                    "family": "Joanes",
+                    "given": "DN"
+                },
+                {
+                    "family": "Gill",
+                    "given": "CA"
+                }
+            ],
+            "container-title": "Journal of the Royal Statistical Society: Series D (The Statistician)",
+            "id": "joanes1998comparing",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        1998
+                    ]
+                ]
+            },
+            "page": "183-189",
+            "title": "Comparing measures of sample skewness and kurtosis",
+            "type": "article-journal",
+            "volume": "47"
+        },
+        {
+            "author": [
+                {
+                    "family": "Mihalcea",
+                    "given": "Rada"
+                },
+                {
+                    "family": "Tarau",
+                    "given": "Paul"
+                }
+            ],
+            "container-title": "Proceedings of the 2004 conference on empirical methods in natural language processing",
+            "id": "mihalcea2004textrank",
+            "issued": {
+                "date-parts": [
+                    [
+                        2004
+                    ]
+                ]
+            },
+            "page": "404-411",
+            "title": "Textrank: Bringing order into text",
+            "title-short": "Textrank",
+            "type": "paper-conference"
+        },
+        {
+            "URL": "https://doi.org/10.2307/2333709",
+            "author": [
+                {
+                    "family": "Shapiro",
+                    "given": "Samuel Sanford"
+                },
+                {
+                    "family": "Wilk",
+                    "given": "Martin B"
+                }
+            ],
+            "container-title": "Biometrika",
+            "id": "shapiro1965analysis",
+            "issue": "3/4",
+            "issued": {
+                "date-parts": [
+                    [
+                        1965
+                    ]
+                ]
+            },
+            "page": "591-611",
+            "title": "An analysis of variance test for normality (complete samples)",
+            "type": "article-journal",
+            "volume": "52"
+        },
+        {
+            "author": [
+                {
+                    "family": "Razali",
+                    "given": "Nornadiah Mohd"
+                },
+                {
+                    "family": "Wah",
+                    "given": "Yap Bee"
+                }
+            ],
+            "container-title": "Journal of statistical modeling and analytics",
+            "id": "razali2011power",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011
+                    ]
+                ]
+            },
+            "page": "21-33",
+            "title": "Power comparisons of shapiro-wilk, kolmogorov-smirnov, lilliefors and anderson-darling tests",
+            "type": "article-journal",
+            "volume": "2"
+        },
+        {
+            "URL": "https://doi.org/10.1080/00949655.2010.520163",
+            "author": [
+                {
+                    "family": "Yap",
+                    "given": "Bee Wah"
+                },
+                {
+                    "family": "Sim",
+                    "given": "Chiaw Hock"
+                }
+            ],
+            "container-title": "Journal of Statistical Computation and Simulation",
+            "id": "yap2011comparisons",
+            "issue": "12",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011
+                    ]
+                ]
+            },
+            "page": "2141-2155",
+            "title": "Comparisons of various types of normality tests",
+            "type": "article-journal",
+            "volume": "81"
+        },
+        {
+            "author": [
+                {
+                    "family": "Field",
+                    "given": "Andy P"
+                },
+                {
+                    "family": "Miles",
+                    "given": "Jeremy"
+                },
+                {
+                    "family": "Field",
+                    "given": "Zoë"
+                }
+            ],
+            "id": "field2012discovering",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "publisher": "Thousand Oaks",
+            "title": "Discovering statistics using r",
+            "type": ""
+        },
+        {
+            "author": [
+                {
+                    "family": "Tabachnick",
+                    "given": "Barbara G"
+                },
+                {
+                    "family": "Fidell",
+                    "given": "Linda S"
+                },
+                {
+                    "family": "Ullman",
+                    "given": "Jodie B"
+                }
+            ],
+            "id": "tabachnick2007",
+            "issued": {
+                "date-parts": [
+                    [
+                        2007
+                    ]
+                ]
+            },
+            "publisher": "Pearson",
+            "title": "Using multivariate statistics",
+            "type": "book"
+        },
+        {
+            "URL": "https://doi.org/10.1081/STA-120037438",
+            "author": [
+                {
+                    "family": "Reed",
+                    "given": "William J."
+                },
+                {
+                    "family": "Jorgensen",
+                    "given": "Murray"
+                }
+            ],
+            "container-title": "Communications in Statistics - Theory and Methods",
+            "id": "William_pareto",
+            "issue": "8",
+            "issued": {
+                "date-parts": [
+                    [
+                        2004
+                    ]
+                ]
+            },
+            "page": "1733-1753",
+            "publisher": "Taylor & Francis",
+            "title": "The souble pareto-lognormal sistribution: A new parametric model for size distributions",
+            "title-short": "The souble pareto-lognormal sistribution",
+            "type": "article-journal",
+            "volume": "33"
+        },
+        {
+            "URL": "https://doi.org/10.7202/1063104ar",
+            "author": [
+                {
+                    "family": "De Alvarenga",
+                    "given": "Bernardo"
+                },
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Séguin",
+                    "given": "Anne-Marie"
+                }
+            ],
+            "container-title": "Cahiers de géographie du Québec",
+            "id": "de2018accessibilite",
+            "issue": "176",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "page": "229-246",
+            "title": "L’accessibilité aux aires de jeux dans les parcs de la communauté métropolitaine de montréal",
+            "type": "article-journal",
+            "volume": "62"
+        },
+        {
+            "URL": "https://onlinelibrary.wiley.com/doi/abs/10.1111/1467-9787.00247",
+            "author": [
+                {
+                    "family": "Reed",
+                    "given": "William J."
+                }
+            ],
+            "container-title": "Journal of Regional Science",
+            "id": "William_pareto_ville",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2002
+                    ]
+                ]
+            },
+            "page": "1-17",
+            "title": "On the rank-size distribution for human settlements",
+            "type": "article-journal",
+            "volume": "42"
+        },
+        {
+            "author": [
+                {
+                    "family": "Lebart",
+                    "given": "Ludovic"
+                },
+                {
+                    "family": "Morineau",
+                    "given": "Alain"
+                },
+                {
+                    "family": "Piron",
+                    "given": "Marie"
+                }
+            ],
+            "id": "lebart1995statistique",
+            "issued": {
+                "date-parts": [
+                    [
+                        1995
+                    ]
+                ]
+            },
+            "publisher": "Dunod",
+            "title": "Statistique exploratoire multidimensionnelle",
+            "type": "book"
+        },
+        {
+            "URL": "https://medium.com/@srowen/common-probability-distributions-347e6b945ce4",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2020,
+                        9,
+                        14
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Sean",
+                    "given": "Owen"
+                }
+            ],
+            "id": "SeanOwendist",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "title": "Common probability distributions",
+            "type": "webpage"
+        },
+        {
+            "ISSN": "00359238",
+            "URL": "http://www.jstor.org/stable/2344614",
+            "author": [
+                {
+                    "family": "Nelder",
+                    "given": "John A."
+                },
+                {
+                    "family": "Wedderburn",
+                    "given": "Robert W. M."
+                }
+            ],
+            "container-title": "Journal of the Royal Statistical Society. Series A (General)",
+            "id": "GLMnelder",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        1972
+                    ]
+                ]
+            },
+            "page": "370-384",
+            "title": "Generalized linear models",
+            "type": "article-journal",
+            "volume": "135"
+        },
+        {
+            "URL": "http://dx.doi.org/10.1016/j.apgeog.2016.09.023",
+            "author": [
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Pham",
+                    "given": "Thi-Thanh-Hien"
+                },
+                {
+                    "family": "Séguin",
+                    "given": "Anne-Marie"
+                },
+                {
+                    "family": "Dubé",
+                    "given": "Jean"
+                }
+            ],
+            "container-title": "Applied Geography",
+            "id": "apparicio2016spatial",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "page": "128-136",
+            "title": "Spatial distribution of vegetation in and around city blocks on the island of montreal: A double environmental inequity?",
+            "title-short": "Spatial distribution of vegetation in and around city blocks on the island of montreal",
+            "type": "article-journal",
+            "volume": "76"
+        },
+        {
+            "URL": "https://doi.org/10.2307/1390802",
+            "author": [
+                {
+                    "family": "Dunn",
+                    "given": "Peter K."
+                },
+                {
+                    "family": "Smyth",
+                    "given": "Gordon K."
+                }
+            ],
+            "container-title": "Journal of Computational and Graphical Statistics",
+            "id": "RandomizedResid",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        1996
+                    ]
+                ]
+            },
+            "page": "236-244",
+            "title": "Randomized quantile residuals",
+            "type": "article-journal",
+            "volume": "5"
+        },
+        {
+            "author": [
+                {
+                    "family": "Gelman",
+                    "given": "Andrew"
+                },
+                {
+                    "family": "Hill",
+                    "given": "Jennifer"
+                }
+            ],
+            "id": "gelman2006data",
+            "issued": {
+                "date-parts": [
+                    [
+                        2006
+                    ]
+                ]
+            },
+            "publisher": "Cambridge university press",
+            "title": "Data analysis using regression and multilevel/hierarchical models",
+            "type": "book"
+        },
+        {
+            "URL": "https://royalsocietypublishing.org/doi/abs/10.1098/rsta.1933.0009",
+            "author": [
+                {
+                    "family": "Neyman",
+                    "given": "Jerzy"
+                },
+                {
+                    "family": "Pearson",
+                    "given": "Egon Sharpe"
+                },
+                {
+                    "family": "Pearson",
+                    "given": "Karl"
+                }
+            ],
+            "container-title": "Philosophical Transactions of the Royal Society of London. Series A, Containing Papers of a Mathematical or Physical Character",
+            "id": "NeymanLemma",
+            "issue": "694-706",
+            "issued": {
+                "date-parts": [
+                    [
+                        1933
+                    ]
+                ]
+            },
+            "page": "289-337",
+            "title": "IX. On the problem of the most efficient tests of statistical hypotheses",
+            "type": "article-journal",
+            "volume": "231"
+        },
+        {
+            "author": [
+                {
+                    "family": "Hilbe",
+                    "given": "Joseph M"
+                }
+            ],
+            "id": "hilbe2009logistic",
+            "issued": {
+                "date-parts": [
+                    [
+                        2009
+                    ]
+                ]
+            },
+            "publisher": "CRC press",
+            "title": "Logistic regression models",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Zeileis",
+                    "given": "Achim"
+                }
+            ],
+            "id": "zeileis2004econometric",
+            "issued": {
+                "date-parts": [
+                    [
+                        2004
+                    ]
+                ]
+            },
+            "publisher": "Institut für Statistik und Mathematik",
+            "title": "Econometric computing with HC and HAC covariance matrix estimators",
+            "type": "book"
+        },
+        {
+            "URL": "https://www.jstor.org/stable/2532457",
+            "author": [
+                {
+                    "family": "Brant",
+                    "given": "Rollin"
+                }
+            ],
+            "container-title": "Biometrics",
+            "id": "brant1990assessing",
+            "issued": {
+                "date-parts": [
+                    [
+                        1990
+                    ]
+                ]
+            },
+            "page": "1171-1178",
+            "title": "Assessing proportionality in the proportional odds model for ordinal logistic regression",
+            "type": "article-journal"
+        },
+        {
+            "URL": "http://dx.doi.org/10.22381/JSME5420173",
+            "author": [
+                {
+                    "family": "Teubner",
+                    "given": "Timm"
+                },
+                {
+                    "family": "Hawlitschek",
+                    "given": "Florian"
+                },
+                {
+                    "family": "Dann",
+                    "given": "David"
+                }
+            ],
+            "container-title": "Journal of Self-Governance & Management Economics",
+            "id": "teubner2017price",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "title": "Price determinants on AirBnB: How reputation pays off in the sharing economy",
+            "title-short": "Price determinants on AirBnB",
+            "type": "article-journal",
+            "volume": "5"
+        },
+        {
+            "URL": "https://doi.org/10.1016/j.ijhm.2016.12.007",
+            "author": [
+                {
+                    "family": "Wang",
+                    "given": "Dan"
+                },
+                {
+                    "family": "Nicolau",
+                    "given": "Juan L"
+                }
+            ],
+            "container-title": "International Journal of Hospitality Management",
+            "id": "wang2017price",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "120-131",
+            "title": "Price determinants of sharing economy based accommodation rental: A study of listings from 33 cities on airbnb.com",
+            "title-short": "Price determinants of sharing economy based accommodation rental",
+            "type": "article-journal",
+            "volume": "62"
+        },
+        {
+            "URL": "http://dx.doi.org/10.3390/su9091635",
+            "author": [
+                {
+                    "family": "Zhang",
+                    "given": "Zhihua"
+                },
+                {
+                    "family": "Chen",
+                    "given": "Rachel JC"
+                },
+                {
+                    "family": "Han",
+                    "given": "Lee D"
+                },
+                {
+                    "family": "Yang",
+                    "given": "Lu"
+                }
+            ],
+            "container-title": "Sustainability",
+            "id": "zhang2017key",
+            "issue": "9",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "1635",
+            "title": "Key factors affecting the price of airbnb listings: A geographically weighted approach",
+            "title-short": "Key factors affecting the price of airbnb listings",
+            "type": "article-journal",
+            "volume": "9"
+        },
+        {
+            "URL": "https://doi.org/10.1371/journal.pone.0166140",
+            "author": [
+                {
+                    "family": "McFadden",
+                    "given": "Brandon R"
+                }
+            ],
+            "container-title": "PloS one",
+            "id": "mcfadden2016examining",
+            "issue": "11",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "page": "e0166140",
+            "title": "Examining the gap between science and public opinion about genetically modified food and global warming",
+            "type": "article-journal",
+            "volume": "11"
+        },
+        {
+            "author": [
+                {
+                    "literal": "SAS Institute Inc"
+                }
+            ],
+            "id": "Sasmultinom",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "note": "Accessed: 2020-10-15",
+            "publisher": "https://documentation.sas.com/?docsetId=statug&docsetTarget=statug_fmm_examples04.htm&docsetVersion=15.2&locale=en",
+            "title": "SAS/STAT 15.2 User’s Guide modeling multinomial overdispersion",
+            "type": ""
+        },
+        {
+            "author": [
+                {
+                    "literal": "SAS Institute Inc"
+                }
+            ],
+            "id": "Saspoiss",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "note": "Accessed: 2020-10-15",
+            "publisher": "https://stats.idre.ucla.edu/sas/output/poisson-regression/",
+            "title": "SAS/STAT 15.2 User’s Guide poisson regression | SAS annotated output",
+            "type": ""
+        },
+        {
+            "author": [
+                {
+                    "family": "Cloutier",
+                    "given": "Marie-soleil"
+                },
+                {
+                    "family": "Tremblay",
+                    "given": "Mathieu"
+                },
+                {
+                    "family": "Morency",
+                    "given": "Patrick"
+                },
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                }
+            ],
+            "container-title": "Recherche Transports Sécurité",
+            "id": "cloutier2014carrefours",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "page": "3-20",
+            "title": "Carrefours en milieu urbain: Quels risques pour les piétons? Exemple empirique des quartiers centraux de montréal, canada",
+            "title-short": "Carrefours en milieu urbain",
+            "type": "article-journal",
+            "volume": "30"
+        },
+        {
+            "URL": "https://doi.org/10.3141%2F2302-13",
+            "author": [
+                {
+                    "family": "Anastasopoulos",
+                    "given": "Panagiotis C"
+                },
+                {
+                    "family": "Haddock",
+                    "given": "John E"
+                },
+                {
+                    "family": "Karlaftis",
+                    "given": "Matthew G"
+                },
+                {
+                    "family": "Mannering",
+                    "given": "Fred L"
+                }
+            ],
+            "container-title": "Transportation research record",
+            "id": "anastasopoulos2012analysis",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "page": "121-129",
+            "title": "Analysis of urban travel times: Hazard-based approach to random parameters",
+            "title-short": "Analysis of urban travel times",
+            "type": "article-journal",
+            "volume": "2302"
+        },
+        {
+            "URL": "https://doi.org/10.1007/s11116-007-9136-6",
+            "author": [
+                {
+                    "family": "Frank",
+                    "given": "Lawrence"
+                },
+                {
+                    "family": "Bradley",
+                    "given": "Mark"
+                },
+                {
+                    "family": "Kavage",
+                    "given": "Sarah"
+                },
+                {
+                    "family": "Chapman",
+                    "given": "James"
+                },
+                {
+                    "family": "Lawton",
+                    "given": "T Keith"
+                }
+            ],
+            "container-title": "Transportation",
+            "id": "frank2008urban",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008
+                    ]
+                ]
+            },
+            "page": "37-54",
+            "title": "Urban form, travel time, and cost relationships with tour complexity and mode choice",
+            "type": "article-journal",
+            "volume": "35"
+        },
+        {
+            "URL": "http://dx.doi.org/10.1016/S0196-1152(07)15005-5",
+            "author": [
+                {
+                    "family": "Harlan",
+                    "given": "Sharon L"
+                },
+                {
+                    "family": "Brazel",
+                    "given": "Anthony J"
+                },
+                {
+                    "family": "Jenerette",
+                    "given": "G Darrel"
+                },
+                {
+                    "family": "Jones",
+                    "given": "Nancy S"
+                },
+                {
+                    "family": "Larsen",
+                    "given": "Larissa"
+                },
+                {
+                    "family": "Prashad",
+                    "given": "Lela"
+                },
+                {
+                    "family": "Stefanov",
+                    "given": "William L"
+                }
+            ],
+            "container-title": "Research in Social Problems and Public Policy",
+            "id": "harlan2007shade",
+            "issued": {
+                "date-parts": [
+                    [
+                        2007
+                    ]
+                ]
+            },
+            "page": "173-202",
+            "title": "In the shade of affluence: The inequitable distribution of the urban heat island",
+            "title-short": "In the shade of affluence",
+            "type": "article-journal",
+            "volume": "15"
+        },
+        {
+            "URL": "https://doi.org/10.1016/j.ufug.2019.04.014",
+            "author": [
+                {
+                    "family": "Sanchez",
+                    "given": "Lino"
+                },
+                {
+                    "family": "Reames",
+                    "given": "Tony G"
+                }
+            ],
+            "container-title": "Urban Forestry & Urban Greening",
+            "id": "sanchez2019cooling",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "page": "126331",
+            "title": "Cooling detroit: A socio-spatial analysis of equity in green roofs as an urban heat island mitigation strategy",
+            "title-short": "Cooling detroit",
+            "type": "article-journal",
+            "volume": "44"
+        },
+        {
+            "URL": "https://doi.org/10.1016/j.jenvman.2011.02.006",
+            "author": [
+                {
+                    "family": "Huang",
+                    "given": "Ganlin"
+                },
+                {
+                    "family": "Zhou",
+                    "given": "Weiqi"
+                },
+                {
+                    "family": "Cadenasso",
+                    "given": "ML"
+                }
+            ],
+            "container-title": "Journal of environmental management",
+            "id": "huang2011everyone",
+            "issue": "7",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011
+                    ]
+                ]
+            },
+            "page": "1753-1759",
+            "title": "Is everyone hot in the city? Spatial pattern of land surface temperatures, land cover and neighborhood socioeconomic characteristics in baltimore, MD",
+            "type": "article-journal",
+            "volume": "92"
+        },
+        {
+            "URL": "https://doi.org/10.2307/2290467",
+            "author": [
+                {
+                    "family": "Fox",
+                    "given": "John"
+                },
+                {
+                    "family": "Monette",
+                    "given": "Georges"
+                }
+            ],
+            "container-title": "Journal of the American Statistical Association",
+            "id": "fox1992generalized",
+            "issue": "417",
+            "issued": {
+                "date-parts": [
+                    [
+                        1992
+                    ]
+                ]
+            },
+            "page": "178-183",
+            "title": "Generalized collinearity diagnostics",
+            "type": "article-journal",
+            "volume": "87"
+        },
+        {
+            "URL": "https://doi.org/10.1214/009053604000001048",
+            "author": [
+                {
+                    "family": "Gelman",
+                    "given": "Andrew"
+                }
+            ],
+            "container-title": "The annals of statistics",
+            "id": "gelman2005analysis",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2005
+                    ]
+                ]
+            },
+            "page": "1-53",
+            "title": "Analysis of variance—why it is more important than ever",
+            "type": "article-journal",
+            "volume": "33"
+        },
+        {
+            "author": [
+                {
+                    "family": "McElreath",
+                    "given": "Richard"
+                }
+            ],
+            "id": "mcelreath2020statistical",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "publisher": "CRC press",
+            "title": "Statistical rethinking: A bayesian course with examples in r and stan",
+            "title-short": "Statistical rethinking",
+            "type": "book"
+        },
+        {
+            "URL": "https://doi.org/10.1098/rsif.2017.0213",
+            "author": [
+                {
+                    "family": "Nakagawa",
+                    "given": "Shinichi"
+                },
+                {
+                    "family": "Johnson",
+                    "given": "Paul C. D."
+                },
+                {
+                    "family": "Schielzeth",
+                    "given": "Holger"
+                }
+            ],
+            "container-title": "Journal of The Royal Society Interface",
+            "id": "NakagawaICC",
+            "issue": "134",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "20170213",
+            "title": "The coefficient of determination R2 and intra-class correlation coefficient from generalized linear mixed-effects models revisited and expanded",
+            "type": "article-journal",
+            "volume": "14"
+        },
+        {
+            "URL": "https://doi.org/10.1016/j.cct.2012.05.004",
+            "author": [
+                {
+                    "family": "Wu",
+                    "given": "Sheng"
+                },
+                {
+                    "family": "Crespi",
+                    "given": "Catherine M"
+                },
+                {
+                    "family": "Wong",
+                    "given": "Weng Kee"
+                }
+            ],
+            "container-title": "Contemporary clinical trials",
+            "id": "wu2012comparison",
+            "issue": "5",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012
+                    ]
+                ]
+            },
+            "page": "869-880",
+            "title": "Comparison of methods for estimating the intraclass correlation coefficient for binary responses in cancer prevention cluster randomized trials",
+            "type": "article-journal",
+            "volume": "33"
+        },
+        {
+            "author": [
+                {
+                    "family": "Stryhn",
+                    "given": "H"
+                },
+                {
+                    "family": "Sanchez",
+                    "given": "J"
+                },
+                {
+                    "family": "Morley",
+                    "given": "P"
+                },
+                {
+                    "family": "Booker",
+                    "given": "C"
+                },
+                {
+                    "family": "Dohoo",
+                    "given": "IR"
+                }
+            ],
+            "container-title": "Proceedings of the 11th international symposium on veterinary epidemiology and economics",
+            "id": "stryhn2006interpretation",
+            "issued": {
+                "date-parts": [
+                    [
+                        2006
+                    ]
+                ]
+            },
+            "title": "Interpretation of variance parameters in multilevel poisson regression models",
+            "type": "paper-conference",
+            "volume": "702"
+        },
+        {
+            "URL": "https://doi.org/10.1186/2193-1801-3-40",
+            "author": [
+                {
+                    "family": "Aly",
+                    "given": "Sharif S"
+                },
+                {
+                    "family": "Zhao",
+                    "given": "Jianyang"
+                },
+                {
+                    "family": "Li",
+                    "given": "Ben"
+                },
+                {
+                    "family": "Jiang",
+                    "given": "Jiming"
+                }
+            ],
+            "container-title": "SpringerPlus",
+            "id": "aly2014reliability",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014
+                    ]
+                ]
+            },
+            "page": "40",
+            "title": "Reliability of environmental sampling culture results using the negative binomial intraclass correlation coefficient",
+            "type": "article-journal",
+            "volume": "3"
+        },
+        {
+            "URL": "https://www.jstor.org/stable/23076146",
+            "author": [
+                {
+                    "family": "Kosmidis",
+                    "given": "Ioannis"
+                },
+                {
+                    "family": "Firth",
+                    "given": "David"
+                }
+            ],
+            "container-title": "Biometrika",
+            "id": "kosmidis2011multinomial",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2011
+                    ]
+                ]
+            },
+            "page": "755-759",
+            "title": "Multinomial logit bias reduction via the poisson log-linear model",
+            "type": "article-journal",
+            "volume": "98"
+        },
+        {
+            "author": [
+                {
+                    "family": "Burdenski",
+                    "given": "Jr Thomas K"
+                }
+            ],
+            "container-title": "ERIC",
+            "id": "burdenski2000evaluating",
+            "issued": {
+                "date-parts": [
+                    [
+                        2000
+                    ]
+                ]
+            },
+            "page": "1-62",
+            "title": "Evaluating univariate, bivariate, and multivariate normality using graphical procedures",
+            "type": "article-journal"
+        },
+        {
+            "URL": "https://doi.org/10.1016/j.tree.2008.10.008",
+            "author": [
+                {
+                    "family": "Bolker",
+                    "given": "Benjamin M"
+                },
+                {
+                    "family": "Brooks",
+                    "given": "Mollie E"
+                },
+                {
+                    "family": "Clark",
+                    "given": "Connie J"
+                },
+                {
+                    "family": "Geange",
+                    "given": "Shane W"
+                },
+                {
+                    "family": "Poulsen",
+                    "given": "John R"
+                },
+                {
+                    "family": "Stevens",
+                    "given": "M Henry H"
+                },
+                {
+                    "family": "White",
+                    "given": "Jada-Simone S"
+                }
+            ],
+            "container-title": "Trends in ecology & evolution",
+            "id": "bolker2009generalized",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2009
+                    ]
+                ]
+            },
+            "page": "127-135",
+            "title": "Generalized linear mixed models: A practical guide for ecology and evolution",
+            "title-short": "Generalized linear mixed models",
+            "type": "article-journal",
+            "volume": "24"
+        },
+        {
+            "author": [
+                {
+                    "family": "Philibert",
+                    "given": "Mathieu D"
+                },
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                }
+            ],
+            "container-title": "Géographie de la santé : Un panorama",
+            "id": "philibert2007statistiques",
+            "issued": {
+                "date-parts": [
+                    [
+                        2007
+                    ]
+                ]
+            },
+            "page": "111-132",
+            "publisher": "Economica",
+            "title": "Statistiques spatiales appliquées à l’analyse de données de santé",
+            "type": "chapter"
+        },
+        {
+            "author": [
+                {
+                    "family": "Andreae",
+                    "given": "MO"
+                },
+                {
+                    "family": "Fishman",
+                    "given": "J"
+                },
+                {
+                    "family": "Garstang",
+                    "given": "M"
+                },
+                {
+                    "family": "Goldammer",
+                    "given": "JG"
+                },
+                {
+                    "family": "Justice",
+                    "given": "CO"
+                },
+                {
+                    "family": "Levine",
+                    "given": "JS"
+                },
+                {
+                    "family": "Scholes",
+                    "given": "RJ"
+                },
+                {
+                    "family": "Stocks",
+                    "given": "BJ"
+                },
+                {
+                    "family": "Thompson",
+                    "given": "AM"
+                },
+                {
+                    "family": "Van Wilgen",
+                    "given": "B"
+                }
+            ],
+            "container-title": "Global atmospheric-biospheric chemistry",
+            "id": "andreae1994biomass",
+            "issued": {
+                "date-parts": [
+                    [
+                        1994
+                    ]
+                ]
+            },
+            "page": "83-101",
+            "publisher": "Springer",
+            "title": "Biomass burning in the global environment: First results from the IGAC/BIBEX field campaign STARE/TRACE-a/SAFARI-92",
+            "title-short": "Biomass burning in the global environment",
+            "type": "chapter"
+        },
+        {
+            "URL": "https://doi.org/10.1080%2F00420980120087162",
+            "author": [
+                {
+                    "family": "Atkinson",
+                    "given": "Rowland"
+                },
+                {
+                    "family": "Kintrea",
+                    "given": "Keith"
+                }
+            ],
+            "container-title": "Urban studies",
+            "id": "atkinson2001disentangling",
+            "issue": "12",
+            "issued": {
+                "date-parts": [
+                    [
+                        2001
+                    ]
+                ]
+            },
+            "page": "2277-2298",
+            "title": "Disentangling area effects: Evidence from deprived and non-deprived neighbourhoods",
+            "title-short": "Disentangling area effects",
+            "type": "article-journal",
+            "volume": "38"
+        },
+        {
+            "URL": "http://dx.doi.org/10.1016/j.landurbplan.2016.09.001",
+            "author": [
+                {
+                    "family": "Pham",
+                    "given": "Thi-Thanh-Hien"
+                },
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Landry",
+                    "given": "Shawn"
+                },
+                {
+                    "family": "Lewnard",
+                    "given": "Joseph"
+                }
+            ],
+            "container-title": "Landscape and Urban Planning",
+            "id": "apparicio2017disentangling",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "422-433",
+            "title": "Disentangling the effects of urban form and socio-demographic context on street tree cover: A multi-level analysis from montréal",
+            "title-short": "Disentangling the effects of urban form and socio-demographic context on street tree cover",
+            "type": "article-journal",
+            "volume": "157"
+        },
+        {
+            "URL": "https://doi.org/10.1198/016214504000000980",
+            "author": [
+                {
+                    "family": "Wood",
+                    "given": "Simon N"
+                }
+            ],
+            "container-title": "Journal of the American Statistical Association",
+            "id": "wood2004stable",
+            "issue": "467",
+            "issued": {
+                "date-parts": [
+                    [
+                        2004
+                    ]
+                ]
+            },
+            "page": "673-686",
+            "title": "Stable and efficient multiple smoothing parameter estimation for generalized additive models",
+            "type": "article-journal",
+            "volume": "99"
+        },
+        {
+            "URL": "https://doi.org/10.1257/jep.31.2.211",
+            "author": [
+                {
+                    "family": "Allcott",
+                    "given": "Hunt"
+                },
+                {
+                    "family": "Gentzkow",
+                    "given": "Matthew"
+                }
+            ],
+            "container-title": "Journal of economic perspectives",
+            "id": "allcott2017social",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "page": "211-36",
+            "title": "Social media and fake news in the 2016 election",
+            "type": "article-journal",
+            "volume": "31"
+        },
+        {
+            "URL": "https://doi.org/10.1371/journal.pone.0224134",
+            "author": [
+                {
+                    "family": "Spyratos",
+                    "given": "Spyridon"
+                },
+                {
+                    "family": "Vespe",
+                    "given": "Michele"
+                },
+                {
+                    "family": "Natale",
+                    "given": "Fabrizio"
+                },
+                {
+                    "family": "Weber",
+                    "given": "Ingmar"
+                },
+                {
+                    "family": "Zagheni",
+                    "given": "Emilio"
+                },
+                {
+                    "family": "Rango",
+                    "given": "Marzia"
+                }
+            ],
+            "container-title": "PloS one",
+            "id": "spyratos2019quantifying",
+            "issue": "10",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "page": "e0224134",
+            "title": "Quantifying international human mobility patterns using facebook network data",
+            "type": "article-journal",
+            "volume": "14"
+        },
+        {
+            "URL": "https://doi.org/10.1186/s12942-020-00202-8",
+            "author": [
+                {
+                    "family": "Boulos",
+                    "given": "Maged N Kamel"
+                },
+                {
+                    "family": "Geraghty",
+                    "given": "Estella M"
+                }
+            ],
+            "container-title": "International journal of health geographics",
+            "id": "boulos2020geographical",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "page": "1-12",
+            "title": "Geographical tracking and mapping of coronavirus disease COVID-19/severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) epidemic and associated events around the world: How 21st century GIS technologies are supporting the global fight against outbreaks and epidemics",
+            "title-short": "Geographical tracking and mapping of coronavirus disease COVID-19/severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) epidemic and associated events around the world",
+            "type": "article-journal",
+            "volume": "19"
+        },
+        {
+            "URL": "https://idjs.ca/images/rcsr/archives/V44N1_5-AUDRIN-APPARICIO-SEGUIN.pdf",
+            "author": [
+                {
+                    "family": "Audrin",
+                    "given": "Thomas"
+                },
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Séguin",
+                    "given": "Anne-Marie"
+                }
+            ],
+            "container-title": "Canadian Journal of Regional Science/Revue canadienne des sciences régionales",
+            "id": "audrin2021localisation",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "page": "22-34",
+            "title": "La localisation des écoles primaires et le bruit aérien dans la région métropolitaine de toronto: Un diagnostic d’équité environnementale et une analyse des impacts sur la réussite scolaire",
+            "title-short": "La localisation des écoles primaires et le bruit aérien dans la région métropolitaine de toronto",
+            "type": "article-journal",
+            "volume": "44"
+        },
+        {
+            "URL": "https://www.econometrics-with-r.org/ITER.pdf",
+            "author": [
+                {
+                    "family": "Hanck",
+                    "given": "Christoph"
+                },
+                {
+                    "family": "Arnold",
+                    "given": "Martin"
+                },
+                {
+                    "family": "Gerber",
+                    "given": "Alexander"
+                },
+                {
+                    "family": "Schmelzer",
+                    "given": "Martin"
+                }
+            ],
+            "id": "hanck2019introduction",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "title": "Introduction to econometrics with r",
+            "type": "book"
+        },
+        {
+            "URL": "https://dx.doi.org/10.1002%2Fwics.1270",
+            "author": [
+                {
+                    "family": "Bair",
+                    "given": "Eric"
+                }
+            ],
+            "container-title": "Wiley Interdisciplinary Reviews: Computational Statistics",
+            "id": "bair2013semi",
+            "issue": "5",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "page": "349-361",
+            "title": "Semi-supervised clustering methods",
+            "type": "article-journal",
+            "volume": "5"
+        },
+        {
+            "author": [
+                {
+                    "family": "MacQueen",
+                    "given": "James"
+                }
+            ],
+            "collection-number": "14",
+            "container-title": "Proceedings of the fifth berkeley symposium on mathematical statistics and probability",
+            "id": "macqueen1967",
+            "issued": {
+                "date-parts": [
+                    [
+                        1967
+                    ]
+                ]
+            },
+            "page": "281-297",
+            "publisher": "Oakland, CA, USA",
+            "title": "Some methods for classification and analysis of multivariate observations",
+            "type": "paper-conference",
+            "volume": "1"
+        },
+        {
+            "author": [
+                {
+                    "family": "Aggarwal",
+                    "given": "Charu C"
+                },
+                {
+                    "family": "Hinneburg",
+                    "given": "Alexander"
+                },
+                {
+                    "family": "Keim",
+                    "given": "Daniel A"
+                }
+            ],
+            "container-title": "International conference on database theory",
+            "id": "aggarwal2001surprising",
+            "issued": {
+                "date-parts": [
+                    [
+                        2001
+                    ]
+                ]
+            },
+            "page": "420-434",
+            "publisher": "Springer",
+            "title": "On the surprising behavior of distance metrics in high dimensional space",
+            "type": "paper-conference"
+        },
+        {
+            "author": [
+                {
+                    "family": "Chandra",
+                    "given": "Mahalanobis Prasanta"
+                }
+            ],
+            "collection-number": "1",
+            "container-title": "Proceedings of the national institute of sciences of india",
+            "id": "chandra1936generalised",
+            "issued": {
+                "date-parts": [
+                    [
+                        1936
+                    ]
+                ]
+            },
+            "page": "49-55",
+            "title": "On the generalised distance in statistics",
+            "type": "paper-conference",
+            "volume": "2"
+        },
+        {
+            "URL": "https://doi.org/10.1111/1467-9868.00293",
+            "author": [
+                {
+                    "family": "Tibshirani",
+                    "given": "Robert"
+                },
+                {
+                    "family": "Walther",
+                    "given": "Guenther"
+                },
+                {
+                    "family": "Hastie",
+                    "given": "Trevor"
+                }
+            ],
+            "container-title": "Journal of the Royal Statistical Society: Series B (Statistical Methodology)",
+            "id": "tibshirani2001estimating",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2001
+                    ]
+                ]
+            },
+            "page": "411-423",
+            "title": "Estimating the number of clusters in a data set via the gap statistic",
+            "type": "article-journal",
+            "volume": "63"
+        },
+        {
+            "URL": "https://doi.org/10.2307/2528823",
+            "author": [
+                {
+                    "family": "Gower",
+                    "given": "John C"
+                }
+            ],
+            "container-title": "Biometrics",
+            "id": "gower1971general",
+            "issued": {
+                "date-parts": [
+                    [
+                        1971
+                    ]
+                ]
+            },
+            "page": "857-871",
+            "title": "A general coefficient of similarity and some of its properties",
+            "type": "article-journal"
+        },
+        {
+            "URL": "http://rig.revuesonline.com/article.jsp?articleId=15208",
+            "author": [
+                {
+                    "family": "Apparicio",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Cloutier",
+                    "given": "Marie-Soleil"
+                },
+                {
+                    "family": "Séguin",
+                    "given": "Anne-Marie"
+                },
+                {
+                    "family": "Ades",
+                    "given": "Josefina"
+                }
+            ],
+            "container-title": "Revue internationale de géomatique",
+            "id": "apparicio2010accessibilite",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010
+                    ]
+                ]
+            },
+            "page": "363-389",
+            "title": "Accessibilité spatiale aux parcs urbains pour les enfants et injustice environnementale. Exploration du cas montréalais",
+            "type": "article-journal",
+            "volume": "20"
+        },
+        {
+            "URL": "https://doi.org/10.1037/1082-989x.11.1.54",
+            "author": [
+                {
+                    "family": "Smithson",
+                    "given": "Michael"
+                },
+                {
+                    "family": "Verkuilen",
+                    "given": "Jay"
+                }
+            ],
+            "container-title": "Psychological methods",
+            "id": "smithson2006better",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2006
+                    ]
+                ]
+            },
+            "page": "54",
+            "title": "A better lemon squeezer? Maximum-likelihood regression with beta-distributed dependent variables",
+            "type": "article-journal",
+            "volume": "11"
+        },
+        {
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Yihui"
+                }
+            ],
+            "id": "xie2016bookdown",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "publisher": "CRC Press",
+            "title": "Bookdown: Authoring books and technical documents with r markdown",
+            "title-short": "Bookdown",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Ismay",
+                    "given": "Chester"
+                },
+                {
+                    "family": "Kim",
+                    "given": "Albert Y"
+                }
+            ],
+            "id": "ismay2019statistical",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019
+                    ]
+                ]
+            },
+            "publisher": "CRC Press",
+            "title": "Statistical inference via data science: A ModernDive into r and the tidyverse",
+            "title-short": "Statistical inference via data science",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Roback",
+                    "given": "Paul"
+                },
+                {
+                    "family": "Legler",
+                    "given": "Julie"
+                }
+            ],
+            "id": "roback2021beyond",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "publisher": "CRC Press",
+            "title": "Beyond multiple linear regression: Applied generalized linear models and multilevel models in r",
+            "title-short": "Beyond multiple linear regression",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Chang",
+                    "given": "Winston"
+                }
+            ],
+            "id": "Chang2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "publisher": "CRC Press",
+            "title": "R graphics cookbook, 2nd edition",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Gilles",
+                    "given": "Alain"
+                },
+                {
+                    "family": "Maranda",
+                    "given": "Pierre"
+                }
+            ],
+            "id": "gilles1994elements",
+            "issued": {
+                "date-parts": [
+                    [
+                        1994
+                    ]
+                ]
+            },
+            "publisher": "McGraw-Hill",
+            "title": "Éléments de méthodologie et d’analyse statistique pour les sciences sociales",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Pagès",
+                    "given": "Jérôme"
+                }
+            ],
+            "id": "pages2013analyse",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "publisher": "EDP sciences",
+            "title": "Analyse factorielle multiple avec r",
+            "type": "book"
+        },
+        {
+            "URL": "https://psycnet.apa.org/doi/10.1037/h0071325",
+            "author": [
+                {
+                    "family": "Hotelling",
+                    "given": "Harold"
+                }
+            ],
+            "container-title": "Journal of educational psychology",
+            "id": "hotelling1933analysis",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        1933
+                    ]
+                ]
+            },
+            "page": "417",
+            "title": "Analysis of a complex of statistical variables into principal components",
+            "type": "article-journal",
+            "volume": "24"
+        },
+        {
+            "author": [
+                {
+                    "family": "Benzécri",
+                    "given": "Jean-Paul"
+                }
+            ],
+            "id": "benzecri1973analyse",
+            "issued": {
+                "date-parts": [
+                    [
+                        1973
+                    ]
+                ]
+            },
+            "publisher": "Dunod",
+            "title": "L’analyse des données. Tome 1. La taxinomie. Tome 2. L’analyse des correspondances",
+            "type": "book",
+            "volume": "2"
+        },
+        {
+            "author": [
+                {
+                    "family": "Pagès",
+                    "given": "Jérôme"
+                }
+            ],
+            "container-title": "Revue de statistique appliquée",
+            "id": "pages2002analyse",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2002
+                    ]
+                ]
+            },
+            "page": "5-37",
+            "title": "Analyse factorielle multiple appliquée aux variables qualitatives et aux données mixtes",
+            "type": "article-journal",
+            "volume": "50"
+        },
+        {
+            "author": [
+                {
+                    "family": "Escofier",
+                    "given": "Brigitte"
+                }
+            ],
+            "container-title": "Cahiers de l’Analyse des Données",
+            "id": "escofier1979traitement",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        1979
+                    ]
+                ]
+            },
+            "page": "137-146",
+            "title": "Traitement simultané de variables qualitatives et quantitatives en analyse factorielle",
+            "type": "article-journal",
+            "volume": "4"
+        },
+        {
+            "author": [
+                {
+                    "family": "Escofier",
+                    "given": "Brigitte"
+                },
+                {
+                    "family": "Pagès",
+                    "given": "Jérôme"
+                }
+            ],
+            "container-title": "Dunod, Paris",
+            "id": "escofier1998analyses",
+            "issued": {
+                "date-parts": [
+                    [
+                        1998
+                    ]
+                ]
+            },
+            "title": "Analyses factorielles simples et multiples",
+            "type": "article-journal"
+        },
+        {
+            "URL": "https://doi.org/10.1177%2F001316446002000116",
+            "author": [
+                {
+                    "family": "Kaiser",
+                    "given": "Henry F"
+                }
+            ],
+            "container-title": "Educational and psychological measurement",
+            "id": "kaiser1960application",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        1960
+                    ]
+                ]
+            },
+            "page": "141-151",
+            "title": "The application of electronic computers to factor analysis",
+            "type": "article-journal",
+            "volume": "20"
+        },
+        {
+            "URL": "http://www.numdam.org/article/RSA_1988__36_1_55_0.pdf",
+            "author": [
+                {
+                    "family": "Rivest",
+                    "given": "Louis-Paul"
+                },
+                {
+                    "family": "Plante",
+                    "given": "Nathalie"
+                }
+            ],
+            "container-title": "Revue de statistique appliquée",
+            "id": "rivest1988analyse",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        1988
+                    ]
+                ]
+            },
+            "page": "55-66",
+            "title": "L’analyse en composantes principales robuste",
+            "type": "article-journal",
+            "volume": "36"
+        },
+        {
+            "URL": "https://doi.org/10.1111/gec3.12373",
+            "author": [
+                {
+                    "family": "McClintock",
+                    "given": "Nathan"
+                }
+            ],
+            "container-title": "Geography Compass",
+            "id": "mcclintock2018urban",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018
+                    ]
+                ]
+            },
+            "page": "1-16",
+            "title": "Urban agriculture, racial capitalism, and resistance in the settler-colonial city",
+            "type": "article-journal",
+            "volume": "12"
+        },
+        {
+            "URL": "https://doi.org/10.1016/j.ufug.2021.127171",
+            "author": [
+                {
+                    "family": "Audate",
+                    "given": "Pierre Paul"
+                },
+                {
+                    "family": "Cloutier",
+                    "given": "Geneviève"
+                },
+                {
+                    "family": "Lebel",
+                    "given": "Alexandre"
+                }
+            ],
+            "container-title": "Urban Forestry & Urban Greening",
+            "id": "audate2021motivations",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "page": "127171",
+            "title": "The motivations of urban agriculture practitioners in deprived neighborhoods: A comparative study of montreal and quito",
+            "title-short": "The motivations of urban agriculture practitioners in deprived neighborhoods",
+            "type": "article-journal",
+            "volume": "62"
+        },
+        {
+            "URL": "http://dx.doi.org/10.2134/urbanag2015.01.1511",
+            "author": [
+                {
+                    "family": "Bhatt",
+                    "given": "Vikram"
+                },
+                {
+                    "family": "Farah",
+                    "given": "Leila Marie"
+                }
+            ],
+            "container-title": "Urban Agriculture & Regional Food Systems",
+            "id": "bhatt2016cultivating",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016
+                    ]
+                ]
+            },
+            "page": "1-12",
+            "title": "Cultivating montreal: A brief history of citizens and institutions integrating urban agriculture in the city",
+            "title-short": "Cultivating montreal",
+            "type": "article-journal",
+            "volume": "1"
+        },
+        {
+            "URL": "https://doi.org/10.1198/004017004000000563",
+            "author": [
+                {
+                    "family": "Hubert",
+                    "given": "Mia"
+                },
+                {
+                    "family": "Rousseeuw",
+                    "given": "Peter J"
+                },
+                {
+                    "family": "Vanden Branden",
+                    "given": "Karlien"
+                }
+            ],
+            "container-title": "Technometrics",
+            "id": "hubert2005robpca",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2005
+                    ]
+                ]
+            },
+            "page": "64-79",
+            "title": "ROBPCA: A new approach to robust principal component analysis",
+            "title-short": "ROBPCA",
+            "type": "article-journal",
+            "volume": "47"
+        },
+        {
+            "URL": "https://doi.org/10.1080/0267257X.1995.9964368",
+            "author": [
+                {
+                    "family": "Bendixen",
+                    "given": "Mike T"
+                }
+            ],
+            "container-title": "Journal of Marketing Management",
+            "id": "bendixen1995compositional",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        1995
+                    ]
+                ]
+            },
+            "page": "571-581",
+            "title": "Compositional perceptual mapping using chi-squared trees analysis and correspondence analysis",
+            "type": "article-journal",
+            "volume": "11"
+        },
+        {
+            "URL": "https://doi.org/10.1080/01621459.1963.10500845",
+            "author": [
+                {
+                    "family": "Ward",
+                    "given": "Joe H"
+                }
+            ],
+            "container-title": "Journal of the American statistical association",
+            "id": "ward1963hierarchical",
+            "issue": "301",
+            "issued": {
+                "date-parts": [
+                    [
+                        1963
+                    ]
+                ]
+            },
+            "page": "236-244",
+            "title": "Hierarchical grouping to optimize an objective function",
+            "type": "article-journal",
+            "volume": "58"
+        },
+        {
+            "author": [
+                {
+                    "family": "Fukuyama",
+                    "given": "Yoshiki"
+                }
+            ],
+            "container-title": "Proc. 5th fuzzy syst. Symp., 1989",
+            "id": "fukuyama1989",
+            "issued": {
+                "date-parts": [
+                    [
+                        1989
+                    ]
+                ]
+            },
+            "page": "247-250",
+            "title": "A new method of choosing the number of clusters for the fuzzy c-mean method",
+            "type": "paper-conference"
+        },
+        {
+            "URL": "https://doi.org/10.1109/34.85677",
+            "author": [
+                {
+                    "family": "Xie",
+                    "given": "Xuanli Lisa"
+                },
+                {
+                    "family": "Beni",
+                    "given": "Gerardo"
+                }
+            ],
+            "container-title": "IEEE Transactions on pattern analysis and machine intelligence",
+            "id": "xie1991validity",
+            "issue": "8",
+            "issued": {
+                "date-parts": [
+                    [
+                        1991
+                    ]
+                ]
+            },
+            "page": "841-847",
+            "title": "A validity measure for fuzzy clustering",
+            "type": "article-journal",
+            "volume": "13"
+        },
+        {
+            "URL": "10.18637/jss.v025.i01",
+            "author": [
+                {
+                    "family": "Lê",
+                    "given": "Sébastien"
+                },
+                {
+                    "family": "Josse",
+                    "given": "Julie"
+                },
+                {
+                    "family": "Husson",
+                    "given": "François"
+                }
+            ],
+            "container-title": "Journal of Statistical Software",
+            "id": "FactoMineR",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008
+                    ]
+                ]
+            },
+            "page": "1-18",
+            "title": "FactoMineR: A package for multivariate analysis",
+            "title-short": "FactoMineR",
+            "type": "article-journal",
+            "volume": "25"
+        }
+    ],
+    "project_biblios": [
+        "references.bib"
+    ]
+}

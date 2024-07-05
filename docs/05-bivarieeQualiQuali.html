@@ -329,12 +329,12 @@ div.csl-indent {
 <p>Plus spécifiquement, certaines modalités d’une variable qualitative sont-elles associées significativement à certaines modalités d’une autre variable qualitative?</p>
 <p>Prenons l’exemple de deux variables qualitatives&nbsp;: l’une intitulée <em>groupe d’âge</em> comprenant trois modalités (15 à 29 ans, 30 à 44 ans, 45 à 64 ans); l’autre intitulée <em>mode de transport habituel pour se rendre au travail</em> comprenant quatre modalités (véhicule motorisé, transport en commun, vélo, marche).</p>
 <p>Comparativement aux deux autres groupes, nous pourrions supposer que les jeunes se déplacent proportionnellement plus en modes de transport actif (vélo et marche) et en transport en commun. À l’inverse, il est possible que les 45 à 64 ans se déplacent majoritairement en véhicules motorisés.</p>
-<p>Pour vérifier l’existence d’associations significatives entre les modalités de deux variables qualitatives, il est possible de construire un <strong>tableau de contingence</strong> (<a href="#sec-051">section&nbsp;<span>5.1</span></a>), puis de réaliser le <strong>test du khi-deux</strong> (<a href="#sec-052">section&nbsp;<span>5.2</span></a>).</p>
+<p>Pour vérifier l’existence d’associations significatives entre les modalités de deux variables qualitatives, il est possible de construire un <strong>tableau de contingence</strong> (<a href="#sec-051">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-051</span></a>), puis de réaliser le <strong>test du khi-deux</strong> (<a href="#sec-052">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-052</span></a>).</p>
 </div>
 </div>
 <section id="sec-051" class="level2" data-number="5.1"><h2 data-number="5.1" class="anchored" data-anchor-id="sec-051">
 <span class="header-section-number">5.1</span> Construction de tableau de contingence</h2>
-<p>Les données du tableau de contingence suivant décrivent 279 projets d’habitation à loyer modique (HLM) dans l’ancienne ville de Montréal, croisant les modalités de la période de construction (en colonne) et de la taille (en ligne) des projets HLM <span class="citation" data-cites="TheseApparicio">(<a href="references.html#ref-TheseApparicio" role="doc-biblioref">Apparicio 2002</a>)</span>. Les différents éléments du tableau sont décrits ci-dessous.</p>
+<p>Les données du tableau de contingence suivant décrivent 279 projets d’habitation à loyer modique (HLM) dans l’ancienne ville de Montréal, croisant les modalités de la période de construction (en colonne) et de la taille (en ligne) des projets HLM <span class="citation" data-cites="TheseApparicio">(<a href="#ref-TheseApparicio" role="doc-biblioref">Apparicio 2002</a>)</span>. Les différents éléments du tableau sont décrits ci-dessous.</p>
 <ul>
 <li><p><strong>Les fréquences observées</strong> (<em>Count</em> au tableau ci-dessous), nommées communément <span class="math inline">\(f_{ij}\)</span>, correspondent aux observations appartenant à la fois à la <em>i<sup>e</sup></em> modalité de la variable en ligne et à la <em>j<sup>e</sup></em> modalité de la variable en colonne. À titre d’exemple, nous comptons 14 projets HLM construits entre 1985 et 1989 comprenant moins de 25 logements.</p></li>
 <li><p><strong>Les marges</strong> du tableau sont les totaux pour chaque modalité en ligne (<span class="math inline">\(n_{i.}\)</span>) et en colonne (<span class="math inline">\(n_{j.}\)</span>). En guise d’exemple, sur les 279 projets HLM, 53 comprennent de 25 à 49 logements et 56 ont été construites entre 1968 et 1974. Bien entendu, la somme des marges en ligne (<span class="math inline">\(n_{i.}\)</span>) est égale au nombre total d’observations (<span class="math inline">\(n_{ij}\)</span>), tout comme la somme de marges en colonne (<span class="math inline">\(n_{.j}\)</span>).</p></li>
@@ -414,7 +414,7 @@ Chi^2 =  63.54291     d.f. =  12     p =  5.063109e-09
 </section><section id="sec-052" class="level2" data-number="5.2"><h2 data-number="5.2" class="anchored" data-anchor-id="sec-052">
 <span class="header-section-number">5.2</span> Test du khi-deux</h2>
 <p>Avec le test du khi-deux, nous postulons qu’il y a indépendance entre les modalités des deux variables qualitatives, soit l’hypothèse nulle (<em>H<sub>0</sub></em>). Puis, nous calculons le nombre de degrés de liberté&nbsp;: <span class="math inline">\(DL = (n-1)(l-1)\)</span>, avec <span class="math inline">\(l\)</span> et <span class="math inline">\(n\)</span> étant respectivement les nombres de modalités en ligne et en colonne. Pour notre tableau de contingence, nous avons 12 degrés de liberté&nbsp;: <span class="math inline">\((4-1)(5-1)=12\)</span>.</p>
-<p>À partir du nombre de degrés de liberté et d’un seuil critique de significativité (prenons 5&nbsp;% ici), nous pouvons trouver la valeur critique de khi-deux dans la table des valeurs critiques du khi-deux, soit 21,03 (<a href="14-Annexes.html#sec-141">section&nbsp;<span>14.1</span></a>). Puisque la valeur du khi-deux calculée dans le tableau de contingence (63,54) est bien supérieure à celle obtenue dans le tableau des valeurs critiques (21,03), nous pouvons rejeter l’hypothèse d’indépendance au seuil de 5&nbsp;%. Autrement dit, si les deux variables n’étaient pas associées, nous aurions eu moins de 5&nbsp;% de chances de collecter des données avec ce niveau d’association, ce qui nous permet de rejeter l’hypothèse nulle (absence d’association). Notez que le test reste significatif avec des seuils de 1&nbsp;% (<em>p</em>&nbsp;=&nbsp;0,01) et 0,1&nbsp;% (<em>p</em>&nbsp;=&nbsp;0,001) puisque les valeurs critiques sont de 26,22 et de 32,91.</p>
+<p>À partir du nombre de degrés de liberté et d’un seuil critique de significativité (prenons 5&nbsp;% ici), nous pouvons trouver la valeur critique de khi-deux dans la table des valeurs critiques du khi-deux, soit 21,03 (<a href="#sec-141">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-141</span></a>). Puisque la valeur du khi-deux calculée dans le tableau de contingence (63,54) est bien supérieure à celle obtenue dans le tableau des valeurs critiques (21,03), nous pouvons rejeter l’hypothèse d’indépendance au seuil de 5&nbsp;%. Autrement dit, si les deux variables n’étaient pas associées, nous aurions eu moins de 5&nbsp;% de chances de collecter des données avec ce niveau d’association, ce qui nous permet de rejeter l’hypothèse nulle (absence d’association). Notez que le test reste significatif avec des seuils de 1&nbsp;% (<em>p</em>&nbsp;=&nbsp;0,01) et 0,1&nbsp;% (<em>p</em>&nbsp;=&nbsp;0,001) puisque les valeurs critiques sont de 26,22 et de 32,91.</p>
 <p>Bien entendu, une fois que nous connaissons le nombre de degrés de liberté, nous pouvons directement calculer les valeurs critiques pour différents seuils de signification et éviter ainsi de recourir à la table du du khi-deux. Dans la même veine, nous pouvons aussi calculer la valeur de <em>p</em> d’un tableau de contingence en spécifiant le nombre de degrés de liberté et la valeur du khi-deux obtenue.</p>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Valeurs critiques du khi-deux avec le nombre de degrés de liberté"</span>, <span class="st">"\n"</span>,</span>
@@ -442,7 +442,7 @@ Chi^2 =  63.54291     d.f. =  12     p =  5.063109e-09
 <p><strong>Autres mesures d’association</strong></p>
 </div>
 <div class="bloc_aller_loin-body">
-<p>Outre le khi-deux, d’autres mesures d’association permettent de mesurer le degré d’association entre deux variables qualitatives. Les plus courantes sont reportées dans le <a href="#tbl-EncadreAsso">tableau&nbsp;<span>5.1</span></a>. À des fins de comparaison, le khi-deux décrit précédemment est aussi reporté sur la première ligne du tableau.</p>
+<p>Outre le khi-deux, d’autres mesures d’association permettent de mesurer le degré d’association entre deux variables qualitatives. Les plus courantes sont reportées dans le <a href="#tbl-EncadreAsso">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-EncadreAsso</span></a>. À des fins de comparaison, le khi-deux décrit précédemment est aussi reporté sur la première ligne du tableau.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-EncadreAsso" class="anchored">
@@ -698,7 +698,7 @@ Transport                 Homme Femme
   Autre moyen              0.92  0.76</code></pre>
 </div>
 </div>
-<p>Pour obtenir les autres mesures d’association (<a href="#tbl-MesuresAssociations">tableau&nbsp;<span>5.2</span></a>), nous pourrons utiliser la syntaxe suivante&nbsp;:</p>
+<p>Pour obtenir les autres mesures d’association (<a href="#tbl-MesuresAssociations">tableau&nbsp;<span class="quarto-unresolved-ref">tbl-MesuresAssociations</span></a>), nous pourrons utiliser la syntaxe suivante&nbsp;:</p>
 <div class="cell">
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/bivariee/hlm.csv"</span><span class="op">)</span></span>
 <span><span class="co"># Fonction pour calculer les autres mesures d'association</span></span>
@@ -813,7 +813,7 @@ Transport                 Homme Femme
 <p><strong>Repérer les contributions au khi-deux les plus importantes</strong></p>
 </div>
 <div class="bloc_astuce-body">
-<p>Pour repérer rapidement les cellules où les contributions au khi-deux sont les plus fortes, vous pouvez construire un graphique avec la fonction <code>mosaic</code> du <em>package</em> <code>vcd</code>. À la <a href="#fig-VDC">figure&nbsp;<span>5.1</span></a>, la taille des rectangles représente les effectifs entre les deux modalités tandis que les associations sont représentées comme suit&nbsp;: en gris lorsqu’elles ne sont pas significatives, en rouge pour des déviations significatives et négatives et en bleu pour des déviations significatives et positives.</p>
+<p>Pour repérer rapidement les cellules où les contributions au khi-deux sont les plus fortes, vous pouvez construire un graphique avec la fonction <code>mosaic</code> du <em>package</em> <code>vcd</code>. À la <a href="#fig-VDC">figure&nbsp;<span class="quarto-unresolved-ref">fig-VDC</span></a>, la taille des rectangles représente les effectifs entre les deux modalités tandis que les associations sont représentées comme suit&nbsp;: en gris lorsqu’elles ne sont pas significatives, en rouge pour des déviations significatives et négatives et en bleu pour des déviations significatives et positives.</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">vcd</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/vcd/man/mosaic.html">mosaic</a></span><span class="op">(</span><span class="op">~</span> <span class="va">Taille</span><span class="op">+</span><span class="va">Periode</span>, </span>
@@ -829,8 +829,8 @@ Transport                 Homme Femme
 </div>
 </div>
 </div>
-<p><strong>Exemple d’interprétation.</strong> «&nbsp;Les résultats du test du khi-deux signalent qu’il existe des associations entre les modalités de la taille et de la période de construction des projets d’habitation (<span class="math inline">\(\chi\)</span>&nbsp;=&nbsp;63,5, <em>p</em>&nbsp;&lt;&nbsp;0,001). Les fortes contributions au khi-deux et le signe positif ou négatif des déviations correspondantes permettent de repérer cinq associations majeures entre les modalités de taille et de période de construction des projets HLM&nbsp;: <strong>1)</strong> la répulsion entre les projets d’habitation de moins de 25 logements et la période de construction 1964-1974; <strong>2)</strong> l’attraction entre les projets d’habitation de 100&nbsp;logements et plus et la période de construction de 1969-1974; <strong>3)</strong> l’attraction entre les projets d’habitation de moins de 25 logements et la période de construction de 1990-1994; <strong>4)</strong> la répulsion entre les projets d’habitation de 50 à 99 logements et la période de construction 1990-1994; <strong>5)</strong> la répulsion entre les projets d’habitation de 100&nbsp;logements et plus et la période de construction 1990-1994. On observe donc une tendance bien marquée dans l’évolution du type de construction entre 1970 et 1994&nbsp;: entre 1969 et 1974, on a construit de grandes habitations dépassant souvent 100 logements; du milieu des années 1970 à la fin des années 1980, on privilégie la construction d’habitations de taille plus modeste, entre 50 et 100 logements; tandis qu’au début des années 1990, on opte plutôt pour des habitations de taille réduite (moins de 50 logements). Quelques chiffres à l’appui&nbsp;: sur les 56 habitations réalisées entre 1969 et 1974, 20 ont plus de 100 logements, 20 comprennent entre 50 et 99 logements et seules 10 ont moins de 25 logements. Près de la moitié des habitations construites entre 1975 et 1989 regroupent 50 à 99 logements (43,8&nbsp;% pour la période 1975-1979, 45,8&nbsp;% pour 1980-1984 et 44,7&nbsp;% pour 1985-1989). Par contre, 51&nbsp;% des habitations érigés à partir de 1990 disposent de moins de 25 logements&nbsp;» (<span class="citation" data-cites="TheseApparicio">Apparicio (<a href="references.html#ref-TheseApparicio" role="doc-biblioref">2002</a>)</span>, p.&nbsp;117-118). Notez que cette évolution décroissante est aussi soutenue par le coefficient négatif de la corrélation polychorique.</p>
-<p>Vous pouvez aussi construire un graphique pour appuyer vos constats, soit avec les pourcentages en ligne ou en colonne (<a href="#fig-hml">figure&nbsp;<span>5.2</span></a> tirée de <span class="citation" data-cites="TheseApparicio">Apparicio (<a href="references.html#ref-TheseApparicio" role="doc-biblioref">2002</a>)</span>).</p>
+<p><strong>Exemple d’interprétation.</strong> «&nbsp;Les résultats du test du khi-deux signalent qu’il existe des associations entre les modalités de la taille et de la période de construction des projets d’habitation (<span class="math inline">\(\chi\)</span>&nbsp;=&nbsp;63,5, <em>p</em>&nbsp;&lt;&nbsp;0,001). Les fortes contributions au khi-deux et le signe positif ou négatif des déviations correspondantes permettent de repérer cinq associations majeures entre les modalités de taille et de période de construction des projets HLM&nbsp;: <strong>1)</strong> la répulsion entre les projets d’habitation de moins de 25 logements et la période de construction 1964-1974; <strong>2)</strong> l’attraction entre les projets d’habitation de 100&nbsp;logements et plus et la période de construction de 1969-1974; <strong>3)</strong> l’attraction entre les projets d’habitation de moins de 25 logements et la période de construction de 1990-1994; <strong>4)</strong> la répulsion entre les projets d’habitation de 50 à 99 logements et la période de construction 1990-1994; <strong>5)</strong> la répulsion entre les projets d’habitation de 100&nbsp;logements et plus et la période de construction 1990-1994. On observe donc une tendance bien marquée dans l’évolution du type de construction entre 1970 et 1994&nbsp;: entre 1969 et 1974, on a construit de grandes habitations dépassant souvent 100 logements; du milieu des années 1970 à la fin des années 1980, on privilégie la construction d’habitations de taille plus modeste, entre 50 et 100 logements; tandis qu’au début des années 1990, on opte plutôt pour des habitations de taille réduite (moins de 50 logements). Quelques chiffres à l’appui&nbsp;: sur les 56 habitations réalisées entre 1969 et 1974, 20 ont plus de 100 logements, 20 comprennent entre 50 et 99 logements et seules 10 ont moins de 25 logements. Près de la moitié des habitations construites entre 1975 et 1989 regroupent 50 à 99 logements (43,8&nbsp;% pour la période 1975-1979, 45,8&nbsp;% pour 1980-1984 et 44,7&nbsp;% pour 1985-1989). Par contre, 51&nbsp;% des habitations érigés à partir de 1990 disposent de moins de 25 logements&nbsp;» (<span class="citation" data-cites="TheseApparicio">Apparicio (<a href="#ref-TheseApparicio" role="doc-biblioref">2002</a>)</span>, p.&nbsp;117-118). Notez que cette évolution décroissante est aussi soutenue par le coefficient négatif de la corrélation polychorique.</p>
+<p>Vous pouvez aussi construire un graphique pour appuyer vos constats, soit avec les pourcentages en ligne ou en colonne (<a href="#fig-hml">figure&nbsp;<span class="quarto-unresolved-ref">fig-hml</span></a> tirée de <span class="citation" data-cites="TheseApparicio">Apparicio (<a href="#ref-TheseApparicio" role="doc-biblioref">2002</a>)</span>).</p>
 <div id="fig-hml" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="images/Chap05/figurehlm.png" class="img-fluid figure-img" style="width:80.0%"></p>
 <figcaption class="figure-caption">Figure&nbsp;5.2: Taille des projets d’habitation à loyer modique selon la période de construction</figcaption></figure>
@@ -897,7 +897,7 @@ function handleAnswers(quiz, question, no, correct) {
 Pour analyser la relation entre deux variables qualitatives, vous utilisez :
 </div>
 <div>
-Relisez au besoin l’introduction du <a href="#sec-chap05">chapitre&nbsp;<span>5</span></a>.
+Relisez au besoin l’introduction du <a href="#sec-chap05">chapitre&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-chap05</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -958,7 +958,7 @@ Relisez au besoin l’introduction du <a href="#sec-chap05">chapitre&nbsp;<span>
 Dans un tableau de contingence, quels sont les éléments disponibles?
 </div>
 <div>
-Relisez au besoin la <a href="#sec-051">section&nbsp;<span>5.1</span></a>.
+Relisez au besoin la <a href="#sec-051">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-051</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -1019,7 +1019,7 @@ Relisez au besoin la <a href="#sec-051">section&nbsp;<span>5.1</span></a>.
 La corrélation polychorique est particulièrement bien adaptée pour mesurer l’association entre deux variables qualitatives :
 </div>
 <div>
-Relisez au besoin l’encadré à la <a href="#sec-052">section&nbsp;<span>5.2</span></a>.
+Relisez au besoin l’encadré à la <a href="#sec-052">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-052</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -1048,7 +1048,7 @@ Relisez au besoin l’encadré à la <a href="#sec-052">section&nbsp;<span>5.2</
 S’il y a indépendance entre les deux variables qualitatives (khi-deux observé inférieur au khi-deux critique), il n’est pas nécessaire d’analyser en détail le tableau de contingence.
 </div>
 <div>
-Relisez au besoin la <a href="#sec-054">section&nbsp;<span>5.4</span></a>.
+Relisez au besoin la <a href="#sec-054">section&nbsp;<span class="quarto-unresolved-ref ref-noprefix">sec-054</span></a>.
 </div>
 <div class="quizlib-question-answers">
 
@@ -1081,7 +1081,7 @@ Vérifier votre résultat
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-TheseApparicio" class="csl-entry" role="listitem">
 Apparicio, Philippe. 2002. <span>«&nbsp;Apport des syst<span>è</span>mes d’information g<span>é</span>ographique <span>à</span> l’<span>é</span>tude de l’insertion des HLM dans les quartiers montr<span>é</span>alais.&nbsp;»</span> Thèse de doctorat, Université du Maine. <a href="http://www.theses.fr/2002LEMA3007">http://www.theses.fr/2002LEMA3007</a>.
 </div>
