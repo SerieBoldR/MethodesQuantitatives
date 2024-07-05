@@ -1,0 +1,2309 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Méthodes quantitatives en sciences sociales : un grand bol d’R - 10&nbsp; Régressions multiniveaux</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./11-GAM.html" rel="next">
+<link href="./09-GLMM.html" rel="prev">
+<link href="./images/introduction/Couverture.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Pas de résultats",
+    "search-matching-documents-text": "documents trouvés",
+    "search-copy-link-title": "Copier le lien vers la recherche",
+    "search-hide-matches-text": "Cacher les correspondances additionnelles",
+    "search-more-match-text": "correspondance de plus dans ce document",
+    "search-more-matches-text": "correspondances de plus dans ce document",
+    "search-clear-button-title": "Effacer",
+    "search-detached-cancel-button-title": "Annuler",
+    "search-submit-button-title": "Envoyer"
+  }
+}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="css/quizlib.min.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./10-Multiniveau.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Régressions multiniveaux</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Recherche" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Méthodes quantitatives en sciences sociales : un grand bol d’R</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/SerieBoldR/MethodesQuantitatives" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Recherche"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Préface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-auteurs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">À propos des auteurs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 1. Découverte de R</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-priseenmainR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Prise en main de R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 2. Analyses univariées et représentations graphiques</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-univarie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Statistiques descriptives univariées</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-magiedesgraphiques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Magie des graphiques</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 3. Analyses bivariées</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-bivarieeQuantiQuanti.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Relation linéaire entre deux variables quantitatives</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-bivarieeQualiQuali.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Relation entre deux variables qualitatives</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-bivarieeQualiQuanti.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Relation entre une variable qualitative et une variable quantitative</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 4. Modèles de régression</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-regressionlineaire.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Régression linéaire multiple</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-GLM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Régressions linéaires généralisées (GLM)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-GLMM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Régressions à effets mixtes (GLMM)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-Multiniveau.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Régressions multiniveaux</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-GAM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Modèles généralisés additifs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 5. Analyses exploratoires multivariées</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-AnalysesFactorielles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Méthodes factorielles</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-MethodeClassification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Méthodes de classification non supervisée</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 6. Annexes et bibliographie</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-Annexes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Annexes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bibliographie</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table des matières</h2>
+   
+  <ul>
+<li>
+<a href="#sec-101" id="toc-sec-101" class="nav-link active" data-scroll-target="#sec-101"><span class="header-section-number">10.1</span> Modèles multiniveaux&nbsp;: deux intérêts majeurs</a>
+  <ul class="collapse">
+<li><a href="#sec-1011" id="toc-sec-1011" class="nav-link" data-scroll-target="#sec-1011"><span class="header-section-number">10.1.1</span> Répartition de la variance entre les différents niveaux</a></li>
+  <li><a href="#sec-1012" id="toc-sec-1012" class="nav-link" data-scroll-target="#sec-1012"><span class="header-section-number">10.1.2</span> Estimation des coefficients aux différents niveaux</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#sec-102" id="toc-sec-102" class="nav-link" data-scroll-target="#sec-102"><span class="header-section-number">10.2</span> Différents types de modèles multiniveaux</a>
+  <ul class="collapse">
+<li><a href="#sec-1021" id="toc-sec-1021" class="nav-link" data-scroll-target="#sec-1021"><span class="header-section-number">10.2.1</span> Description du jeu de données utilisé</a></li>
+  <li><a href="#sec-1022" id="toc-sec-1022" class="nav-link" data-scroll-target="#sec-1022"><span class="header-section-number">10.2.2</span> Démarche classique pour les modèles multiniveaux</a></li>
+  </ul>
+</li>
+  <li><a href="#sec-103" id="toc-sec-103" class="nav-link" data-scroll-target="#sec-103"><span class="header-section-number">10.3</span> Conditions d’application des régressions multiniveaux</a></li>
+  <li>
+<a href="#sec-104" id="toc-sec-104" class="nav-link" data-scroll-target="#sec-104"><span class="header-section-number">10.4</span> Mise en œuvre dans R</a>
+  <ul class="collapse">
+<li><a href="#sec-1041" id="toc-sec-1041" class="nav-link" data-scroll-target="#sec-1041"><span class="header-section-number">10.4.1</span> Le modèle vide</a></li>
+  <li><a href="#sec-1042" id="toc-sec-1042" class="nav-link" data-scroll-target="#sec-1042"><span class="header-section-number">10.4.2</span> Modèle avec les variables indépendantes du niveau&nbsp;1</a></li>
+  <li><a href="#sec-1043" id="toc-sec-1043" class="nav-link" data-scroll-target="#sec-1043"><span class="header-section-number">10.4.3</span> Modèle avec les variables indépendantes aux niveaux 1 et 2</a></li>
+  <li><a href="#sec-10414" id="toc-sec-10414" class="nav-link" data-scroll-target="#sec-10414"><span class="header-section-number">10.4.4</span> Modèle complet avec une interaction</a></li>
+  <li><a href="#sec-1045" id="toc-sec-1045" class="nav-link" data-scroll-target="#sec-1045"><span class="header-section-number">10.4.5</span> Comparaison des quatre modèles</a></li>
+  </ul>
+</li>
+  <li><a href="#sec-105" id="toc-sec-105" class="nav-link" data-scroll-target="#sec-105"><span class="header-section-number">10.5</span> Quiz de révision du chapitre</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/SerieBoldR/MethodesQuantitatives/issues/new" class="toc-action">Signaler un problème ou<br>formuler une suggestion</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-chap10" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Régressions multiniveaux</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><p>Dans le précédent chapitre, nous avons abordé les modèles à effets mixtes qui permettent d’introduire à la fois des effets fixes et aléatoires (GLMM). Dans ce chapitre, nous poursuivons sur cette voie avec une nouvelle extension des modèles GLM&nbsp;: les modèles multiniveaux. Ces modèles sont simplement une extension des modèles à effets mixtes et permettent de modéliser un phénomène avec une structure hiérarchique des données, tel que décrit dans le chapitre précédent.</p>
+<div class="bloc_notes">
+<div class="bloc_notes-header">
+<div class="bloc_notes-icon">
+
+</div>
+<p><strong>Rappel de la structure hiérarchique des données</strong></p>
+</div>
+<div class="bloc_notes-body">
+<p><strong>Exemple à deux niveaux&nbsp;:</strong> il s’agit de modéliser un phénomène <span class="math inline">\(y_{ij}\)</span>, soit une variable dépendante <em>Y</em> pour un individu&nbsp;<em>i</em> (niveau&nbsp;1) niché dans un groupe&nbsp;<em>j</em> (niveau&nbsp;2). Par exemple, modéliser l’indice de masse corporelle (IMC) de 5000 individus résidant dans 100 quartiers différents.</p>
+<p><strong>Exemple à trois niveaux&nbsp;:</strong> il s’agit de modéliser un phénomène <span class="math inline">\(y_{ijk}\)</span>, soit une variable dépendante <em>Y</em> pour un individu&nbsp;<em>i</em> (niveau&nbsp;1), niché dans un groupe&nbsp;<em>j</em> (niveau&nbsp;2) appartenant à un groupe&nbsp;<em>k</em> (niveau&nbsp;3). Par exemple, modéliser les notes à un examen de mathématiques d’élèves (niveau&nbsp;1) nichés dans des classes (niveau&nbsp;2) nichées dans des écoles (niveau&nbsp;3).</p>
+</div>
+</div>
+<p>Nous avons largement décrit précédemment trois principaux types de modèles d’effets mixtes (GLMM)&nbsp;:</p>
+<ul>
+<li><p>Les GLMM avec constantes aléatoires qui permettent d’avoir une constante différente pour chacun des groupes (niveau&nbsp;2).</p></li>
+<li><p>Les GLMM avec pentes aléatoires qui permettent de faire varier une variable indépendante au niveau&nbsp;1 (coefficient) en fonction des groupes au niveau&nbsp;2.</p></li>
+<li><p>Les GLMM avec constantes et pentes aléatoires.</p></li>
+</ul>
+<p>Les modèles multiniveaux se différencient des modèles à effets mixtes puisqu’ils permettent d’introduire des variables indépendantes mesurées aux niveaux supérieurs (2 et 3).</p>
+<div class="bloc_package">
+<div class="bloc_package-header">
+<div class="bloc_package-icon">
+
+</div>
+<p><strong>Liste des <em>packages</em> utilisés dans ce chapitre</strong></p>
+</div>
+<div class="bloc_package-body">
+<ul>
+<li>
+<code>lme4</code> pour en œuvre des modèles multiniveaux avec une variable dépendante continue.</li>
+<li>
+<code>performance</code> pour obtenir le coefficient intraclasse (ICC).</li>
+<li>
+<code>MuMIn</code> pour obtenir les pseudos R<sup>2</sup>.</li>
+</ul>
+</div>
+</div>
+<section id="sec-101" class="level2" data-number="10.1"><h2 data-number="10.1" class="anchored" data-anchor-id="sec-101">
+<span class="header-section-number">10.1</span> Modèles multiniveaux&nbsp;: deux intérêts majeurs</h2>
+<p>Les modèles multiniveaux ont deux principaux avantages&nbsp;: analyser la répartition de la variance entre les différents niveaux et introduire des variables explicatives aux différents niveaux du modèle.</p>
+<section id="sec-1011" class="level3" data-number="10.1.1"><h3 data-number="10.1.1" class="anchored" data-anchor-id="sec-1011">
+<span class="header-section-number">10.1.1</span> Répartition de la variance entre les différents niveaux</h3>
+<p>Les modèles multiniveaux permettent d’estimer comment se répartit la variance entre les différents niveaux du jeu de données. Dans les deux exemples de l’encadré précédent, ils permettraient de répondre aux questions suivantes&nbsp;:</p>
+<ul>
+<li><p>Quel niveau explique le plus l’IMC, le niveau individuel (niveau&nbsp;1) ou le niveau contextuel (niveau&nbsp;2)?</p></li>
+<li><p>Comment se répartit la variance des notes à l’examen de mathématiques entre les trois niveaux? A-t-on plus de variance pour les individus (niveau&nbsp;1) ou au sein des classes (niveau&nbsp;2) ou entre les différentes écoles (niveau&nbsp;3)?</p></li>
+</ul></section><section id="sec-1012" class="level3" data-number="10.1.2"><h3 data-number="10.1.2" class="anchored" data-anchor-id="sec-1012">
+<span class="header-section-number">10.1.2</span> Estimation des coefficients aux différents niveaux</h3>
+<p>Les modèles multiniveaux permettent d’estimer simultanément les coefficients de plusieurs variables indépendantes introduites à chacun des niveaux du modèle. Autrement dit, de voir comment les variables indépendantes introduites aux différents niveaux influencent la variable dépendante (<em>Y</em>) mesurée au niveau&nbsp;1. Si nous reprenons l’exemple à trois niveaux (élèves/classes/écoles), plusieurs facteurs peuvent influencer la réussite ou la performance scolaire des élèves aux différents niveaux&nbsp;:</p>
+<ul>
+<li><p><strong>Variables indépendantes au niveau&nbsp;1</strong> (élève)&nbsp;: âge, sexe, statut socioéconomique, langue maternelle autre que la langue d’enseignement…</p></li>
+<li><p><strong>Variables indépendantes au niveau&nbsp;2</strong> (classe)&nbsp;: nombre d’élèves par classe, programme spécialisé ou pas…</p></li>
+<li><p><strong>Variables indépendantes au niveau&nbsp;3</strong> (école)&nbsp;: indice de défavorisation de l’école, école publique ou privée, qualité des infrastructures de l’école (bâtiment, gymnase, cour d’école)…</p></li>
+</ul>
+<p>Dans la même veine, afin d’illustrer l’apport des modèles multiniveaux dans le champ de la géographie de la santé, Philibert et Apparicio <span class="citation" data-cites="philibert2007statistiques">(<a href="references.html#ref-philibert2007statistiques" role="doc-biblioref">2007, 129</a>)</span> signalent que «&nbsp;pour un modèle à deux niveaux, il s’agit de modéliser <span class="math inline">\(y_{ij}\)</span>, par exemple l’IMC d’un individu&nbsp;<em>i</em> (niveau&nbsp;1) résidant dans un quartier&nbsp;<em>j</em> (niveau&nbsp;2). Il est alors possible de mettre des variables explicatives tant au niveau&nbsp;1 (âge, sexe, revenu, niveau d’éducation, etc.) qu’au niveau&nbsp;2 (niveau de défavorisation sociale du quartier, offre de services et d’équipements sportifs et récréatifs, caractéristiques de l’environnement urbain, etc.). Dans cet exemple, nous pouvons voir comment la modélisation multiniveau permet d’estimer simultanément les effets environnementaux et individuels de manière à distinguer la contribution de chacun des niveaux (ex.&nbsp;: l’effet du revenu des individus et celui de la défavorisation du quartier) dans l’explication des variations géographiques observées&nbsp;».</p>
+<div class="bloc_aller_loin">
+<div class="bloc_aller_loin-header">
+<div class="bloc_aller_loin-icon">
+
+</div>
+<p><strong>Évaluer les effets de milieu avec des analyses multiniveaux</strong></p>
+</div>
+<div class="bloc_aller_loin-body">
+<p>En santé des populations et en études urbaines, les modèles multiniveaux sont largement mobilisés pour évaluer les effets de milieu (<em>neighbourhoods effects</em> ou <em>area effects</em> en anglais).</p>
+<p>Atkinson et Kintrea <span class="citation" data-cites="atkinson2001disentangling">(<a href="references.html#ref-atkinson2001disentangling" role="doc-biblioref">2001, 2278</a>)</span> définissent les «&nbsp;effets de milieu comme le changement net dans les potentialités de l’existence (<em>life chances</em>) attribuable au fait de vivre dans un quartier (ou une zone) plutôt qu’un autre&nbsp;» [traduction libre]. Les effets de milieu peuvent être positifs ou négatifs et concerner aussi bien les enfants que les adultes.</p>
+<p>Les analyses multiniveaux sont particulièrement adaptées à l’évaluation des effets de milieu. En effet, plusieurs phénomènes — état de santé, comportement ou choix individuels — peuvent être influencés à la fois par des caractéristiques individuelles (âge, sexe, niveau de revenu, niveau d’éducation, etc.) et par des caractéristiques contextuelles (caractéristiques du quartier).</p>
+<p>Avec un modèle multiniveau, une fois contrôlées les caractéristiques individuelles (variables indépendantes mesurées au niveau&nbsp;1), il est alors possible d’évaluer l’effet des caractéristiques du quartier (variables indépendantes mesurées au niveau&nbsp;2) sur un phénomène <span class="math inline">\(y_{ij}\)</span> mesuré pour un individu&nbsp;<em>i</em> résidant dans un quartier&nbsp;<em>j</em>.</p>
+</div>
+</div>
+</section></section><section id="sec-102" class="level2" data-number="10.2"><h2 data-number="10.2" class="anchored" data-anchor-id="sec-102">
+<span class="header-section-number">10.2</span> Différents types de modèles multiniveaux</h2>
+<section id="sec-1021" class="level3" data-number="10.2.1"><h3 data-number="10.2.1" class="anchored" data-anchor-id="sec-1021">
+<span class="header-section-number">10.2.1</span> Description du jeu de données utilisé</h3>
+<p>Dans le cadre de cette section, nous présentons uniquement les modèles à deux niveaux, soit celui pour modéliser un phénomène <span class="math inline">\(y_{ij}\)</span>. Pour ce faire, nous utilisons des données tirées d’une étude de Pham et al. <span class="citation" data-cites="apparicio2017disentangling">(<a href="references.html#ref-apparicio2017disentangling" role="doc-biblioref">2017</a>)</span>. Dans cet article, les auteurs souhaitent évaluer les effets des caractéristiques de la forme urbaine et des caractéristiques socioéconomiques sur la couverture des arbres de rue, et ce, à partir d’un modèle multiniveau. Ils disposent ainsi d’une structure hiérarchique de données avec deux niveaux&nbsp;: les tronçons de rue (niveau&nbsp;1, n&nbsp;=&nbsp;10&nbsp;814) inclus dans un et un seul secteur de recensement (niveau&nbsp;2, n&nbsp;=&nbsp;312). La variable dépendante (<span class="math inline">\(y_{ij}\)</span>) est le pourcentage de la superficie du tronçon de rue qui est couverte par des arbres, calculé à partir d’images satellites à haute résolution (Quickbird, 60&nbsp;cm, septembre 2008). L’ensemble des variables utilisées pour les modèles sont reportées au <a href="#tbl-Multi">tableau&nbsp;<span>10.1</span></a>.</p>
+<p>Sept variables indépendantes relatives à la forme urbaine sont mesurées pour les tronçons de rue, soit la largeur et la longueur de la rue, l’âge médian des bâtiments (introduit également au carré pour vérifier l’existence d’un effet curvilinéaire; voir la <a href="07-regressionlineaire.html#sec-07511">section&nbsp;<span>7.5.1.1</span></a>), les pourcentages de bâtiments résidentiels, de duplex et de triplex, le nombre de bâtiments et finalement la distance moyenne entre le bâtiment et la rue. Les variables indépendantes pour les 312&nbsp;secteurs de recensement (niveau&nbsp;2) sont extraites du recensement canadien de 2006 (<a href="#tbl-Multi">tableau&nbsp;<span>10.1</span></a>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-Multi" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Tableau&nbsp;10.1: Statistiques descriptives pour les variables des modèles multiniveaux</caption>
+<colgroup>
+<col style="width: 9%">
+<col style="width: 54%">
+<col style="width: 6%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 11%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Nom</th>
+<th style="text-align: left;">Intitulé</th>
+<th style="text-align: center;">Type</th>
+<th style="text-align: center;">Niveau</th>
+<th style="text-align: right;">Moy.</th>
+<th style="text-align: right;">Écart type</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">PCTArb</td>
+<td style="text-align: left;">Arbres sur le tronçon de rue (%)</td>
+<td style="text-align: center;">VD</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: right;">7,2</td>
+<td style="text-align: right;">10,7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Width</td>
+<td style="text-align: left;">Largeur des rues</td>
+<td style="text-align: center;">VI</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: right;">16,0</td>
+<td style="text-align: right;">7,3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Length</td>
+<td style="text-align: left;">Longueur de rues</td>
+<td style="text-align: center;">VI</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: right;">136,0</td>
+<td style="text-align: right;">87,8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AgeMed</td>
+<td style="text-align: left;">Âge médian des bâtiments</td>
+<td style="text-align: center;">VI</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: right;">1 952,7</td>
+<td style="text-align: right;">28,3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ResiPCT</td>
+<td style="text-align: left;">Bâtiments résidentiels (%)</td>
+<td style="text-align: center;">VI</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: right;">83,5</td>
+<td style="text-align: right;">28,0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DuTriPct</td>
+<td style="text-align: left;">Duplex ou triplex (%)</td>
+<td style="text-align: center;">VI</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: right;">41,8</td>
+<td style="text-align: right;">39,3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NoLog</td>
+<td style="text-align: left;">Nombre de bâtiments</td>
+<td style="text-align: center;">VI</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: right;">14,0</td>
+<td style="text-align: right;">14,4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Setback</td>
+<td style="text-align: left;">Distance entre le bâtiment et la rue</td>
+<td style="text-align: center;">VI</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: right;">7,2</td>
+<td style="text-align: right;">4,3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ValLog</td>
+<td style="text-align: left;">Valeur moyenne des logements (milliers de dollars)</td>
+<td style="text-align: center;">VI</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: right;">267,6</td>
+<td style="text-align: right;">80,0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">UDipPCT</td>
+<td style="text-align: left;">Diplômés universitaires (%)</td>
+<td style="text-align: center;">VI</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: right;">16,9</td>
+<td style="text-align: right;">9,6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PCTFRAVI</td>
+<td style="text-align: left;">Personnes à faible revenu (%)</td>
+<td style="text-align: center;">VI</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: right;">30,3</td>
+<td style="text-align: right;">11,5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PCTIMGRE</td>
+<td style="text-align: left;">Immigrants récents (%)</td>
+<td style="text-align: center;">VI</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: right;">10,0</td>
+<td style="text-align: right;">7,3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AvecEnf</td>
+<td style="text-align: left;">Ménages avec enfants (%)</td>
+<td style="text-align: center;">VI</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: right;">34,8</td>
+<td style="text-align: right;">12,6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FranPCT</td>
+<td style="text-align: left;">Langue maternelle française (%)</td>
+<td style="text-align: center;">VI</td>
+<td style="text-align: center;">2</td>
+<td style="text-align: right;">66,9</td>
+<td style="text-align: right;">24,1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="sec-1022" class="level3" data-number="10.2.2"><h3 data-number="10.2.2" class="anchored" data-anchor-id="sec-1022">
+<span class="header-section-number">10.2.2</span> Démarche classique pour les modèles multiniveaux</h3>
+<p>La démarche habituelle en analyse multiniveau est de réaliser plusieurs modèles, allant du plus simple au plus complexe. Cette stratégie permet habituellement de bien cerner la répartition de la variance entre les différents niveaux et l’apport des variables explicatives introduites aux différents niveaux. De la sorte, cinq types de modèles peuvent être construits&nbsp;:</p>
+<ol type="1">
+<li><p>Le modèle vide (appelé aussi modèle inconditionnel) qui comprend des constantes aléatoires au niveau&nbsp;2, mais aucune variable explicative.</p></li>
+<li><p>Le modèle avec uniquement les variables indépendantes au niveau&nbsp;1 et des constantes aléatoires au niveau&nbsp;2.</p></li>
+<li><p>Le modèle complet avec les variables indépendantes aux deux niveaux et des constantes aléatoires.</p></li>
+<li><p>Le modèle complet avec les variables indépendantes aux deux niveaux, incluant une interaction entre une variable indépendante mesurée au niveau&nbsp;1 et une autre mesurée au niveau&nbsp;2.</p></li>
+<li><p>Le modèle avec les variables indépendantes aux deux niveaux et des constantes et pentes aléatoires.</p></li>
+</ol>
+<p>Dans les sous-sections suivantes, nous détaillons les quatre premiers modèles en prenant soin de montrer les similitudes qu’ils partagent avec les modèles à effets mixtes vus précédemment. Notez d’emblée que les trois premiers modèles sont les plus fréquemment utilisés.</p>
+<section id="sec-10221" class="level4" data-number="10.2.2.1"><h4 data-number="10.2.2.1" class="anchored" data-anchor-id="sec-10221">
+<span class="header-section-number">10.2.2.1</span> Modèle vide</h4>
+<p>Comme son nom l’indique, le modèle vide ne comprend aucune variable explicative. Il consiste simplement à faire varier la constante du niveau&nbsp;1 avec des effets aléatoires au niveau&nbsp;2, ce qui explique qu’il est souvent comparé à une ANOVA avec des effets aléatoires. En d’autres termes, ce modèle correspond à un GLMM avec constantes aléatoires dans lequel aucune variable indépendante n’est incluse au niveau&nbsp;1. D’ailleurs, si vous comparez l’<a href="#eq-multiniveauModeleVide">équation&nbsp;<span>10.1</span></a> avec l’<a href="09-GLMM.html#eq-glmm2">équation&nbsp;<span>9.2</span></a> au chapitre précédent, vous constaterez que seul le paramètre <span class="math inline">\(\beta_1 x_1\)</span> a été ôté et qu’il comprend aussi deux variances&nbsp;: l’une fixe au niveau&nbsp;1 (<span class="math inline">\(\sigma_e\)</span>) et l’autre aléatoire (stochastique) au niveau&nbsp;2 (<span class="math inline">\(\sigma_{\upsilon}\)</span>).</p>
+<p><span id="eq-multiniveauModeleVide"><span class="math display">\[
+\begin{aligned}
+&amp;Y \sim Normal(\mu,\sigma_e)\\
+&amp;g(\mu) = \beta_0 + \upsilon \\
+&amp;\upsilon \sim Normal(0, \sigma_{\upsilon}) \\
+&amp;g(x) = x
+\end{aligned}
+\tag{10.1}\]</span></span></p>
+<p><strong>Quel est alors l’intérêt de réaliser un modèle si simple?</strong> À partir des deux variances, il est possible de calculer le <strong>coefficient de corrélation intraclasse</strong> (<em>intraclass-correlation</em> (ICC) en anglais) qui est le rapport entre la variance aléatoire et la somme des variances des deux niveaux, soit fixe et aléatoire (<a href="#eq-multiniveauIcc">équation&nbsp;<span>10.2</span></a>). Ce coefficient varie ainsi de 0 à 1 et indique la proportion de la variance de la variable dépendante qui est imputable au niveau&nbsp;2. Tous(tes) les auteur(e)s s’entendent sur le fait qu’il est impératif de commencer une analyse de multiniveau en calculant ce modèle vide qui nous informe de la répartition de la variance entre les deux niveaux <span class="citation" data-cites="raudenbush2002hierarchical gelman2006data tabachnick2007 bressoux2010">(<a href="references.html#ref-raudenbush2002hierarchical" role="doc-biblioref">Raudenbush et Bryk 2002</a>; <a href="references.html#ref-gelman2006data" role="doc-biblioref">Gelman et Hill 2006</a>; <a href="references.html#ref-tabachnick2007" role="doc-biblioref">Tabachnick, Fidell et Ullman 2007</a>; <a href="references.html#ref-bressoux2010" role="doc-biblioref">Bressoux 2010</a>)</span>. Nous pourrons ensuite analyser l’évolution de ce coefficient dans les modèles subséquents.</p>
+<p><span id="eq-multiniveauIcc"><span class="math display">\[
+\rho = \frac{\sigma_{\upsilon}}{\sigma_{\upsilon} + \sigma_{e}}
+\tag{10.2}\]</span></span></p>
+<p>Les résultats du modèle vide (inconditionnel) à partir des données de Pham et al. <span class="citation" data-cites="apparicio2017disentangling">(<a href="references.html#ref-apparicio2017disentangling" role="doc-biblioref">2017</a>)</span> sont présentés au <a href="#tbl-ModeleVide">tableau&nbsp;<span>10.2</span></a>. La variance du niveau&nbsp;1 est de 92,93 contre 19,82 au niveau&nbsp;2. Le coefficient de corrélation intraclasse vaut alors&nbsp;: <span class="math inline">\(\mbox{19,82} / \mbox{(19,82} + \mbox{92,93}) = \mbox{0,1758}\)</span>. Cela signifie que 18&nbsp;% de la variance de la variable dépendante sont imputables au niveau&nbsp;2 (des secteurs de recensement) et 82&nbsp;% au niveau&nbsp;1 (des tronçons). Nous verrons comment évolue ce coefficient dans les modèles subséquents.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-ModeleVide" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Tableau&nbsp;10.2: Résultats du modèle vide (modèle 1)</caption>
+<colgroup>
+<col style="width: 52%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Paramètre</th>
+<th style="text-align: right;">Coefficient</th>
+<th style="text-align: right;">Erreur type</th>
+<th style="text-align: right;">Valeur de T</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Effets fixes (niveau 1)</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Constante</td>
+<td style="text-align: right;">7,337</td>
+<td style="text-align: right;">0,277</td>
+<td style="text-align: right;">26,466</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Répartition de la variance</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Variance (niveau 1)</td>
+<td style="text-align: right;">19,818</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Variance (niveau 2)</td>
+<td style="text-align: right;">92,925</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Coefficient de corrélation intraclasse</td>
+<td style="text-align: right;">0,176</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Qualité d’ajustement du modèle</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AIC</td>
+<td style="text-align: right;">80 305,219</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">R<sup>2</sup> marginal</td>
+<td style="text-align: right;">0,000</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R<sup>2</sup> conditionnel</td>
+<td style="text-align: right;">0,176</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="sec-10222" class="level4" data-number="10.2.2.2"><h4 data-number="10.2.2.2" class="anchored" data-anchor-id="sec-10222">
+<span class="header-section-number">10.2.2.2</span> Modèle avec les variables indépendantes du niveau 1</h4>
+<p>Dans ce second modèle, nous introduisons uniquement les variables explicatives au niveau&nbsp;1. Par conséquent, ce modèle est tout simplement un modèle à effets mixtes (GLMM) avec des constantes aléatoires largement décrit à la <a href="09-GLMM.html#sec-0921">section&nbsp;<span>9.2.1</span></a>). Si vous comparez l’équation du modèle vide (<a href="#eq-multiniveauModeleVide">équation&nbsp;<span>10.1</span></a>) avec l’équation de ce modèle (<a href="#eq-multiniveauModele2">équation&nbsp;<span>10.3</span></a>), vous constaterez que le paramètre <span class="math inline">\(\beta_1 x_1\)</span> a été ajouté. Il correspond au coefficient pour la variable indépendante <span class="math inline">\(X_1\)</span> mesurée au niveau&nbsp;1 (effet fixe). Nous pourrions alors ajouter d’autres paramètres pour les autres variables indépendantes du modèle, soit <span class="math inline">\(\beta_1 x_1 + \beta_2 x_2+ \ldots + \beta_k x_k\)</span> (<span class="math inline">\(k\)</span> étant le nombre de variables explicatives mesurées au niveau&nbsp;1, effets fixes).</p>
+<p><span id="eq-multiniveauModele2"><span class="math display">\[
+\begin{aligned}
+&amp;Y \sim Normal(\mu,\sigma_e)\\
+&amp;g(\mu) = \beta_0 + \beta_1 x_1 + \upsilon \\
+&amp;\upsilon \sim Normal(0, \sigma_{\upsilon})) \\
+&amp;g(x) = x
+\end{aligned}
+\tag{10.3}\]</span></span></p>
+<p>Les résultats du second modèle sont présentés au <a href="#tbl-Modele2">tableau&nbsp;<span>10.3</span></a>.</p>
+<p><strong>La répartition de la variance entre les deux niveaux</strong>. La variance du niveau&nbsp;1 est désormais de 15,263 contre 80,317 au niveau&nbsp;2, ce qui permet d’obtenir un coefficient de corrélation intraclasse de 0,1597. Cela signifie que de 16&nbsp;% de la variance de la variable dépendante sont imputables au niveau&nbsp;2 (des secteurs de recensement), une fois contrôlées les caractéristiques des tronçons.</p>
+<p><strong>La qualité d’ajustement du modèle</strong>. Dans le chapitre précédent sur les GLMM, nous avons largement décrit plusieurs mesures de la qualité d’ajustement du modèle, notamment l’AIC et les R<sup>2</sup> marginal et conditionnel. À titre de rappel, voici comment interpréter ces mesures&nbsp;:</p>
+<ul>
+<li><p>Plus la valeur de l’AIC est faible, mieux le modèle est ajusté. En comparant les valeurs d’AIC du modèle vide et du modèle avec les variables explicatives du niveau&nbsp;1 (80&nbsp;305 <em>versus</em> 78&nbsp;785), nous constatons, sans surprise, que ce dernier modèle est plus performant.</p></li>
+<li><p>Le R<sup>2</sup> marginal indique la proportion de la variance expliquée uniquement si les effets fixes sont pris en compte (ici, 0,129). Quant au R<sup>2</sup> conditionnel, il indique la proportion de la variance expliquée à la fois par les effets fixes et aléatoires (ici, 0,268). L’écart important entre les deux R<sup>2</sup> signale que les secteurs de recensement (effets aléatoires, niveau&nbsp;2) jouent un rôle important dans le modèle.</p></li>
+</ul>
+<p><strong>Quelles informations peut-on tirer des coefficients de régression?</strong> Les variables indépendantes relatives à la forme urbaine les plus importantes sont&nbsp;: le pourcentage de bâtiments résidentiels (<code>ResiPCT</code>), la largeur de la rue (<code>Width</code>) et le nombre de bâtiments (<code>NoLog</code>). Aussi, la distance entre le bâtiment et la rue (<code>Setback</code>) est associée positivement avec la variable dépendante. En effet, à chaque ajout d’un mètre de la distance moyenne entre les bâtiments et le tronçon de rue, la couverture des arbres sur le tronçon augmente de 0,202 point de pourcentage, toutes choses étant égales par ailleurs.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-Modele2" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Tableau&nbsp;10.3: Résultats du modèle avec les variables indépendantes au niveau 1 (modèle 2)</caption>
+<colgroup>
+<col style="width: 52%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Paramètre</th>
+<th style="text-align: right;">Coefficient</th>
+<th style="text-align: right;">Erreur type</th>
+<th style="text-align: right;">Valeur de T</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Effets fixes (niveau 1)</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Constante</td>
+<td style="text-align: right;">-1 028,618</td>
+<td style="text-align: right;">179,736</td>
+<td style="text-align: right;">-5,723</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Width</td>
+<td style="text-align: right;">-0,129</td>
+<td style="text-align: right;">0,013</td>
+<td style="text-align: right;">-10,160</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Length</td>
+<td style="text-align: right;">0,011</td>
+<td style="text-align: right;">0,002</td>
+<td style="text-align: right;">6,322</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AgeMed</td>
+<td style="text-align: right;">1,103</td>
+<td style="text-align: right;">0,186</td>
+<td style="text-align: right;">5,946</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AgeMed2</td>
+<td style="text-align: right;">0,000</td>
+<td style="text-align: right;">0,000</td>
+<td style="text-align: right;">-6,158</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ResiPCT</td>
+<td style="text-align: right;">0,047</td>
+<td style="text-align: right;">0,003</td>
+<td style="text-align: right;">13,558</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DuTriPct</td>
+<td style="text-align: right;">-0,013</td>
+<td style="text-align: right;">0,003</td>
+<td style="text-align: right;">-4,842</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NoLog</td>
+<td style="text-align: right;">0,147</td>
+<td style="text-align: right;">0,011</td>
+<td style="text-align: right;">13,938</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Setback</td>
+<td style="text-align: right;">0,202</td>
+<td style="text-align: right;">0,023</td>
+<td style="text-align: right;">8,792</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Répartition de la variance</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Variance (niveau 1)</td>
+<td style="text-align: right;">15,263</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Variance (niveau 2)</td>
+<td style="text-align: right;">80,317</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Coefficient de corrélation intraclasse</td>
+<td style="text-align: right;">0,160</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Qualité d’ajustement du modèle</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AIC</td>
+<td style="text-align: right;">78 785,827</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">R<sup>2</sup> marginal</td>
+<td style="text-align: right;">0,129</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R<sup>2</sup> conditionnel</td>
+<td style="text-align: right;">0,268</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Remarquez la valeur de la constante&nbsp;: −1028,618. À titre de rappel, la constante est la valeur que prend la variable dépendante quand toutes les variables indépendantes sont égales à 0. Or, il est impossible qu’elles soient toutes égales à zéro.</p>
+<div class="bloc_astuce">
+<div class="bloc_astuce-header">
+<div class="bloc_astuce-icon">
+
+</div>
+<p><strong>Centrage des variables quantitatives mesurées au niveau&nbsp;1</strong></p>
+</div>
+<div class="bloc_astuce-body">
+<p>En analyse multiniveau, il est très courant et souvent recommandé de centrer les variables explicatives quantitatives au niveau&nbsp;1. Deux options sont alors possibles&nbsp;:</p>
+<ol type="1">
+<li>Pour une variable indépendante donnée, les observations sont centrées sur leur moyenne générale, c’est-à-dire la moyenne de l’ensemble des observations du jeu de données, soit <span class="math inline">\(X_{ij} - \bar{X}\)</span>. Dans ce cas, la constante est donc la valeur que prend la variable <span class="math inline">\(Y\)</span> quand toutes les variables indépendantes sont égales à leur moyenne respective.</li>
+<li>Chaque observation est centrée sur la moyenne de son groupe respectif, soit <span class="math inline">\(X_{ij} - \bar{X}_{.j}\)</span>.</li>
+</ol>
+<p>Comme signalé par Bressoux <span class="citation" data-cites="bressoux2010">(<a href="references.html#ref-bressoux2010" role="doc-biblioref">2010, 328</a>)</span>, «&nbsp;dans le premier cas, la variance des pentes sera estimée pour l’individu moyen dans la distribution générale, tandis que dans le second elle est estimée pour l’individu moyen de chaque groupe&nbsp;».</p>
+<p>Autrement dit, comparativement à un modèle sans centrage, les valeurs des coefficients pour les variables indépendantes sont les mêmes dans le premier cas (seule la valeur de la constante va changer) tandis qu’elles sont différentes dans le second cas.</p>
+<p>Attention, il ne faut pas appliquer de centrage sur une variable qualitative, qu’elle soit dichotomique, nominale ou ordinale.</p>
+<p><strong>Pourquoi la pratique du centrage en analyse multiniveau est si courante?</strong></p>
+<p>Dans la plupart des livres sur les régressions multiniveaux, le centrage est recommandé, notamment dans l’ouvrage classique de Raudenbush et Bryk <span class="citation" data-cites="raudenbush2002hierarchical">(<a href="references.html#ref-raudenbush2002hierarchical" role="doc-biblioref">2002</a>)</span>. Rappelons que ces modèles sont largement utilisés en éducation avec une structure hiérarchique classique élève/école/classe. Nous nous intéressons alors à l’individu moyen (l’élève), ce qui explique que le centrage est habituellement appliqué. Par exemple, ne pas centrer l’âge des élèves fait que la constante qui est obtenue est peu interprétable&nbsp;: difficile d’évaluer la note moyenne à un examen quand la variable <em>âge de l’élève</em> a la valeur de 0, tout comme les autres variables explicatives quantitatives relatives à l’élève.</p>
+<p><strong>Centrage et réduction de l’ensemble des variables du modèle</strong></p>
+<p>Il est à noter que certains auteurs centrent et réduisent l’ensemble des variables du modèle. À titre de rappel, le centrage consiste à soustraire à chaque valeur la moyenne de la variable; la réduction, à la diviser par l’écart-type de la variable (<a href="02-univarie.html#sec-02552">section&nbsp;<span>2.5.5.2</span></a>). Pour chaque variable, la moyenne est alors égale à 0 et l’écart-type à 1. Les coefficients s’interprètent alors en termes d’augmentation d’une unité d’écart-type tant pour la VI que la VD. Ils correspondent alors à des coefficients de régression standardisés (abordés dans la <a href="07-regressionlineaire.html#sec-0742">section&nbsp;<span>7.4.2</span></a>). Ce processus de centrage et de réduction des variables peut être motivé par des problèmes de convergence du modèle (lorsque l’algorithme d’optimisation n’arrive pas à trouver une solution pour produire les coefficients).</p>
+</div>
+</div>
+<p>Par conséquent, nous vous proposons de centrer les variables du niveau&nbsp;1 de notre jeu de données. Si vous comparez les tableaux <a href="#tbl-Modele2"><span>10.3</span></a> et <a href="#tbl-Modele2b"><span>10.4</span></a>, vous constaterez que les valeurs relatives aux coefficients, aux mesures de la répartition de la variance et à la qualité d’ajustement du modèle sont les mêmes. Seule la valeur de la constante change&nbsp;: elle passe de −1028,618 à 7,228. Elle s’interprète désormais de la façon suivante&nbsp;: si toutes les variables explicatives sont égales à leurs moyennes respectives, alors le pourcentage de la superficie du tronçon couverte par des arbres est égal à 7,228&nbsp;%.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-Modele2b" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Tableau&nbsp;10.4: Résultats du modèle avec les variables indépendantes centrées au niveau 1 (modèle 2)</caption>
+<colgroup>
+<col style="width: 52%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Paramètre</th>
+<th style="text-align: right;">Coefficient</th>
+<th style="text-align: right;">Erreur type</th>
+<th style="text-align: right;">Valeur de T</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Effets fixes (niveau 1)</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Constante</td>
+<td style="text-align: right;">7,228</td>
+<td style="text-align: right;">0,248</td>
+<td style="text-align: right;">29,151</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Width.c</td>
+<td style="text-align: right;">-0,129</td>
+<td style="text-align: right;">0,013</td>
+<td style="text-align: right;">-10,160</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Length.c</td>
+<td style="text-align: right;">0,011</td>
+<td style="text-align: right;">0,002</td>
+<td style="text-align: right;">6,322</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AgeMed.c</td>
+<td style="text-align: right;">1,103</td>
+<td style="text-align: right;">0,186</td>
+<td style="text-align: right;">5,946</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AgeMed2.c</td>
+<td style="text-align: right;">0,000</td>
+<td style="text-align: right;">0,000</td>
+<td style="text-align: right;">-6,158</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ResiPCT.c</td>
+<td style="text-align: right;">0,047</td>
+<td style="text-align: right;">0,003</td>
+<td style="text-align: right;">13,558</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DuTriPct.c</td>
+<td style="text-align: right;">-0,013</td>
+<td style="text-align: right;">0,003</td>
+<td style="text-align: right;">-4,842</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NoLog.c</td>
+<td style="text-align: right;">0,147</td>
+<td style="text-align: right;">0,011</td>
+<td style="text-align: right;">13,938</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Setback.c</td>
+<td style="text-align: right;">0,202</td>
+<td style="text-align: right;">0,023</td>
+<td style="text-align: right;">8,792</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Répartition de la variance</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Variance (niveau 1)</td>
+<td style="text-align: right;">15,263</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Variance (niveau 2)</td>
+<td style="text-align: right;">80,317</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Coefficient de corrélation intraclasse</td>
+<td style="text-align: right;">0,160</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Qualité d’ajustement du modèle</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AIC</td>
+<td style="text-align: right;">78 785,827</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">R<sup>2</sup> marginal</td>
+<td style="text-align: right;">0,129</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R<sup>2</sup> conditionnel</td>
+<td style="text-align: right;">0,268</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="sec-10223" class="level4" data-number="10.2.2.3"><h4 data-number="10.2.2.3" class="anchored" data-anchor-id="sec-10223">
+<span class="header-section-number">10.2.2.3</span> Modèle complet avec les variables indépendantes aux niveaux 1 et 2</h4>
+<p>Le troisième type de modèle consiste à introduire à la fois les variables explicatives mesurées au niveau&nbsp;1 et au niveau&nbsp;2 (<a href="#eq-multiniveauModele3">équation&nbsp;<span>10.4</span></a>). Il est communément appelé le modèle complet. Les variables explicatives du niveau&nbsp;2 sont aussi considérées comme des effets fixes.</p>
+<p><span id="eq-multiniveauModele3"><span class="math display">\[
+\begin{aligned}
+&amp;Y \sim Normal(\mu,\sigma_e)\\
+&amp;g(\mu)  = \underbrace{\beta_0 + \beta_1 x_1}_{\mbox{effets fixes (niveau 1)}}+ \underbrace{\beta_2 z_2}_{\mbox{effets fixes (niveau 2)}}+\epsilon \\
+&amp;\upsilon \sim Normal(0, \sigma_{\upsilon}) \\
+&amp;g(x) = x
+\end{aligned}
+\tag{10.4}\]</span></span></p>
+<p>Les résultats du troisième modèle sont présentés au <a href="#tbl-Modele3">tableau&nbsp;<span>10.5</span></a>. Ce modèle permet d’évaluer les effets des caractéristiques socioéconomiques (mesurés au niveau des secteurs de recensement) sur la couverture des arbres des îlots, une fois contrôlées les caractéristiques de la forme urbaine des tronçons. Rappelons que dans ce modèle, les constantes sont aléatoires et les variables indépendantes au niveau&nbsp;1 sont centrées.</p>
+<p><strong>Quelles informations peut-on tirer des coefficients de régression du niveau&nbsp;2?</strong> D’emblée, deux caractéristiques n’ont pas d’effet significatif sur la variable dépendante, soit les pourcentages de diplômés universitaires et de ménages avec enfants. Par contre, toutes choses étant égales par ailleurs, la valeur moyenne des logements et le pourcentage d’immigrants récents sont associés à une augmentation de la couverture végétale. À l’inverse, le pourcentage de personnes à faible revenu est associé à une diminution de la couverture végétale.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-Modele3" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Tableau&nbsp;10.5: Résultats du modèle avec les variables indépendantes aux niveaux 1 et 2 (modèle 3)</caption>
+<colgroup>
+<col style="width: 58%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Paramètre</th>
+<th style="text-align: right;">Coefficient</th>
+<th style="text-align: right;">Erreur type</th>
+<th style="text-align: right;">Valeur de T</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Effets fixes (niveau 1 : tronçons)</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Constante</td>
+<td style="text-align: right;">-0,518</td>
+<td style="text-align: right;">3,227</td>
+<td style="text-align: right;">-0,160</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Width.c</td>
+<td style="text-align: right;">-0,132</td>
+<td style="text-align: right;">0,013</td>
+<td style="text-align: right;">-10,375</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Length.c</td>
+<td style="text-align: right;">0,011</td>
+<td style="text-align: right;">0,002</td>
+<td style="text-align: right;">6,265</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AgeMed.c</td>
+<td style="text-align: right;">1,097</td>
+<td style="text-align: right;">0,185</td>
+<td style="text-align: right;">5,920</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AgeMed2.c</td>
+<td style="text-align: right;">0,000</td>
+<td style="text-align: right;">0,000</td>
+<td style="text-align: right;">-6,136</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ResiPCT.c</td>
+<td style="text-align: right;">0,046</td>
+<td style="text-align: right;">0,003</td>
+<td style="text-align: right;">13,352</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DuTriPct.c</td>
+<td style="text-align: right;">-0,013</td>
+<td style="text-align: right;">0,003</td>
+<td style="text-align: right;">-4,737</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NoLog.c</td>
+<td style="text-align: right;">0,148</td>
+<td style="text-align: right;">0,011</td>
+<td style="text-align: right;">13,985</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Setback.c</td>
+<td style="text-align: right;">0,194</td>
+<td style="text-align: right;">0,023</td>
+<td style="text-align: right;">8,428</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Effets fixes (niveau 2 : secteurs de recensement)</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ValLog</td>
+<td style="text-align: right;">0,016</td>
+<td style="text-align: right;">0,004</td>
+<td style="text-align: right;">4,126</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">UDipPCT</td>
+<td style="text-align: right;">0,014</td>
+<td style="text-align: right;">0,035</td>
+<td style="text-align: right;">0,396</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PCTFRAVI</td>
+<td style="text-align: right;">-0,088</td>
+<td style="text-align: right;">0,030</td>
+<td style="text-align: right;">-2,988</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PCTIMGRE</td>
+<td style="text-align: right;">0,237</td>
+<td style="text-align: right;">0,049</td>
+<td style="text-align: right;">4,870</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AvecEnf</td>
+<td style="text-align: right;">0,001</td>
+<td style="text-align: right;">0,032</td>
+<td style="text-align: right;">0,018</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">FranPCT</td>
+<td style="text-align: right;">0,052</td>
+<td style="text-align: right;">0,016</td>
+<td style="text-align: right;">3,183</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Répartition de la variance</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Variance (niveau 1)</td>
+<td style="text-align: right;">12,121</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Variance (niveau 2)</td>
+<td style="text-align: right;">80,347</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Coefficient de corrélation intraclasse</td>
+<td style="text-align: right;">0,131</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Qualité d’ajustement du modèle</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AIC</td>
+<td style="text-align: right;">78 776,845</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R<sup>2</sup> marginal</td>
+<td style="text-align: right;">0,160</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">R<sup>2</sup> conditionnel</td>
+<td style="text-align: right;">0,270</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="sec-10224" class="level4" data-number="10.2.2.4"><h4 data-number="10.2.2.4" class="anchored" data-anchor-id="sec-10224">
+<span class="header-section-number">10.2.2.4</span> Modèle avec une interaction entre deux niveaux</h4>
+<p>Dans la <a href="07-regressionlineaire.html#sec-0754">section&nbsp;<span>7.5.4</span></a>, nous avons vu comment introduire des variables d’interaction dans une régression linéaire multiple, soit entre deux variables continues (<a href="07-regressionlineaire.html#sec-07541">section&nbsp;<span>7.5.4.1</span></a>), soit entre une variable continue et une variable dichotomique (<a href="07-regressionlineaire.html#sec-07542">section&nbsp;<span>7.5.4.2</span></a>), soit entre deux variables dichotomiques (<a href="07-regressionlineaire.html#sec-07543">section&nbsp;<span>7.5.4.3</span></a>). En analyse multiniveau, il peut être pertinent d’introduire une interaction entre une variable mesurée au niveau&nbsp;1 et une autre mesurée au niveau&nbsp;2 (<a href="#eq-multiniveauModele4">équation&nbsp;<span>10.5</span></a>).</p>
+<p><span id="eq-multiniveauModele4"><span class="math display">\[
+\begin{aligned}
+&amp;Y \sim Normal(\mu,\sigma_e)\\
+&amp;g(\mu)  = \underbrace{\beta_0 + \beta_1 x_1}_{\mbox{effets fixes (niv. 1)}}+ \underbrace{\beta_2 z_2}_{\mbox{effets fixes (niv. 2)}}+ \underbrace{\beta_3 (x_1 \times z_2)}_{\mbox{interaction (niv. 1 et 2)}}+ \epsilon \\
+&amp;\upsilon \sim Normal(0, \sigma_{\upsilon})) \\
+&amp;g(x) = x
+\end{aligned}
+\tag{10.5}\]</span></span></p>
+<p>Dans le <a href="#tbl-Modele4">tableau&nbsp;<span>10.6</span></a>, nous introduisons une variable d’interaction entre la <em>distance entre le bâtiment et la rue</em> (<code>Setback.c</code>) et le <em>pourcentage de personnes à faible revenu</em> (<code>PCTFRAVI</code>). On constate alors que <code>PCTFRAVI</code> est associé négativement avec la variable dépendante (<span class="math inline">\(\beta =\)</span>&nbsp;−0,079, <em>t</em>&nbsp;=&nbsp;−2,684). Toutefois, lorsqu’elle est mise en interaction avec la variable <code>Setback.c</code>, cette variable est significative et positive (<span class="math inline">\(\beta =\)</span>&nbsp;0,008, <em>t</em>&nbsp;=&nbsp;4,591).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-Modele4" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Tableau&nbsp;10.6: Résultats du modèle avec une variable d’interaction entre les deux niveaux 1 et 2 (modèle 4)</caption>
+<colgroup>
+<col style="width: 58%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Paramètre</th>
+<th style="text-align: right;">Coefficient</th>
+<th style="text-align: right;">Erreur type</th>
+<th style="text-align: right;">Valeur de T</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Effets fixes (niveau 1 : tronçons)</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Constante</td>
+<td style="text-align: right;">-0,009</td>
+<td style="text-align: right;">3,198</td>
+<td style="text-align: right;">-0,003</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Width.c</td>
+<td style="text-align: right;">-0,136</td>
+<td style="text-align: right;">0,013</td>
+<td style="text-align: right;">-10,660</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Length.c</td>
+<td style="text-align: right;">0,011</td>
+<td style="text-align: right;">0,002</td>
+<td style="text-align: right;">6,289</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AgeMed.c</td>
+<td style="text-align: right;">1,092</td>
+<td style="text-align: right;">0,185</td>
+<td style="text-align: right;">5,894</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AgeMed2.c</td>
+<td style="text-align: right;">0,000</td>
+<td style="text-align: right;">0,000</td>
+<td style="text-align: right;">-6,114</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ResiPCT.c</td>
+<td style="text-align: right;">0,046</td>
+<td style="text-align: right;">0,003</td>
+<td style="text-align: right;">13,239</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DuTriPct.c</td>
+<td style="text-align: right;">-0,013</td>
+<td style="text-align: right;">0,003</td>
+<td style="text-align: right;">-4,742</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NoLog.c</td>
+<td style="text-align: right;">0,145</td>
+<td style="text-align: right;">0,011</td>
+<td style="text-align: right;">13,747</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Setback.c</td>
+<td style="text-align: right;">0,003</td>
+<td style="text-align: right;">0,048</td>
+<td style="text-align: right;">0,072</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Effets fixes (niveau 2 : secteurs de recensement)</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ValLog</td>
+<td style="text-align: right;">0,016</td>
+<td style="text-align: right;">0,004</td>
+<td style="text-align: right;">4,141</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">UDipPCT</td>
+<td style="text-align: right;">0,009</td>
+<td style="text-align: right;">0,035</td>
+<td style="text-align: right;">0,268</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PCTFRAVI</td>
+<td style="text-align: right;">-0,079</td>
+<td style="text-align: right;">0,029</td>
+<td style="text-align: right;">-2,684</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PCTIMGRE</td>
+<td style="text-align: right;">0,219</td>
+<td style="text-align: right;">0,048</td>
+<td style="text-align: right;">4,543</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AvecEnf</td>
+<td style="text-align: right;">-0,007</td>
+<td style="text-align: right;">0,032</td>
+<td style="text-align: right;">-0,221</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">FranPCT</td>
+<td style="text-align: right;">0,050</td>
+<td style="text-align: right;">0,016</td>
+<td style="text-align: right;">3,072</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Variable d’interaction (niv. 1 et 2)</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Setback X PCTFRAVI</td>
+<td style="text-align: right;">0,008</td>
+<td style="text-align: right;">0,002</td>
+<td style="text-align: right;">4,591</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Répartition de la variance</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Variance (niveau 1)</td>
+<td style="text-align: right;">11,829</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Variance (niveau 2)</td>
+<td style="text-align: right;">80,239</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Coefficient de corrélation intraclasse</td>
+<td style="text-align: right;">0,128</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Qualité d’ajustement du modèle</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AIC</td>
+<td style="text-align: right;">78 768,659</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">R<sup>2</sup> marginal</td>
+<td style="text-align: right;">0,163</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">R<sup>2</sup> conditionnel</td>
+<td style="text-align: right;">0,270</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section></section></section><section id="sec-103" class="level2" data-number="10.3"><h2 data-number="10.3" class="anchored" data-anchor-id="sec-103">
+<span class="header-section-number">10.3</span> Conditions d’application des régressions multiniveaux</h2>
+<p>Puisque les modèles multiniveaux sont une extension des modèles à effets mixtes (GLMM), nous retrouvons globalement les mêmes conditions d’application (voir la <a href="09-GLMM.html#sec-093">section&nbsp;<span>9.3</span></a>), dont les principales sont&nbsp;:</p>
+<ol type="1">
+<li>l’absence de multicolinéarité excessive,</li>
+<li>la normalité des résidus,</li>
+<li>l’absence d’observations trop influentes dans le modèle.</li>
+</ol>
+<p><strong>Combien de groupes au niveau&nbsp;2?</strong> Dans la <a href="09-GLMM.html#sec-093">section&nbsp;<span>9.3</span></a>, nous avons vu que dans un modèle GLMM, plusieurs auteur(e)s, notamment Gelman et Hill <span class="citation" data-cites="gelman2006data">(<a href="references.html#ref-gelman2006data" role="doc-biblioref">2006</a>)</span>, préconisent un minimum de cinq groupes dans un modèle à effets mixtes. Toutefois, dans un modèle complet d’une régression multiniveau, nous introduisons aussi des variables indépendantes au niveau&nbsp;2. Par conséquent, le nombre de groupes doit être augmenté significativement, et ce, idéalement proportionnellement au nombre des variables indépendantes ajoutées au niveau&nbsp;2. En ce sens, Bressoux <span class="citation" data-cites="bressoux2010">(<a href="references.html#ref-bressoux2010" role="doc-biblioref">2010, 325</a>)</span> conseille d’avoir au moins 10&nbsp;groupes pour chaque variable indépendante mesurée au niveau&nbsp;2. Toujours selon Bressoux <span class="citation" data-cites="bressoux2010">(<a href="references.html#ref-bressoux2010" role="doc-biblioref">2010, 325</a>)</span>, certains auteurs recommandent même 20&nbsp;groupes par variable indépendante au niveau&nbsp;2. En conséquence, bien qu’aucune règle de pouce soit clairement admise, il est clair qu’un modèle complet multiniveau nécessite un nombre de groupes conséquent.</p>
+</section><section id="sec-104" class="level2" data-number="10.4"><h2 data-number="10.4" class="anchored" data-anchor-id="sec-104">
+<span class="header-section-number">10.4</span> Mise en œuvre dans R</h2>
+<p>Pour mettre en œuvre des modèles multiniveaux avec une variable dépendante continue, nous utilisons la fonction <code>lmer</code> du <em>package</em> <code>lme4</code>. Pour d’autres distributions, nous pouvons utiliser la fonction <code>glmer</code> implémentant différentes familles de modèles GLM, notamment binomiale (modèle multiniveau logistique), gaussien, Gamma, inverse gaussien, Poisson, Quasi-poisson, etc. Comme pour les modèles GLMM, lorsque d’autres distributions sont nécessaires, il est possible d’utiliser le <em>package</em> <code>gamlss</code>.</p>
+<section id="sec-1041" class="level3" data-number="10.4.1"><h3 data-number="10.4.1" class="anchored" data-anchor-id="sec-1041">
+<span class="header-section-number">10.4.1</span> Le modèle vide</h3>
+<p>Dans le code R ci-dessous, la syntaxe <code>lmer(PCTArb ~ 1 + (1| SRNOM),  data = Multiniveau)</code> permet de construire le modèle vide avec la variable indépendante <code>PCTArb</code> et <code>SRNOM</code> comme variable définissant les groupes au niveau&nbsp;2, soit les 312&nbsp;secteurs de recensement. À titre de rappel, le modèle vide ne comprend aucune variable indépendante.</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/lme4/lme4/">"lme4"</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"MuMIn"</span><span class="op">)</span></span>
+<span><span class="co"># chargement du jeu de données</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/multiniveau/dataArbres.RData"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># MODÈLE 1 : modèle vide (sans prédicteurs)</span></span>
+<span><span class="co">#------------------------------------------------------</span></span>
+<span><span class="co"># Écrire Y ~ 1 signifie que le modèle est vide</span></span>
+<span><span class="co"># 1| SRNOM : signifie que l'on fait varier la constante avec la variable SRNOM</span></span>
+<span><span class="va">Modele1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">PCTArb</span> <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">|</span> <span class="va">SRNOM</span><span class="op">)</span>,  data <span class="op">=</span> <span class="va">Multiniveau</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Nombre de groupes</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"nombre de groupes ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">Multiniveau</span><span class="op">$</span><span class="va">SRNOM</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>nombre de groupes = 312</code></pre>
+</div>
+</div>
+<p>La fonction <code>summary(Modele1)</code> permet d’afficher les résultats du modèle. Dans la section intitulée <code>Random effects</code>, la variance pour le niveau&nbsp;2 (<code>SRNOM (Intercept)</code>) est de 19,82 contre 92,93 pour le niveau&nbsp;1 (<code>Residual</code>). Le coefficient de corrélation intraclasse (ICC) est donc égal à <span class="math inline">\(\mbox{19,82 / (19,82+92,93)} \times \mbox{100 = 17,58}\)</span>%.</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Résultats du modèle</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Modele1</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: PCTArb ~ 1 + (1 | SRNOM)
+   Data: Multiniveau
+
+REML criterion at convergence: 80299.2
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-1.9413 -0.5295 -0.2235  0.2175  8.4695 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ SRNOM    (Intercept) 19.82    4.452   
+ Residual             92.93    9.640   
+Number of obs: 10814, groups:  SRNOM, 312
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)   7.3373     0.2772   26.47</code></pre>
+</div>
+</div>
+<p>Notez qu’il est possible d’obtenir directement la valeur de l’ICC avec la fonction <code>icc(Modele1)</code> du <em>package</em> <code>performance</code> et les statistiques d’ajustement du modèle avec les fonctions <code>logLik</code>, <code>AIC</code> et <code>BIC</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Calcul de l'ICC (coefficient intraclasse)</span></span>
+<span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/icc.html">icc</a></span><span class="op">(</span><span class="va">Modele1</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.176
+  Unadjusted ICC: 0.176</code></pre>
+</div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ICC1</span> <span class="op">&lt;-</span> <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/icc.html">icc</a></span><span class="op">(</span><span class="va">Modele1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Part de la variance de la variable dépendante imputable au niveau 2 : "</span>, </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">ICC1</span><span class="op">$</span><span class="va">ICC_adjusted</span><span class="op">*</span><span class="fl">100</span>,<span class="fl">2</span><span class="op">)</span>, <span class="st">"%"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Part de la variance de la variable dépendante imputable au niveau 2 : 17.58%</code></pre>
+</div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Qualité d'ajustement du modèle</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Statistiques d'ajustement du modèle :"</span>,</span>
+<span>    <span class="st">"\n-2 Log V = "</span>, <span class="op">-</span><span class="fl">2</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/logLik.html">logLik</a></span><span class="op">(</span><span class="va">Modele1</span><span class="op">)</span>,</span>
+<span>    <span class="st">"\nAIC ="</span>, <span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">Modele1</span><span class="op">)</span>, </span>
+<span>    <span class="st">"\nBIC ="</span>, <span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">BIC</a></span><span class="op">(</span><span class="va">Modele1</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Statistiques d'ajustement du modèle : 
+-2 Log V =  80299.22 
+AIC = 80305.22 
+BIC = 80327.08</code></pre>
+</div>
+</div>
+</section><section id="sec-1042" class="level3" data-number="10.4.2"><h3 data-number="10.4.2" class="anchored" data-anchor-id="sec-1042">
+<span class="header-section-number">10.4.2</span> Modèle avec les variables indépendantes du niveau&nbsp;1</h3>
+<p>Le second modèle consiste à introduire les variables indépendantes mesurées pour les tronçons de rue (niveau&nbsp;1). Notez comment sont centrées préalablement les variables explicatives.</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Centrage des variables indépendantes</span></span>
+<span><span class="va">VINiv1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Width"</span> , <span class="st">"Length"</span> , <span class="st">"AgeMed"</span> , <span class="st">"AgeMed2"</span> , <span class="st">"ResiPCT"</span> , <span class="st">"DuTriPct"</span> , <span class="st">"NoLog"</span> , <span class="st">"Setback"</span><span class="op">)</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">e</span> <span class="kw">in</span> <span class="va">VINiv1</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">e.c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">e</span>, <span class="st">".c"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span>  <span class="va">Multiniveau</span><span class="op">[[</span><span class="va">e.c</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">Multiniveau</span><span class="op">[[</span><span class="va">e</span><span class="op">]</span><span class="op">]</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Multiniveau</span><span class="op">[[</span><span class="va">e</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># MODÈLE 2 : modèle avec les prédicteurs au niveau 1 (rues) </span></span>
+<span><span class="co"># ------------------------------------------------------</span></span>
+<span><span class="va">Modele2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">PCTArb</span> <span class="op">~</span></span>
+<span>                  <span class="co"># Variables indépendantes au niveau 1</span></span>
+<span>                   <span class="va">Width.c</span><span class="op">+</span><span class="va">Length.c</span><span class="op">+</span><span class="va">AgeMed.c</span><span class="op">+</span><span class="va">AgeMed2.c</span><span class="op">+</span><span class="va">ResiPCT.c</span><span class="op">+</span><span class="va">DuTriPct.c</span><span class="op">+</span><span class="va">NoLog.c</span><span class="op">+</span><span class="va">Setback.c</span><span class="op">+</span></span>
+<span>                   <span class="op">(</span><span class="fl">1</span><span class="op">|</span> <span class="va">SRNOM</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">Multiniveau</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Résultats du modèle</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Modele2</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: PCTArb ~ Width.c + Length.c + AgeMed.c + AgeMed2.c + ResiPCT.c +  
+    DuTriPct.c + NoLog.c + Setback.c + (1 | SRNOM)
+   Data: Multiniveau
+
+REML criterion at convergence: 78763.8
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-2.9065 -0.5536 -0.1941  0.2569  9.4205 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ SRNOM    (Intercept) 15.26    3.907   
+ Residual             80.32    8.962   
+Number of obs: 10814, groups:  SRNOM, 312
+
+Fixed effects:
+              Estimate Std. Error t value
+(Intercept)  7.228e+00  2.479e-01  29.151
+Width.c     -1.292e-01  1.272e-02 -10.160
+Length.c     1.085e-02  1.717e-03   6.322
+AgeMed.c     1.103e+00  1.856e-01   5.946
+AgeMed2.c   -2.950e-04  4.791e-05  -6.158
+ResiPCT.c    4.699e-02  3.466e-03  13.558
+DuTriPct.c  -1.299e-02  2.683e-03  -4.842
+NoLog.c      1.473e-01  1.057e-02  13.938
+Setback.c    2.018e-01  2.295e-02   8.792
+
+Correlation of Fixed Effects:
+           (Intr) Wdth.c Lngth. AgMd.c AgMd2. RsPCT. DTrPc. NoLg.c
+Width.c    -0.003                                                 
+Length.c    0.011 -0.216                                          
+AgeMed.c    0.000  0.010 -0.014                                   
+AgeMed2.c   0.002 -0.011  0.013 -1.000                            
+ResiPCT.c   0.056  0.095  0.208  0.023 -0.024                     
+DuTriPct.c -0.010  0.022  0.086 -0.074  0.077  0.025              
+NoLog.c    -0.030  0.156 -0.785 -0.008  0.009 -0.269 -0.127       
+Setback.c   0.048 -0.018 -0.146  0.007 -0.008 -0.014  0.035  0.038
+fit warnings:
+Some predictor variables are on very different scales: consider rescaling</code></pre>
+</div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Calcul de l'ICC (coefficient intraclasse)</span></span>
+<span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/icc.html">icc</a></span><span class="op">(</span><span class="va">Modele2</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.160
+  Unadjusted ICC: 0.139</code></pre>
+</div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ICC2</span> <span class="op">&lt;-</span> <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/icc.html">icc</a></span><span class="op">(</span><span class="va">Modele2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Part de la variance de la variable dépendante "</span>,</span>
+<span>    <span class="st">"\nimputable au niveau 2 : "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">ICC2</span><span class="op">$</span><span class="va">ICC_adjusted</span><span class="op">*</span><span class="fl">100</span>,<span class="fl">2</span><span class="op">)</span>, <span class="st">"%"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Part de la variance de la variable dépendante 
+imputable au niveau 2 : 15.97%</code></pre>
+</div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Calcul des R2 conditionnel et marginal avec les fonctions</span></span>
+<span><span class="co"># r.squaredGLMM ou r2_nakagawa du package performance</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/MuMIn/man/r.squaredGLMM.html">r.squaredGLMM</a></span><span class="op">(</span><span class="va">Modele2</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           R2m       R2c
+[1,] 0.1292872 0.2683329</code></pre>
+</div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">r2_nakagawa</span><span class="op">(</span><span class="va">Modele2</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># R2 for Mixed Models
+
+  Conditional R2: 0.268
+     Marginal R2: 0.129</code></pre>
+</div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Qualité d'ajustement du modèle</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Statistiques d'ajustement du modèle"</span>,</span>
+<span>    <span class="st">"\n-2 Log L = "</span>, <span class="op">-</span><span class="fl">2</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/logLik.html">logLik</a></span><span class="op">(</span><span class="va">Modele2</span><span class="op">)</span>,</span>
+<span>    <span class="st">"\nAIC ="</span>, <span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">Modele2</span><span class="op">)</span>, </span>
+<span>    <span class="st">"\nBIC ="</span>, <span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">BIC</a></span><span class="op">(</span><span class="va">Modele2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Statistiques d'ajustement du modèle 
+-2 Log L =  78763.83 
+AIC = 78785.83 
+BIC = 78866</code></pre>
+</div>
+</div>
+</section><section id="sec-1043" class="level3" data-number="10.4.3"><h3 data-number="10.4.3" class="anchored" data-anchor-id="sec-1043">
+<span class="header-section-number">10.4.3</span> Modèle avec les variables indépendantes aux niveaux 1 et 2</h3>
+<p>Le troisième modèle comprend à la fois les variables indépendantes mesurées aux deux niveaux (tronçons et secteurs de recensement).</p>
+<div class="cell">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># MODÈLE 3 : modèle complet avec les prédicteurs aux niveaux 1 et 2</span></span>
+<span><span class="co"># ------------------------------------------------------</span></span>
+<span><span class="va">Modele3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">PCTArb</span> <span class="op">~</span></span>
+<span>                  <span class="co"># Variables indépendantes au niveau 1</span></span>
+<span>                   <span class="va">Width.c</span><span class="op">+</span><span class="va">Length.c</span><span class="op">+</span><span class="va">AgeMed.c</span><span class="op">+</span><span class="va">AgeMed2.c</span><span class="op">+</span><span class="va">ResiPCT.c</span><span class="op">+</span><span class="va">DuTriPct.c</span><span class="op">+</span><span class="va">NoLog.c</span><span class="op">+</span><span class="va">Setback.c</span><span class="op">+</span></span>
+<span>                  <span class="co"># Variables indépendantes au niveau 2</span></span>
+<span>                  <span class="va">ValLog</span><span class="op">+</span><span class="va">UDipPCT</span><span class="op">+</span><span class="va">PCTFRAVI</span><span class="op">+</span><span class="va">PCTIMGRE</span><span class="op">+</span><span class="va">AvecEnf</span><span class="op">+</span><span class="va">FranPCT</span><span class="op">+</span></span>
+<span>                  <span class="op">(</span><span class="fl">1</span><span class="op">|</span> <span class="va">SRNOM</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">Multiniveau</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Résultats du modèle</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Modele3</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: PCTArb ~ Width.c + Length.c + AgeMed.c + AgeMed2.c + ResiPCT.c +  
+    DuTriPct.c + NoLog.c + Setback.c + ValLog + UDipPCT + PCTFRAVI +  
+    PCTIMGRE + AvecEnf + FranPCT + (1 | SRNOM)
+   Data: Multiniveau
+
+REML criterion at convergence: 78742.8
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.0461 -0.5558 -0.1939  0.2622  9.4190 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ SRNOM    (Intercept) 12.12    3.482   
+ Residual             80.35    8.964   
+Number of obs: 10814, groups:  SRNOM, 312
+
+Fixed effects:
+              Estimate Std. Error t value
+(Intercept) -5.175e-01  3.227e+00  -0.160
+Width.c     -1.319e-01  1.271e-02 -10.375
+Length.c     1.076e-02  1.717e-03   6.265
+AgeMed.c     1.097e+00  1.854e-01   5.920
+AgeMed2.c   -2.936e-04  4.785e-05  -6.136
+ResiPCT.c    4.649e-02  3.482e-03  13.352
+DuTriPct.c  -1.268e-02  2.677e-03  -4.737
+NoLog.c      1.478e-01  1.057e-02  13.985
+Setback.c    1.944e-01  2.307e-02   8.428
+ValLog       1.591e-02  3.856e-03   4.126
+UDipPCT      1.405e-02  3.546e-02   0.396
+PCTFRAVI    -8.837e-02  2.958e-02  -2.988
+PCTIMGRE     2.367e-01  4.860e-02   4.870
+AvecEnf      5.778e-04  3.226e-02   0.018
+FranPCT      5.213e-02  1.638e-02   3.183
+fit warnings:
+Some predictor variables are on very different scales: consider rescaling</code></pre>
+</div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Qualité d'ajustement du modèle</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Statistiques d'ajustement du modèle"</span>,</span>
+<span>    <span class="st">"\n-2 Log L = "</span>, <span class="op">-</span><span class="fl">2</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/logLik.html">logLik</a></span><span class="op">(</span><span class="va">Modele3</span><span class="op">)</span>,</span>
+<span>    <span class="st">"\nAIC ="</span>, <span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">Modele3</span><span class="op">)</span>, <span class="st">"\nBIC ="</span>, <span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">BIC</a></span><span class="op">(</span><span class="va">Modele3</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Statistiques d'ajustement du modèle 
+-2 Log L =  78742.85 
+AIC = 78776.85 
+BIC = 78900.75</code></pre>
+</div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Calcul de l'ICC (coefficient intraclasse)</span></span>
+<span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/icc.html">icc</a></span><span class="op">(</span><span class="va">Modele3</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.131
+  Unadjusted ICC: 0.110</code></pre>
+</div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ICC3</span> <span class="op">&lt;-</span> <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/icc.html">icc</a></span><span class="op">(</span><span class="va">Modele3</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Part de la variance de la variable dépendante "</span>,</span>
+<span>    <span class="st">"\nimputable au niveau 2 : "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">ICC3</span><span class="op">$</span><span class="va">ICC_adjusted</span><span class="op">*</span><span class="fl">100</span>,<span class="fl">2</span><span class="op">)</span>, <span class="st">"%"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Part de la variance de la variable dépendante 
+imputable au niveau 2 : 13.11%</code></pre>
+</div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Calcul des R2 conditionnel et marginal avec les fonctions</span></span>
+<span><span class="co"># r.squaredGLMM ou r2_nakagawa du package performance</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/MuMIn/man/r.squaredGLMM.html">r.squaredGLMM</a></span><span class="op">(</span><span class="va">Modele3</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           R2m      R2c
+[1,] 0.1598477 0.269979</code></pre>
+</div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">r2_nakagawa</span><span class="op">(</span><span class="va">Modele3</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># R2 for Mixed Models
+
+  Conditional R2: 0.270
+     Marginal R2: 0.160</code></pre>
+</div>
+</div>
+</section><section id="sec-10414" class="level3" data-number="10.4.4"><h3 data-number="10.4.4" class="anchored" data-anchor-id="sec-10414">
+<span class="header-section-number">10.4.4</span> Modèle complet avec une interaction</h3>
+<p>Le quatrième modèle consiste à ajouter au modèle complet une interaction entre deux variables des deux niveaux.</p>
+<div class="cell">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Variance d'interaction</span></span>
+<span><span class="va">Multiniveau</span><span class="op">$</span><span class="va">PCTFRAVI_Setback</span> <span class="op">&lt;-</span>  <span class="va">Multiniveau</span><span class="op">$</span><span class="va">PCTFRAVI</span> <span class="op">*</span> <span class="va">Multiniveau</span><span class="op">$</span><span class="va">Setback.c</span></span>
+<span></span>
+<span><span class="co"># MODÈLE 4 : interaction aux deux niveaux</span></span>
+<span><span class="co"># ------------------------------------------------------</span></span>
+<span><span class="va">Modele4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">PCTArb</span> <span class="op">~</span></span>
+<span>                  <span class="co"># Variables indépendantes au niveau 1</span></span>
+<span>                   <span class="va">Width.c</span><span class="op">+</span><span class="va">Length.c</span><span class="op">+</span><span class="va">AgeMed.c</span><span class="op">+</span><span class="va">AgeMed2.c</span><span class="op">+</span><span class="va">ResiPCT.c</span><span class="op">+</span><span class="va">DuTriPct.c</span><span class="op">+</span><span class="va">NoLog.c</span><span class="op">+</span><span class="va">Setback.c</span><span class="op">+</span></span>
+<span>                  <span class="co"># Variables indépendantes au niveau 2</span></span>
+<span>                  <span class="va">ValLog</span><span class="op">+</span><span class="va">UDipPCT</span><span class="op">+</span><span class="va">PCTFRAVI</span><span class="op">+</span><span class="va">PCTIMGRE</span><span class="op">+</span><span class="va">AvecEnf</span><span class="op">+</span><span class="va">FranPCT</span><span class="op">+</span></span>
+<span>                  <span class="co"># Variable d'interaction</span></span>
+<span>                  <span class="va">PCTFRAVI_Setback</span><span class="op">+</span></span>
+<span><span class="op">(</span><span class="fl">1</span><span class="op">|</span> <span class="va">SRNOM</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">Multiniveau</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Résultats du modèle</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">Modele4</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed model fit by REML ['lmerMod']
+Formula: PCTArb ~ Width.c + Length.c + AgeMed.c + AgeMed2.c + ResiPCT.c +  
+    DuTriPct.c + NoLog.c + Setback.c + ValLog + UDipPCT + PCTFRAVI +  
+    PCTIMGRE + AvecEnf + FranPCT + PCTFRAVI_Setback + (1 | SRNOM)
+   Data: Multiniveau
+
+REML criterion at convergence: 78732.7
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.0148 -0.5568 -0.1922  0.2598  9.4261 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ SRNOM    (Intercept) 11.83    3.439   
+ Residual             80.24    8.958   
+Number of obs: 10814, groups:  SRNOM, 312
+
+Fixed effects:
+                   Estimate Std. Error t value
+(Intercept)      -0.0094840  3.1984732  -0.003
+Width.c          -0.1356543  0.0127250 -10.660
+Length.c          0.0107911  0.0017159   6.289
+AgeMed.c          1.0915688  0.1851983   5.894
+AgeMed2.c        -0.0002923  0.0000478  -6.114
+ResiPCT.c         0.0460769  0.0034803  13.239
+DuTriPct.c       -0.0126785  0.0026735  -4.742
+NoLog.c           0.1453667  0.0105748  13.747
+Setback.c         0.0034430  0.0475943   0.072
+ValLog            0.0158168  0.0038196   4.141
+UDipPCT           0.0094041  0.0351462   0.268
+PCTFRAVI         -0.0788297  0.0293729  -2.684
+PCTIMGRE          0.2193705  0.0482873   4.543
+AvecEnf          -0.0070626  0.0319907  -0.221
+FranPCT           0.0498673  0.0162308   3.072
+PCTFRAVI_Setback  0.0081695  0.0017794   4.591
+fit warnings:
+Some predictor variables are on very different scales: consider rescaling</code></pre>
+</div>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Qualité d'ajustement du modèle</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Statistiques d'ajustement du modèle"</span>,</span>
+<span>    <span class="st">"\n-2 Log L = "</span>, <span class="op">-</span><span class="fl">2</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/logLik.html">logLik</a></span><span class="op">(</span><span class="va">Modele4</span><span class="op">)</span>,</span>
+<span>    <span class="st">"\nAIC ="</span>, <span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">Modele3</span><span class="op">)</span>, <span class="st">"\nBIC ="</span>, <span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">BIC</a></span><span class="op">(</span><span class="va">Modele4</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Statistiques d'ajustement du modèle 
+-2 Log L =  78732.66 
+AIC = 78776.85 
+BIC = 78899.85</code></pre>
+</div>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Calcul de l'ICC (coefficient intraclasse)</span></span>
+<span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/icc.html">icc</a></span><span class="op">(</span><span class="va">Modele4</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Intraclass Correlation Coefficient
+
+    Adjusted ICC: 0.128
+  Unadjusted ICC: 0.108</code></pre>
+</div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ICC4</span> <span class="op">&lt;-</span> <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/icc.html">icc</a></span><span class="op">(</span><span class="va">Modele4</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Part de la variance de la variable dépendante "</span>,</span>
+<span>    <span class="st">"\nimputable au niveau 2 : "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">ICC4</span><span class="op">$</span><span class="va">ICC_adjusted</span><span class="op">*</span><span class="fl">100</span>,<span class="fl">2</span><span class="op">)</span>, <span class="st">"%"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Part de la variance de la variable dépendante 
+imputable au niveau 2 : 12.85%</code></pre>
+</div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Calcul des R2 conditionnel et marginal avec les fonctions</span></span>
+<span><span class="co"># r.squaredGLMM ou r2_nakagawa du package performance</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/MuMIn/man/r.squaredGLMM.html">r.squaredGLMM</a></span><span class="op">(</span><span class="va">Modele4</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           R2m      R2c
+[1,] 0.1628372 0.270394</code></pre>
+</div>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">r2_nakagawa</span><span class="op">(</span><span class="va">Modele4</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># R2 for Mixed Models
+
+  Conditional R2: 0.270
+     Marginal R2: 0.163</code></pre>
+</div>
+</div>
+</section><section id="sec-1045" class="level3" data-number="10.4.5"><h3 data-number="10.4.5" class="anchored" data-anchor-id="sec-1045">
+<span class="header-section-number">10.4.5</span> Comparaison des quatre modèles</h3>
+<p>Pour comparer les modèles, nous utilisons habituellement les statistiques d’ajustement du modèle vues plus haut, soit le maximum de vraisemblance (<em>−2 Log-likelihood</em>), l’AIC, l’ICC et les R<sup>2</sup> marginal et conditionnel.</p>
+<div class="cell">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">c_logLik</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/logLik.html">logLik</a></span><span class="op">(</span><span class="va">Modele1</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/logLik.html">logLik</a></span><span class="op">(</span><span class="va">Modele2</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/logLik.html">logLik</a></span><span class="op">(</span><span class="va">Modele3</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/logLik.html">logLik</a></span><span class="op">(</span><span class="va">Modele4</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">ICC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/icc.html">icc</a></span><span class="op">(</span><span class="va">Modele1</span><span class="op">)</span><span class="op">$</span><span class="va">ICC_adjusted</span>,</span>
+<span>         <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/icc.html">icc</a></span><span class="op">(</span><span class="va">Modele2</span><span class="op">)</span><span class="op">$</span><span class="va">ICC_adjusted</span>,</span>
+<span>         <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/icc.html">icc</a></span><span class="op">(</span><span class="va">Modele3</span><span class="op">)</span><span class="op">$</span><span class="va">ICC_adjusted</span>,</span>
+<span>         <span class="fu">performance</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/performance/reference/icc.html">icc</a></span><span class="op">(</span><span class="va">Modele4</span><span class="op">)</span><span class="op">$</span><span class="va">ICC_adjusted</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">R2m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/MuMIn/man/r.squaredGLMM.html">r.squaredGLMM</a></span><span class="op">(</span><span class="va">Modele1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>         <span class="fu"><a href="https://rdrr.io/pkg/MuMIn/man/r.squaredGLMM.html">r.squaredGLMM</a></span><span class="op">(</span><span class="va">Modele2</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>         <span class="fu"><a href="https://rdrr.io/pkg/MuMIn/man/r.squaredGLMM.html">r.squaredGLMM</a></span><span class="op">(</span><span class="va">Modele3</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>         <span class="fu"><a href="https://rdrr.io/pkg/MuMIn/man/r.squaredGLMM.html">r.squaredGLMM</a></span><span class="op">(</span><span class="va">Modele4</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">R2c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/MuMIn/man/r.squaredGLMM.html">r.squaredGLMM</a></span><span class="op">(</span><span class="va">Modele1</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>         <span class="fu"><a href="https://rdrr.io/pkg/MuMIn/man/r.squaredGLMM.html">r.squaredGLMM</a></span><span class="op">(</span><span class="va">Modele2</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>         <span class="fu"><a href="https://rdrr.io/pkg/MuMIn/man/r.squaredGLMM.html">r.squaredGLMM</a></span><span class="op">(</span><span class="va">Modele3</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>         <span class="fu"><a href="https://rdrr.io/pkg/MuMIn/man/r.squaredGLMM.html">r.squaredGLMM</a></span><span class="op">(</span><span class="va">Modele4</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>            Modele <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Modèle 1 (vide)"</span>, </span>
+<span>                       <span class="st">"Modèle 2 (VI : niv. 1)"</span>, </span>
+<span>                       <span class="st">"Modèle 3 (VI : niv. 1 et 2)"</span>,</span>
+<span>                       <span class="st">"Modèle 4 (interaction niv. 1 et 2"</span><span class="op">)</span>,</span>
+<span>            dl <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">Modele1</span>, <span class="va">Modele2</span>, <span class="va">Modele3</span>, <span class="va">Modele4</span><span class="op">)</span><span class="op">$</span><span class="va">df</span>,</span>
+<span>            Moins2LogLik <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span><span class="op">*</span><span class="va">c_logLik</span>,<span class="fl">0</span><span class="op">)</span>,</span>
+<span>            AIC <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/AIC.html">AIC</a></span><span class="op">(</span><span class="va">Modele1</span>, <span class="va">Modele2</span>, <span class="va">Modele3</span>, <span class="va">Modele4</span><span class="op">)</span><span class="op">$</span><span class="va">AIC</span>,<span class="fl">0</span><span class="op">)</span>,</span>
+<span>            ICC <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">ICC</span>,<span class="fl">4</span><span class="op">)</span>,</span>
+<span>            R2marg <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">R2m</span>,<span class="fl">3</span><span class="op">)</span>,</span>
+<span>            R2cond <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">R2c</span>,<span class="fl">3</span><span class="op">)</span></span>
+<span><span class="op">)</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                             Modele dl Moins2LogLik   AIC    ICC R2marg R2cond
+1                   Modèle 1 (vide)  3        80299 80305 0.1758  0.000  0.176
+2            Modèle 2 (VI : niv. 1) 11        78764 78786 0.1597  0.129  0.268
+3       Modèle 3 (VI : niv. 1 et 2) 17        78743 78777 0.1311  0.160  0.270
+4 Modèle 4 (interaction niv. 1 et 2 18        78733 78769 0.1285  0.163  0.270</code></pre>
+</div>
+</div>
+<p>Vous constaterez ci-dessus que les valeurs d’AIC et de -2&nbsp;log de vraisemblance diminuent des modèles&nbsp;1 à&nbsp;4, signalant une amélioration progressive des modèles. Cela se traduit aussi par une augmentation du R<sup>2</sup> conditionnel incluant à la fois les effets fixes et aléatoires. Sans surprise, la valeur du coefficient de corrélation intraclasse diminue du modèle vide au modèle complet&nbsp;: plus nous ajoutons de variables dépendantes, plus la capacité explicative du niveau&nbsp;2 diminue.</p>
+<p>Il est également judicieux de vérifier si un modèle est significativement différent du modèle précédent avec la fonction <code>anova</code> qui compare les différences de leurs déviances. En guise d’exemple, la différence de déviance de 59 (<span class="math inline">\(\mbox{78 625}-\mbox{78 684}=\mbox{59}\)</span>) entre les modèles&nbsp;3 et&nbsp;2 (modèle complet <em>versus</em> modèle GLMM) avec six degrés de liberté – puisque le modèle 3 inclut six variables indépendantes de plus que le précédent (<span class="math inline">\(\mbox{17}-\mbox{11}=\mbox{6}\)</span>) – est significative (<em>p</em>&nbsp;&lt;&nbsp;0,001). Cela indique que le modèle&nbsp;3 est plus performant que le précédent.</p>
+<div class="cell">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">Modele1</span>, <span class="va">Modele2</span>, <span class="va">Modele3</span>, <span class="va">Modele4</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Data: Multiniveau
+Models:
+Modele1: PCTArb ~ 1 + (1 | SRNOM)
+Modele2: PCTArb ~ Width.c + Length.c + AgeMed.c + AgeMed2.c + ResiPCT.c + DuTriPct.c + NoLog.c + Setback.c + (1 | SRNOM)
+Modele3: PCTArb ~ Width.c + Length.c + AgeMed.c + AgeMed2.c + ResiPCT.c + DuTriPct.c + NoLog.c + Setback.c + ValLog + UDipPCT + PCTFRAVI + PCTIMGRE + AvecEnf + FranPCT + (1 | SRNOM)
+Modele4: PCTArb ~ Width.c + Length.c + AgeMed.c + AgeMed2.c + ResiPCT.c + DuTriPct.c + NoLog.c + Setback.c + ValLog + UDipPCT + PCTFRAVI + PCTIMGRE + AvecEnf + FranPCT + PCTFRAVI_Setback + (1 | SRNOM)
+        npar   AIC   BIC logLik deviance    Chisq Df Pr(&gt;Chisq)    
+Modele1    3 80304 80326 -40149    80298                           
+Modele2   11 78706 78786 -39342    78684 1614.351  8  &lt; 2.2e-16 ***
+Modele3   17 78659 78783 -39313    78625   59.131  6  6.758e-11 ***
+Modele4   18 78640 78771 -39302    78604   21.166  1  4.213e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+</section></section><section id="sec-105" class="level2" data-number="10.5"><h2 data-number="10.5" class="anchored" data-anchor-id="sec-105">
+<span class="header-section-number">10.5</span> Quiz de révision du chapitre</h2>
+<div id="Chapitre10_Multiniveau" class="card">
+<link type="text/javascript" src="libs/quizlib.1.0.1.min.js">
+<script>var Quiz=function(a,b){this.Classes=Object.freeze({QUESTION:"quizlib-question",QUESTION_TITLE:"quizlib-question-title",QUESTION_ANSWERS:"quizlib-question-answers",QUESTION_WARNING:"quizlib-question-warning",CORRECT:"quizlib-correct",INCORRECT:"quizlib-incorrect",TEMP:"quizlib-temp"}),this.unansweredQuestionText="Question sans réponse !",this.container=document.getElementById(a),this.questions=[],this.result=new QuizResult,this.answers=b;for(var c=0;c<this.container.children.length;c++)this.container.children[c].classList.contains(Quiz.Classes.QUESTION)&&this.questions.push(this.container.children[c]);if(this.answers.length!=this.questions.length)throw new Error("Number of answers does not match number of questions!")};Quiz.Classes=Object.freeze({QUESTION:"quizlib-question",QUESTION_TITLE:"quizlib-question-title",QUESTION_ANSWERS:"quizlib-question-answers",QUESTION_WARNING:"quizlib-question-warning",CORRECT:"quizlib-correct",INCORRECT:"quizlib-incorrect",TEMP:"quizlib-temp"}),Quiz.prototype.checkAnswers=function(a){void 0===a&&(a=!0);for(var b=[],c=[],d=0;d<this.questions.length;d++){var e=this.questions[d],f=this.answers[d],g=[];this.clearHighlights(e);for(var h,i=e.getElementsByClassName(Quiz.Classes.QUESTION_ANSWERS)[0].getElementsByTagName("input"),j=0;j<i.length;j++)h=i[j],"checkbox"===h.type||"radio"===h.type?h.checked&&g.push(h.value):""!==h.value&&g.push(h.value);1!=g.length||Array.isArray(f)?0===g.length&&b.push(e):g=g[0],c.push(Utils.compare(g,f))}if(0===b.length||!a)return this.result.setResults(c),!0;for(d=0;d<b.length;d++){var k=document.createElement("span");k.appendChild(document.createTextNode(this.unansweredQuestionText)),k.className=Quiz.Classes.QUESTION_WARNING,b[d].getElementsByClassName(Quiz.Classes.QUESTION_TITLE)[0].appendChild(k)}return!1},Quiz.prototype.clearHighlights=function(a){for(var b=a.getElementsByClassName(Quiz.Classes.QUESTION_WARNING);b.length>0;)b[0].parentNode.removeChild(b[0]);var c,d=[a.getElementsByClassName(Quiz.Classes.CORRECT),a.getElementsByClassName(this.Classes.INCORRECT)];for(i=0;i<d.length;i++)for(;d[i].length>0;)c=d[i][0],c.classList.remove(Quiz.Classes.CORRECT),c.classList.remove(Quiz.Classes.INCORRECT);for(var e=a.getElementsByClassName(Quiz.Classes.TEMP);e.length>0;)e[0].parentNode.removeChild(e[0])},Quiz.prototype.highlightResults=function(a){for(var b,c=0;c<this.questions.length;c++)b=this.questions[c],b.getElementsByClassName(Quiz.Classes.QUESTION_TITLE)[0].classList.add(this.result.results[c]?Quiz.Classes.CORRECT:Quiz.Classes.INCORRECT),void 0!==a&&a(this,b,c,this.result.results[c])};var QuizResult=function(){this.results=[],this.totalQuestions=0,this.score=0,this.scorePercent=0,this.scorePercentFormatted=0};QuizResult.prototype.setResults=function(a){this.results=a,this.totalQuestions=this.results.length,this.score=0;for(var b=0;b<this.results.length;b++)this.results[b]&&this.score++;this.scorePercent=this.score/this.totalQuestions,this.scorePercentFormatted=Math.floor(100*this.scorePercent)};var Utils=function(){};Utils.compare=function(a,b){if(a.length!=b.length)return!1;if(Array.isArray(a)&&Array.isArray(b)){for(var c=0;c<a.length;c++)if(a[c]!==b[c])return!1;return!0}return a===b};
+
+function showResults(quiz) {
+    // Check answers and continue if all questions have been answered
+    if (quiz.checkAnswers()) {
+        var quizScorePercent = quiz.result.scorePercentFormatted; // The unformatted percentage is a decimal in range 0 - 1
+        var quizResultElement = document.getElementById('quiz-result');
+        quizResultElement.style.display = 'block';
+        document.getElementById('quiz-percent').innerHTML = quizScorePercent.toString();
+
+        // Change background colour of results div according to score percent
+        if (quizScorePercent > 75) quizResultElement.style.backgroundColor = '#4caf50';
+        else if (quizScorePercent > 50) quizResultElement.style.backgroundColor = '#ffc107';
+        else if (quizScorePercent > 25) quizResultElement.style.backgroundColor = '#ff9800';
+        else if (quizScorePercent > 0) quizResultElement.style.backgroundColor = '#f44336';
+
+        // Highlight questions according to whether they were correctly answered. The callback allows us to highlight/show the correct answer
+        quiz.highlightResults(handleAnswers);
+    }
+}
+
+/** Callback for Quiz.highlightResults. Highlights the correct answers of incorrectly answered questions
+ * Parameters are: the quiz object, the question element, question number, correctly answered flag
+ */
+function handleAnswers(quiz, question, no, correct) {
+    if (!correct) {
+        var answers = question.getElementsByTagName('input');
+        for (var i = 0; i < answers.length; i++) {
+            if (answers[i].type === 'checkbox' || answers[i].type === 'radio'){
+                // If the current input element is part of the correct answer, highlight it
+                if (quiz.answers[no].indexOf(answers[i].value) > -1) {
+                    answers[i].parentNode.classList.add(Quiz.Classes.CORRECT);
+                }
+            } else {
+                // If the input is anything other than a checkbox or radio button, show the correct answer next to the element
+                var correctAnswer = document.createElement('span');
+                correctAnswer.classList.add(Quiz.Classes.CORRECT);
+                correctAnswer.classList.add(Quiz.Classes.TEMP); // quiz.checkAnswers will automatically remove elements with the temp class
+                correctAnswer.innerHTML = quiz.answers[no];
+                correctAnswer.style.marginLeft = '10px';
+                answers[i].parentNode.insertBefore(correctAnswer, answers[i].nextSibling);
+            }
+        }
+    }
+}
+
+  var quizz_Chapitre10_Multiniveau;
+  window.onload = function() {
+    quizz_Chapitre10_Multiniveau = new Quiz('Chapitre10_Multiniveau', [['1', '2'],'1','1','2','1','1']);
+  };</script><link rel="stylesheet" type="text/css" src="css/quizlib.min.css">
+<div class="card quizlib-question">
+<div class="quizlib-question-title">
+Quels sont les deux intérêts majeurs des modèles multiniveaux?
+</div>
+<div>
+Relisez au besoin la <a href="#sec-101">section&nbsp;<span>10.1</span></a>.
+</div>
+<div class="quizlib-question-answers">
+
+<table class="table table-sm table-striped small">
+<tbody><tr>
+<td>
+<label>Analyser la répartition de la variance entre les différents niveaux</label>
+</td>
+<td>
+<input type="checkbox" name="q1" value="1">
+</td>
+</tr>
+<tr>
+<td>
+<label>Introduire des variables explicatives aux différents niveaux du modèle</label>
+</td>
+<td>
+<input type="checkbox" name="q1" value="2">
+</td>
+</tr>
+<tr>
+<td>
+<label>Construire des splines</label>
+</td>
+<td>
+<input type="checkbox" name="q1" value="3">
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="card quizlib-question">
+<div class="quizlib-question-title">
+Le modèle vide comprend :
+</div>
+<div>
+Relisez au besoin la <a href="#sec-10221">section&nbsp;<span>10.2.2.1</span></a>.
+</div>
+<div class="quizlib-question-answers">
+
+<table class="table table-sm table-striped small">
+<tbody><tr>
+<td>
+<label>aucune variable explicative</label>
+</td>
+<td>
+<input type="radio" name="q2" value="1">
+</td>
+</tr>
+<tr>
+<td>
+<label>plusieurs variables explicatives aux niveaux 1 et 2</label>
+</td>
+<td>
+<input type="radio" name="q2" value="2">
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="card quizlib-question">
+<div class="quizlib-question-title">
+Un modèle avec uniquement les variables indépendantes du niveau 1 est un modèle à effets mixtes (GLMM).
+</div>
+<div>
+Relisez au besoin la <a href="#sec-10222">section&nbsp;<span>10.2.2.2</span></a>.
+</div>
+<div class="quizlib-question-answers">
+
+<table class="table table-sm table-striped small">
+<tbody><tr>
+<td>
+<label>Vrai</label>
+</td>
+<td>
+<input type="radio" name="q3" value="1">
+</td>
+</tr>
+<tr>
+<td>
+<label>Faux</label>
+</td>
+<td>
+<input type="radio" name="q3" value="2">
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="card quizlib-question">
+<div class="quizlib-question-title">
+Quelle mesure permet d’analyser la répartition de la variance entre les deux niveaux?
+</div>
+<div>
+Relisez au besoin la <a href="#sec-10221">section&nbsp;<span>10.2.2.1</span></a>.
+</div>
+<div class="quizlib-question-answers">
+
+<table class="table table-sm table-striped small">
+<tbody><tr>
+<td>
+<label>Coefficients de régression</label>
+</td>
+<td>
+<input type="radio" name="q4" value="1">
+</td>
+</tr>
+<tr>
+<td>
+<label>Coefficient de corrélation intraclasse</label>
+</td>
+<td>
+<input type="radio" name="q4" value="2">
+</td>
+</tr>
+<tr>
+<td>
+<label>AIC</label>
+</td>
+<td>
+<input type="radio" name="q4" value="3">
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="card quizlib-question">
+<div class="quizlib-question-title">
+Un modèle complet comprend des variables explicatives aux deux niveaux.
+</div>
+<div>
+Relisez au besoin la <a href="#sec-10223">section&nbsp;<span>10.2.2.3</span></a>.
+</div>
+<div class="quizlib-question-answers">
+
+<table class="table table-sm table-striped small">
+<tbody><tr>
+<td>
+<label>Vrai</label>
+</td>
+<td>
+<input type="radio" name="q5" value="1">
+</td>
+</tr>
+<tr>
+<td>
+<label>Faux</label>
+</td>
+<td>
+<input type="radio" name="q5" value="2">
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="card quizlib-question">
+<div class="quizlib-question-title">
+Est-ce possible d’introduire une interaction entre une variable mesurée au niveau 1 et une autre mesurée au niveau 2?
+</div>
+<div>
+Relisez au besoin la <a href="#sec-10224">section&nbsp;<span>10.2.2.4</span></a>.
+</div>
+<div class="quizlib-question-answers">
+
+<table class="table table-sm table-striped small">
+<tbody><tr>
+<td>
+<label>Vrai</label>
+</td>
+<td>
+<input type="radio" name="q6" value="1">
+</td>
+</tr>
+<tr>
+<td>
+<label>Faux</label>
+</td>
+<td>
+<input type="radio" name="q6" value="2">
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<button type="button" onclick="showResults(quizz_Chapitre10_Multiniveau);" id="buttonID">
+Vérifier votre résultat
+</button>
+<div id="quiz-result" class="card">
+<p><span id="quiz-percent"></span></p>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-atkinson2001disentangling" class="csl-entry" role="listitem">
+Atkinson, Rowland et Keith Kintrea. 2001. <span>«&nbsp;Disentangling area effects: Evidence from deprived and non-deprived neighbourhoods.&nbsp;»</span> <em>Urban studies</em> 38 (12): 2277‑2298. <a href="https://doi.org/10.1080%2F00420980120087162">https://doi.org/10.1080%2F00420980120087162</a>.
+</div>
+<div id="ref-bressoux2010" class="csl-entry" role="listitem">
+Bressoux, Pascal. 2010. <em>Mod<span>é</span>lisation statistique appliqu<span>é</span>e aux sciences sociales</em>. De boeck.
+</div>
+<div id="ref-gelman2006data" class="csl-entry" role="listitem">
+Gelman, Andrew et Jennifer Hill. 2006. <em>Data analysis using regression and multilevel/hierarchical models</em>. Cambridge university press.
+</div>
+<div id="ref-apparicio2017disentangling" class="csl-entry" role="listitem">
+Pham, Thi-Thanh-Hien, Philippe Apparicio, Shawn Landry et Joseph Lewnard. 2017. <span>«&nbsp;Disentangling the effects of urban form and socio-demographic context on street tree cover: A multi-level analysis from Montr<span>é</span>al.&nbsp;»</span> <em>Landscape and Urban Planning</em> 157: 422‑433. <a href="http://dx.doi.org/10.1016/j.landurbplan.2016.09.001">http://dx.doi.org/10.1016/j.landurbplan.2016.09.001</a>.
+</div>
+<div id="ref-philibert2007statistiques" class="csl-entry" role="listitem">
+Philibert, Mathieu D et Philippe Apparicio. 2007. <span>«&nbsp;Statistiques spatiales appliqu<span>é</span>es <span>à</span> l’analyse de donn<span>é</span>es de sant<span>é</span>.&nbsp;»</span> In <em>Géographie de la santé : un panorama</em>, 111‑132. Economica.
+</div>
+<div id="ref-raudenbush2002hierarchical" class="csl-entry" role="listitem">
+Raudenbush, Stephen W et Anthony S Bryk. 2002. <em>Hierarchical linear models: Applications and data analysis methods</em>. Vol. 1. Sage.
+</div>
+<div id="ref-tabachnick2007" class="csl-entry" role="listitem">
+Tabachnick, Barbara G, Linda S Fidell et Jodie B Ullman. 2007. <em>Using multivariate statistics</em>. Pearson.
+</div>
+</div>
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copié");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copié");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./09-GLMM.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Régressions à effets mixtes (GLMM)</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./11-GAM.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Modèles généralisés additifs</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">Méthodes quantitatives en sciences sociales : un grand bol d’R.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">Ce livre a été réalisé avec <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+</body></html>

@@ -1,0 +1,91 @@
+- label: "Le mode de transport (auto, vélo, marche, transport en commun) est :"
+  type: uc
+  response: 4
+  answers:
+     - "une variable ordinale"
+     - "une variable continue"
+     - "une variable discrète"
+     - "une variable nominale"
+  help: "Relisez au besoin la [section @sec-0212]."
+
+- label: "Laquelle de ces deux options est la bonne?"
+  type: uc
+  response: 1
+  answers:
+     - "Variables qualitatives (nominales ou ordinales); variables quantitatives (continues et discrètes)"
+     - "Variables qualitatives (nominales ou discrètes); variables quantitatives (ordinales et discrètes)"
+  help: "Relisez au besoin le début de la [section @sec-012]."
+
+- label: "Des données collectées sur le terrain avec un GPS sont des données primaires spatiales."
+  type: uc
+  response: 1
+  answers:
+     - "Vrai"
+     - "Faux"
+  help: "Relisez au besoin la [section @sec-022]."
+
+- label: "L'erreur écologique consiste à :"
+  type: uc
+  response: 2
+  answers:
+     - "attribuer des résultats à partir de données individuelles à des territoires"
+     - "attribuer des constats obtenus à partir de données agrégées pour un territoire aux individus"
+  help: "Relisez au besoin la [section @sec-0224]."
+
+- label: "Laquelle de ces deux options est la bonne?"
+  type: uc
+  response: 1
+  answers:
+     - "Fonctions de masse pour les distributions discrètes, fonctions de densité pour les distributions continues"
+     - "Fonctions de masse pour les distributions continues, fonctions de densité pour les distributions discrètes"
+  help: "Relisez au besoin la [section @sec-024]."
+
+- label: "Quels sont les trois paramètres de tendance centrale?"
+  type: mc
+  response: [1,2,5]
+  answers:
+     - "Moyenne"
+     - "Médiane"
+     - "Variance"
+     - "Intervalle interquartile"
+     - "Mode"
+  help: "Relisez au besoin la [section @sec-0251]."
+
+- label: "Quels sont les paramètres de position?"
+  type: mc
+  response: [1,2,4]
+  answers:
+     - "Quartiles"
+     - "Déciles"
+     - "Variance"
+     - "Centiles"
+  help: "Relisez au besoin la [section @sec-0252]."
+  
+- label: "Quels sont les paramètres de dispersion?"
+  type: mc
+  response: [1,2,3,4]
+  answers:
+     - "Étendue"
+     - "Intervalle interquartile"
+     - "Variance"
+     - "Écart-type"
+  help: "Relisez au besoin la [section @sec-0253]."
+
+- label: "Comment vérifie-t-on qu'une variable est normalement distribuée?"
+  type: mc
+  response: [1,2,3]
+  answers:
+     - "Coefficients d'asymétrie et d'aplatissement (skewness et kurtosis)"
+     - "Graphiques : histogramme avec courbe normale et diagramme quantile-quantile"
+     - "Tests de normalité (comme celui de Shapiro-Wilk)"
+     - "Examen des valeurs minimale et maximale"
+  help: "Relisez au besoin la [section @sec-0254]."
+
+- label: "Le centrage et la réduction d'une variable consistent à :"
+  type: uc
+  response: 1
+  answers:
+     - "soustraire à chaque valeur sa moyenne (soit un centrage), puis à la diviser par son écart-type."
+     - "simplement à trier une variable en ordre croissant, puis à affecter le rang de chaque observation de 1 à n"
+     - "soustraite à chaque observation la valeur minimale et à diviser le tout par l'étendue."
+  help: "Relisez au besoin la [section @sec-02552]."

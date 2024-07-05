@@ -1,0 +1,2877 @@
+# Méthodes factorielles {#sec-chap12}
+
+Dans le cadre de ce chapitre, nous présentons les trois méthodes factorielles les plus utilisées en sciences sociales : l'analyse en composantes principales (ACP, [section @sec-122]), l'analyse factorielle des correspondances (AFC, [section @sec-123]) et l'analyse factorielle des correspondances multiples (ACM, [section @sec-124]). Ces méthodes, qui permettent d'explorer et de synthétiser l'information de différents tableaux de données, relèvent de la statistique exploratoire multidimensionnelle.
+
+::: bloc_package
+::: bloc_package-header
+::: bloc_package-icon
+:::
+**Liste des *packages* utilisés dans ce chapitre**
+:::
+::: bloc_package-body
+
+* Pour créer des graphiques :
+  - `ggplot2`, le seul, l'unique!
+  - `ggpubr` pour combiner des graphiques.
+* Pour les analyses factorielles :
+  - `FactoMineR` pour réaliser une ACP, une AFC et une ACM.
+  - `factoextra` pour réaliser des graphiques à partir des résultats d'une analyse factorielle.
+  - `explor` pour les résultats d'une ACP, d'une AFC ou d'une ACM avec une interface Web interactive.
+* Autres *packages* :
+  - `geocmeans` pour un jeu de données utilisé pour calculer une ACP.
+  - `ggplot2`, `ggpubr`, `stringr` et `corrplot` pour réaliser des graphiques personnalisés sur les résultats d'une analyse factorielle.
+  - `tmap` et `RColorBrewer` pour cartographier les coordonnées factorielles.
+  - `Hmisc` pour l'obtention d'une matrice de corrélation.
+:::
+:::
+
+::: bloc_objectif
+::: bloc_objectif-header
+::: bloc_objectif-icon
+:::
+**Réduction de données et identification de variables latentes**
+:::
+::: bloc_objectif-body
+Les méthodes factorielles sont souvent dénommées des **méthodes de réduction de données**, en raison de leur objectif principal : résumer l'information d'un tableau en quelques nouvelles variables synthétiques (@fig-AnalysesFactoriellesFig). Ainsi, elles permettent de réduire l'information d'un tableau volumineux — comprenant par exemple 1000 observations et 100 variables — en *p* nouvelles variables (par exemple cinq avec toujours 1000 observations) résumant *X* % de l'information contenue dans le tableau initial. Lebart et al. [-@lebart1995statistique, p.13] proposent une formulation plus mathématique : ils signalent qu'avec les méthodes factorielles, « on cherche à réduire les dimensions du tableau de données en représentant les associations entre individus et entre variables dans des espaces de faibles dimensions ».
+
+![Principe de base des analyses factorielles](images/Chap12/AnalysesFactorielles.png){#fig-AnalysesFactoriellesFig width="40%" fig-align="center"}
+
+
+Ces nouvelles variables synthétiques peuvent être considérées comme des **variables latentes** puisqu’elles ne sont pas directement observées; elles sont plutôt produites par la méthode factorielle utilisée afin de résumer les relations/associations entre plusieurs variables mesurées initialement.
+:::
+:::
+
+## Aperçu des méthodes factorielles {#sec-121}
+
+### Méthodes factorielles et types de données {#sec-1211}
+
+En analyse factorielle, la nature même des données du tableau à traiter détermine la méthode à employer : l’analyse en composantes principales (ACP) est adaptée aux tableaux avec des variables continues (idéalement normalement distribuées), l’analyse factorielle des correspondances (AFC) s’applique à des tableaux de contingence tandis que l’analyse des correspondances multiples (ACM) permet de résumer des tableaux avec des données qualitatives (issues d'un sondage par exemple) (@tbl-typesanalysesfactorielles). Sachez toutefois qu'il existe d'autres méthodes factorielles qui ne sont pas abordées dans ce chapitre, notamment : l'analyse factorielle de données mixtes (AFDM) permettant d'explorer des tableaux avec à la fois des variables continues et des variables qualitatives et l'analyse factorielle multiple hiérarchique (AFMH) permettant de traiter des tableaux avec une structure hiérarchique. Pour s'initier à ces deux autres méthodes factorielles plus récentes, consultez notamment l'excellent ouvrage de Jérôme Pagès [-@pages2013analyse].
+
+```{r}
+#| label: tbl-typesanalysesfactorielles
+#| tbl-cap: Trois principales méthodes factorielles
+#| echo: false
+#| message: false
+#| warning: false
+
+typesaf <- data.frame(Metho = c("Analyse en composantes principales",
+                                "Analyse factorielle des correspondances", 
+                                "Analyse factorielle des correspondances multiples"), 
+                      Abr = c("ACP", "AFC", "ACM"),
+                      type = c("Variables continues", "Tableau de contingence", "Variables qualitatives"),
+                      dist = c("Distance euclidienne", "Distance du khi-deux", "Distance du khi-deux")
+                    )
+options(knitr.kable.NA = "")
+knitr::kable(typesaf,
+           format.args = list(decimal.mark = ',', big.mark = " "),
+           col.names = c("Méthode factorielle" , "Abr." , "Type de données", "Type de distance"),
+           align= c("l", "l", "l", "l"),
+           )
+```
+
+### Bref historique des méthodes factorielles {#sec-1212}
+
+Il existe une longue tradition de l'utilisation des méthodes factorielles dans le monde universitaire francophone puisque plusieurs d'entre elles ont été proposées par des statisticiens et des statisticiennes francophones à partir des années 1960. L’analyse en composantes principales (ACP) a été proposée dès les années 1930 par le statisticien américain Harold Hotelling [-@hotelling1933analysis]. En revanche, l’analyse des correspondances (AFC) et son extension, l’analyse des correspondances multiples (ACM), ont été proposées par le statisticien français Jean-Paul Benzécri [-@benzecri1973analyse], tandis que l’analyse factorielle de données mixtes (AFDM) a été proposée par Brigitte Escofier et Jérôme Pagès [@escofier1979traitement; @pages2002analyse].
+
+Ainsi, plusieurs ouvrages de statistique  sur les méthodes factorielles, désormais classiques, ont été publiés en français [@benzecri1973analyse; @escofier1998analyses; @lebart1995statistique; @pages2013analyse]. Ils méritent grandement d'être consultés, notamment pour mieux comprendre les formulations mathématiques (matricielles et géométriques) de ces méthodes. À cela s'ajoutent plusieurs ouvrages visant à « vulgariser ces méthodes » en sciences sociales; c'est notamment le cas de l'excellent ouvrage de Léna Sanders [-@sanders1989analyse] en géographie.
+
+
+## Analyses en composantes principales (ACP) {#sec-122}
+
+D'emblée, notez qu'il existe deux types d'analyse en composantes principales (ACP) (*Principal Component Analysis, PCA* en anglais) : 
+
+- **l'ACP non normée** dans laquelle les variables quantitatives du tableau sont uniquement centrées (moyenne = 0).
+
+- **l'ACP normée** dans laquelle les variables quantitatives du tableau sont préalablement centrées réduites (moyenne = 0 et variance = 1; [section @sec-02552]).
+
+Puisque les variables d'un tableau sont souvent exprimées dans des unités de mesure différentes ou avec des ordres de grandeur différents (intervalles et écarts-types bien différents), l'utilisation de l'ACP normée est bien plus courante. Elle est d'ailleurs l'option par défaut dans les fonctions R permettant de calculer une ACP. Par conséquent, nous détaillons dans cette section uniquement l'ACP normée.
+
+Autrement dit, le recours à une ACP non normée est plus rare et s'applique uniquement à la situation suivante : toutes les variables du tableau sont mesurées dans la même unité (par exemple, en pourcentage); il pourrait être ainsi judicieux de conserver leurs variances respectives.
+
+### Recherche d'une simplification {#sec-1221}
+
+L’ACP permet d'explorer et de résumer un tableau constitué uniquement de variables quantitatives (@fig-AnalysesFactoriellesTabACPFig), et ce, de trois façons : 1) en montrant les ressemblances entre les individus (observations), 2) en révélant les liaisons entre les variables quantitatives et 3) en résumant l’ensemble des variables du tableau par des variables synthétiques nommées composantes principales.
+
+
+![Tableau pour une ACP](images/Chap12/AnalysesFactoriellesTabACP.png){#fig-AnalysesFactoriellesTabACPFig width="60%" fig-align="center"}
+
+**Ressemblance entre les individus**. Concrètement, deux individus se ressemblent si leurs valeurs respectives pour les *p* variables du tableau sont similaires. Cette proximité/ressemblance est évaluée à partir de la distance euclidienne (@eq-ACPdistEuc). La notion de distance fait l'objet d'une section à part entière ([section @sec-1321]) que vous pouvez consulter dès à présent si elle ne vous est pas familière.
+
+$$
+d^2(a,b) = \sum_{j=1}^p(x_{aj}-x_{bj})^2
+$$ {#eq-ACPdistEuc}
+
+
+Prenons un exemple fictif avec trois individus (*i*, *j* et *k*) ayant des valeurs pour trois variables préalablement centrées réduites (V1 à V3) (@tbl-distanceACPindi). La proximité entre les paires de points est évaluée comme suit : 
+
+$$d^2(i,j)=(-\mbox{1,15}-\mbox{0,49})^2+(-\mbox{1,15}-\mbox{0,58})^2+(\mbox{0,83}+\mbox{1,11})^2=\mbox{9,44}$$
+$$d^2(i,k)=(-\mbox{1,15}+\mbox{0,66})^2+(-\mbox{1,15}-\mbox{0,58})^2+(\mbox{0,83}-\mbox{0,28})^2=\mbox{5,98}$$
+
+$$d^2(j,k)= (\mbox{0,49}+\mbox{0,66})^2+(\mbox{0,58}-\mbox{0,58})^2+(-\mbox{1,11}-\mbox{0,28})^2=\mbox{1,97}$$
+
+Nous pouvons en conclure que *i* est plus proche de *k* que de *j*, mais aussi que la paire de points les plus proches est (*i*,*k*). En d'autres termes, les deux observations *i* et *k* sont les plus similaires du jeu de données selon la distance euclidienne.
+
+```{r}
+#| label: tbl-distanceACPindi
+#| tbl-cap: Données fictives
+#| echo: false
+#| message: false
+#| warning: false
+library(kableExtra)
+df1 <- data.frame(Ind=c("i", "j", "k"),
+                  V1=c(100,150,155),
+                  V2=c(20,22,22),
+                  V3=c(25,18,23))
+
+df1$V1 <- round(scale(df1$V1),2)
+df1$V2 <- round(scale(df1$V2),2)
+df1$V3 <- round(scale(df1$V3),2)
+
+options(knitr.kable.NA = "")
+my_table <- knitr::kable(df1,
+             format.args = list(decimal.mark = ',', big.mark = " "),
+             row.names = FALSE,
+             col.names = c("Individu" , "V1" , "V2", "V3"),
+             align = c("c", "c", "c", "c")
+             )
+add_header_above(my_table, c(" " = 1, "Variables centrées réduites" = 3))
+```
+
+
+**Liaisons entre les variables**. Dans une ACP normée, les liaisons entre les variables deux à deux sont évaluées avec le coefficient de corrélation ([section @sec-0431]), soit la moyenne du produit des deux variables centrées réduites (@eq-ACPcor). Notez que dans une ACP non normée, plus rarement utilisée, les liaisons sont évaluées avec la covariance puisque les variables sont uniquement centrées (@eq-ACPcov).
+
+
+$$
+r_{xy} = \frac{\sum_{i=1}^n (x_{i}-\bar{x})(y_{i}-\bar{y})}{n\sqrt{\sum_{i=1}^n(x_i - \bar{x})^2(y_i - \bar{y})^2}}=\sum_{i=1}^n\frac{Zx_iZy_i}{n}
+$$ {#eq-ACPcor}
+
+
+$$
+cov(x,y) = \frac{\sum_{i=1}^n (x_{i}-\bar{x})(y_{i}-\bar{y})}{n}
+$$ {#eq-ACPcov}
+
+
+**Composantes principales**. Au [chapitre @sec-chap04], nous avons abordé deux méthodes pour identifier des relations linéaires entre des variables continues normalement distribuées : 
+
+* la corrélation de Pearson ([section @sec-043]), qu'il est possible d'illustrer graphiquement à partir d'un nuage de points;
+
+* la régression linéaire simple ([section @sec-044]), permettant de résumer la relation linéaire entre deux variables avec une droite de régression de type $Y=a+bX$. 
+
+Brièvement, plus deux variables sont corrélées (positivement ou négativement), plus le nuage de points qu'elles forment est allongé et plus les points sont proches de la droite de régression (@fig-liaisons2Vars, partie **a**). À l'inverse, plus la liaison entre les deux variables normalement distribuées est faible, plus le nuage prend la forme d'un cercle et plus les points du nuage sont éloignés de la droite de régression (@fig-liaisons2Vars, partie **b**). Puisqu'en ACP normée, les variables sont centrées réduites, le centre de gravité du nuage de points est (*x* = 0, *y* = 0) et il est toujours traversé par la droite de régression. Finalement, nous avons vu que la méthode des moindres carrés ordinaires (MCO) permet de déterminer cette droite en minimisant les distances entre les valeurs observées et celles projetées orthogonalement sur cette droite (valeurs prédites). Dans le cas de deux variables uniquement, l'axe factoriel principal/la composante principale est donc la droite qui résume le mieux la liaison entre les deux variables (en rouge). L'axe 2 représente la seconde plus importante composante (axe, dimension) et il est orthogonal (perpendiculaire) au premier axe (en bleu).
+
+
+![Corrélation, allongement du nuage de points et axes factoriels](images/Chap12/bivariePlanFacto.png){#fig-liaisons2Vars width="100%" fig-align="center"}
+
+
+
+```{r}
+#| echo: false
+# library("MASS")
+# library("ggplot2")
+# library("ggpubr")
+# library("FactoMineR")
+# N <- 500      # nombre d'observations
+# moy_x <- 50   # moyenne de x
+# moy_y <- 40   # moyenne de y
+# sd_x <- 10    # écart-type de x
+# sd_y <- 8     # écart-type de y
+# rxy <- c(.90,-.85,0.01) # corrélation entre X et Y
+# # Matrice de covariance
+# cov1 <- matrix(c(sd_x^2,  rxy[1]*sd_x*sd_y, rxy[1]*sd_x*sd_y, sd_y^2), nrow = 2)
+# cov2 <- matrix(c(sd_x^2,  rxy[2]*sd_x*sd_y, rxy[2]*sd_x*sd_y, sd_y^2), nrow = 2) 
+# cov3 <- matrix(c(sd_x^2,  rxy[3]*sd_x*sd_y, rxy[3]*sd_x*sd_y, sd_y^2), nrow = 2) 
+# data1 <-  as.data.frame(mvrnorm(N, c(moy_x, moy_y), cov1))
+# data2 <-  as.data.frame(mvrnorm(N, c(moy_x, moy_y), cov2))
+# data3 <-  as.data.frame(mvrnorm(N, c(moy_x, moy_y), cov3))
+# data1$V1 <- scale(data1$V1)
+# data1$V2 <- scale(data1$V2)
+# data2$V1 <- scale(data2$V1)
+# data2$V2 <- scale(data2$V2)
+# data3$V1 <- scale(data3$V1)
+# data3$V2 <- scale(data3$V2)
+# cor1 <- round(cor(data1)[1,2],3)
+# cor2 <- round(cor(data2)[1,2],3)
+# cor3 <- round(cor(data3)[1,2],3)
+# 
+# lm1 <- lm(V1 ~ V2, data = data1)
+# coef1 <- round(lm1$coefficients,3)[2]
+# y1 <-lm1$coefficients[1]+(lm1$coefficients[2]*3)
+# y2 <-lm1$coefficients[1]+(lm1$coefficients[2]*-3)
+# plot1 <- ggplot(data1, aes(x = V1, y = V2))+
+#   xlim(-3,3)+
+#   ylim(-3,3)+
+#   geom_point(size = 1, color = "steelblue")+
+#   ggtitle("a. Forte relation linéaire positive", subtitle = paste0("Corrélation = ", tofr(cor1)))+
+#   geom_hline(yintercept=0, linewidth = .2, color = "black")+
+#   geom_vline(xintercept = 0, linewidth = .2, color = "black")+
+#   xlab("Variable 1")+ylab("Variable 2")+
+#   stat_ellipse( size = 1, color = "black")+
+#   annotate(geom = "text", x = 3, y =  3, label = "Axe 1", color = "red", hjust = 1, size = 5)+
+#   annotate(geom = "text", x = -2.5, y =   3, label = "Axe 2", color = "steelblue", hjust = 0, size = 5)+
+#   geom_segment(aes(x = 3, y = y1, xend = -3, yend = y2), size = 1, color = "red")+
+#   geom_segment(aes(x = -y1, y = 3, xend = -y2, yend = -3), size = 1, color = "steelblue")+
+#   coord_fixed()
+# plot1
+# 
+# lm3 <- lm(V1 ~ V2, data = data3)
+# coef3 <- round(lm3$coefficients,3)[2]
+# y1 <-lm3$coefficients[1]+(lm3$coefficients[2]*3)
+# y2 <-lm3$coefficients[1]+(lm3$coefficients[2]*-3)
+# plot3 <- ggplot(data3, aes(x = V1, y = V2))+
+#   xlim(-3,3)+
+#   ylim(-3,3)+
+#   geom_point(size = 1, color = "steelblue")+
+#   ggtitle("b. Absence de relation linéaire", subtitle = paste0("Corrélation = ", tofr(cor3)))+
+#   xlab("Variable 1")+ylab("Variable 2")+
+#   geom_hline(yintercept=0, linewidth = .2, color = "black")+
+#   geom_vline(xintercept = 0, linewidth = .2, color = "black")+
+#   stat_ellipse( size = 1, color = "black")+
+#   annotate(geom = "text", x = 3, y =  -.2, label = "Axe 1", color = "red", hjust = 1, size = 5)+
+#   annotate(geom = "text", x = .2, y =  2.8, label = "Axe 2", color = "blue", hjust = 0, size = 5)+
+#   geom_segment(aes(x = 3, y = y1, xend = -3, yend = y2), size = 1, color = "red")+
+#   geom_segment(aes(x = -y1, y = 3, xend = -y2, yend = -3), size = 1, color = "blue")+
+#   coord_fixed()
+# plot3
+  
+```
+
+Imaginez maintenant trois variables pour lesquelles vous désirez identifier un axe, une droite qui résume le mieux les liaisons entre elles. Visuellement, vous passez d'un nuage de points en deux dimensions (2D) à un nuage en dimensions (3D). Si les corrélations entre les trois variables sont très faibles, alors le nuage prend la forme d'un ballon de soccer (football en Europe). Par contre, plus ces liaisons sont fortes, plus la forme est allongée comme un ballon de rugby et plus les points sont proches de l'axe traversant le ballon.
+
+Ajouter une autre variable revient alors à ajouter une quatrième dimension qu'il est impossible de visualiser, même pour les plus fervents adaptes de science-fiction. Pourtant, le problème reste le même : identifier, dans un plan en *p* dimensions (variables), les axes factoriels – les composantes principales – qui concourent le plus à résumer les liaisons entre les variables continues préalablement centrées réduites, et ce, en utilisant la méthode des moindres carrés ordinaires.
+
+
+::: bloc_attention
+::: bloc_attention-header
+::: bloc_attention-icon
+:::
+**Composantes principales et axes factoriels**
+:::
+::: bloc_attention-body
+Les termes **composantes principales** et **axes factoriels** sont des synonymes employés pour référer aux nouvelles variables synthétiques produites par l'ACP et résumant l'information du tableau initial.
+:::
+:::
+
+### Aides à l'interprétation {#sec-1222}
+
+Pour illustrer les aides à l'interprétation de l'ACP, nous utilisons un jeu de données spatiales tiré d'un article sur l'agglomération lyonnaise en France [@2021_4]. Ce jeu de données comprend dix variables, dont quatre environnementales (EN) et six socioéconomiques (SE),  pour les îlots regroupés pour l'information statistique (IRIS) de l'agglomération lyonnaise (@tbl-dataacp et @fig-datacartoacp). Sur ces dix variables, nous calculons une **ACP normée**.
+
+```{r}
+#| label: tbl-dataacp
+#| tbl-cap: Statistiques descriptives pour le jeu de données utilisé pour l'ACP
+#| echo: false
+#| message: false
+#| warning: false
+library(geocmeans)
+library(sf)
+
+data(LyonIris)
+Data <- st_drop_geometry(LyonIris[c("Lden" , "NO2" , "PM25" , "VegHautPrt",
+                        "Pct0_14" , "Pct_65" , "Pct_Img",
+                        "TxChom1564" , "Pct_brevet" , "NivVieMed")])
+
+intitule <- c("Bruit routier (Lden dB(A))",
+              "Dioxyde d'azote (ug/m^3^)",
+              "Particules fines (PM$_{2,5}$)",
+              "Canopée (%)",
+              "Moins de 15 ans (%)",
+              "65 ans et plus (%)",
+              "Immigrants (%)",
+              "Taux de chômage",
+              "Personnes à faible scolarité (%)",
+              "Médiane du niveau de vie (Euros)" )
+
+stats <- data.frame(variable = names(Data),
+                    nom = intitule,
+                    type = c("EN" , "EN" , "EN" , "EN" , "SE" , "SE" , "SE" , "SE" , "SE" , "SE"),
+                    moy = round(sapply(Data, mean), 2),
+                    et = round(sapply(Data, sd), 2), 
+                    minimum = round(sapply(Data, min), 2), 
+                    maximum = round(sapply(Data, max), 2)
+                    )
+options(knitr.kable.NA = "")
+knitr::kable(stats,
+           format.args = list(decimal.mark = ',', big.mark = " "),
+		   digits = 1,
+           col.names = c("Nom" , "Intitulé" , "Type" , "Moy.", "E.-T.", "Min.", "Max."),
+           align= c("l" , "l", "c" , "r", "r", "r", "r"),
+           )
+```
+
+
+![Cartographie des dix variables utilisées pour l'ACP](images/Chap12/Figure3Data.png){#fig-datacartoacp width="100%" fig-align="center"}
+
+::: bloc_objectif
+::: bloc_objectif-header
+::: bloc_objectif-icon
+:::
+**Trois étapes pour bien analyser une ACP et comprendre la signification des axes factoriels**
+:::
+::: bloc_objectif-body
+1. Interprétation des résultats des valeurs propres pour identifier le nombre d'axes (de composantes principales) à retenir. L'enjeu est de garder un nombre d'axes limité qui résume le mieux le tableau initial (réduction des données).
+
+2. Analyse des résultats pour les variables (coordonnées factorielles, cosinus carrés et contributions sur les axes retenus).
+
+3. Analyse des résultats pour les individus (coordonnées factorielles, cosinus carrés et contributions sur les axes retenus).
+
+Les deux dernières étapes permettent de comprendre la signification des axes retenus et de les qualifier. Cette étape d'interprétation est essentielle en sciences sociales. En effet, nous avons vu dans l'introduction du chapitre que les méthodes factorielles permettent de résumer l'information d'un tableau en quelques nouvelles variables synthétiques, souvent considérées comme des variables latentes dans le jeu de données. Il convient alors de bien comprendre ces variables synthétiques (latentes), si nous souhaitons les utiliser dans une autre analyse subséquente (par exemple, les introduire dans une régression).
+:::
+:::
+
+#### Résultats de l'ACP pour les valeurs propres {#sec-12221}
+
+À titre de rappel, une ACP normée est réalisée sur des variables préalablement centrées réduites (@eq-scorezacpnormee), ce qui signifie que pour chaque variable :
+
+- Nous soustrayons à chaque valeur la moyenne de la variable correspondante (centrage); la moyenne est donc égale à 0.
+- Nous divisons cette différence par l’écart-type de la variable correspondante (réduction); la variance est égale à 1.
+	
+$$
+z= \frac{x_i-\mu}{\sigma}
+$$ {#eq-scorezacpnormee}
+
+	
+Par conséquent, la variance totale (ou inertie totale) d’un tableau sur lequel est calculée une ACP normée est égale au nombre de variables qu'il comprend. Puisque nous l'appliquons ici à dix variables, la variance totale du tableau à réduire – c'est-à-dire à résumer en *K* nouvelles variables synthétiques, composantes principales, axes factoriels – est donc égale à 10. Trois mesures reportées au @tbl-dataacpValeurPropres permettent d'analyser les valeurs propres : 
+
+- $\mbox{VP}_k$, la valeur propre (*eigenvalue* en anglais) de l'axe *k*, c'est-à-dire la quantité de variance du tableau initial résumé par l'axe.
+
+- $\mbox{VP}_k / \mbox{P}$ avec *P* étant le nombre de variables que comprend le tableau initial. Cette mesure représente ainsi le pourcentage de la variance totale du tableau résumé par l’axe *k*; autrement dit, la quantité d’informations du tableau initial résumée par l’axe, la composante principale *k*. Cela nous permet ainsi d’évaluer le pouvoir explicatif de l’axe.
+
+- Le pourcentage cumulé pour les axes.
+
+```{r}
+#| label: tbl-dataacpValeurPropres
+#| tbl-cap: Résultats de l'ACP pour les valeurs propres
+#| echo: false
+#| message: false
+#| warning: false
+library(FactoMineR)
+
+# Calcul de l'ACP
+res.acp <- PCA(Data, ncp=5, scale.unit = TRUE, graph = FALSE)
+
+# Construction d'un DataFrame pour les valeurs propres
+dfACPvp <- data.frame(res.acp$eig)
+names(dfACPvp) <- c("VP" , "VP_pct" , "VP_cumupct")
+dfACPvp$Composante <- factor(1:nrow(dfACPvp), levels = rev(1:nrow(dfACPvp)))
+dfACPvp <- dfACPvp[, c(4,1:3)]
+
+options(knitr.kable.NA = "")
+knitr::kable(dfACPvp,
+           format.args = list(decimal.mark = ',', big.mark = " "),
+		       digits = 3,
+           col.names = c("Composante" , "Valeur propre" , "Pourcentage", "Pourc. cumulé"),
+           align= c("r", "r", "r", "r")
+           )
+```
+
+Avant d'analyser en détail le @tbl-dataacpValeurPropres, notez que la somme des valeurs propres de toutes les composantes de l'ACP est toujours  égale au nombre de variables du tableau initial. Aussi, la quantité de variance expliquée (les valeurs propres) décroît de la composante 1 à la composante *K*.
+
+**Combien d'axes d'une ACP faut-il retenir?** Pour répondre à cette question, deux approches sont possibles :
+
+- **Approche statistique** (avec le critère de Kaiser [-@kaiser1960application]). Nous retenons uniquement les composantes qui présentent une valeur propre supérieure à 1. Rappelez-vous qu'en ACP normée, les variables sont préalablement centrées réduites, et donc que leur variance respective est égale à 1. Par conséquent, une composante ayant une valeur propre inférieure à 1 a un pouvoir explicatif inférieur à celui d'une variable. À la lecture du tableau, nous retenons les trois premières composantes si nous appliquons ce critère.
+
+- **Approche empirique** basée sur la lecture des pourcentages et des pourcentages cumulés. Nous pouvons retenir uniquement les deux premières composantes. En effet, ces deux premiers facteurs résument près des deux tiers de la variance totale du tableau (63,02 %). Cela démontre bien que l'ACP, comme les autres méthodes factorielles, est bien une méthode de réduction de données puisque nous résumons dix variables avec deux nouvelles variables synthétiques (axes, composantes principales). Pour faciliter le choix du nombre d'axes, il est fortement conseillé de construire des histogrammes à partir des valeurs propres, des pourcentages et des pourcentages cumulés (@fig-acpgraphvp). Or, à la lecture de ces graphiques, nous constatons que la variance expliquée chute drastiquement après les deux premières composantes. Par conséquent, nous pouvons retenir uniquement les deux premiers axes.
+
+::: bloc_astuce
+::: bloc_astuce-header
+::: bloc_astuce-icon
+:::
+**Lecture du diagramme des valeurs propres** 
+:::
+::: bloc_astuce-body
+Plus les variables incluses dans l'ACP sont corrélées entre elles, plus l'ACP est intéressante : plus les valeurs propres des premiers axes sont fortes et plus il y a des sauts importants dans le diagramme des valeurs propres. À l'inverse, lorsque les variables incluses dans l'ACP sont peu corrélées entre elles, il n'y a pas de sauts importants dans l'histogramme, autrement dit les valeurs propres sont uniformément décroissantes.
+:::
+:::
+
+```{r}
+#| label: fig-acpgraphvp
+#| echo: false
+#| fig-align: center
+#| fig-cap: Graphiques personnalisés pour les valeurs propres pour l'ACP
+#| out-width: "75%"
+library(ggplot2)
+library(ggpubr)
+library(stringr)
+
+tofr <- function(float){
+  return(gsub("." , ",", as.character(float), fixed = TRUE,  useBytes = TRUE))
+}
+
+dfACPvp <- data.frame(res.acp$eig)
+names(dfACPvp) <- c("VP" , "VP_pct" , "VP_cumupct")
+dfACPvp$Composante <- factor(1:nrow(dfACPvp), levels = rev(1:nrow(dfACPvp)))
+
+couleursAxes <- c("steelblue" , "skyblue2")
+vpsup1 <-  tofr(round(sum(subset(dfACPvp, VP >= 1)$VP),2))
+vpsup1cumul <- tofr(round(sum(subset(dfACPvp, VP >= 1)$VP_pct),2))
+
+plotVP1 <- ggplot(dfACPvp, aes(x = VP, y = Composante, fill = VP<1))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  geom_vline(xintercept = 1, linetype = "dashed", color = "azure4", linewidth = 1)+
+  scale_fill_manual(name = "Valeur\npropre" , values = couleursAxes, labels = c(">= 1" , "< 1"))+
+  labs(x = "Valeur propre", y = "Composante principale")
+
+plotVP2 <- ggplot(dfACPvp, aes(x = VP_pct, y = Composante, fill = VP<1))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  scale_fill_manual(name = "Valeur\npropre" , values = couleursAxes, labels = c(">= 1" , "< 1"))+
+  theme(legend.position = "none")+
+  labs(x = "Variance expliquée (%)", y = "")
+
+plotVP3 <- ggplot(dfACPvp, aes(x = VP_cumupct, y = Composante, fill = VP<1, group=1))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  scale_fill_manual(name = "Valeur\npropre" , values = couleursAxes, labels = c(">= 1" , "< 1"))+
+  geom_line(colour = "brown", linetype = "solid", linewidth = .8) +
+  geom_point(size=3, shape=21, color = "brown", fill = "brown")+
+  theme(legend.position = "none")+
+  labs(x = "Variance expliquée (% cumulé)", y = "")
+
+  annotate_figure(ggarrange(plotVP1, plotVP2, plotVP3, ncol = 2, nrow = 2),
+                  text_grob("Graphiques pour les valeurs propres", color = "black", face = "bold", size = 12),
+                  bottom = text_grob(
+                          paste0("Somme des valeurs propres supérieures à 1 : ", vpsup1,
+                                 ".\nPourcentage cumulé des valeurs propres supérieures à 1 : ", vpsup1cumul, " %."),
+                           color = "black", hjust = 1, x = 1, size = 10))
+```
+
+#### Résultats de l'ACP pour les variables {#sec-12222}
+
+Pour qualifier les axes, quatre mesures sont disponibles pour les variables :
+
+- **Les coordonnées factorielles des variables**  sont simplement les coefficients de corrélation de Pearson des variables sur l’axe *k* et varient ainsi de -1 à 1 (relire au besoin la [section @sec-043]). Pour qualifier un axe, il convient alors de repérer les variables les plus corrélées positivement et négativement sur l’axe, autrement dit, de repérer les variables situées aux extrémités l'axe. 
+
+- **Les cosinus carrés des variables** (Cos^2^) (appelés aussi les qualités de représentation des variables sur un axe) permettent de repérer le ou les axes qui concourent le plus à donner un sens à la variable. Ils sont en fait les coordonnées des variables mises au carré. La somme des cosinus carrés d’une variable sur tous les axes de l’ACP est donc égale à 1 (sommation en ligne).
+
+- **La qualité de représentation d'une variable sur les _n_ premiers axes** est simplement la somme des cosinus carrés d'une variable sur les axes retenus. Par exemple, pour la variable `Lden`, la qualité de représentation de la variable  sur le premier axe est égale : $\mbox{0,42}^2=\mbox{0,17}$. Pour cette même variable, la qualité de la `Lden` sur les trois premiers axes est égale à : $\mbox{0,17}+\mbox{0,32}+\mbox{0,26}=\mbox{0,75}$.
+
+- **Les contributions des variables** permettent de repérer celles qui participent le plus à la formation d’un axe. Elles s'obtiennent en divisant les cosinus carrés par la valeur propre de l’axe multiplié par 100. La somme des contributions des variables pour un axe donné est donc égale à 100 (sommation en colonne). Par exemple, pour la variable `Lden`, la contribution sur le premier axe est égale : $\mbox{0,174} / \mbox{3,543} \times \mbox{100}= \mbox{4,920 }%$.
+
+Les résultats de l'ACP pour les variables sont présentés au @tbl-dataacpCoordVars.
+
+```{r}
+#| label: tbl-dataacpCoordVars
+#| tbl-cap: Résultats de l'ACP pour les variables
+#| echo: false
+#| message: false
+#| warning: false
+library(kableExtra)
+nComp <- 3
+# Variance expliquée par les axes retenus
+vppct <- round(dfACPvp[1:nComp,"VP_pct"],1)
+# Dataframe des résultats pour les variables
+CoordsVar <- res.acp$var$coord[, 1:nComp]
+Cos2Var   <- res.acp$var$cos2[, 1:nComp]
+CtrVar   <- res.acp$var$contrib[, 1:nComp]
+dfACPVars <- data.frame(Variable =  row.names(res.acp$var$coord[, 1:nComp]),
+                        Coord = CoordsVar,
+                        Cos2 = Cos2Var,
+                        Qualite = rowSums(Cos2Var),
+                        Ctr = CtrVar)
+row.names(dfACPVars) <- NULL
+names(dfACPVars) <- str_replace(names(dfACPVars), ".Dim.", "Comp")
+
+options(knitr.kable.NA = "")
+my_table <- knitr::kable(dfACPVars,
+                   format.args = list(decimal.mark = ',', big.mark = " "),
+				           row.names = FALSE,
+				           digits = 2,
+                   col.names = c("Variable" , "1" , "2" , "3" , "1" , "2" , "3" , "Qualité" , "1" , "2" , "3"),
+                   align= c("l" , "r" , "r" , "r" , "r" , "r" , "r" , "r" , "r" , "r" , "r"),
+                   )
+add_header_above(my_table, c(" " = 1, "Coordonnées" = 3, "Cosinus carrés" = 4, "Contributions" = 3))
+```
+
+**Analyse de la première composante principale (valeur propre de 3,54, 35,43 %)**
+
+- À la lecture des contributions, il est clair que quatre variables contribuent grandement à la formation de l'axe 1 : `NivVieMed` (22,06 %), 
+`Pct_Img` (21,56 %), `TxChom1564` (16,89 %) et `Pct_brevet` (14,94 %). Il convient alors d'analyser en détail leurs coordonnées factorielles et leurs cosinus carrés.
+
+- À la lecture des coordonnées factorielles, nous constatons que trois variables socioéconomiques sont fortement corrélées positivement avec l’axe 1, soit le *pourcentage d’immigrants* (0,87), le *taux de chômage* (0,77) et le *pourcentage de personnes avec une faible scolarité* (0,73). À l’autre extrémité, la *médiane du niveau de vie* (en euros) est négativement corrélée avec l’axe 1. Comment interpréter ce résultat? Premièrement, cela signifie que plus la valeur de l’axe 1 est positive et élevée, plus celles des trois variables (`Pct_Img`,`TxChom1564` et `Pct_brevet`) sont aussi élevées (corrélations positives) et plus la valeur de `NivVieMed` est faible (corrélation négative). Inversement, plus la valeur de l’axe 1 est négative et faible, les valeurs de `Pct_Img`, `TxChom1564` et `Pct_brevet` sont faibles et plus celle de `NivVieMed` est forte. Deuxièmement, cela signifie que les trois variables (`Pct_Img`,`TxChom1564` et `Pct_brevet`) sont fortement corrélées positivement entre elles puisqu’elles se situent sur la même extrémité de l’axe et qu’elles sont toutes trois négativement corrélées avec la variable `NivVieMed`. Cela peut être rapidement confirmé avec la matrice de corrélation entre les dix variables (@tbl-dataacpMatriceCorr). 
+
+- À la lecture des cosinus carrés de l'axe 1, nous constatons que plus des trois quarts de la dispersion/de l'information des variables `NivVieMed` (0,78) et `Pct_Img` (0,76) est concentrée sur l'axe 1.
+
+
+```{r}
+#| label: tbl-dataacpMatriceCorr
+#| tbl-cap: Matrice de corrélation de Pearson entre les variables utilisées pour l'ACP
+#| echo: false
+#| message: false
+#| warning: false
+library(Hmisc)
+
+DataZ <-  scale(Data)
+MatriceCorr <- as.data.frame(rcorr(Data %>% as.matrix())$r)
+MatriceCorr$Variable <- c("A. Lden",  "B. NO2", "C. PM25", "D. VegHautPrt", "E. Pct0_14", 
+                          "F. Pct_65", "G. Pct_Img", "H. TxChom1564", "I. Pct_brevet", "J. NivVieMed")
+MatriceCorr <- MatriceCorr[, c(11,1:10)]
+names(MatriceCorr) <- c("Variable", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J")
+for (e in 2:11){
+  MatriceCorr[[e]] <- ifelse(MatriceCorr[[e]] == 1.00, NA, MatriceCorr[[e]])
+}
+options(knitr.kable.NA = "")
+knitr::kable(MatriceCorr,
+             format.args = list(decimal.mark = ',', big.mark = " "),
+			       digits = 2,
+             align= c("l" , "r" , "r" , "r" , "r" , "r" , "r" , "r" , "r" , "r" , "r" , "r")
+             )
+```
+
+**Analyse de la deuxième composante principale (valeur propre de 2,76, 27,60 %)**
+
+- À la lecture des contributions, trois variables environnementales contribuent à la formation de l'axe 2 : principalement, celles sur la pollution de l'air (`NO2` = 31,07 % et `PM25` = 30,36 %) et secondairement, celle sur le bruit routier (`Lden` = 11,64 %).
+
+- À la lecture des coordonnées factorielles, ces trois variables sont fortement corrélées positivement avec l'axe 2 : `NO2` (0,93), `PM25` (0,92) et `Lden` (0,57). À l'autre extrémité de l'axe, la variable `Pct0_14` est négativement, mais pas fortement, corrélée (-0,53). La lecture de la matrice de corrélation au @tbl-dataacpMatriceCorr confirme que ces trois variables environnementales sont fortement corrélées positivement entre elles (par exemple, un coefficient de corrélation de Pearson de 0,90 entre `NO2` et `PM25`).
+
+- À la lecture des cosinus carrés de l'axe 2, nous constatons que près de 90 % de la dispersion/de l'information des variables `NO2` (0,86) et `PM25` (0,84) est concentrée sur l'axe 2.
+
+
+**Analyse de la troisième composante principale (valeur propre de 1,042, 10,42 %)**
+
+- Le *pourcentage de personnes âgées* (`Pct_65`) contribue principalement à la formation de l'axe 3 avec lequel il est corrélé positivement (contribution de 49,26 % et coordonnée factorielle de 0,72). S'en suit la variable `Lden`, qui joue un rôle beaucoup moins important (contribution de 24,80 % et coordonnée factorielle de 0,51).
+
+::: bloc_astuce
+::: bloc_astuce-header
+::: bloc_astuce-icon
+:::
+**Lien entre la valeur propre d'un axe et le nombre de variables contribuant à sa formation**
+:::
+::: bloc_astuce-body
+Vous auvez compris que plus la valeur propre d'un axe est forte, plus il y a potentiellement de variables qui concourent à sa formation. Cela explique que pour la troisième composante, qui a une faible valeur propre (1,042), seule une variable contribue significativement à sa formation. 
+:::
+:::
+
+**Analyse de la qualité de représentation des variables sur les premiers axes de l'ACP**
+
+À titre de rappel, la qualité est simplement la somme des cosinus carrés d’une variable sur les axes retenus. Si nous retenons trois axes, les six variables qui sont le mieux résumées – et qui ont donc le plus d'influence sur les résultats de l'ACP – sont  : `NO2` (0,92), `PM25` (0,87), `NivVieMed` (0,79), `Pct_Img` (0,78), `Pct_brevet` (0,77) et `Lden` (0,75).
+
+**Qualification, dénomination d'axes factoriels**
+
+L'analyse des coordonnées, des contributions et des cosinus carrés doit vous permettre de formuler un intitulé pour chacun des axes retenus. Nous vous proposons les intitulés suivants : 
+
+- *Niveau de défavorisation socioéconomique* (axe 1). Plus la valeur de l'axe est élevée, plus le niveau de défavorisation de l'entité spatiale (IRIS) est élevé.
+
+- *Qualité environnementale* (axe 2). Plus la valeur de l'axe est forte, plus les niveaux de pollution atmosphérique (dioxyde d'azote et particules fines) et de bruit (Lden) sont élevés.
+
+**Recours à des graphiques pour analyser les résultats de l'ACP pour des variables**
+
+Plus le nombre de variables utilisées pour calculer l'ACP est important, plus l'analyse des coordonnées factorielles, des cosinus carrés et des contributions reportés dans un tableau devient fastidieuse. Puisque l’ACP a été calculée sur dix variables, l’analyse des valeurs du @tbl-dataacpCoordVars a été assez facile et rapide. Imaginez maintenant que nous réalisons une ACP sur une centaine de variables, la taille du tableau des résultats pour les variables sera considérable... Par conséquent, il est recommandé de construire plusieurs graphiques qui facilitent l’analyse des résultats pour les variables. 
+
+Par exemple, à la @fig-acpgraphvarscoords, nous avons construit des graphiques avec les coordonnées factorielles sur les trois premiers axes de l’ACP. En un coup d’œil, il est facile de repérer les variables les plus corrélées positivement ou négativement avec chacun d’entre eux.
+Aussi, il est fréquent de construire un nuage de points avec les coordonnées des variables sur les deux premiers axes factoriels, soit un graphique communément appelé **nuage de points des variables sur le premier plan factoriel** sur lequel est représenté le cercle des corrélations (@fig-acp1erplanfactVars). Bien entendu, cet exercice peut être fait avec d’autres axes factoriels (les axes 3 et 4 par exemple).
+
+```{r}
+#| label: fig-acpgraphvarscoords
+#| echo: false
+#| fig-align: center
+#| fig-cap: Coordonnées factorielles des variables
+#| out-width: "80%"
+# Variance expliquée par les axes retenus
+vppct <- round(dfACPvp[1:nComp,"VP_pct"],1)
+# Dataframe des résultats pour les variables
+CoordsVar <- res.acp$var$coord[, 1:nComp]
+Cos2Var   <- res.acp$var$cos2[, 1:nComp]
+CtrVar   <- res.acp$var$contrib[, 1:nComp]
+dfACPVars <- data.frame(Variable =  row.names(res.acp$var$coord[, 1:nComp]),
+                        Coord = CoordsVar,
+                        Cos2 = Cos2Var,
+                        Qualite = rowSums(Cos2Var),
+                        Ctr = CtrVar)
+row.names(dfACPVars) <- NULL
+names(dfACPVars) <- str_replace(names(dfACPVars), ".Dim.", "Comp")
+
+# Histogrammes pour les coordonnées
+couleursCoords <- c("lightsalmon" , "steelblue")
+plotCoordF1 <- ggplot(dfACPVars,
+                      aes(y = reorder(Variable, CoordComp1),
+                          x = CoordComp1, fill = CoordComp1<0))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  geom_vline(xintercept = 0, color = "black", linewidth = 1)+
+  scale_fill_manual(name = "Coordonnée" , values = couleursCoords, labels = c("Positive" , "Négative"))+
+  labs(x = paste0("Axe 1 (", tofr(vppct[1]),"%)"), y = "Variable")+
+  theme(legend.position = "none")
+
+plotCoordF2 <- ggplot(dfACPVars,
+                      aes(y = reorder(Variable, CoordComp2),
+                          x = CoordComp2, fill = CoordComp2<0))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  geom_vline(xintercept = 0, color = "black", linewidth = 1)+
+  scale_fill_manual(name = "Coordonnée" , values = couleursCoords, labels = c("Positive" , "Négative"))+
+  labs(x = paste0("Axe 2 (", tofr(vppct[2]),"%)"), y = "Variable")+
+  theme(legend.position = "none")
+
+plotCoordF3 <- ggplot(dfACPVars,
+                      aes(y = reorder(Variable, CoordComp3),
+                          x = CoordComp3, fill = CoordComp3<0))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  geom_vline(xintercept = 0, color = "black", linewidth = 1)+
+  scale_fill_manual(name = "Coordonnée", values = couleursCoords, labels = c("Positive" , "Négative"))+
+  labs(x = paste0("Axe 3 (", tofr(vppct[3]),"%)"), y = "Variable")
+
+annotate_figure(ggarrange(plotCoordF1, plotCoordF2, plotCoordF3, nrow = nComp),
+                text_grob("Coordonnées des variables sur les axes factoriels",
+                          color = "black", face = "bold", size = 12))
+```
+
+```{r}
+#| label: fig-acp1erplanfactVars
+#| echo: false
+#| fig-align: center
+#| fig-cap: Premier plan factoriel de l'ACP pour les variables
+#| message: false
+#| out-width: "75%"
+#| quietly: true
+
+library(factoextra)
+library(ggplot2)
+library(ggpubr)
+
+fviz_pca_var(res.acp,
+             geom = c("point", "text" , "arrow"),
+             col.var="black",
+             col.circle = "red",
+             title = "Premier plan factoriel pour les variables")+
+  theme_minimal()
+```
+
+#### Résultats de l'ACP pour les individus {#sec-12223}
+
+Comme pour les variables, nous retrouvons les mêmes mesures pour les individus : les coordonnées factorielles, les cosinus carrés et les contributions. Les coordonnées factorielles des individus sont les projections orthogonales des observations sur l'axe. Puisqu'en ACP normée, les variables utilisées pour l'ACP sont centrées réduites, la moyenne des coordonnées factorielles des individus pour un axe est toujours égale à zéro. En revanche, contrairement aux coordonnées factorielles pour les variables, les coordonnées pour les individus ne varient pas de -1 à 1! Les cosinus carrés quantifient à quel point chaque axe représente chaque individu. Enfin, les contributions quantifient l'apport de chaque individu à la formation d'un axe.
+
+Si le jeu de données comprend peu d'observations, il est toujours possible de créer un **nuage de points des individus sur le premier plan factoriel** sur lequel vous pouvez ajouter les étiquettes permettant d'identifier les observations (@fig-acp1erplanfactIndiv). Ce graphique est rapidement illisible lorsque le nombre d'observations est important. Il peut rester utile si certaines des observations du jeu de données doivent faire l'objet d'une analyse spécifique.
+
+```{r}
+#| label: fig-acp1erplanfactIndiv
+#| echo: false
+#| fig-align: center
+#| fig-cap: Premier plan factoriel pour les individus
+#| message: false
+#| out-width: "75%"
+library(factoextra)
+library(ggplot2)
+library(ggpubr)
+
+fviz_pca_ind(res.acp,
+             geom = c("point", "text"),
+             col.var="black",
+             col.circle = "red",
+             title = "")+
+  theme_minimal()
+```
+
+Lorsque les observations sont des unités spatiales, il est très intéressant de cartographier les coordonnées factorielles des individus (@fig-acp1erplanfactIndiv). À la lecture de la carte choroplèthe de gauche (axe 1), nous pouvons constater que le niveau de défavorisation socioéconomique est élevé dans l'est (IRIS en vert), et inversement, très faible à l'ouest de l'agglomération (IRIS en rouge). À la lecture de la carte de droite (axe 2), sans surprise, la partie centrale de l'agglomération est caractérisée par des niveaux de pollution atmosphérique et de bruit routier bien plus élevés qu'en périphérie.
+
+```{r}
+#| label: fig-acpcartoindiv
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-align: center
+#| fig-cap: Cartographie des coordonnées factorielles des individus
+#| out-width: "80%"
+library(tmap)
+library(RColorBrewer)
+
+CoordsInd <- res.acp$ind$coord[, 1:nComp]
+Cos2Ind   <- res.acp$ind$cos2[, 1:nComp]
+CtrInd    <- res.acp$ind$contrib[, 1:nComp]
+dfACPInd <- data.frame(Coord = CoordsInd, Cos2 = Cos2Ind, Ctr = CtrInd)
+names(dfACPInd) <- str_replace(names(dfACPInd), ".Dim.", "Comp")
+CartoACP <- cbind(LyonIris, dfACPInd)
+
+Carte1 <- tm_shape(CartoACP) +
+          tm_polygons(col = "CoordComp1", style = "cont",
+                      midpoint = 0, title = "Coordonnées")+
+          tm_layout(main.title = "Axe 1 : Défavorisation socioéco.",
+                    main.title.size = 1, attr.outside = TRUE, frame = FALSE)
+
+Carte2 <- tm_shape(CartoACP) +
+          tm_polygons(col = "CoordComp2", style = "cont",
+                      midpoint = 0, title = "Coordonnées")+
+          tm_layout(main.title = "Axe 2 : Qualité environnementale",
+                    main.title.size = 1, attr.outside = TRUE, frame = FALSE)
+
+tmap_arrange(Carte1, Carte2)
+```
+
+
+::: bloc_aller_loin
+::: bloc_aller_loin-header
+::: bloc_aller_loin-icon
+:::
+**Autres éléments intéressants de l'ACP**
+:::
+::: bloc_aller_loin-body
+**Ajout de variables ou d'individus supplémentaires** 
+
+Premièrement, il est possible d'ajouter des variables continues ou des individus supplémentaires qui n'ont pas été pris en compte dans le calcul de l'ACP (@fig-acpvarindcorrsuppl). Concernant les variables continues supplémentaires, il s'agit simplement de calculer leurs corrélations avec les axes retenus de l'ACP. Concernant les individus, il s'agit de les projeter sur les axes factoriels. Pour plus d'informations sur le sujet, consultez les excellents ouvrages de Ludovic Lebart, Alain Morineau et Marie Piron [-@lebart1995statistique, p.42-45] ou encore de Jérôme Pagès [-@pages2013analyse, p.22-24].
+
+
+![Variables et individus supplémentaires pour l'ACP](images/Chap12/AcpIndVarSuppl.png){#fig-acpvarindcorrsuppl width="28%" fig-align="center"}
+
+
+**Pondération des individus et des variables**
+
+Deuxièmement, il est possible de pondérer à la fois les individus et, plus rarement, les variables lors du calcul de l'ACP.
+
+**Analyse en composantes principales non paramétrique**
+
+Troisièmement, il est possible de calculer une ACP sur des variables préalablement transformées en rang ([section @sec-02552]). Cela peut être justifié lorsque les variables sont très anormalement distribuées en raison de valeurs extrêmes. Les coordonnées factorielles pour les variables sont alors le coefficient de Spearman ([section @sec-0433]) et non de Pearson. Aussi, les variables sont centrées non pas sur leurs moyennes respectives, mais sur leurs médianes. Pour plus d'informations sur cette approche, consultez de nouveau Lebart et al. [-@lebart1995statistique, p.51-52].
+
+**Analyse en composantes principales robuste**
+
+Finalement, d'autres méthodes plus avancées qu'une ACP non paramétrique peuvent être utilisées afin d'obtenir des composantes principales qui ne sont pas influencées par des valeurs extrêmes : les ACP robustes [@rivest1988analyse; @hubert2005robpca] qui peuvent être mises en œuvre, entre autres avec le *package* `roscpca`.
+:::
+:::
+
+
+### Mise en œuvre dans R {#sec-1223}
+
+Plusieurs *packages* permettent de calculer une ACP dans R, notamment `psych` avec la fonction `principal`, `ade4` avec la fonction `dudi.pca` et `FactoMineR`[@FactoMineR] avec la fonction `PCA`. Ce dernier est certainement le plus abouti. De plus, il permet également de calculer une analyse des correspondances (AFC), une analyse des correspondances multiples (ACM) et une analyse factorielle de données mixtes (AFDM). Nous utilisons donc `FactoMineR` pour mettre en œuvre les trois types de méthodes factorielles abordées dans ce chapitre (ACP, AFC et ACM). Pour l'ACP, nous exploitons un jeu de données issu du *package* `geocmeans` qu'il faut préalablement charger à l'aide des lignes de code suivantes.
+
+```{r}
+#| echo: true
+library(geocmeans)
+data(LyonIris)
+Data <- st_drop_geometry(LyonIris[c("CODE_IRIS" , "Lden" , "NO2" , "PM25" , "VegHautPrt",
+                        "Pct0_14" , "Pct_65" , "Pct_Img",
+                        "TxChom1564" , "Pct_brevet" , "NivVieMed")])
+```
+
+#### Calcul et exploration d'une ACP avec `FactoMineR` {#sec-12231}
+
+Pour calculer l'ACP, il suffit d'utiliser la fonction `PCA` de `FactoMineR`, puis la fonction `summary(MonACP)` qui renvoie les résultats de l'ACP pour : 
+
+- Les valeurs propres (section `Eigenvalues`) pour les composantes principales (`Dim.1` à `Dim.n`) avec leur variance expliquée brute (`Variance`) en pourcentage (`% of var.`) et en pourcentage cumulé (`Cumulative % of var.`).
+
+- Les dix premières observations (section `Individuals`) avec les coordonnées factorielles (`Dim.1` à `Dim.n`), les contributions (`ctr`) et les cosinus carrés (`cos2`). Pour accéder aux résultats pour toutes les observations, utilisez les fonctions `res.acp$ind` ou encore `res.acp$ind$coord` (uniquement les coordonnées factorielles), `res.acp$ind$contrib` (uniquement les contributions) et `res.acp$ind$cos2` (uniquement les cosinus carrés).
+
+- Les variables (section `Variables`) avec les coordonnées factorielles (`Dim.1` à `Dim.n`), les contributions (`ctr`) et les cosinus carrés (`cos2`).
+
+```{r}
+#| echo: true
+library(FactoMineR)
+# Version classique avec FactoMineR
+# Construction d'une ACP sur les colonnes 2 à 11 du DataFrame Data
+res.acp <- PCA(Data[,2:11], scale.unit = TRUE, graph = FALSE)
+# Affichage des résultats de la fonction PCA
+print(res.acp)
+# Résumé des résultats (valeurs propres, individus, variables)
+summary(res.acp)
+```
+
+Avec les fonctions de base `barplot` et `plot`, il est possible de construire rapidement des graphiques pour explorer les résultats de l'ACP pour les valeurs propres, les variables et les individus.
+
+```{r}
+#| echo: true
+# Graphiques pour les valeurs propres
+barplot(res.acp$eig[,1], main="Valeurs propres", names.arg=1:nrow(res.acp$eig))
+barplot(res.acp$eig[,2], main="Variance expliquée (%)", names.arg=1:nrow(res.acp$eig))
+barplot(res.acp$eig[,3], main="Variance expliquée cumulée (%)",
+        names.arg=1:nrow(res.acp$eig))
+# Nuage du points du premier plan factoriel pour les variables et les individus
+plot(res.acp, graph.type = "classic", choix = "var", axes = 1:2, 
+     title = "Premier plan factoriel (variables)")
+plot(res.acp, graph.type = "classic", choix = "ind", axes = 1:2, 
+     title = "Premier plan factoriel (individus)")
+```
+
+
+
+::: bloc_aller_loin
+::: bloc_aller_loin-header
+::: bloc_aller_loin-icon
+:::
+**Pondérations pour les individus et les variables**
+:::
+::: bloc_aller_loin-body
+Nous avons vu, dans un encadré ci-dessus, qu'il est possible d'ajouter des variables et des individus supplémentaires dans une ACP, ce que permet la fonction `PCA` de `FactoMineR` avec les paramètres `ind.sup` et `quanti.sup`. Aussi, pour ajouter des pondérations aux individus ou aux variables, utilisez les paramètres `row.w` et `col.w`. Pour plus d'informations sur ces paramètres, consulter l'aide de la fonction en tapant `?PCA` dans la console de RStudio.
+:::
+:::
+
+#### Exploration graphique des résultats de l'ACP avec `factoextra` {#sec-12232}
+
+Visuellement, vous avez pu constater que les graphiques ci-dessus (pour les valeurs propres et pour le premier plan factoriel pour les variables et les individus), réalisés avec les fonctions de base `barplot` et `plot`, sont peu attrayants. Avec le *package* `factoextra`, quelques lignes de code suffissent pour construire des graphiques bien plus esthétiques. 
+
+Premièrement, la syntaxe ci-dessous renvoie deux graphiques pour analyser les résultats des valeurs propres (@fig-factoextra1).
+
+```{r}
+#| label: fig-factoextra1
+#| echo: true
+#| fig-align: center
+#| fig-cap: Graphiques pour les valeurs propres de l'ACP avec factoextra
+#| message: false
+#| out-width: "75%"
+library(factoextra)
+library(ggplot2)
+library(ggpubr)
+
+# Graphiques pour les variables propres avec factoextra
+G1 <- fviz_screeplot(res.acp, choice ="eigenvalue", addlabels = TRUE,
+                     x = "Composantes",
+                     y = "Valeur propre",
+                    title = "")
+G2 <- fviz_screeplot(res.acp, choice ="variance", addlabels = TRUE,
+                     x = "Composantes",
+                     y = "Pourcentage de la variance expliquée",
+                     title = "")
+ggarrange(G1, G2)
+```
+
+Deuxièmement, la syntaxe ci-dessous renvoie trois graphiques pour analyser les contributions de chaque variable aux deux premiers axes de l'ACP (figures [-@fig-factoextra2] et [-@fig-factoextra3]) et la qualité de représentation des variables sur les trois premiers axes (@fig-factoextra4), c'est-à-dire la somme des cosinus carrés sur les trois axes retenus.
+
+```{r}
+#| eval: false
+#| include: true
+# Contributions des variables aux deux premières composantes avec factoextra
+fviz_contrib(res.acp, choice = "var", axes = 1, top = 10,
+             title = "Contributions des variables à la première composante")
+fviz_contrib(res.acp, choice = "var", axes = 2, top = 10,
+             title = "Contributions des variables à la première composante")
+fviz_cos2(res.acp, choice = "var", axes = 1:3)+
+  labs(x = "", y = "Somme des cosinus carrés sur les 3 axes retenus",
+       title = "Qualité de représentation des variables sur les axes retenus de l'ACP")
+```
+
+
+```{r}
+#| label: fig-factoextra2
+#| echo: false
+#| fig-align: center
+#| fig-cap: Contributions des variables à la première composante avec factoextra
+#| out-width: "85%"
+# Contributions des variables aux deux premières composantes
+fviz_contrib(res.acp, choice = "var", axes = 1, top = 10,
+             title = "Contributions des variables à la première composante")
+```
+
+```{r}
+#| label: fig-factoextra3
+#| echo: false
+#| fig-align: center
+#| fig-cap: Contributions des variables à la deuxième composante avec factoextra
+#| out-width: "85%"
+# Contributions des variables aux deux premières composantes
+fviz_contrib(res.acp, choice = "var", axes = 2, top = 10,
+             title = "Contributions des variables à la deuxième composante")
+```
+
+```{r}
+#| label: fig-factoextra4
+#| echo: false
+#| fig-align: center
+#| fig-cap: Qualité des variables sur les trois premières composantes avec factoextra
+#| out-width: "85%"
+fviz_cos2(res.acp, choice = "var", axes = 1:3)+
+  labs(x = "", y = "Somme des cosinus carrés sur les 3 axes retenus",
+       title = "Qualité de représentation des variables sur les axes retenus de l'ACP")
+```
+
+
+Troisièmement, le code ci-dessous renvoie un nuage de points pour le premier plan factoriel de l'ACP (axes 1 et 2) pour les variables (@fig-factoextra5) et les individus (@fig-factoextra6).
+
+```{r}
+#| eval: false
+#| include: true
+# Premier plan factoriel pour les variables avec factoextra
+fviz_pca_var(res.acp, col.var="contrib",
+             title = "Premier plan factoriel pour les variables")+
+  scale_color_gradient2(low="#313695", mid="#ffffbf", high="#a50026",
+                        midpoint=mean(res.acp$var$contrib[,1]))
+# Premier plan factoriel pour les individus avec factoextra
+fviz_pca_ind(res.acp, label = "none", title = "ACP. Individus")
+fviz_pca_ind(res.acp, col.ind="cos2", title = "ACP. Individus") +
+  scale_color_gradient2(low="blue", mid="white", high="red", midpoint=0.50)
+```
+
+```{r}
+#| label: fig-factoextra5
+#| echo: false
+#| fig-align: center
+#| fig-cap: Premier plan factoriel de l'ACP pour les variables avec factoextra
+#| out-width: "100%"
+fviz_pca_var(res.acp, col.var="contrib",
+             title = "")+
+  scale_color_gradient2(low="#313695", mid="#ffffbf", high="#a50026",
+                        midpoint=mean(res.acp$var$contrib[,1]))
+```
+
+```{r}
+#| label: fig-factoextra6
+#| echo: false
+#| fig-align: center
+#| fig-cap: Premier plan factoriel de l'ACP pour les individus avec factoextra
+#| out-width: "75%"
+fviz_pca_ind(res.acp, col.ind="cos2", title = "") +
+  scale_color_gradient2(low="blue", mid="white", high="red", midpoint=0.50)+coord_fixed()
+```
+
+#### Personnalisation des graphiques avec les résultats de l'ACP {#sec-12233}
+
+Avec un peu plus de lignes de code et l'utilisation d'autres *packages* (`ggplot2`, `ggpubr`, `stringr`, `corrplot`), vous pouvez aussi construire des graphiques personnalisés.
+
+Premièrement, la syntaxe ci-dessous permet de réaliser trois graphiques pour analyser les valeurs propres (@fig-acpmesgraphs1). Notez que, d'un coup d'œil, nous pouvons identifier les composantes principales avec une valeur propre égale ou supérieure à 1. 
+
+```{r}
+#| eval: false
+#| include: true
+library(ggplot2)
+library(ggpubr)
+library(stringr)
+library(corrplot)
+
+# Calcul de l'ACP
+res.acp <- PCA(Data[,2:11], ncp=5, scale.unit = TRUE, graph = FALSE)
+print(res.acp)
+
+# Construction d'un DataFrame pour les valeurs propres
+dfACPvp <- data.frame(res.acp$eig)
+names(dfACPvp) <- c("VP" , "VP_pct" , "VP_cumupct")
+dfACPvp$Composante <- factor(1:nrow(dfACPvp), levels = rev(1:nrow(dfACPvp)))
+couleursAxes <- c("steelblue" , "skyblue2")
+vpsup1 <- round(sum(subset(dfACPvp, VP >= 1)$VP),2)
+vpsup1cumul <- round(sum(subset(dfACPvp, VP >= 1)$VP_pct),2)
+
+plotVP1 <- ggplot(dfACPvp, aes(x = VP, y = Composante, fill = VP<1))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  geom_vline(xintercept = 1, linetype = "dashed", color = "azure4", linewidth = 1)+
+  scale_fill_manual(name = "Valeur\npropre" , values = couleursAxes, labels = c(">= 1" , "< 1"))+
+  labs(x = "Valeur propre", y = "Composante principale")
+plotVP2 <- ggplot(dfACPvp, aes(x = VP_pct, y = Composante, fill = VP<1))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  scale_fill_manual(name = "Valeur\npropre" , values = couleursAxes, labels = c(">= 1" , "< 1"))+
+  theme(legend.position = "none")+
+  labs(x = "Pourcentage de la variance expliquée", y = "")
+plotVP3 <- ggplot(dfACPvp, aes(x = VP_cumupct, y = Composante, fill = VP<1, group=1))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  scale_fill_manual(name = "Valeur\npropre" , values = couleursAxes, labels = c(">= 1" , "< 1"))+
+  geom_line(colour = "brown", linetype = "solid", size=.8) +
+  geom_point(size=3, shape=21, color = "brown", fill = "brown")+
+  theme(legend.position = "none")+
+  labs(x = "Pourcentage cumulé de la variance expliquée", y = "")
+
+text1 <- paste0("Somme des valeurs propres supérieures à 1 : ",
+                vpsup1,
+                ".\nPourcentage cumulé des valeurs propres supérieures à 1 : ",
+                vpsup1cumul, "%.")
+annotate_figure(ggarrange(plotVP1, plotVP2, plotVP3, ncol = 2, nrow = 2),
+                text_grob("Analyse des valeurs propres", 
+                         color = "black", face = "bold", size = 12),
+                bottom = text_grob(text1,
+                           color = "black", hjust = 1, x = 1, size = 10))
+```
+
+```{r}
+#| label: fig-acpmesgraphs1
+#| echo: false
+#| fig-align: center
+#| fig-cap: Graphiques personnalisés pour les valeurs propres
+#| out-width: "75%"
+library(ggplot2)
+library(ggpubr)
+library(stringr)
+
+# Calcul de l'ACP
+res.acp <- PCA(Data[,2:11], ncp=5, scale.unit = TRUE, graph = FALSE)
+
+# Construction d'un DataFrame pour les valeurs propres
+dfACPvp <- data.frame(res.acp$eig)
+names(dfACPvp) <- c("VP" , "VP_pct" , "VP_cumupct")
+dfACPvp$Composante <- factor(1:nrow(dfACPvp), levels = rev(1:nrow(dfACPvp)))
+
+couleursAxes <- c("steelblue" , "skyblue2")
+vpsup1 <- round(sum(subset(dfACPvp, VP >= 1)$VP),2)
+vpsup1cumul <- round(sum(subset(dfACPvp, VP >= 1)$VP_pct),2)
+plotVP1 <- ggplot(dfACPvp, aes(x = VP, y = Composante, fill = VP<1))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  geom_vline(xintercept = 1, linetype = "dashed", color = "azure4", linewidth = 1)+
+  scale_fill_manual(name = "Valeur\npropre" , values = couleursAxes, labels = c(">= 1" , "< 1"))+
+  labs(x = "Valeur propre", y = "Composante principale")
+plotVP2 <- ggplot(dfACPvp, aes(x = VP_pct, y = Composante, fill = VP<1))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  scale_fill_manual(name = "Valeur\npropre" , values = couleursAxes, labels = c(">= 1" , "< 1"))+
+  theme(legend.position = "none")+
+  labs(x = "Variance expliquée (%)", y = "")
+plotVP3 <- ggplot(dfACPvp, aes(x = VP_cumupct, y = Composante, fill = VP<1, group=1))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  scale_fill_manual(name = "Valeur\npropre" , values = couleursAxes, labels = c(">= 1" , "< 1"))+
+  geom_line(colour = "brown", linetype = "solid", linewidth = .8) +
+  geom_point(size=3, shape=21, color = "brown", fill = "brown")+
+  theme(legend.position = "none")+
+  labs(x = "Variance expliquée (% cumulé)", y = "")
+  annotate_figure(ggarrange(plotVP1, plotVP2, plotVP3, ncol = 2, nrow = 2),
+                  text_grob("Analyse des valeurs propres", color = "black", face = "bold", size = 12),
+                  bottom = text_grob(
+                          paste0("Somme des valeurs propres supérieures à 1 : ", vpsup1,
+                                 ".\nPourcentage cumulé des valeurs propres supérieures à 1 : ", vpsup1cumul, "%."),
+                           color = "black", hjust = 1, x = 1, size = 10))
+```
+
+Deuxièmement, la syntaxe ci-dessous permet de : 
+
+- Construire un *DataFrame* avec les résultats des variables.
+
+- Construire des histogrammes avec les coordonnées des variables sur les axes factoriels (@fig-acpmesgraphs2). Notez que les coordonnées négatives sont indiquées avec des barres bleues et celles positives, avec des barres de couleur saumon.
+
+- Un graphique avec les contributions des variables sur les axes retenus (@fig-acpmesgraphs3).
+
+- Un graphique avec les cosinus carrés des variables sur les axes retenus (@fig-acpmesgraphs4). 
+
+- Un histogramme avec la qualité des variables sur les axes retenus (@fig-acpmesgraphs5), soit la sommation de leurs cosinus carrés sur les axes retenus.
+
+```{r}
+#| eval: false
+#| include: true
+# Analyse des résultats de L'ACP pour les variables
+library(corrplot)
+library(stringr)
+library(ggplot2)
+library(ggpubr)
+
+# Indiquer le nombre d'axes à conserver suite à l'analyse des valeurs propres
+nComp <- 3
+# Variance expliquée par les axes retenus
+vppct <- round(dfACPvp[1:nComp,"VP_pct"],1)
+# Dataframe des résultats pour les variables
+CoordsVar <- res.acp$var$coord[, 1:nComp]
+Cos2Var   <- res.acp$var$cos2[, 1:nComp]
+CtrVar   <- res.acp$var$contrib[, 1:nComp]
+dfACPVars <- data.frame(Variable =  row.names(res.acp$var$coord[, 1:nComp]),
+                        Coord = CoordsVar,
+                        Cos2 = Cos2Var,
+                        Qualite = rowSums(Cos2Var),
+                        Ctr = CtrVar)
+row.names(dfACPVars) <- NULL
+names(dfACPVars) <- str_replace(names(dfACPVars), ".Dim.", "Comp")
+dfACPVars
+
+# Histogrammes pour les coordonnées
+couleursCoords <- c("lightsalmon" , "steelblue")
+plotCoordF1 <- ggplot(dfACPVars,
+                      aes(y = reorder(Variable, CoordComp1),
+                          x = CoordComp1, fill = CoordComp1<0))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  geom_vline(xintercept = 0, color = "black", linewidth = 1)+
+  scale_fill_manual(name = "Coordonnée" , values = couleursCoords,
+                    labels = c("Positive" , "Négative"))+
+  labs(x = paste0("Axe 1 (", vppct[1],"%)"), y = "Variable")+
+  theme(legend.position = "none")
+plotCoordF2 <- ggplot(dfACPVars,
+                      aes(y = reorder(Variable, CoordComp2),
+                          x = CoordComp2, fill = CoordComp2<0))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  geom_vline(xintercept = 0, color = "black", linewidth = 1)+
+  scale_fill_manual(name = "Coordonnée" , values = couleursCoords,
+                    labels = c("Positive" , "Négative"))+
+  labs(x = paste0("Axe 2 (", vppct[2],"%)"), y = "Variable")+
+  theme(legend.position = "none")
+plotCoordF3 <- ggplot(dfACPVars,
+                      aes(y = reorder(Variable, CoordComp3),
+                          x = CoordComp3, fill = CoordComp3<0))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  geom_vline(xintercept = 0, color = "black", linewidth = 1)+
+  scale_fill_manual(name = "Coordonnée", values = couleursCoords,
+                    labels = c("Positive" , "Négative"))+
+  labs(x = paste0("Axe 3 (", vppct[3],"%)"), y = "Variable")
+
+annotate_figure(ggarrange(plotCoordF1, plotCoordF2, plotCoordF3, nrow = nComp),
+                text_grob("Coordonnées des variables sur les axes factoriels",
+                          color = "black", face = "bold", size = 12))
+
+# Contributions des variables à la formation des axes
+corrplot(CtrVar, is.corr = FALSE, method ="square",
+         addCoef.col = 1, cl.pos = FALSE)
+
+# La qualité des variables sur les composantes retenues : cosinus carrés
+corrplot(Cos2Var, is.corr = FALSE, method ="square",
+         addCoef.col = 1, cl.pos = FALSE)
+
+ggplot(dfACPVars)+
+  geom_bar(aes(y = reorder(Variable, Qualite), x=Qualite),
+            stat = "identity", width = .6, alpha = .8, fill = "steelblue")+
+  labs(x = "", y = "Somme des cosinus carrés sur les axes retenus",
+       title = "Qualité de représentation des variables sur les axes retenus de l'ACP",
+       subtitle = paste0("Variance expliquée par les ", nComp, 
+                         " composantes : ", sum(vppct), "%"))
+```
+
+
+```{r}
+#| label: fig-acpmesgraphs2
+#| echo: false
+#| fig-align: center
+#| fig-cap: Histogrammes personnalisés avec les coordonnées factorielles pour les variables
+#| out-width: "75%"
+# Indiquer le nombre d'axes à conserver suite à l'analyse des valeurs propres
+nComp <- 3
+# Variance expliquée par les axes retenus
+vppct <- round(dfACPvp[1:nComp,"VP_pct"],1)
+# Dataframe des résultats pour les variables
+CoordsVar <- res.acp$var$coord[, 1:nComp]
+Cos2Var   <- res.acp$var$cos2[, 1:nComp]
+CtrVar   <- res.acp$var$contrib[, 1:nComp]
+dfACPVars <- data.frame(Variable =  row.names(res.acp$var$coord[, 1:nComp]),
+                        Coord = CoordsVar,
+                        Cos2 = Cos2Var,
+                        Qualite = rowSums(Cos2Var),
+                        Ctr = CtrVar)
+row.names(dfACPVars) <- NULL
+names(dfACPVars) <- str_replace(names(dfACPVars), ".Dim.", "Comp")
+
+# Histogrammes pour les coordonnées
+couleursCoords <- c("lightsalmon" , "steelblue")
+plotCoordF1 <- ggplot(dfACPVars,
+                      aes(y = reorder(Variable, CoordComp1),
+                          x = CoordComp1, fill = CoordComp1<0))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  geom_vline(xintercept = 0, color = "black", linewidth = 1)+
+  scale_fill_manual(name = "Coordonnée" , values = couleursCoords, labels = c("Positive" , "Négative"))+
+  labs(x = paste0("Axe 1 (", vppct[1],"%)"), y = "Variable")+
+  theme(legend.position = "none")
+plotCoordF2 <- ggplot(dfACPVars,
+                      aes(y = reorder(Variable, CoordComp2),
+                          x = CoordComp2, fill = CoordComp2<0))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  geom_vline(xintercept = 0, color = "black", linewidth = 1)+
+  scale_fill_manual(name = "Coordonnée" , values = couleursCoords, labels = c("Positive" , "Négative"))+
+  labs(x = paste0("Axe 2 (", vppct[2],"%)"), y = "Variable")+
+  theme(legend.position = "none")
+plotCoordF3 <- ggplot(dfACPVars,
+                      aes(y = reorder(Variable, CoordComp3),
+                          x = CoordComp3, fill = CoordComp3<0))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  geom_vline(xintercept = 0, color = "black", linewidth = 1)+
+  scale_fill_manual(name = "Coordonnée", values = couleursCoords, labels = c("Positive" , "Négative"))+
+  labs(x = paste0("Axe 3 (", vppct[3],"%)"), y = "Variable")
+
+annotate_figure(ggarrange(plotCoordF1, plotCoordF2, plotCoordF3, nrow = nComp),
+                text_grob("Coordonnées des variables sur les axes factoriels",
+                          color = "black", face = "bold", size = 12))
+```
+
+![Graphiques personnalisés avec les contributions des variables](images/Chap12/corrplotacpmesgraph3.png){#fig-acpmesgraphs3 width="30%" fig-align="center"}
+
+![Graphiques personnalisés avec les cosinus carrés des variables](images/Chap12/corrplotacpmesgraph4.png){#fig-acpmesgraphs4 width="30%" fig-align="center"}
+
+```{r}
+#| label: fig-acpmesgraphs5
+#| echo: false
+#| fig-align: center
+#| fig-cap: Graphique personnalisé avec la qualité des variables sur les axes retenus de l'ACP
+#| out-width: "75%"
+ggplot(dfACPVars)+
+  geom_bar(aes(y = reorder(Variable, Qualite), x=Qualite),
+            stat = "identity", width = .6, alpha = .8, fill = "steelblue")+
+  labs(x = "", y = "Somme des cosinus carrés sur les axes retenus",
+       title = "Qualité de représentation des variables sur les axes",
+       subtitle = paste0("Variance expliquée par les ", nComp, 
+                         " composantes : ", sum(vppct), "%"))
+```
+
+Troisièmement, lorsque les observations sont des unités spatiales, il convient de cartographier les coordonnées factorielles des individus. Dans le jeu de données utilisé, les observations sont des polygones délimitant les îlots regroupés pour l'information statistique (IRIS) pour l'agglomération de Lyon (France). Nous utilisons les *packages* `tmap` et `RColorBrewer` pour réaliser des cartes choroplèthes avec les coordonnées des deux premières composantes (@fig-acpmesgraphs6).
+
+
+```{r}
+#| label: fig-acpmesgraphs6
+#| echo: true
+#| fig-align: center
+#| fig-cap: Cartographie des coordonnées factorielles des individus
+#| out-width: "75%"
+library("tmap")
+library("RColorBrewer")
+# Analyse des résultats de l'ACP pour les individus
+# Dataframe des résultats pour les individus
+CoordsInd <- res.acp$ind$coord[, 1:nComp]
+Cos2Ind   <- res.acp$ind$cos2[, 1:nComp]
+CtrInd    <- res.acp$ind$contrib[, 1:nComp]
+dfACPInd <- data.frame(Coord = CoordsInd, Cos2 = Cos2Ind, Ctr = CtrInd)
+names(dfACPInd) <- str_replace(names(dfACPInd), ".Dim.", "Comp")
+# Fusion du tableau original avec les résultats de l'ACP pour les individus
+CartoACP <- cbind(LyonIris, dfACPInd)
+# Cartographie des coordonnées factorielles pour les individus pour les
+# deux premières composantes
+Carte1 <- tm_shape(CartoACP) +
+          tm_polygons(col = "CoordComp1", style = "cont",
+                      midpoint = 0, title = "Coordonnées")+
+          tm_layout(main.title = paste0("Axe 1 (", vppct[1],"%)"),
+             attr.outside = TRUE, frame = FALSE, main.title.size = 1)
+Carte2 <- tm_shape(CartoACP) +
+          tm_polygons(col = "CoordComp2", style = "cont",
+                      midpoint = 0, title = "Coordonnées")+
+  tm_layout(main.title = paste0("Axe 2 (", vppct[2],"%)"),
+             attr.outside = TRUE, frame = FALSE, main.title.size = 1)
+tmap_arrange(Carte1, Carte2)
+```
+
+
+::: bloc_aller_loin
+::: bloc_aller_loin-header
+::: bloc_aller_loin-icon
+:::
+**Exploration interactive des résultats d'une ACP avec le _package_ `explor`**. 
+:::
+::: bloc_aller_loin-body
+Vous avez compris qu'il ne suffit pas de calculer une ACP, il faut retenir les *n* premiers axes de l'ACP qui nous semblent les plus pertinents, puis les interpréter à la lecture des coordonnées factorielles, des cosinus carrés et des contributions des variables et des individus sur les axes. Il faut donc bien explorer les résultats à l’aide de tableaux et de graphiques! Cela explique que nous avons mobilisé de nombreux graphiques dans les deux sections précédentes ([-@sec-12232] et [-@sec-12233]). 
+L’exploration des données d’une ACP peut aussi être réalisée avec des graphiques interactifs. Or, un superbe *package* dénommé [`explor`](https://juba.github.io/explor/), reposant sur [`Shiny`](https://shiny.rstudio.com/), permet d’explorer de manière interactive les résultats de plusieurs méthodes factorielles calculés avec `FactorMinerR`. Pour cela, il vous suffit de lancer les deux lignes de code suivantes :
+
+`library(explor)`
+
+`explor(res.acp)`
+
+Finalement, `explor` permet également d'explorer les résultats d'une analyse des correspondances (AFC) et d'une analyse des correspondances multiples (ACM).
+:::
+:::
+
+## Analyse factorielle des correspondances (AFC) {#sec-123}
+
+
+::: bloc_notes
+::: bloc_notes-header
+::: bloc_notes-icon
+:::
+**AFC et tableau de contingence**
+:::
+::: bloc_notes-body
+Pour bien comprendre l'AFC, il est essentiel de bien maîtriser les notions de tableau de contingence (marges du tableau, fréquences observées et théoriques, pourcentages en ligne et en colonne, contributions au khi-deux) et de distance du khi-deux. Si ce n'est pas le cas, il est conseillé de (re)lire le [chapitre @sec-chap05]. 
+:::
+:::
+
+Dans le [chapitre @sec-chap05], nous avons vu comment construire un tableau de contingence (@fig-AnalysesFactoriellesTabAFCFig) à partir de deux variables qualitatives comprenant plusieurs modalités, puis comment vérifier s’il y a dépendance entre les deux variables qualitatives avec le test du khi-deux. Or, s’il y a bien dépendance, il est peut-être judicieux de résumer l’information que contient le tableau de contingence en quelques nouvelles variables synthétiques, objectif auquel répond l’analyse factorielle des correspondances (AFC).
+
+
+![Tableau de contingence pour une AFC](images/Chap12/AnalysesFactoriellesTabAFC.png){#fig-AnalysesFactoriellesTabAFCFig width="70%" fig-align="center"}
+
+À titre de rappel ([section @sec-1212]), l’AFC a été développée par le statisticien français Jean-Paul Benzécri [-@benzecri1973analyse]. Cela explique qu’elle est souvent enseignée et utilisée en sciences sociales dans les universités francophones, mais plus rarement dans les universités anglophones. Pourtant, les applications de l’AFC sont nombreuses dans différentes disciplines des sciences sociales comme illustrées avec les exemples suivants :
+
+-	En géographie, les modalités de la première variable du tableau de contingence sont souvent des entités spatiales (régions, municipalités, quartiers, etc.) croisées avec les modalités d'une autre variable qualitative (catégories socioprofessionnelles, modes de transport, tranches de revenu des ménages ou des individus, etc.).
+
+- En économie régionale, nous pourrions vouloir explorer un tableau de contingence croisant des entités spatiales (par exemple, MRC au Québec, départements en France) et les effectifs d'emplois pour différents secteurs d’activité.
+
+- En sciences politiques, le recours à l’AFC peut être intéressant pour explorer les résultats d’une élection. Les deux variables qualitatives pourraient être les *circonscriptions électorales* et les *partis politiques*. Le croisement des lignes et des colonnes du tableau de contingence représenterait le nombre de votes obtenus par un parti politique *j* dans la circonscription électorale *i*. Appliquer une AFC sur un tel tableau de contingence permettrait de révéler les ressemblances entre les différents partis politiques et celles entre les circonscriptions électorales. 
+
+::: bloc_attention
+::: bloc_attention-header
+::: bloc_attention-icon
+:::
+**Appliquer une ACP sur un tableau de contingence : un bien mauvais calcul...**
+:::
+::: bloc_attention-body
+
+Il pourrait être tentant de transformer le tableau de contingence initial (@tbl-encadreAFCACP1) en un tableau avec les pourcentages en ligne (@tbl-encadreAFCACP2) afin de lui appliquer une analyse en composantes principales. Une telle démarche a deux inconvénients majeurs : chacune des modalités de la première variable qualitative (*I*) aurait alors le même poids; chacune des modalités de la deuxième variable (*J*) aurait aussi le même poids. Or, à la lecture des marges en ligne et en colonne au @tbl-encadreAFCACP1), il est clair que les modalités `j1` et `i1` comprennent bien plus d'individus que les autres modalités respectives.
+
+Si nous reprenons le dernier exemple applicatif, cela signifierait que le même poids est accordé à chaque parti puisque les variables sont centrées réduites en ACP (moyenne = 0 et variance = 1). Autrement dit, les grands partis traditionnels seraient ainsi sur le pied d’égalité que les autres partis. Aussi, chaque circonscription électorale aurait le même poids bien que certaines comprennent bien plus d’électeurs et d’électrices que d’autres.
+
+```{r}
+#| label: tbl-encadreAFCACP1
+#| tbl-cap: Exemple de tableau de contingence pour l'AFC
+#| echo: false
+#| message: false
+#| warning: false
+dataAFCex <- data.frame(Véhicule = c(357060, 427530, 147500, 128520),
+                        VehPass = c(22010,26400 , 6545, 6405),
+                        TranspC = c(276625,295860, 34545, 42925),
+                        Apied = c(65000,69410, 4415, 6565),
+                        Velo = c(29415,30645 , 1040, 2670))
+
+dataafex1 <- dataAFCex
+dataafex1[nrow(dataafex1)+1,] <- colSums(dataafex1)
+dataafex1$MargeJ <- rowSums(dataafex1)
+rownames(dataafex1) <- c("i1", "i2", "i3", "i4" , "Marge (colonne)")
+colnames(dataafex1) <- c("j1", "j2", "j3", "j4", "j5" , "MargeJ")
+options(knitr.kable.NA = "")
+knitr::kable(dataafex1,
+           format.args = list(decimal.mark = ',', big.mark = " "),
+		   caption = "Exemple de tableau de contingence pour l'AFC",
+           row.names = TRUE,
+           col.names = c("j1", "j2", "j3", "j4", "j5", "Marge (ligne)"),
+           align= c("r", "r", "r", "r", "r", "r"),
+           position = 'HOLD_position'
+           )
+```
+
+```{r}
+#| label: tbl-encadreAFCACP2
+#| tbl-cap: Exemple d'un tableau de contingence transformé (pourcentage en ligne) pour l'ACP
+#| echo: false
+#| message: false
+#| warning: false
+dataafex2 <- dataAFCex
+rownames(dataafex2) <- c("i1", "i2", "i3", "i4")
+colnames(dataafex2) <- c("V1", "V2", "V3", "V4", "V5")
+dataafex2$MargeJ <- rowSums(dataafex2)
+dataafex2$V1  <- round(dataafex2$V1 / dataafex2$MargeJ *100, 1)
+dataafex2$V2  <- round(dataafex2$V2 / dataafex2$MargeJ *100, 1)
+dataafex2$V3  <- round(dataafex2$V3 / dataafex2$MargeJ *100, 1)
+dataafex2$V4  <- round(dataafex2$V4 / dataafex2$MargeJ *100, 1)
+dataafex2$V5  <- round(dataafex2$V5 / dataafex2$MargeJ *100, 1)
+dataafex2$MargeJ <- NULL
+options(knitr.kable.NA = "")
+knitr::kable(dataafex2,
+           format.args = list(decimal.mark = ',', big.mark = " "),
+           row.names = TRUE,
+           align= c("r", "r", "r", "r", "r"),
+           position = 'HOLD_position'
+           )
+```
+:::
+:::
+
+
+### Recherche d'une simplification basée sur la distance du khi-deux {#sec-1231}
+
+Sur le plan mathématique et des objectifs visés, l'AFC est similaire à l'ACP puisqu'elle permet d'explorer un tableau de trois façons : 1) en montrant les ressemblances entre un ensemble d'individus (*I*), 2) en révélant les liaisons entre les variables (*J*) et 3) en résumant le tout avec des variables synthétiques. Toutefois, avec l'AFC, les ensembles *I* et *J* sont les modalités de deux variables qualitatives (dont le croisement forme un tableau de contingence) et elle est basée sur la distance du khi-deux (et non sur la distance euclidienne comme en ACP).
+
+Ainsi, avec la distance du khi-deux, la proximité (ressemblance) entre deux lignes (*i* et *l*) et deux colonnes (*j* et *k*) est mesurée comme suit :
+
+$$
+d_{\chi_{il}^2} = \sum_j \frac{1}{f_{.j}}(\frac{f_{ij}}{f_{i.}}-\frac{f_{lj}}{f_{l.}})^2
+$$ {#eq-khideuxlignes}
+
+$$
+d_{\chi_{jk}^2} = \sum_i \frac{1}{f_{i.}}(\frac{f_{ij}}{f_{.j}}-\frac{f_{ik}}{f_{.k}})^2
+$$ {#eq-khideuxcolonnes}
+
+Prenons un exemple fictif pour calculer ces deux distances. Le @tbl-afcdataex1 comprend trois modalités en ligne (*I*) et trois autres en colonne (*J*). Le total des effectifs de ce tableau de contingence est égal à 1 665.
+
+À partir des données brutes, il est facile de construire deux tableaux : le profil des lignes et le profil des colonnes (@tbl-afcProfilsLignesCols, c'est-à-dire les proportions en ligne et en colonne.
+
+```{r}
+#| label: tbl-afcdataex1
+#| tbl-cap: Données brutes du tableau de contingence
+#| echo: false
+#| message: false
+#| warning: false
+# Fréquences brutes
+dfAFC1 <- data.frame(j1 = c(360, 420, 145),
+                     j2 = c(65, 70, 5),
+                     j3 = c(275,290, 35))
+# Fréquences relatives
+nt <- sum(dfAFC1)
+ni <- nrow(dfAFC1)
+nj <- ncol(dfAFC1)
+dfAFC1fij <- dfAFC1 / nt
+
+# Tableau des profils des lignes
+profilligne <- data.frame(round(dfAFC1 / rowSums(dfAFC1),3))
+profilligne$Total <- 1
+names(profilligne) <- c("j1" , "j2" , "j3" , "Total")
+rownames(profilligne) <- c("i1", "i2", "i3")
+
+# Tableau des profils des colonnes
+profilcol <- dfAFC1
+profilcol$j1 <- round(profilcol$j1 / sum(profilcol$j1),3)
+profilcol$j2 <- round(profilcol$j2 / sum(profilcol$j2),3)
+profilcol$j3 <- round(profilcol$j3 / sum(profilcol$j3),3)
+profilcol[ni+1,] <- 1
+rownames(profilcol) <- c("j1", "j2", "j3", "Total")
+
+# Calcul des marges
+dfAFC1$fi <- rowSums(dfAFC1)
+dfAFC1[ni+1,] <- colSums(dfAFC1)
+dfAFC1fij$fi <- rowSums(dfAFC1fij)
+dfAFC1fij[ni+1,] <- colSums(dfAFC1fij)
+rownames(dfAFC1) <- c("i1", "i2", "i3", "Total (colonne)")
+options(knitr.kable.NA = "")
+knitr::kable(dfAFC1,
+           format.args = list(decimal.mark = ',', big.mark = " "),
+		   row.names = TRUE,
+           col.names = c("j1" , "j2" , "j3" , "Total (ligne)"),
+           align= c("c" , "c" , "c" , "c"),
+           )
+```
+
+
+```{r}
+#| label: tbl-afcProfilsLignesCols
+#| tbl-cap: Profils des lignes et des colonnes
+#| echo: false
+#| message: false
+#| warning: false
+profilcol$Total <- NA
+profils <- rbind(profilligne, profilcol)
+rownames(profils)  <- NULL
+profils$ind <- c("i1" , "i2" , "i3" , "i1" , "i2" , "i3" , "Total")
+profils <- profils[, c(5,1:4)]
+
+options(knitr.kable.NA = "")
+montableau <- knitr::kable(profils,
+               format.args = list(decimal.mark = ',', big.mark = " "),
+			   row.names = FALSE,
+               digits = 3,
+               col.names = c("" , "j1" , "j2" , "j3" , "Total"),
+               align= c("c" , "c" , "c" , "c" , "c"),
+               )
+group_rows(montableau,
+           index = c("Profil des lignes" = 3,
+                  "Profils des colonnes" = 4)
+          )
+```
+
+En divisant les valeurs du @tbl-afcdataex1 par le grand total (1 665), nous obtenons tous les termes utilisés dans les équations [-@eq-khideuxlignes] et [-@eq-khideuxcolonnes] au @tbl-afcdataex2 :
+
+- Les fréquences relatives dénommées $f_{ij}$. 
+- La marge $fi.$ est égale à la somme des fréquences relatives en ligne.
+- La marge $f.j$ est égale à la somme des fréquences relatives en colonne.
+- La somme de toutes les fréquences relatives est donc égale à 1, soit $\sum{f_{i.}}$ ou $\sum{f_{.j}}$.
+
+
+```{r}
+#| label: tbl-afcdataex2
+#| tbl-cap: Données relatives du tableau de contingence (fij)
+#| echo: false
+#| message: false
+#| warning: false
+rownames(dfAFC1fij) <- c("i1", "i2", "i3", "Total (f.j)")
+options(knitr.kable.NA = "")
+knitr::kable(dfAFC1fij,
+           format.args = list(decimal.mark = ',', big.mark = " "),
+		   digits = 3,
+           row.names = TRUE,
+           col.names = c("j1" , "j2" , "j3" , "Total (fi.)"),
+           align= c("r" , "r" , "r" , "r"),
+           )
+```
+
+Il est possible de calculer les distances entre les différentes modalités  de *I* en appliquant l'@eq-khideuxlignes; par exemple, la distance entre les observations `i1` et `i2` est égale à :
+
+$$d_{(i1,i2)}=\frac{\mbox{1}}{\mbox{0,556}}(\mbox{0,216}-\mbox{0,252})^2+\frac{\mbox{1}}{\mbox{0,084}}(\mbox{0,039}-\mbox{0,042})^2+
+\frac{\mbox{1}}{\mbox{0,360}}(\mbox{0,165}-\mbox{0,174})^2=\mbox{0,003}$$
+
+Avec l'@eq-khideuxcolonnes, la distance entre les modalités `j1` et `j2` de *J* est égale à :
+
+$$d_{(j1,j2)}=\frac{\mbox{1}}{\mbox{0,420}}(\mbox{0,216}-\mbox{0,039})^2+ \frac{\mbox{1}}{\mbox{0,468}}(\mbox{0,252}-\mbox{0,042})^2 + \frac{\mbox{1}}{\mbox{0,111}}(\mbox{0,087}-\mbox{0,003})^2=\mbox{0,233}$$
+
+
+À la lecture du @tbl-MatriceDistKhi, les modalités les plus semblables sont 
+`i1` et `i2` (0,003) pour *I* et `j1` et `j3` (0,058) pour *J*.
+
+```{r}
+#| label: tbl-MatriceDistKhi
+#| tbl-cap: Distances du khi-deux entre les modalités I et les modalités J
+#| echo: false
+#| message: false
+#| warning: false
+MatriceI <- matrix(1:9, nrow = 3, ncol = 3)
+MatriceJ <- matrix(1:9, nrow = 3, ncol = 3)
+dfij <- dfAFC1fij
+
+# Matrice de distances des lignes I
+for (i in 1:ni){
+   for (l in 1:ni){
+     dil <- (1/dfij[4,1])*(dfij[i,1]-dfij[l,1])^2 +
+            (1/dfij[4,2])*(dfij[i,2]-dfij[l,2])^2 + 
+            (1/dfij[4,3])*(dfij[i,3]-dfij[l,3])^2
+    MatriceI[i,l] <- round(dil,3)
+   }
+}
+# Matrice de distances des colonnes J
+for (i in 1:ni){
+   for (l in 1:ni){
+     dil <- (1/dfij[1,4])*(dfij[1,i]-dfij[1,l])^2 +
+            (1/dfij[2,4])*(dfij[2,i]-dfij[2,l])^2 + 
+            (1/dfij[3,4])*(dfij[3,i]-dfij[3,l])^2
+    MatriceJ[i,l] <- round(dil,3)
+   }
+}
+Matrices <- data.frame(Ind. =c("i1" , "i2" , "i3"),
+                       MatriceI,
+                       Col.=c("j1" , "j2" , "j3"),
+                       MatriceJ)
+colnames(Matrices) <- c("Ind." , "i1" , "i2" , "i3", "Col." , "j1" , "j2" , "j3")
+
+options(knitr.kable.NA = "")
+knitr::kable(Matrices,
+           format.args = list(decimal.mark = ',', big.mark = " "),
+		       digits = 5,
+           align= c("c" , "c" , "c" , "c" , "c" , "c" , "c" , "c")
+           )
+```
+
+Finalement, l'approche pour déterminer les axes factoriels de l'AFC est similaire à celle de l'ACP : les axes factoriels sont les droites orthogonales qui minimisent les distances aux points du profil des lignes, excepté que la métrique pour mesurer ces distances est celle du khi-deux (et non celle la distance euclidienne comme pour l'ACP). Pour plus détails sur le calcul de ces axes (notamment les formulations matricielles), consultez notamment Benzécri [-@benzecri1973analyse], Escofier et Pagès [-@escofier1998analyses] et Lebart et al. [-@lebart1995statistique].
+
+
+### Aides à l'interprétation {#sec-1232}
+
+Pour illustrer les aides à l’interprétation de l’AFC, nous utilisons un jeu de données spatiales extrait du [profil du recensement de 2016 de Statistique Canada](https://www12.statcan.gc.ca/census-recensement/2016/dp-pd/prof/index.cfm?Lang=F){target='_blank'} pour les secteurs de recensement de l'île de Montréal. La liste des modalités des variables qu'il comprend est reportée au @tbl-dataAfc. L'AFC est calculée sur un tableau de contingence croisant les secteurs de recensement (lignes) et les modalités d'une variable relative au mode de transport utilisé pour les déplacements domicile-travail (colonnes). Ces modalités sont cartographiées à la @fig-cartovarAFC).
+
+```{r}
+#| label: tbl-dataAfc
+#| tbl-cap: Jeu de données utilisé pour l'analyse factorielle des correspondances
+#| echo: false
+#| message: false
+#| warning: false
+library(sf)
+library(kableExtra)
+load("data/analysesfactorielles/DonneesAFC.Rdata")
+
+Dimensions <- c("Mode de transport", "Durée du trajet")
+MesVarLongs <- c("Véhicule motorisé (conducteur·trice)",
+                 "Véhicule motorisé (passager·ère)",
+                 "Transport en commun",
+                 "À pied",
+                 "Bicyclette",
+                 "Autre moyen",
+                 "Moins de 15 minutes",
+                 "15 à 29 minutes",
+                 "30 à 44 minutes",
+                 "45 à 59 minutes",
+                 "60 minutes et plus")
+stats <- data.frame(variable = names(dfDonneesAFC),
+                    nom = MesVarLongs,
+                    somme = sapply(dfDonneesAFC, sum)
+                    )
+
+options(knitr.kable.NA = "")
+montableau <- knitr::kable(stats,
+           format.args = list(decimal.mark = ',', big.mark = " "),
+		   digits = 1,
+           col.names = c("Nom" , "Intitulé" , "Somme"),
+           align= c("l" , "l", "r"),
+           )
+group_rows(montableau,
+           index = c("Modalités de la variable utilisée dans l'AFC (mode de transport)" = 6,
+                  "Modalités de la variable supplémentaire (durée du trajet)" = 5)
+          )
+```
+
+```{r}
+#| label: fig-cartovarAFC
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-align: center
+#| fig-cap: Cartographie des modalités de la variable mode de transport utilisée pour l'AFC
+#| out-width: "100%"
+library(tmap)
+library(viridis)
+Carte1 <- tm_shape(sfDonneesAFC) + tm_fill("VehCond", style = "cont", pal = viridis(10, direction = -1, option = "G"), title = "Véhicule (conducteur·trice)")
+Carte2 <- tm_shape(sfDonneesAFC) + tm_fill("VehPass", style = "cont", pal = viridis(10, direction = -1, option = "G"), title = "Véhicule (passager·ère)")
+Carte3 <- tm_shape(sfDonneesAFC) + tm_fill("TranspC", style = "cont", pal = viridis(10, direction = -1, option = "G"), title = "Transport en commun")
+Carte4 <- tm_shape(sfDonneesAFC) + tm_fill("Apied", style = "cont", pal = viridis(10, direction = -1, option = "G"), title = "À pied")
+Carte5 <- tm_shape(sfDonneesAFC) + tm_fill("Velo", style = "cont", pal = viridis(10, direction = -1, option = "G"), title = "Bicyclette")
+Carte6 <- tm_shape(sfDonneesAFC) + tm_fill("AutreMoyen", style = "cont", pal = viridis(10, direction = -1, option = "G"), title = "Autre moyen")
+tmap_arrange(Carte1, Carte2, Carte3, Carte4, Carte5, Carte6, ncol = 2, nrow = 3)
+```
+
+#### Résultats de l'AFC pour les valeurs propres {#sec-12321}
+
+Avant de calculer l'AFC, il convient de vérifier s'il y a bien une dépendance entre les modalités des deux variables qualitatives. En effet, si les deux variables sont indépendantes, il n'est pas nécessaire de résumer le tableau de contingence avec une AFC. Pour ce faire, nous utilisons le test du khi-deux largement décrit à la [section @sec-052]. Les résultats de ce test signalent qu’il existe des associations entre les modalités des deux variables ($\chi$ = 203 971, *p* < 0,001, @tbl-dataafckhi2). Nous pouvons donc appliquer une AFC sur ce tableau de contingence.
+
+```{r}
+#| label: tbl-dataafckhi2
+#| tbl-cap: Résultats du test du khi-deux sur le tableau de contingence
+#| echo: false
+#| message: false
+#| warning: false
+load("data/analysesfactorielles/DonneesAFC.Rdata")
+chideux <- chisq.test(dfDonneesAFC[,1:6])
+ni <-  nrow(dfDonneesAFC)
+nj <-  ncol(dfDonneesAFC[,1:6])
+nij <- sum(dfDonneesAFC[,1:6])
+# cat("\n Modalités I (secteurs de recensement) :", nrow(dfDonneesAFC),
+#     "\n Modalités J (variable mode de transport) :", ncol(dfDonneesAFC[,1:5]),
+#     "\n Somme nij :", nij,
+#     "\n chi-deux :", chideux$statistic,
+#     "\n valeur de p :", round(chideux$p.value,3),
+#     "\nphi2 (khi-deux / nij) : ", round(chideux$statistic / nij, 5))
+
+dfkhi <- data.frame(Mesure= c("Modalités *I* (secteurs de recensement)",
+                              "Modalités *J* (variable mode de transport)",
+                              "Somme des données brutes ($n_{ij}$)",
+                              "Khi-deux ($\\chi^2$)",
+                              "Degrés de liberté, soit $(c-1)\\times(l-1)$",
+                              "Valeur de *p*",
+                              "Coefficient Phi au carré ($\\phi^2=\\chi^2 / n_{ij})$"),
+                    Valeur = c(ni,
+                                nj,
+                                nij,
+                                round(chideux$statistic,2),
+                                (ni-1)*(nj-1),
+                                round(chideux$p.value,3),
+                                round(chideux$statistic / nij, 2))
+                    )
+
+options(knitr.kable.NA = "")
+knitr::kable(dfkhi,
+            format.args = list(decimal.mark = ',', big.mark = " "),
+            align= c("l", "r")
+           )
+```
+
+Nous avons vu qu'en ACP normée ([section @sec-12221]), la somme des valeurs propres est égale au nombre de variables puisqu'elles sont centrées réduites. Par contre, en AFC, cette somme est égale à l'inertie totale du tableau de contingence, c'est-à-dire à la valeur du khi-deux divisée par le nombre total des effectifs bruts (soit le coefficient phi au carré, $\phi^2$) ([section @sec-052]). Le @tbl-dataafcValeurPropres permet de vérifier que la somme des valeurs propres est bien égale au coefficient phi au carré : 
+
+$$\mbox{0,156}+\mbox{0,046}+\mbox{0,031}+\mbox{0,004}+\mbox{0,004} = \mbox{0,24}$$
+
+$$\phi^2 = \chi^2 / n_{ij}=\mbox{203 971}/ \mbox{849 795} = \mbox{0,24}$$
+```{r}
+#| label: tbl-dataafcValeurPropres
+#| tbl-cap: Résultats de l'AFC pour les valeurs propres
+#| echo: false
+#| message: false
+#| warning: false
+library(FactoMineR)
+# Calcul de l'AFC
+res.afc <- CA(dfDonneesAFC[,1:6], graph = FALSE)
+# Construction d'un DataFrame pour les valeurs propres
+dfAFCvp <- data.frame(res.afc$eig)
+names(dfAFCvp) <- c("VP" , "VP_pct" , "dfAFCvp")
+dfAFCvp$Composante <- factor(1:nrow(dfAFCvp), levels = rev(1:nrow(dfAFCvp)))
+dfAFCvp <- dfAFCvp[, c(4,1:3)]
+
+options(knitr.kable.NA = "")
+knitr::kable(dfAFCvp,
+           format.args = list(decimal.mark = ',', big.mark = " "),
+		   digits = 3,
+           col.names = c("Axe factoriel" , "Valeur propre" , "Pourcentage", "Pourc. cumulé"),
+           align= c("r", "r" , "r", "r")
+           )
+```
+
+**Combien d'axes d'une AFC faut-il retenir?**
+
+- **Approche statistique**. Mike Bendixen [-@bendixen1995compositional], cité dans l'excellent site [STHDA](http://www.sthda.com/){target='_blank'}, propose deux critères pour sélectionner les premiers axes d'une AFC : $c_1= 1 / (l-1) \times 100$ et $c_2= 1 / (c-1) \times 100$ avec *l* et *c* étant respectivement les nombres de modalités en ligne et en colonne. Autrement dit, lorsque les données sont distribuées aléatoirement, la valeur propre en pourcentage devrait être égale à $c_1$ et celle de l'axe factoriel moyen à $c_2$. Par conséquent, nous pourrions retenir uniquement les axes dont les valeurs propres en pourcentage excèdent : $c_1 = \mbox{1}/(\mbox{521}-\mbox{1})\times \mbox{100}=\mbox{0,19 }%$ et $c_2=\mbox{1}/(\mbox{6}-\mbox{1})\times \mbox{100}=\mbox{20 }%$. En appliquant ces deux critères, seul le premier axe factoriel qui résume 65,6 % mérite d'être retenu.
+
+- **Approche empirique** basée sur la lecture des pourcentages et des pourcentages cumulés. Nous retenons uniquement les deux premières composantes qui résument 85 % de la variance totale. Pour faciliter le choix du nombre d'axes avec cette approche empirique, il est fortement conseillé de construire un histogramme à partir des valeurs propres, soit brutes, soit en pourcentage, soit en pourcentage cumulé (@fig-afcGraphVP).
+
+```{r}
+#| label: fig-afcGraphVP
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-align: center
+#| fig-cap: Histogramme des valeurs propres de l'AFC
+#| out-width: "80%"
+library(factoextra)
+c2 <- 1/(ncol(dfDonneesAFC[,1:6])-1)*100
+texte <- tofr(round(c2, 2))
+texte <- paste0("Critère pour le profil moyen : ", as.character(texte), " %")
+fviz_screeplot(res.afc, choice = "variance", addlabels = TRUE, ylim = c(0, 70),
+                     ylab = "Variance expliquée (%)",
+                     xlab = "Axes factoriels",
+                     main="")+
+  geom_hline(yintercept = c2, linetype = 1, color = "red", linewidth = 1)+
+ annotate(geom = "text", x = 5.5, y = c2+3, label=texte, color = "red", hjust = 1, linewidth = 4)
+```
+
+#### Résultats de l'AFC pour les variables et les individus {#sec-12322}
+Comme pour l'ACP, nous retrouvons les trois mêmes mesures pour les variables et les individus : 1) les coordonnées factorielles, 2) les contributions et 3) les cosinus carrés. 
+
+::: bloc_objectif
+::: bloc_objectif-header
+::: bloc_objectif-icon
+:::
+**Compréhension des axes factoriels de l'AFC : une étape essentielle, incontournable...**
+:::
+::: bloc_objectif-body
+Comme en ACP, l'analyse des trois mesures (coordonnées, contributions et cosinus carrés) pour les variables et les individus doit vous permettre de comprendre la signification des axes factoriels retenus de l'AFC. Cette étape d'interprétation est essentielle afin de qualifier les variables latentes (axes factoriels, variables synthétiques) produites par l'AFC.
+:::
+:::
+
+
+- **Les coordonnées factorielles** sont simplement les projections des points-lignes et des points-colonnes sur les axes de l'AFC. Tant pour les lignes que pour les colonnes, ces coordonnées bénéficient de deux propriétés intéressantes. Premièrement, pour chaque axe factoriel *k*, la somme du produit des marges des variables ($f.j$, colonnes) ou des individus ($fi.$, lignes) avec leurs coordonnées respectives ($C^k_j$ et $C^k_i$) est égale à 0 (@eq-CoordPropr1). Deuxièmement, pour chaque axe factoriel *k*, la somme des produits entre les marges (en ligne et en colonne) et les coordonnées au carré (en ligne et en colonne) est égale à la valeur propre de l'axe (@eq-CoordPropr2).
+
+$$
+\sum{f.j (C^k_j)}= 0 \text{ et} \sum{fi. (C^k_i)}= 0
+$$ {#eq-CoordPropr1}
+
+$$
+\sum{fi. (C^k_i)^2}= \mu_k \text{ et} \sum{f.j (C^k_j)^2}= \mu_k
+$$ {#eq-CoordPropr2}
+
+En guise d'exemple, le @tbl-dataafcCoordVars2 permet de vérifier les deux propriétés des coordonnées pour les variables. Les sommes de ${f.j (C^k_j)}$ pour les axes 1 et 2 sont bien égales à 0; et les sommes de ${f.j (C^k_j)^2}$ pour les axes 1 et 2 sont bien égales aux valeurs propres de ces deux axes, soit 0,156 et 0,046 (comparez ces valeurs avec celles reportées au @tbl-dataafcValeurPropres plus haut).
+
+```{r}
+#| label: tbl-dataafcCoordVars2
+#| tbl-cap: Vérification des deux propriétés des coordonnées factorielles pour les variables
+#| echo: false
+#| message: false
+#| warning: false
+fj <- colSums(dfDonneesAFC[,1:6]) / sum(dfDonneesAFC[,1:6])
+nAxes <- 2
+CoordsVar <- res.afc$col$coord[, 1:nAxes]
+dfAFCVars2 <- data.frame(Modalite =  row.names(CoordsVar),
+                        Coord = res.afc$col$coord[, 1:nAxes])
+dfAFCVars2$fj <- fj
+dfAFCVars2 <- dfAFCVars2[, c(1,4,2,3)]
+names(dfAFCVars2) <- c("Modalite", "fj", "CoordAxe1", "CoordAxe2")
+ni <- nrow(dfAFCVars2)
+dfAFCVars2$fiCoord1 <- dfAFCVars2$CoordAxe1*dfAFCVars2$fj
+dfAFCVars2$fiCoord2 <- dfAFCVars2$CoordAxe2*dfAFCVars2$fj
+dfAFCVars2$fiCoord1b <- dfAFCVars2$CoordAxe1^2*dfAFCVars2$fj
+dfAFCVars2$fiCoord2b <- dfAFCVars2$CoordAxe2^2*dfAFCVars2$fj
+dfAFCVars2[ni+1,] <- NA
+dfAFCVars2[ni+1,1] <- "Somme"
+for (i in c(2,5:ncol(dfAFCVars2))){
+    dfAFCVars2[ni+1,i] <- round(sum(dfAFCVars2[[i]], na.rm = TRUE),4)
+}
+
+options(knitr.kable.NA = "")
+montableau <- knitr::kable(dfAFCVars2,
+                   format.args = list(decimal.mark = ',', big.mark = " "),
+				           digits = 3,
+				           row.names = FALSE,
+                   col.names = c("Modalité" , "f.j" , "1" , "2" , "1" , "2" , "1" , "2"),
+                   align= c("l" , "r" , "r" , "r" , "r" , "r" , "r" , "r"),
+                   )
+add_header_above(montableau, c(" " = 2, "Coord." = 2, "f.j x Coord." = 2, "f.j x Coord2" = 2))
+```
+
+
+::: bloc_attention
+::: bloc_attention-header
+::: bloc_attention-icon
+:::
+**Particularité de l'AFC**
+:::
+::: bloc_attention-body
+Contrairement à l'ACP, les coordonnées factorielles pour les variables en AFC ne sont pas les coefficients de corrélation de Pearson des variables sur les axes!
+:::
+:::
+
+- **Les contributions** des colonnes ou des lignes en AFC permettent de repérer celles qui contribuent le plus à la formation des axes factoriels (de manière analogue à l'ACP). Pour un axe donné, leur sommation est égale à 100 %. Elles s'obtiennent en multipliant la coordonnée au carré avec la marge et en divisant le tout par la valeur propre de l'axe (équations [-@eq-CtrAFCVar] et [-@eq-CtrAFCInd]).
+
+$$
+\mbox{Ctr}_j^k =\frac{f.j(C^k_j)^2}{\mu_{k}}\times 100
+$$ {#eq-CtrAFCVar}
+
+$$
+\mbox{Ctr}_i^k =\frac{fi.(C^k_i)^2}{\mu_{k}}\times 100
+$$ {#eq-CtrAFCInd}
+
+- **Les cosinus carrés** (Cos^2^) (appelés aussi les qualités de représentation sur un axe) permettent de repérer le ou les axes qui concourent le plus à donner un sens aux colonnes (variables) et aux lignes (individus), de manière analogue à l'ACP. Pour une variable ou un individu, la sommation des Cos^2^ pour tous les axes de l'AFC est aussi égale à 1.
+
+**Interprétation des résultats pour les colonnes (variables)**
+
+Maintenant, analysons ces trois statistiques pour les variables pour les deux premiers axes de l'AFC (@tbl-dataafcCoordVars et @fig-afc1erplanfactVars).
+
+Pour l'axe 1, résumant 65 % de la variance, trois modalités concourent à sa formation : `VehCond` (34,69 %), `Apied` (34,25 %) et `Velo` (20,13 %). À la lecture des coordonnées factorielles sur cet axe, les modes de transport relatifs aux véhicules motorisés (`VehCond` = -0,33 et `VehPass` = -0,25) s'opposent clairement aux modes actifs (`Apied` = 0,81 et `Velo` = 0,94), constat qu'il est possible de confirmer visuellement avec la @fig-afc1erplanfactVars. La modalité `VehCond` a d'ailleurs la plus forte valeur de Cos^2^ sur cet axe (0,92), ce qui signale, sans l'ombre d'un doute, que l'axe 1 est celui qui donne le plus de sens à cette modalité. 
+
+Puisque l'axe 2 résume une partie beaucoup plus limitée de la variance du tableau (19,25 %), il n'est pas étonnant qu'un nombre plus limité de modalités concourent à sa formation : seules les contributions de la modalité `Apied` (51,68 %) et secondairement de `TranspC` (38,81 %) sont importantes. Leurs coordonnées factorielles s'opposent d'ailleurs sur cet axe (respectivement 0,81 et 0,21).
+
+
+```{r}
+#| label: tbl-dataafcCoordVars
+#| tbl-cap: Résultats de l'AFC pour les variables
+#| echo: false
+#| message: false
+#| warning: false
+library(kableExtra)
+library(stringr)
+nAxes <- 2
+dfAFCVars <- data.frame(Modalite =  row.names(CoordsVar),
+                        Coord = res.afc$col$coord[, 1:nAxes],
+                        Cos2 =  res.afc$col$cos2[, 1:nAxes],
+                        Ctr =   res.afc$col$contrib[, 1:nAxes])
+row.names(dfAFCVars) <- NULL
+names(dfAFCVars) <- str_replace(names(dfAFCVars), ".Dim.", "Axe")
+
+options(knitr.kable.NA = "")
+montableau <- knitr::kable(dfAFCVars,
+                   format.args = list(decimal.mark = ',', big.mark = " "),
+				           digits = 2,
+                   col.names = c("Modalité" , "1" , "2" , "1" , "2" , "1" , "2"),
+                   align= c("l" , "r" , "r" , "r" , "r" , "r" , "r"),
+                   )
+add_header_above(montableau, c(" " = 1, "Coordonnées" = 2, "Cosinus carrés" = 2, "Contributions (%)" = 2))
+```
+
+```{r}
+#| label: fig-afc1erplanfactVars
+#| echo: false
+#| fig-align: center
+#| fig-cap: Premier plan factoriel de l'AFC pour les variables
+#| message: false
+#| out-width: "75%"
+VP1pct <- tofr(round(res.afc$eig[1,2],2))
+VP2pct <- tofr(round(res.afc$eig[2,2],2))
+fviz_ca_col(res.afc,
+            repel = TRUE,
+            geom= c("text" , "point"),
+            col.col = "steelblue",
+            gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+            title = "",
+            xlab=paste0("Axe 1 (", VP1pct, " %)"),
+            ylab=paste0("Axe 2 (", VP2pct, " %)"))
+```          
+            
+            
+**Interprétation des résultats pour les individus**
+
+::: bloc_notes
+::: bloc_notes-header
+::: bloc_notes-icon
+:::
+**Premier plan factoriel pour les variables et les individus**
+:::
+::: bloc_notes-body
+Lorsque le jeu de données comprend à la fois peu de modalités en ligne et en colonne, il est judicieux de les représenter simultanément sur le premier plan factoriel (axes 1 et 2). Pour ce faire, vous pouvez utiliser la fonction `fviz_ca_biplot` du *package* `factoextra`.
+:::
+:::
+
+Étant donné que notre jeu de données comprend 521 secteurs de recensement, nous proposons ici de cartographier les coordonnées factorielles des individus pour les deux premiers axes de l'AFC (@fig-afc1erplanfactInds2). Pour l'axe 1, les secteurs de recensement à l'est et l'ouest de l'île de Montréal présentent les coordonnées les plus fortement négatives (en rouge); dans ces zones, l'usage des véhicules motorisés pour des déplacements domicile-travail est certainement surreprésenté, comparativement aux modes actifs. À l'inverse, dans les secteurs de recensement du centre de l'île présentant de fortes valeurs positives (en rouge), le recours aux modes de transports actifs (marche et vélo) est bien plus important, toutes proportions gardées. Quant à la cartographie des coordonnées pour l'axe 2, elle permet surtout de repérer quelques secteurs de recensement autour du centre-ville (très fortes valeurs positives en vert foncé) où les déplacements domicile-travail à pied sont plus fréquents, toutes proportions gardées.
+
+En résumé, suite à l'analyse des coordonnées factorielles des variables et des individus, nous pouvons conclure que le premier axe est certainement le plus intéressant puisqu’il permet d'opposer l’usage des modes de transports motorisés versus les modes de transports actifs pour les déplacements domicile-travail sur l'île de Montréal. Cette nouvelle variable synthétique (variable latente) pourrait ainsi être introduite dans des analyses subséquentes (par exemple, dans un modèle de régression). Cela démontre qu’au même titre que l’ACP, l’AFC est une méthode de réduction de données puisque nous sommes passés d’un tableau comprenant 512 secteurs de recensement et six modalités à un tableau comprenant une seule variable synthétique (axe 1).
+
+```{r}
+#| label: fig-afc1erplanfactInds2
+#| echo: false
+#| fig-align: center
+#| fig-cap: Cartographie de coordonnées factorielles des individus pour l'AFC
+#| message: false
+library(tmap)
+library(stringr)
+dfAFCInd <- data.frame(Coord = res.afc$row$coord, 
+                       Cos2 = res.afc$row$cos2, 
+                       Ctr = res.afc$row$contrib)
+names(dfAFCInd) <- str_replace(names(dfAFCInd), ".Dim.", "Comp")
+CartoAFC <- cbind(sfDonneesAFC, dfAFCInd)
+VP1pct <- tofr(round(res.afc$eig[1,2],2))
+VP2pct <- tofr(round(res.afc$eig[2,2],2))
+Carte1 <- tm_shape(CartoAFC) +
+  tm_fill(col = "CoordComp1", style = "cont", midpoint = 0, title = "Coordonnées")+
+  tm_layout(title = paste0("Axe 1 (", VP1pct,"%)"), attr.outside = TRUE, frame = FALSE)
+Carte2 <- tm_shape(CartoAFC) +
+  tm_fill(col = "CoordComp2", style = "cont", midpoint = 0, title = "Coordonnées")+
+  tm_layout(title = paste0("Axe 2 (", VP2pct,"%)"), attr.outside = TRUE, frame = FALSE)
+tmap_arrange(Carte1, Carte2, nrow = 1)
+```          
+
+
+
+::: bloc_aller_loin
+::: bloc_aller_loin-header
+::: bloc_aller_loin-icon
+:::
+**Ajout de modalités supplémentaires dans une analyse des correspondances (AFC)**
+:::
+::: bloc_aller_loin-body
+Comme pour l'ACP, il est possible d'ajouter des variables et des individus supplémentaires une fois l'AFC calculée. En guise d'illustration, nous avons ajouté à l'AFC précédemment analysée des modalités relatives à la durée des temps de déplacements :	moins de 15 minutes, 15 à 29, 30 à 44, 45 à 59, 60 minutes et plus. Sans surprise, sur le premier plan factoriel à la @fig-afc1erplanfactInds2, cette dernière modalité, représentant les trajets les plus longs, est la plus proche des modalités relatives à l'usage des véhicules motorisés (`VehCond` et `VehPass`).
+
+```{r}
+#| label: fig-afcAjoutModalites
+#| echo: false
+#| fig-align: center
+#| fig-cap: Ajout de modalités supplémentaires sur le premier plan factoriel de l'AFC
+#| message: false
+#| out-width: "75%"
+res.afc2 <- CA(dfDonneesAFC, col.sup = 7:11, graph = FALSE)
+VP1pct <- tofr(round(res.afc2$eig[1,2],2))
+VP2pct <- tofr(round(res.afc2$eig[2,2],2))
+fviz_ca_col(res.afc2,
+            repel = TRUE,
+            geom= c("text" , "point"),
+            col.col = "steelblue",
+            title = "",
+            xlab=paste0("Axe 1 (", VP1pct, " %)"),
+            ylab=paste0("Axe 2 (", VP2pct, " %)"))
+``` 
+:::
+:::
+
+### Mise en œuvre dans R {#sec-1233}
+
+#### Calcul d’une AFC avec `FactoMineR` {#sec-12331}
+
+Plusieurs *packages* permettent de calculer une AFC dans R, notamment `ca` (fonction `ca`), `MASS` (fonction `corresp`), `ade4` (fonction `dudi.coa`) et `FactoMineR` (fonction `CA`). De nouveau, nous utilisons `FactoMineR` couplé au *package* `factoextra` pour réaliser rapidement des graphiques avec les résultats pour les variables et les coordonnées.
+
+Pour calculer l'AFC, il suffit d'utiliser la fonction `CA` de `FactoMineR`, puis la fonction `summary(res.afc)`, qui renvoie les résultats de l'AFC pour : 
+
+- Les valeurs propres (section `Eigenvalues`) pour les axes factoriels (`Dim.1` à `Dim.n`) avec leur variance expliquée brute (`Variance`), en pourcentage (`% of var.`) et en pourcentage cumulé (`Cumulative % of var.`).
+
+- Les dix premières observations (section `Rows`) avec les coordonnées factorielles (`Dim.1` à `Dim.n`), les contributions (`ctr`) et les cosinus carrés (`cos2`). Pour accéder aux résultats pour toutes les observations, utilisez les fonctions `res.afc$row` ou encore `res.afc$row$coord` (uniquement les coordonnées factorielles), `res.afc$row$contrib` (uniquement les contributions) et `res.afc$row$cos2` (uniquement les cosinus carrés).
+
+- Les colonnes (section `Columns`) avec les coordonnées factorielles (D`im.1` à `Dim.n`), les contributions (`ctr`) et les cosinus carrés (`cos2`).
+
+```{r}
+#| label: calculAFC
+#| echo: true
+#| message: false
+#| warning: false
+#| out-width: "75%"
+# Chargement des packages
+library(FactoMineR)
+library(factoextra)
+# Chargement des données
+load("data/analysesfactorielles/DonneesAFC.Rdata")
+# Avant de calculer l'AFC, il convient de vérifier si les deux variables
+# qualitatives sont dépendantes avec le test du khi-deux
+khideux <- chisq.test(dfDonneesAFC[,1:6])
+print(khideux)
+if(khideux$p.value <=0.05){
+  cat("La valeur de p < 0,05. Les variables sont dépendantes. Calculez l'AFC.")
+}else {
+    cat("La valeur de p > 0,05. Les variables sont indépendantes. Inutile de calculer l'AFC")
+}
+
+# Calcul de l'analyse des correspondances sur les six premières variables
+res.afc <- CA(dfDonneesAFC[,1:6], graph = FALSE)
+# Affichage des résultats de la fonction CA
+print(res.afc)
+# Visualisation des marges en colonne
+round(res.afc$call$marge.col,4)
+# Visualisation des marges en ligne. Étant donné que nous avons 521 individus, 
+# la ligne ci-dessous est en commentaire
+# round(res.afc$call$marge.row,4)
+
+# Sommaire des résultats de l'AFC
+# Remarquez que la première ligne de ce sommaire est le résultat du khi-deux
+summary(res.afc)
+
+```
+
+#### Exploration graphique des résultats de l'AFC avec `factoextra` {#sec-12332}
+
+Comme pour l'ACP, `factoextra` dispose de plusieurs fonctions très intéressantes pour construire rapidement des graphiques avec les résultats de l'AFC. Premièrement, la syntaxe ci-dessous (avec la fonction `fviz_screeplot`) renvoie deux graphiques pour analyser les résultats des valeurs propres de l'AFC (@fig-factoextraAFC1).
+
+```{r}
+#| label: fig-factoextraAFC1
+#| echo: true
+#| fig-align: center
+#| fig-cap: Graphiques pour les valeurs propres de l'AFC avec factoextra
+#| message: false
+#| out-width: "65%"
+library(factoextra)
+library(ggplot2)
+library(ggpubr)
+
+# Nombre de modalités en ligne et en colonne
+ModalitesLig <- nrow(dfDonneesAFC)
+ModalitesCol <- ncol(dfDonneesAFC[,1:6])
+# Critère statistique du profil moyen
+critere2 <- round(1/(ModalitesCol-1)*100,2)
+texte <- paste0("Critère pour le profil moyen : ", as.character(critere2), " %")
+# Graphique avec les valeurs propres
+G1 <- fviz_screeplot(res.afc, choice = "eigenvalue",
+               ylab = "Valeurs propres",
+               xlab = "Axes factoriels",
+               main="Valeurs propres")
+G2 <- fviz_screeplot(res.afc, choice = "variance", addlabels = TRUE, ylim = c(0, 70),
+                     ylab = "Variance expliquée (%)",
+                     xlab = "Axes factoriels",
+                     main="Valeurs propres (%)")+
+  geom_hline(yintercept=c2, linetype=1, color = "red", linewidth = 1)+
+  annotate(geom = "text", x = ModalitesCol-.5,
+          y = critere2+3, label=texte, 
+          color = "red", hjust=1, linewidth = 4)
+ggarrange(G1, G2)
+```
+
+Avec les fonctions `fviz_contrib` et `fviz_cos2`, il est très facile de réaliser des histogrammes pour les contributions et les cosinus carrés pour les variables (colonnes) ou les individus (lignes), et ce, avec le paramètre `choice = c("row", "col")` (@fig-acp1erplanfactVars2a).
+
+```{r}
+#| label: fig-acp1erplanfactVars2a
+#| echo: true
+#| fig-align: center
+#| fig-cap: Contributions des variables avec factoextra
+#| message: false
+#| out-width: "65%"
+library(factoextra)
+library(ggplot2)
+library(ggpubr)
+VP1pct <- round(res.afc$eig[1,2],2)
+VP2pct <- round(res.afc$eig[2,2],2)
+G1 <- fviz_contrib (res.afc, choice = "col", axes = 1, title = "Axe 1")
+G2 <- fviz_contrib (res.afc, choice = "col", axes = 2, title = "Axe 2")
+ggarrange(G1, G2, ncol = 2, nrow = 1)
+```
+
+Quant aux fonctions `fviz_ca_col` et `fviz_ca_row`, elles permettent rapidement de construire le premier plan factoriel pour les colonnes (variables) et les lignes (individus) (@fig-afc1erplanfactVars2b). Aussi, la fonction `fviz_ca_biplot` permet de construire un plan factoriel, mais avec les lignes et les colonnes simultanément.
+ 
+```{r}
+#| label: fig-afc1erplanfactVars2b
+#| echo: true
+#| fig-align: center
+#| fig-cap: Premier plan factoriel de l'AFC pour les variables et les individus avec factoextra
+#| message: false
+#| out-width: "65%"
+G3 <- fviz_ca_col(res.afc,
+            repel = TRUE,
+            geom = c("text" , "point"),
+            col.col = "steelblue",
+            title = "Mode de transport",
+            xlab = paste0("Axe 1 (", VP1pct, " %)"),
+            ylab = paste0("Axe 2 (", VP2pct, " %)"))
+G4 <- fviz_ca_row(res.afc,
+            repel = TRUE,
+            geom = c("point"),
+            col.row = "steelblue",
+            title = "Secteurs de recensement",
+            xlab = paste0("Axe 1 (", VP1pct, " %)"),
+            ylab = paste0("Axe 2 (", VP2pct, " %)"))
+ggarrange(G3, G4, ncol = 2, nrow = 1)
+```
+
+
+La syntaxe ci-dessous permet d'ajouter des modalités supplémentaires dans l'AFC et de constuire le graphique du premier plan factoriel (@fig-afcAjoutModalites2).
+
+```{r}
+#| label: fig-afcAjoutModalites2
+#| echo: true
+#| fig-align: center
+#| fig-cap: Ajout de modalités supplémentaires sur le premier plan factoriel l'AFC avec factoextra
+#| message: false
+#| out-width: "65%"
+# Les colonnes 7 à 11 sont mises comme des variables supplémentaires dans l'AFC
+res.afc2 <- CA(dfDonneesAFC, col.sup = 7:11, graph = FALSE)
+VP1pct <- round(res.afc2$eig[1,2],2)
+VP2pct <- round(res.afc2$eig[2,2],2)
+fviz_ca_col(res.afc2,
+            repel = TRUE,
+            geom= c("text" , "point"),
+            col.col = "steelblue",
+            title = "",
+            xlab=paste0("Axe 1 (", VP1pct, " %)"),
+            ylab=paste0("Axe 2 (", VP2pct, " %)"))
+``` 
+
+Finalement, la syntaxe ci-dessous permet de cartographier les coordonnées factorielles des individus de l’AFC avec le *package* `tmap` (@fig-afc1erplanfactInds2B).
+ 
+
+```{r}
+#| label: fig-afc1erplanfactInds2B
+#| echo: true
+#| fig-align: center
+#| fig-cap: Cartographie de coordonnées factorielles des individus pour l'AFC
+#| message: false
+#| out-width: "85%"
+library(tmap)
+library(stringr)
+dfAFCInd <- data.frame(Coord = res.afc$row$coord, 
+                       Cos2 = res.afc$row$cos2, 
+                       Ctr = res.afc$row$contrib)
+names(dfAFCInd) <- str_replace(names(dfAFCInd), ".Dim.", "Comp")
+CartoAFC <- cbind(sfDonneesAFC, dfAFCInd)
+VP1pct <- tofr(round(res.afc$eig[1,2],2))
+VP2pct <- tofr(round(res.afc$eig[2,2],2))
+Carte1 <- tm_shape(CartoAFC) +
+  tm_fill(col = "CoordComp1", style = "cont", midpoint = 0, title = "Coordonnées")+
+  tm_layout(title = paste0("Axe 1 (", VP1pct,"%)"), attr.outside = TRUE, frame = FALSE)
+Carte2 <- tm_shape(CartoAFC) +
+  tm_fill(col = "CoordComp2", style = "cont", midpoint = 0, title = "Coordonnées")+
+  tm_layout(title = paste0("Axe 2 (", VP2pct,"%)"), attr.outside = TRUE, frame = FALSE)
+tmap_arrange(Carte1, Carte2, nrow = 1)
+```          
+
+
+## Analyse de correspondances multiples (ACM) {#sec-124}
+
+L'analyse des correspondances multiples (ACM) est particulièrement adaptée à l'exploration de données issues d'une enquête par sondage, puisqu'elle permet de résumer/synthétiser l'information d'un tableau comprenant uniquement des variables qualitatives (@fig-AnalysesFactoriellesTabACM). 
+
+
+![Lieu de pèlerinage de R](images/Chap12/AnalysesFactoriellesTabACM.png){#fig-AnalysesFactoriellesTabACM width="60%" fig-align="center"}
+
+Par exemple, une enquête sur la mobilité d'une population donnée pourrait comprendre plusieurs variables qualitatives, dont celles reportées au @tbl-ACM1.
+
+```{r}
+#| label: tbl-ACM1
+#| tbl-cap: Exemple de variables qualitatives issues d'une enquête
+#| echo: false
+#| message: false
+#| warning: false
+library(kableExtra)
+tabacm <- data.frame(Modalite = c("Homme" , "Femme", 
+                                   "Moins de 20 ans", "20 à 39 ans", "40 à 59 ans", "60 ans et plus",
+                                   "Automobile", "Transport en commun", "Marche", "Vélo"),
+                    Code = c(1,2,1,2,3,4,1,2,3,4))
+options(knitr.kable.NA = "")
+montableau <- knitr::kable(tabacm, 
+               format.args = list(decimal.mark = ',', big.mark = " "),
+               col.names = c("Modalités des variables" , "Codage"), align= c("l", "c") )
+
+group_rows(montableau,
+           index = c("Sexe" = 2,
+                    "Groupe d'âge" = 4,
+                    "Mode de transport"= 4))
+```
+
+Pour analyser de telles données, il suffit de transformer le tableau condensé (de données brutes) en un tableau disjonctif complet dans lequel chaque modalité des variables qualitatives devient une variable binaire prenant les valeurs de 0 ou 1 (tableaux [-@tbl-ACM2] et [-@tbl-ACM3]). Notez que la somme de chaque ligne est alors égale au nombre de variables qualitatives.
+
+```{r}
+#| label: tbl-ACM2
+#| tbl-cap: Tableau condensé (données brutes)
+#| echo: false
+#| message: false
+#| warning: false
+library(kableExtra)
+tabs <- data.frame(V1 = c(1,1,2,1,2,1),
+                   V2 = c(1,2,3,2,4,4),
+                   V3 = c(2,3,1,1,2,4))
+# Sexe
+tabs$Homme <- ifelse(tabs$V1 == 1, 1, 0)
+tabs$Femme <- ifelse(tabs$V1 == 2, 1, 0)
+# Age
+tabs$A20m  <- ifelse(tabs$V2 == 1, 1, 0)
+tabs$A2039 <- ifelse(tabs$V2 == 2, 1, 0)
+tabs$A4059 <- ifelse(tabs$V2 == 3, 1, 0)
+tabs$A60p  <- ifelse(tabs$V2 == 4, 1, 0)
+# Mode de transport
+tabs$Auto  <- ifelse(tabs$V3 == 1, 1, 0)
+tabs$TC    <- ifelse(tabs$V3 == 2, 1, 0)
+tabs$Apied <- ifelse(tabs$V3 == 3, 1, 0)
+tabs$Velo  <- ifelse(tabs$V3 == 4, 1, 0)
+rownames(tabs) <- paste0("Ind. ", c(1:nrow(tabs)))
+tabCond <- tabs[,1:3]
+options(knitr.kable.NA = "")
+knitr::kable(tabCond, 
+           row.names = TRUE,
+           col.names = c("Sexe" , "Groupe d'âge", "Mode de transport"), 
+           align= c("c" , "c" , "c"),
+           )
+```
+
+```{r}
+#| label: tbl-ACM3
+#| tbl-cap: Tableau disjonctif complet
+#| echo: false
+#| message: false
+#| warning: false
+library(kableExtra)
+tabDisjComplet <- tabs[,4:13]
+tabDisjComplet$Ind <- row.names(tabDisjComplet)
+tabDisjComplet <- tabDisjComplet[, c(11,1:10)]
+
+options(knitr.kable.NA = "")
+montableau <-knitr::kable(tabDisjComplet,
+               format.args = list(decimal.mark = ',', big.mark = " "),
+               	row.names = FALSE,
+                col.names = c("Individu", "Homme" , "Femme", 
+                           "Moins de 20 ans", "20 à 39 ans", "40 à 59 ans", "60 ans et plus",
+                           "Auto.", "T.C.", "Marche", "Vélo"), 
+                align= c("c" , "c" , "c" , "c",
+                         "c" , "c" , "c" , "c")
+						 )
+add_header_above(montableau, c(" " = 1,"Sexe" = 2, "Groupe d'âge" = 4, "Mode de transport" = 4))
+```
+
+::: bloc_astuce
+::: bloc_astuce-header
+::: bloc_astuce-icon
+:::
+**ACM versus AFC**
+:::
+::: bloc_astuce-body
+Nous avons vu que l'AFC permet d'analyser un tableau de contingence avec deux variables qualitatives. En ACM, les colonnes sont les différentes modalités des variables qualitatives et les lignes sont les observations (par exemple, les individus ayant répondu à une enquête). En résumé, l'analyse des correspondances multiples (ACM) est simplement **une analyse des correspondances (AFC) appliquée sur un tableau disjonctif complet**. 
+
+L'ACM permet ainsi de révéler les ressemblances entre les différentes modalités des variables qualitatives et les ressemblances entre les différents individus. Par conséquent, elle produit également des variables synthétiques (axes factoriels) résumant l'information contenue dans le tableau initial. L'évaluation de ces ressemblances et la détermination des axes factoriels sont aussi basées sur la **distance du khi-deux**.
+:::
+:::
+
+
+### Aides à l'interprétation {#sec-1241}
+
+Puisque l'ACM est une extension de l'AFC, nous retrouvons les mêmes aides à l'interprétation : les valeurs propres pour les axes, les coordonnées factorielles, les contributions et les cosinus carrés pour les variables et les individus. 
+
+Pour présenter l'ACM, nous utilisons des données ouvertes de la Ville de Montréal et, plus particulièrement, celles d'un [sondage auprès de la population de l’île de Montréal sur l'agriculture urbaine](https://www.donneesquebec.ca/recherche/dataset/vmtl-agriculture-urbaine-sondage){target='_blank'}. Pour ce faire, nous avons conservé uniquement les personnes pratiquant l'agriculture urbaine (n = 352). Les variables qualitatives extraites pour l'ACM sont reportées au @tbl-dataACM) avec la description des questions, leurs modalités respectives avec les effectifs bruts et en pourcentage. Au final, l'ACM est calculée de la manière suivante :
+
+- Neuf variables qualitatives relatives à la pratique de l'agriculture urbaine sont retenues (`q3`, `q4`, `q5`, `q8`, `q9`, `q10`, `q11`, `q12` et `q13`).
+
+- Quatre variables relatives au profil socioéconomique des personnes répondantes sont introduites comme variables supplémentaires (`q15`, `q16`, `q17` et `q21`).
+
+- Chaque ligne est pondérée avec la variable `pond`.
+
+L'objectif de cette ACM est double : 
+
+1. Montrer les ressemblances entre les différentes modalités relatives à la pratique de l'agriculture urbaine. L'analyse des axes factoriels devrait nous permettre d'identifier différents profils des personnes pratiquant l'agriculture urbaine.
+
+2. Projeter les modalités des variables socioéconomiques afin de vérifier si elles sont ou non associées aux axes factoriels, c'est-à-dire aux différents profils révélés par les axes.
+
+::: bloc_attention
+::: bloc_attention-header
+::: bloc_attention-icon
+:::
+**Bloc attention**
+:::
+::: bloc_attention-body
+L'analyse du sondage sur l'agriculture urbaine réalisée ici est purement exploratoire : elle vise uniquement à démontrer que l'ACM est un outil particulièrement intéressant pour analyser les données d'un sondage. Par contre, cette analyse n'a aucune prétention scientifique puisque nous ne sommes pas des spécialistes de l'agriculture urbaine. Dans ce champ de recherche très fertile qu'est l'agriculture urbaine (surement pas la meilleure blague du livre...), vous pourrez consulter plusieurs études montréalaises [@mcclintock2018urban; @audate2021motivations; @bhatt2016cultivating].
+:::
+:::
+
+```{r}
+#| label: tbl-dataACM
+#| tbl-cap: Variables qualitatives extraites du sondage sur l'agriculture urbaine de la Ville de Montréal
+#| echo: false
+#| message: false
+#| warning: false
+library(kableExtra)
+load("data/analysesfactorielles/DonneesACM.Rdata")
+dfACM <- dfenquete[, c("q3", "q4", "q5", "q8", "q9", "q10", "q11", "q12", "q13",
+                      "q15", "q16", "q17", "q21")]
+questions <- c(
+"Q3.  Depuis combien de temps cultivez-vous des fruits, des fines herbes ou des légumes?",
+"Q4.  Selon vous, quelle proportion des fruits, des fines herbes et des légumes que vous consommez durant l'été provient de votre propre production?",
+"Q5.  Utilisez-vous du compost provenant de vos déchets verts ou de vos déchets alimentaires pour faire pousser des fruits, des fines herbes ou des légumes?",
+"Q8.  Récupérez-vous l'eau de pluie pour irriguer vos cultures de fruits, de fines herbes ou des légumes ou encore votre jardin?",
+"Q9.  Combien de sortes de fruits, de fines herbes ou des légumes cultivez-vous?",
+"Q10. Cultivez-vous suffisamment de fruits, de fines herbes ou des légumes pour partager avec d'autres personnes?",
+"Q11. Échangez-vous vos semis ou vos récoltes de fruits, de fines herbes ou des légumes avec d'autres personnes?",
+"Q12. Selon vous, l'agriculture urbaine contribue-t-elle à améliorer les rapports entre les gens?",
+"Q13. Saviez-vous que la Ville de Montréal encourage et soutient l'agriculture urbaine sur l'île de Montréal?",
+"Q15. À quel groupe d'âge appartenez-vous?",
+"Q16. Quelle est votre occupation principale?",
+"Q17. Quel est le plus haut niveau de scolarité que vous avez complété?",
+"Q21. Êtes-vous propriétaire ou locataire de votre résidence ?"
+)
+
+modalites <- c()
+nmodalites <- c()
+nimodalites <- c()
+i <- 0
+for (e in names(dfACM)){
+  # Nombre de modalités par questions
+  i <- i + 1
+  nmodalites[i] <- length(unique(dfACM[[e]]))
+  nimodalites <- append(nimodalites, table(dfACM[[e]]))
+  modalites <- append(modalites, levels(dfACM[[e]]))
+}
+
+DesTabACM <- data.frame(Modalite = modalites, N = nimodalites, Pct = round(nimodalites/nrow(dfACM)*100,1))
+
+options(knitr.kable.NA = "")
+montableau <-knitr::kable(DesTabACM,
+                          row.names = FALSE,
+               format.args = list(decimal.mark = ',', big.mark = " "),
+               col.names = c("Modalité", "N" , "%"),
+               align= c("l" , "r" , "r"))
+
+group_rows(montableau,
+           index = c(
+  "Q3.  Depuis combien de temps cultivez-vous des fruits, des fines herbes ou des légumes?" = nmodalites[1],
+  "Q4.  Selon vous, quelle proportion des fruits, des fines herbes et des légumes que vous consommez durant l'été provient de votre propre production?" = nmodalites[2],
+  "Q5.  Utilisez-vous du compost provenant de vos déchets verts ou alimentaires pour faire pousser des fruits, des fines herbes ou des légumes?" = nmodalites[3],
+  "Q8.  Récupérez-vous l'eau de pluie pour irriguer vos cultures de fruits, de fines herbes ou des légumes ou encore votre jardin?" = nmodalites[4],
+  "Q9.  Combien de sortes de fruits, de fines herbes ou de légumes cultivez-vous?" = nmodalites[5],
+  "Q10. Cultivez-vous suffisamment de fruits, de fines herbes ou de légumes pour partager avec d'autres personnes?" = nmodalites[6],
+  "Q11. Échangez-vous vos semis ou vos récoltes de fruits, de fines herbes ou de légumes avec d'autres personnes?" = nmodalites[7],
+  "Q12. Selon vous, l'agriculture urbaine contribue-t-elle à améliorer les rapports entre les gens?" = nmodalites[8],
+  "Q13. Saviez-vous que la Ville de Montréal encourage et soutient l'agriculture urbaine sur l'île de Montréal?" = nmodalites[9],
+  "Q15. À quel groupe d'âge appartenez-vous?" = nmodalites[10],
+  "Q16. Quelle est votre occupation principale?" = nmodalites[11],
+  "Q17. Quel est le plus haut niveau de scolarité que vous avez complété?" = nmodalites[12],
+  "Q21. Êtes-vous propriétaire ou locataire de votre résidence ?" = nmodalites[13]
+))
+```
+  
+  
+#### Résultats de l'ACM pour les valeurs propres {#sec-12411}
+
+Les résultats pour les valeurs propres sont reportés au @tbl-ACMValeursPropresTab et à la @fig-ACMValeursPropresFig.
+En ACM, l'inertie totale du tableau des variables qualitatives est égale au nombre moyen de modalités par variable moins un, soit $\frac{K}{J}-1$ avec *K* et *J* étant respectivement les nombres de modalités et de variables. Aussi, le nombre d'axes produits par l'ACM est égal à $K - J$. Pour notre tableau, l'inertie est donc égale à $\mbox{25} / \mbox{9} = \mbox{1,77}$ avec $\mbox{25}-\mbox{9} = \mbox{16}$ axes. Le nombre d'axes à retenir est souvent plus difficile à déterminer puisque, tel que signalé judicieusement par Jérôme Pagès [-@pages2002analyse, p.53] : « en pratique, comparée à l'ACP, l'ACM conduit, dans l'ensemble à : des pourcentages d'inertie plus petits; une décroissance de ces pourcentages plus douce ».
+
+L'histogramme des valeurs propres (@fig-ACMValeursPropresFig) révèle plusieurs sauts importants dans les valeurs propres qui pourraient justifier le choix du nombre d'axes factoriels, soit aux axes 1, 2, 3 et 6. Pour l'exercice, nous retenons les trois premiers axes qui résument 30 % de l'inertie du tableau initial.
+
+```{r}
+#| label: tbl-ACMValeursPropresTab
+#| tbl-cap: Résultats de l'ACM pour les valeurs propres
+#| echo: false
+#| message: false
+#| warning: false
+library(FactoMineR)
+# Calcul de l'AFC
+res.acm <-  MCA(dfACM, ncp = 5, quali.sup=10:13, graph = FALSE, row.w = dfenquete$pond)
+
+# Construction d'un DataFrame pour les valeurs propres
+dfACMvp <- data.frame(res.acm$eig)
+names(dfACMvp) <- c("VP" , "VP_pct" , "VP_pctCumul")
+dfACMvp$Axe <- factor(1:nrow(dfACMvp), levels = rev(1:nrow(dfACMvp)))
+dfACMvp <- dfACMvp[, c(4,1:3)]
+
+options(knitr.kable.NA = "")
+knitr::kable(dfACMvp,
+           format.args = list(decimal.mark = ',', big.mark = " "),
+		       digits = 3,
+           col.names = c("Axe factoriel" , "Valeur propre" , "Pourcentage", "Pourc. cumulé"),
+           align= c("r", "r" , "r", "r")
+           )
+```
+
+```{r}
+#| label: fig-ACMValeursPropresFig
+#| echo: false
+#| fig-align: center
+#| fig-cap: Graphiques pour les valeurs propres pour l'ACM
+library(ggplot2)
+library(ggpubr)
+g1 <- ggplot(dfACMvp, aes(x = VP, y = Axe))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black", fill = "skyblue2")+
+  labs(x = "Valeur propre", y = "Axe factoriel")
+g2 <- ggplot(dfACMvp, aes(x = VP_pct, y = Axe))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black", fill = "skyblue2")+
+  theme(legend.position = "none")+
+  labs(x = "Variance expliquée (%)", y = "")
+g3 <- ggplot(dfACMvp, aes(x = VP_pctCumul, y = Axe, group=1))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black", fill = "skyblue2")+
+  geom_line(colour = "brown", linetype = "solid", size=.8) +
+  geom_point(size=3, shape=21, color = "brown", fill = "brown")+
+  theme(legend.position = "none")+
+  labs(x = "Variance expliquée (% cumulé)", y = "Axe factoriel")
+ggarrange(g2, g3,  nrow = 2)
+```
+
+#### Résultats de l'ACM pour les modalités des variables {#sec-12412}
+
+À titre de rappel, comme pour l’ACP et l'AFC, nous retrouvons les trois mêmes mesures pour les variables et les individus (coordonnées factorielles, contributions et cosinus carrés). Plus les variables qualitatives du jeu de données comprennent de modalités, plus la taille du tableau des résultats des modalités est importante et plus il est fastidieux de l'analyser. Il est donc recommandé de construire des histogrammes avec les coordonnées factorielles et les contributions des modalités, mais aussi un nuage de points avec les coordonnées des modalités des variables qualitatives sur le premier, voire le deuxième plan factoriel.
+
+::: bloc_objectif
+::: bloc_objectif-header
+::: bloc_objectif-icon
+:::
+**Compréhension des axes factoriels de l'ACM : une étape essentielle, incontournable...**
+:::
+::: bloc_objectif-body
+Comme en ACP et en AFC, l'analyse des trois mesures (coordonnées, contributions et cosinus carrés) pour les variables et les individus doit vous permettre de comprendre la signification des axes factoriels retenus de l'ACM. Prenez le temps de bien réaliser cette étape d'interprétation souvent plus fastidieuse qu'en ACP et ACM, en raison du nombre élevé de modalités. Cette étape est en effet essentielle afin de qualifier les variables latentes (axes factoriels, variables synthétiques) produites par l'ACM.
+:::
+:::
+
+Les résultats pour les variables sont reportés 1) au @tbl-ACMValeursCoordTab, 2) aux figures [-@fig-ACMValeursCoordFig1], [-@fig-ACMValeursCoordFig2] et [-@fig-ACMValeursCoordFig3] pour les coordonnées et les contributions et à la [-@fig-ACMValeursPlanFacto1] pour le premier plan factoriel.
+
+
+**Interprétation des résultats de l'axe 1 pour les variables**
+
+Sept modalités concourent le plus à la formation de l'axe 1 résumant 13,9 % de la variance : `Q9. 10 à 14 sortes` (10,35 %), `Q10. Oui`	(9,99 %), `Q9. Moins de 5 sortes` (9,71 %), `Q5. Oui`	(9,19 %), `Q11. Oui` (8,20 %), `Q4. Moins de 10%`	(7,87 %) et `Q10. Non` (7,10 %). Aussi, les modalités suivantes sont aux deux extrémités de cet axe :
+
+* **Coordonnées négatives** :  `Q12. Non` (-0,84), `Q3. Moins de 1 an`  (-0,73), `Q9. Moins de 5 sortes` (-0,67), `Q4. Moins de 10%` (-0,56), `Q10. Non` (-0,521). Cela signifie que lorsque les coordonnées des individus sont fortement négatives sur cet axe, les personnes pratiquant l'agriculture urbaine : 
+    + *ne pensent pas que l'agriculture urbaine contribue à améliorer les rapports entre les gens* (`Q12`);
+    + *cultivent des fruits, des fines herbes ou de légumes depuis moins d'un an* (`Q3`);
+    + *cultivent moins de cinq sortes de fruits, de fines herbes ou de légumes* (`Q9`);
+    + *moins de 10 % de la proportion des fruits, des fines herbes et des légumes consommés durant l’été provient de leur propre production *(`Q4`);
+    + *ne cultivent pas suffisamment pour partager avec d'autres personnes* (`Q10`).
+    
+* **Coordonnées positives** : `Q9. 15 sortes ou plus` (1,36), `Q9. 10 à 14 sortes` (1,28), `Q5. Oui` (0,95) et `Q11. Oui` (0,85). Cela signifie que lorsque les coordonnées des individus sont fortement positives sur cet axe, les personnes pratiquant l'agriculture urbaine :
+    + *cultivent plus de dix sortes de fruits, de fines herbes ou de légumes* (`Q9`);
+    + *utilisent du compost provenant de leurs déchets verts ou de leurs déchets alimentaires pour faire pousser des fruits, des fines herbes ou de légumes* (`Q5`);
+    + *échangent leurs semis ou leurs récoltes de fruits, de fines herbes ou des légumes avec d’autres personnes* (`Q11`).
+
+En résumé, l'axe 1 oppose clairement les **néophytes en agriculture** versus les **personnes expérimentées** cultivant des fruits et de légumes variés avec leur propre compost et échangeant leurs semis ou leurs récoltes.
+
+
+```{r}
+#| label: tbl-ACMValeursCoordTab
+#| tbl-cap: Résultats de l'ACM pour les modalités des variables
+#| echo: false
+#| message: false
+#| warning: false
+library(kableExtra)
+library(stringr)
+nAxes <- 3
+dfmodalites <- data.frame(Modalite =rownames(res.acm$var$coord),
+                           Coord = round(res.acm$var$coord[, 1:nAxes],2),
+                           ctr = round(res.acm$var$contrib[, 1:nAxes],2),
+                           Cos2 = round(res.acm$var$cos2[, 1:nAxes],2))
+rownames(dfmodalites) <- 1:nrow(dfmodalites)
+names(dfmodalites) <- str_replace(names(dfmodalites), ".Dim.", "F")
+
+options(knitr.kable.NA = "")
+montableau <- knitr::kable(dfmodalites,
+                   format.args = list(decimal.mark = ',', big.mark = " "),
+				           row.names = FALSE,
+                   digits = 2,
+                   col.names = c("Modalité" , "1" , "2" , "3" , "1" , "2" , "3" , "1" , "2" , "3"),
+                   align= c("l" , "r" , "r" , "r" , "r" , "r" , "r" , "r" , "r" , "r")
+                   )
+add_header_above(montableau, c(" " = 1, "Coordonnées" = 3, "Cosinus carrés" = 3, "Contributions (%)" = 3))
+```
+
+```{r}
+#| label: fig-ACMValeursCoordFig1
+#| echo: false
+#| fig-align: center
+#| fig-cap: Graphiques pour les résultats des modalités de l'axe 1 de l'ACM
+#| out-width: "90%"
+# Histogrammes pour les coordonnées des modalités
+couleursCoords <- c("lightsalmon" , "steelblue")
+plotCoordF1 <- ggplot(dfmodalites,
+                      aes(y = reorder(Modalite, CoordF1),
+                          x = CoordF1, fill = CoordF1<0))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  geom_vline(xintercept = 0, color = "black", linewidth = 1)+
+  scale_fill_manual(name = "Coordonnée" , values = couleursCoords,
+                    labels = c("Positive" , "Négative"))+
+  labs(x = "Coordonnées sur l'axe 1", y = "Modalité")+
+  theme(legend.position = "none", axis.text.y = element_text(size = 7))
+
+plotCoordF2 <- ggplot(dfmodalites,
+                      aes(y = reorder(Modalite, CoordF2),
+                          x = CoordF2, fill = CoordF2<0))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  geom_vline(xintercept = 0, color = "black", linewidth = 1)+
+  scale_fill_manual(name = "Coordonnée" , values = couleursCoords,
+                    labels = c("Positive" , "Négative"))+
+  labs(x = "Coordonnées sur l'axe 2", y = "Modalité")+
+  theme(legend.position = "none", axis.text.y = element_text(size = 7))
+
+plotCoordF3 <- ggplot(dfmodalites,
+                      aes(y = reorder(Modalite, CoordF3),
+                          x = CoordF3, fill = CoordF3<0))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  geom_vline(xintercept = 0, color = "black", linewidth = 1)+
+  scale_fill_manual(name = "Coordonnée", values = couleursCoords,
+                    labels = c("Positive" , "Négative"))+
+  labs(x = "Coordonnées sur l'axe 3", y = "Modalité")+
+  theme(legend.position = "none", axis.text.y = element_text(size = 7))
+
+
+plotCtrF1 <- ggplot(dfmodalites, aes(y = reorder(Modalite, ctrF1), x = ctrF1))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black", fill = "steelblue")+
+  labs(x = "Contributions sur l'axe 1", y = "Modalité")+
+  theme(legend.position = "none", axis.text.y = element_text(size = 7))
+
+plotCtrF2 <- ggplot(dfmodalites, aes(y = reorder(Modalite, ctrF2), x = ctrF2))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black", fill = "steelblue")+
+  labs(x = "Contributions sur l'axe 2", y = "Modalité")+
+  theme(legend.position = "none",
+        axis.text.y = element_text(size = 7))
+
+plotCtrF3 <- ggplot(dfmodalites, aes(y = reorder(Modalite, ctrF3), x = ctrF3))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black", fill = "steelblue")+
+  labs(x = "Contributions sur l'axe 3", y = "Modalité")+
+  theme(legend.position = "none", axis.text.y = element_text(size = 7))
+
+ggarrange(plotCoordF1, plotCtrF1, ncol = 1, nrow = 2)
+```
+
+
+**Interprétation des résultats de l'axe 2 pour les variables**
+
+Quatre modalités concourent le plus à la formation de l'axe 2 résumant 8,8 % de la variance : `Q3. De 1 à 4 ans` (15,30 %), `Q9. 15 sortes ou plus`	(14,42 %), `Q11. Oui`	(12,45 %) et `Q9. 10 à 14 sortes`	(9,42 %). Les modalités suivantes sont présentes aux deux extrémités de l'axe 2 :
+
+- **Coordonnées négatives** :  `Q9. 10 à 14 sortes` (-0,97), `Q11. Oui` (-0,83), `Q3. De 1 à 4 ans` (-0,79), `Q4. 10 à 25%` (-0,76). Cela signifie que lorsque les coordonnées des individus sont fortement négatives sur cet axe, les personnes pratiquant l'agriculture urbaine :  
+    + *cultivent de 10 à 14 sortes de fruits, de fines herbes ou de légumes* (`Q9`); 
+    + *échangent leurs semis ou leurs récoltes de fruits, de fines herbes ou de légumes avec d’autres personnes* (`Q11`);
+    + *cultivent des fruits, des fines herbes ou des légumes depuis 1 à 4 ans* (`Q3`);
+    + *de 10 à 25 % de la proportion des fruits, des fines herbes et des légumes consommés durant l’été provient de leur propre production *(`Q4`).
+
+- **Coordonnées positives** : seule la modalité `Q9. 15 sortes ou plus` (2,15) présente une forte coordonnée positive.
+
+**En résumé, l'axe 2** permet surtout d'identifier des personnes pratiquant l'agriculture urbaine depuis quelques années (de 1 à 4 ans), mais cultivant déjà de nombreuses sortes de fruits et légumes et partageant aussi leurs semis ou récoltes.
+
+
+```{r}
+#| label: fig-ACMValeursCoordFig2
+#| echo: false
+#| fig-align: center
+#| fig-cap: Graphiques pour les résultats des modalités de l'axe 2 de l'ACM
+#| out-width: "90%"
+# Histogrammes pour les coordonnées des modalités
+ggarrange(plotCoordF2, plotCtrF2, ncol = 1, nrow = 2)
+```
+
+```{r}
+#| label: fig-ACMValeursPlanFacto1
+#| fig-cap: Premier plan factoriel de l'ACM pour les modalités
+#| fig-align: center
+#| echo: false
+#| out-width: "75%"
+res.acm2 <-  MCA(dfACM[1:9], ncp = 3, graph = FALSE, row.w = dfenquete$pond)
+fviz_mca_var(res.acm2, repel = TRUE,
+             choice = "var.cat",
+             axes = c(1, 2),
+             # col.var = "black",
+             title = "", xlab = "Axe 1", ylab = "Axe 2",
+             ggtheme = theme_minimal ())
+```
+
+**Interprétation des résultats de l'axe 3 pour les variables**
+
+Trois modalités concourent le plus à la formation de l'axe 3 résumant 7,6 % de la variance : `Q8. Oui`  (23,31), `Q3. De 5 à 9 ans`  (19,43) et `Q9. 5 à 9 sortes`  (17,31). Les modalités suivantes sont présentes aux deux extrémités de l'axe 3 :
+
+- **Coordonnées négatives** : `Q3. De 5 à 9 ans` (-1,11), `Q9. 5 à 9 sortes` (-0,79). 
+- **Coordonnées positives** : seule la modalité `Q8. Oui` présente une coordonnée fortement positive (1,21).
+
+Par conséquent, cet axe semble plus complexe à analyser et surtout moins intéressant que les deux premiers.
+
+
+```{r}
+#| label: fig-ACMValeursCoordFig3
+#| fig-cap: Graphiques pour les résultats des modalités de l'axe 3 de l'ACM
+#| echo: false
+#| fig-align: center
+#| out-width: "100%"
+# Histogrammes pour les coordonnées des modalités
+ggarrange(plotCoordF3, plotCtrF3, ncol = 1, nrow = 2)
+```
+
+
+**Analyse des variables supplémentaires dans l'ACM**
+
+Il est ensuite possible de projeter les modalités supplémentaires sur les axes de l'ACM retenus (@tbl-ACMValeursCoordSuppl et @fig-ACMValeursPlanFactoSupp1). Les faibles valeurs des coordonnées factorielles des modalités supplémentaires sur les deux axes semblent indiquer que le profil socioéconomique des personnes pratiquant l'agriculture urbaine ne semble pas (ou peu) relié aux profils identifiés par les axes factoriels.
+
+```{r}
+#| label: tbl-ACMValeursCoordSuppl
+#| tbl-cap: Résultats de l'ACM pour les modalités des variables supplémentaires
+#| echo: false
+#| message: false
+#| warning: false
+library(kableExtra)
+library(stringr)
+nAxes <- 2
+dfmodalsuppl <- data.frame(Modalite =rownames(res.acm$quali.sup$coord),
+                           Coord = round(res.acm$quali.sup$coord[, 1:nAxes],2),
+                           cos2 = round(res.acm$quali.sup$cos2[, 1:nAxes],2))
+rownames(dfmodalsuppl) <- 1:nrow(dfmodalsuppl)
+names(dfmodalsuppl) <- str_replace(names(dfmodalsuppl), ".Dim.", "F")
+
+options(knitr.kable.NA = "")
+montableau <- knitr::kable(dfmodalsuppl,
+                    format.args = list(decimal.mark = ',', big.mark = " "),
+					          row.names = FALSE,
+					          digits = 2,
+                    col.names = c("Modalité" , "1" , "2" , "1" , "2"),
+                    align= c("l" , "r" , "r" , "r" , "r")
+                   )
+add_header_above(montableau, c(" " = 1, "Coordonnées" = 2, "Cosinus carrés" = 2))
+```
+
+```{r}
+#| label: fig-ACMValeursPlanFactoSupp1
+#| echo: false
+#| fig-align: center
+#| fig-cap: Premier plan factoriel de l'ACM avec toutes les modalités incluant celles supplémentaires
+#| message: false
+#| warning: false
+fviz_mca_var(res.acm, repel = TRUE,
+             choice = "var.cat",
+             axes = c(1, 2),
+             col.var = "gray23",
+             col.quali.sup = "darkred",
+             labelsize = 3,
+             title = "", xlab = "Axe 1", ylab = "Axe 2", 
+             ggtheme = theme_minimal ())
+```
+
+::: bloc_astuce
+::: bloc_astuce-header
+::: bloc_astuce-icon
+:::
+**Visualisation de variables qualitatives ordinales sur un plan factoriel**
+:::
+::: bloc_astuce-body
+Lorsque les variables qualitatives sont ordinales et non nominales, il peut être intéressant de relier les différentes modalités avec une ligne. Cela permet de comprendre en un coup d'œil la trajectoire que suivent les modalités sur les deux axes factoriels. En guise d'exemple, nous réalisons cet exercice pour les variables `Q3` et `Q9` (@fig-ACMordinaleTrajectoire).
+
+```{r}
+#| label: fig-ACMordinaleTrajectoire
+#| fig-cap: Trajectoires des variables ordinales sur le premier plan factoriel de l'ACM
+#| echo: false
+#| fig-align: center
+#| out-width: "70%"
+library(ggpubr)
+Q3 <- dfmodalites[1:4, 1:3]
+Q9 <- dfmodalites[13:16, 1:3]
+G1 <- ggplot(Q3, aes(x = CoordF1, y = CoordF2, label=Modalite))+
+  xlim(-1, .75)+ylim(-1, 1)+
+  labs(title = "Q3. Depuis combien de temps cultivez-vous \ndes fruits, des fines herbes ou des légumes?",
+       x = "Axe 1", y = "Axe 2")+
+  geom_label(nudge_x=0, nudge_y = 0.07) +
+  geom_line( color = "black", linewidth = .2)+
+  geom_point(shape=21, color = "black", fill = "steelblue", size=4)
+G2 <- ggplot(Q9, aes(x = CoordF1, y = CoordF2, label=Modalite))+
+  xlim(-1, 1.75)+ylim(-1, 2.3)+
+  labs(title = "Q9. Combien de sortes de fruits, de fines \nherbes ou des légumes cultivez-vous?",
+       x = "Axe 1", y = "Axe 2")+
+  geom_label(nudge_x=0, nudge_y = 0.07) +
+  geom_line( color = "black", linewidth = .2)+
+  geom_point(shape=21, color = "black", fill = "steelblue", size=4)
+ggarrange(G1, G2, nrow = 2)
+```
+:::
+:::
+
+#### Résultats de l'ACM pour les individus {#sec-12413}
+
+Comme toute méthode factorielle, les coordonnées factorielles, les cosinus carrés et les contributions sont aussi disponibles pour les individus en ACM. Nous proposons ici simplement de réaliser le premier plan factoriel pour les individus en attribuant un dégradé de couleurs avec les cosinus carrés (@fig-ACMPlanFacto12Ind1). Il est aussi possible d'attribuer des couleurs aux différentes modalités d'une variable. Par exemple, sur le premier plan factoriel, nous avons utilisé la variable `Q12. Selon vous, l’agriculture urbaine contribue-t-elle à améliorer les rapports entre les gens?`. Cela permet de repérer visuellement que les personnes ayant répondu négativement à cette question ont surtout des coordonnées négatives sur l'axe 1.
+
+```{r}
+#| label: fig-ACMPlanFacto12Ind1
+#| echo: false
+#| fig-align: center
+#| fig-cap: Premier plan factoriel de l'ACM pour les individus
+#| message: false
+#| warning: false
+#| out-width: "100%"
+fviz_mca_ind(res.acm, col.ind = "cos2",
+             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+             repel = TRUE,
+             xlab = "Axe 1", ylab = "Axe 2", title = "",
+             ggtheme = theme_minimal())
+```
+
+```{r}
+#| label: fig-ACMPlanFacto12Ind2
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-align: center
+#| fig-cap: Premier plan factoriel de l'ACM pour les individus avec coloration d'une variable
+#| out-width: "100%"
+fviz_mca_ind (res.acm,
+              label = "none",
+              habillage = "q12", # colorer par groupes
+             xlab = "Axe 1", ylab = "Axe 2", title = "",
+              palette = c ("darkred", "steelblue", "gray23"),
+              ggtheme = theme_minimal ())
+```
+
+### Mise en œuvre dans R {#sec-1242}
+
+#### Calcul d’une ACM avec `FactoMineR` {#sec-12421}
+
+Plusieurs *packages* permettent de calculer une ACM dans R, notamment `ExPosition` (fonction `epMCA`), `ade4` (fonction `dudi.mca`) et `FactoMineR` (fonction `MCA`). De nouveau, nous utilisons `FactoMineR` couplé au *package* `factoextra` pour réaliser rapidement des graphiques.
+
+Pour calculer l'ACM, il suffit d'utiliser la fonction `MCA` de `FactoMineR`, puis la fonction `summary(res.acm)` qui renvoie les résultats de l'ACM pour : 
+
+- Les valeurs propres (section `Eigenvalues`) pour les axes factoriels (`Dim.1` à `Dim.n`) avec leur variance expliquée brute (`Variance`), en pourcentage (`% of var.`) et en pourcentage cumulé (`Cumulative % of var.`).
+
+- Les dix premières observations (section `Individuals`) avec les coordonnées factorielles (`Dim.1` à `Dim.n`), les contributions (`ctr`) et les cosinus carrés (`cos2`). Pour accéder aux résultats pour toutes les observations, utilisez les fonctions `res.acm$ind` ou encore `res.acm$ind$coord` (uniquement les coordonnées factorielles), `res.acm$ind$contrib` (uniquement les contributions) et `res.acm$ind$cos2` (uniquement les cosinus carrés).
+
+- Les dix premières modalités des variables (section `Categories`) avec les coordonnées factorielles (D`im.1` à `Dim.n`), les contributions (`ctr`) et les cosinus carrés (`cos2`).
+
+La syntaxe ci-dessous permet, dans un premier temps, de calculer l'ACM, puis de créer un *DataFrame* pour les résultats des valeurs propres.
+
+```{r}
+#| label: ACMCodePartie1VPa
+#| echo: true
+#| message: false
+#| warning: false
+#| out-width: "75%"
+library(FactoMineR)
+# Calcul de l'AFC
+res.acm <-  MCA(dfACM,            # Nom du DataFrame
+                ncp = 3,          # Nombre d'axes retenus
+                quali.sup=10:13,  # Variables supplémentaires
+                graph = FALSE, 
+                row.w = dfenquete$pond) # Variables pour la pondération des lignes
+# Affichage des résultats
+print(res.acm)
+summary(res.acm)
+# Construction d'un DataFrame pour les valeurs propres
+dfACMvp <- data.frame(res.acm$eig)
+names(dfACMvp) <- c("VP" , "VP_pct" , "VP_pctCumul")
+dfACMvp$Axe <- factor(1:nrow(dfACMvp), levels = rev(1:nrow(dfACMvp)))
+dfACMvp <- dfACMvp[, c(4,1:3)]
+```
+
+#### Exploration graphique des résultats de l'ACM pour les valeurs propres {#sec-124212}
+
+Pour créer un histogramme des valeurs propres de l'ACM, vous pouvez utiliser la fonction `fviz_screeplot` de `factoextra`.
+
+```{r}
+#| label: fig-ACMCodePartie1VPb
+#| echo: true
+#| fig-align: center
+#| fig-cap: Graphique pour les valeurs propres de l'ACM avec factoextra
+#| message: false
+#| out-width: "75%"
+
+library(factoextra)
+library(ggplot2)
+
+fviz_screeplot(res.acm, addlabels = TRUE,
+               x = "Composantes", y = "Valeur propre", title = "")
+```
+
+Avec un peu plus de lignes de code, il est relativement facile d'exploiter le *DataFrame* des valeurs propres créé précédemment (`dfACMvp`) pour construire des graphiques plus personnalisés.
+
+```{r}
+#| label: fig-ACMCodePartie1VPc
+#| echo: true
+#| fig-align: center
+#| fig-cap: Graphiques pour les valeurs propres de l'ACM avec factoextra
+#| message: false
+#| out-width: "75%"
+library(factoextra)
+library(ggplot2)
+
+couleursAxes <- c("steelblue" , "skyblue2")
+g1 <- ggplot(dfACMvp, aes(x = VP, y = Axe))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black", fill = "skyblue2")+
+  labs(x = "Valeur propre", y = "Axe factoriel")
+g2 <- ggplot(dfACMvp, aes(x = VP_pct, y = Axe))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black", fill = "skyblue2")+
+  theme(legend.position = "none")+
+  labs(x = "Variance expliquée (%)", y = "Axe factoriel")
+g3 <- ggplot(dfACMvp, aes(x = VP_pctCumul, y = Axe, group=1))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black", fill = "skyblue2")+
+  geom_line(colour = "brown", linetype = "solid", size=.8) +
+  geom_point(size=3, shape=21, color = "brown", fill = "brown")+
+  theme(legend.position = "none")+
+  labs(x = "Variance expliquée (% cumulé)", y = "Axe factoriel")
+ggarrange(g2, g3,  nrow = 2)
+```
+
+La syntaxe ci-dessous permet de construire un tableau avec les coordonnées factorielles, les cosinus carrés et les contributions pour les modalités des variables qualitatives.
+
+
+```{r}
+#| label: ACMCodePartie2a
+#| echo: true
+#| message: false
+#| warning: false
+#| out-width: "75%"
+library(stringr)
+nAxes <- 3
+dfmodalites <- data.frame(Modalite =rownames(res.acm$var$coord),
+                           Coord = round(res.acm$var$coord[, 1:nAxes],3),
+                           Cos2 = round(res.acm$var$cos2[, 1:nAxes],3),
+                           ctr = round(res.acm$var$contrib[, 1:nAxes],3))
+rownames(dfmodalites) <- 1:nrow(dfmodalites)
+names(dfmodalites) <- str_replace(names(dfmodalites), ".Dim.", "F")
+```
+
+
+#### Exploration graphique des résultats de l'ACM pour les modalités {#sec-124213}
+
+Avant d'explorer graphiquement les résultats pour les modalités, il est judicieux de construire un *DataFrame* avec les coordonnées factorielles, les contributions et les cosinus carrés des modalités (voir la syntaxe ci-dessous).
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| out-width: "75%"
+library(kableExtra)
+library(stringr)
+nAxes <- 3
+dfmodalites <- data.frame(Modalite =rownames(res.acm$var$coord),
+                           Coord = round(res.acm$var$coord[, 1:nAxes],2),
+                           ctr = round(res.acm$var$contrib[, 1:nAxes],2),
+                           Cos2 = round(res.acm$var$cos2[, 1:nAxes],2))
+rownames(dfmodalites) <- 1:nrow(dfmodalites)
+names(dfmodalites) <- str_replace(names(dfmodalites), ".Dim.", "F")
+```
+
+Plusieurs fonctions très faciles à utiliser de `factoextra` permettent de construire rapidement des graphiques : `fviz_mca_var` pour un nuage de points d'un plan factoriel, `fviz_cos2` et `fviz_contrib` (en utilisant le paramètre `choice=var.cat`) pour des histogrammes avec les cosinus carrés et les contributions des modalités.
+
+Il est aussi possible de créer vos propres graphiques avec `ggplot2` en utilisant le *DataFrame* créé précédemment avec les modalités. Par exemple, la syntaxe ci-dessous renvoie deux histogrammes pour l'axe 1 : l'un avec les coordonnées, l'autre avec les contributions. Dans la syntaxe, repérez le terme `CoordF1`. Dupliquez la syntaxe et changez ce terme pour `CoordF2` et `CoordF3` pour réaliser les graphiques des axes 2 et 3.
+
+```{r}
+#| label: fig-ACMMiseEnOeuvreVars1
+#| echo: true
+#| fig-align: center
+#| fig-cap: Exemple de graphiques pour les résultats des modalités
+#| out-width: "100%"
+# Histogrammes pour les coordonnées des modalités
+couleursCoords <- c("lightsalmon" , "steelblue")
+plotCoordF1 <- ggplot(dfmodalites,
+                      aes(y = reorder(Modalite, CoordF1),
+                          x = CoordF1, fill = CoordF1<0))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black")+
+  geom_vline(xintercept = 0, color = "black", linewidth = 1)+
+  scale_fill_manual(name = "Coordonnée" , values = couleursCoords,
+                    labels = c("Positive" , "Négative"))+
+  labs(x = "Coordonnées sur l'axe 1", y = "Modalité")+
+  theme(legend.position = "none", axis.text.y = element_text(size = 7))
+
+plotCtrF1 <- ggplot(dfmodalites, aes(y = reorder(Modalite, ctrF1), x = ctrF1))+
+  geom_bar(stat = "identity", width = .6, alpha = .8, color = "black", fill = "steelblue")+
+  labs(x = "Contributions sur l'axe 1", y = "Modalité")+
+  theme(legend.position = "none", axis.text.y = element_text(size = 7))
+
+ggarrange(plotCoordF1, plotCtrF1, ncol = 1, nrow = 2)
+```
+
+La syntaxe suivante permet de construire le premier plan factoriel pour les modalités avec la fonction `fviz_mca_var` de `factoextra` (@fig-ACMMiseEnOeuvreVars2).
+
+```{r}
+#| label: fig-ACMMiseEnOeuvreVars2
+#| echo: true
+#| fig-align: center
+#| fig-cap: Premier plan factoriel de l'ACM pour les modalités
+#| out-width: "75%"
+res.acm2 <-  MCA(dfACM[1:9], ncp = 3, graph = FALSE, row.w = dfenquete$pond)
+fviz_mca_var(res.acm2, repel = TRUE,
+             choice = "var.cat",
+             axes = c(1, 2),
+             # col.var = "black",
+             title = "", xlab = "Axe 1", ylab = "Axe 2",
+             ggtheme = theme_minimal ())
+```
+
+La syntaxe suivante permet de construire le premier plan factoriel pour les modalités supplémentaires avec la fonction `fviz_mca_var` de `factoextra` (@fig-ACMMiseEnOeuvreVars3).
+
+```{r}
+#| label: fig-ACMMiseEnOeuvreVars3
+#| echo: true
+#| fig-align: center
+#| fig-cap: Premier plan factoriel de l'ACM pour les modalités supplémentaires
+#| message: false
+#| warning: false
+#| out-width: "75%"
+fviz_mca_var(res.acm, repel = TRUE,
+             choice = "var.cat",
+             axes = c(1, 2),
+             col.var = "gray23",
+             col.quali.sup = "darkred",
+             labelsize = 3,
+             title = "", xlab = "Axe 1", ylab = "Axe 2", 
+             ggtheme = theme_minimal ())
+```
+
+Finalement, la syntaxe ci-dessous renvoie un graphique avec la trajectoire de la variable `Q3` (@fig-ACMMiseEnOeuvreVars4).
+
+```{r}
+#| label: fig-ACMMiseEnOeuvreVars4
+#| echo: true
+#| fig-align: center
+#| fig-cap: Trajectoires des variables ordinales sur le premier plan factoriel de l'ACM
+#| out-width: "70%"
+library(ggpubr)
+Q3 <- dfmodalites[1:4, 1:3]
+ggplot(Q3, aes(x = CoordF1, y = CoordF2, label=Modalite))+
+  xlim(-1, .75)+ylim(-1, 1)+
+  labs(title = "Q3. Depuis combien de temps cultivez-vous \n
+        des fruits, des fines herbes ou des légumes?",
+       x = "Axe 1", y = "Axe 2")+
+  geom_label(nudge_x=0, nudge_y = 0.07) +
+  geom_line( color = "black", linewidth = .2)+
+  geom_point(shape=21, color = "black", fill = "steelblue", size=4)
+```
+
+#### Exploration graphique des résultats de l'ACM pour les individus {#sec-124214}
+
+D'autres fonctions de `factoextra` produisent rapidement des graphiques pour les individus :
+
+- `fviz_cos2` et `fviz_contrib` (en utilisant le paramètre `choice=ind`) pour construire des histogrammes pour les cosinus carrés et les contributions des individus.
+- `fviz_mca_ind` pour un nuage de points d'un plan factoriel (axes 1 et 2 habituellement).
+
+La syntaxe ci-dessous produit le premier axe factoriel pour les individus (@fig-ACMPlanFactoInd1Facto).
+
+```{r}
+#| label: fig-ACMPlanFactoInd1Facto
+#| echo: true
+#| fig-align: center
+#| fig-cap: Premier plan factoriel de l'ACM pour les individus avec factoextra
+#| message: false
+#| warning: false
+#| out-width: "70%"
+fviz_mca_ind(res.acm, col.ind = "cos2",
+             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+             repel = TRUE,
+             xlab = "Axe 1", ylab = "Axe 2", title = "",
+             ggtheme = theme_minimal())
+```
+
+La syntaxe ci-dessous produit aussi le premier plan factoriel pour les individus, mais en attribuant une couleur différente aux modalités de la variable `q12` (@fig-ACMPlanFactoInd2Facto).
+
+```{r}
+#| label: fig-ACMPlanFactoInd2Facto
+#| echo: true
+#| fig-align: center
+#| fig-cap: Premier plan factoriel de l'ACM pour les individus avec coloration d'une variable avec factoextra
+#| message: false
+#| warning: false
+#| out-width: "70%"
+fviz_mca_ind (res.acm,
+              label = "none",
+              habillage = "q12", # colorer par groupes
+             xlab = "Axe 1", ylab = "Axe 2", title = "",
+              palette = c ("darkred", "steelblue", "gray23"),
+              ggtheme = theme_minimal ())
+```
+
+## Quiz de révision du chapitre {#sec-125}
+
+```{r}
+#| label: quizChapitre12
+#| echo: false
+#| warning: false
+#| results: asis
+source("code_complementaire/QuizzFunctions.R")
+Chapitre12_AnalysesFacto <- quizz("quiz/Chapitre12_AnalysesFacto.yml", "Chapitre12_AnalysesFacto")
+render_quizz(Chapitre12_AnalysesFacto)
+```
+

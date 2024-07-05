@@ -1,0 +1,64 @@
+- label: "Avec quelle fonction peut-on sélectionner son répertoire de travail?"
+  type: uc
+  response: 4
+  answers:
+     - "get.wd"
+     - "set.wd"
+     - "setWd"
+     - "setwd"
+  help: "Relisez au besoin la [section @sec-018]."
+
+- label: "Installer RStudio est suffisant pour pouvoir utiliser R."
+  type: uc
+  response: 2
+  answers:
+     - "Vrai"
+     - "Faux"
+  help: "Relisez au besoin le début de la [section @sec-012]."
+
+- label: "Un package doit être réinstallé à chaque fois que l'on souhaite l'utiliser."
+  type: uc
+  response: 2
+  answers:
+     - "Vrai"
+     - "Faux"
+  help: "Relisez au besoin la [section @sec-0123]."
+
+- label: "La brique de données élémentaire dans R est :"
+  type: uc
+  response: 1
+  answers:
+     - "Le vecteur"
+     - "Le DataFrame"
+     - "La liste"
+     - "La matrice"
+  help: "Relisez au besoin la [section @sec-0136]."
+
+- label: "Un vecteur peut contenir :"
+  type: mc
+  response: [1,2,3]
+  answers:
+     - "uniquement des valeurs numériques"
+     - "uniquement des valeurs textuelles"
+     - "uniquement des valeurs booléennes"
+     - "des valeurs de types différents"
+  help: "Relisez au besoin la [section @sec-0136]."
+
+- label: "La jointure et la concaténation de DataFrames désignent exactement la même opération."
+  type: uc
+  response: 2
+  answers:
+     - "Vrai"
+     - "Faux"
+  help: "Relisez au besoin la [section @sec-01429]."
+
+- label: "Comparativement à une jointure complète, une jointure interne génère un DataFrame avec :"
+  type: uc
+  response: 4
+  answers:
+     - "nécessairement moins d'observations"
+     - "nécessairement plus d'observations"
+     - "au moins autant d'observations"
+     - "autant ou moins d'observations"
+     - "le même nombre d'observation"
+  help: "Relisez le deuxième encadré à la [section @sec-014292]."

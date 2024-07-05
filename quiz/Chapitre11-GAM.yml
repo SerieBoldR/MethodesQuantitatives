@@ -1,0 +1,75 @@
+- label: "Que signifie l'acronyme GAM?"
+  type: uc
+  response: 2
+  answers:
+     - Gaussian Asymetric Model
+     - Generalized Additive Model
+     - Gaussian Asynchronus Model
+     - Generalized Asymetric Model
+  help: "Relisez l'introduction du [chapitre @sec-chap11] au besoin."
+
+- label : "Quel est l'intérêt d'un modèle GAM comparativement à un modèle GLM?"
+  type: uc
+  response: 3
+  answers:
+     - La possibilité d'ajuster n'importe quelle distribution dans le modèle
+     - La possibilité de tenir compte de structures de corrélation entre les observations
+     - L'ajout de termes nonlinéaires pour les prédicteurs
+     - La transformation de la variable Y pour quelle se rapproche d'une distribution normale
+  help: "Relisez au besoin la [section @sec-111]."
+
+- label: "Une spline ajustée sur une variable X dans un GAM est construite comme : "
+  type: uc
+  response: 3
+  answers:
+    - un ensemble de coefficients ajustés à différentes sections de la variable X identifiées par des points de ruptures
+    - la somme d'un ensemble de polynomiales de X multipliées par des coefficients ajustés par le modèle
+    - la somme d'un ensemble de fonctions de base appliquées à X et multipliées par des coefficients ajustés par le modèle
+  help : "Relisez au besoin la [section @sec-1114]."
+
+- label: "Le degré de complexité d'une spline est contrôlé par : "
+  type: uc
+  response: 1
+  answers:
+    - "le nombre de nœuds de la spline"
+    - "le nombre de variables X sur lesquelles la spline est ajustée"
+    - "le type de fonction de base de la spline"
+    - "la distribution du modèle"
+  help : "Relisez au besoin la [section @sec-1114]."
+
+- label: "Le nombre de nœuds d'une spline peut être : "
+  type: mc
+  response: [1,2,3]
+  answers:
+    - "défini manuellement, nous parlons alors de spline de régression"
+    - "déterminé par une approche automatique appelée pénalisation de la vraisemblance, nous parlons alors de spline de lissage"
+    - "déterminé automatiquement en reparamétrisant la spline comme un effet aléatoire, nous parlons alors de spline de lissage"
+    - "déterminé de façon itérative en ajoutant un nœud à chaque fois et en comparant le R2 de Nagelkerke"
+  help : "Relisez au besoin la [section @sec-113]."
+
+
+- label: "Une spline bivariée est un autre nom pour une spline d'interaction."
+  type: uc
+  response: 2
+  answers:
+    - Vrai
+    - Faux
+  help : "Relisez au besoin la [section @sec-115]."
+
+- label: "Une spline peut être ajustée sur plus que deux variables X simultanément."
+  type: uc
+  response: 1
+  answers:
+    - Vrai
+    - Faux
+  help : "Relisez au besoin la [section @sec-115]."
+
+- label: "Pour interpréter les résultats d'une spline, il est possible de : "
+  type: mc
+  response: [1,3]
+  answers:
+    - "observer le nombre de degrés de liberté (estimated degree of freedom) de cette dernière pour se faire une idée de son degré de complexité"
+    - "représenter graphiquement les fonctions de base utilisées par la spline"
+    - représenter les prédictions du modèle "toutes choses égales par ailleurs" afin d'obtenir les effets marginaux des termes non linéaires
+    - "extraire les coefficients de la spline et les interpréter de façon classique"
+  help : "Relisez au besoin la [section @sec-114]."

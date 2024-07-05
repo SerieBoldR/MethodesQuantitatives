@@ -1,0 +1,69 @@
+- label: "GLMM est un acronyme signifiant :"
+  type: uc
+  response: 1
+  answers:
+     - modèles linéaires généralisés à effets mixtes
+     - modèles linéaires gaussiens à effets Mixtes
+     - modèles linéaires généralisés multinomiaux
+     - modèles linéaires généralisés multiniveau
+  help: "Relisez au besoin la [section @sec-0912]."
+
+- label : "Les modèles GLMM, comparativement aux GLM, permettent de tenir compte de : "
+  type: uc
+  response: 4
+  answers:
+     - la distribution spécifique de la variable Y
+     - les distributions spécifiques des variables X
+     - l'hétéroscédasticité des résidus
+     - la non-indépendance des observations
+  help: "Relisez au besoin la [section @sec-0911]."
+
+- label: "Un effet aléatoire se distingue d'un effet fixe, car : "
+  type: mc
+  response: [1,2,3,4]
+  answers:
+    - "Un effet aléatoire n'est pas propre aux individus (unités d'observations), mais provient de facteurs externes."
+    - "Un effet aléatoire induit une forme de hiérarchie, de regroupement d'individus dans des groupes au sein desquels les observations ont plus tendance à se ressembler."
+    - "Un effet aléatoire provient d'une autre population que les unités d'observations et peut donc être également échantillonné."
+    - "Un effet aléatoire implique un partage de l'information dans son estimation. Comparativement à un effet fixe, la conséquence est notamment la réduction des tailles d'effet (shrinkage)."
+  help : "Relisez au besoin la [section @sec-0912]."
+
+- label: "Quels sont les principaux types d'effets que nous pouvons modéliser avec des effets aléatoires?"
+  type: mc
+  response: [1,2,3]
+  answers:
+    - "Des constantes aléatoires, suggérant des écarts absolus entre les groupes"
+    - "Des pentes aléatoires, suggérant des écarts en termes d'effets pour certains prédicteurs en fonction des groupes"
+    - "Des pentes et des constantes aléatoires"
+  help : "Relisez au besoin la [section @sec-092]."
+
+- label: "Quels indicateurs peuvent être utilisés pour analyser la part de la variance / déviance expliquée aux différents niveaux d'un GLMM?"
+  type: mc
+  response: [1,5]
+  answers:
+    - "L'ICC, soit le coefficient de corrélation intraclasse"
+    - "Le BIC, soit le critère d'information bayésien"
+    - "L'AIC"
+    - "La déviance expliquée"
+    - "Les R2 marginal et conditionnel"
+  help : "Relisez au besoin la [section @sec-09223]."
+
+- label: "Toutes les variables catégorielles devraient être incluses dans un modèle comme des effets aléatoires."
+  type: uc
+  response: 2
+  answers:
+    - "Vrai"
+    - "Faux"
+  help : "Relisez au besoin la [section @sec-0912]."
+
+
+- label: "Lors de l'estimation d'un effet aléatoire, le modèle estime exactement : "
+  type: mc
+  response: [2]
+  answers:
+    - "k + 1 paramètres, soit le nombre de catégories plus un paramètre pour la variance de l'effet aléatoire en question"
+    - "un seul paramètre, la variance de la distribution normale associée à l'effet aléatoire en question"
+    - "k paramètres, soit le nombre de catégories pour l'effet aléatoire en question"
+    - "k - 1 paramètres, soit le nombre de catégories moins un pour la catégorie de référence"
+  help : "Relisez au besoin la [section @sec-0921]."
+

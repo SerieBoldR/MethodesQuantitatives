@@ -1,0 +1,813 @@
+# Régressions multiniveaux  {#sec-chap10}
+
+Dans le précédent chapitre, nous avons abordé les modèles à effets mixtes qui permettent d'introduire à la fois des effets fixes et aléatoires (GLMM). Dans ce chapitre, nous poursuivons sur cette voie avec une nouvelle extension des modèles GLM : les modèles multiniveaux. Ces modèles sont simplement une extension des modèles à effets mixtes et permettent de modéliser un phénomène avec une structure hiérarchique des données, tel que décrit dans le chapitre précédent.
+
+::: bloc_notes
+::: bloc_notes-header
+::: bloc_notes-icon
+:::
+**Rappel de la structure hiérarchique des données**
+:::
+::: bloc_notes-body
+**Exemple à deux niveaux :** il s’agit de modéliser un phénomène $y_{ij}$, soit une variable dépendante *Y* pour un individu *i* (niveau 1) niché dans un groupe *j* (niveau 2). Par exemple, modéliser l’indice de masse corporelle (IMC) de 5000 individus résidant dans 100 quartiers différents.
+
+**Exemple à trois niveaux :** il s’agit de modéliser un phénomène $y_{ijk}$, soit une variable dépendante *Y* pour un individu *i* (niveau 1), niché dans un groupe *j* (niveau 2) appartenant à un groupe *k* (niveau 3). Par exemple, modéliser les notes à un examen de mathématiques d’élèves (niveau 1) nichés dans des classes (niveau 2) nichées dans des écoles (niveau 3).
+:::
+:::
+
+
+Nous avons largement décrit précédemment trois principaux types de modèles d’effets mixtes (GLMM) :
+
+* Les GLMM avec constantes aléatoires qui permettent d'avoir une constante différente pour chacun des groupes (niveau 2).
+
+* Les GLMM avec pentes aléatoires qui permettent de faire varier une variable indépendante au niveau 1 (coefficient) en fonction des groupes au niveau 2.
+
+* Les GLMM avec constantes et pentes aléatoires.
+
+Les modèles multiniveaux se différencient des modèles à effets mixtes puisqu'ils permettent d'introduire des variables indépendantes mesurées aux niveaux supérieurs (2 et 3).
+
+::: bloc_package
+::: bloc_package-header
+::: bloc_package-icon
+:::
+**Liste des *packages* utilisés dans ce chapitre**
+:::
+::: bloc_package-body
+
+  - `lme4` pour en œuvre des modèles multiniveaux avec une variable dépendante continue.
+  - `performance` pour obtenir le coefficient intraclasse (ICC).
+  - `MuMIn` pour obtenir les pseudos R^2^.
+:::
+:::
+
+
+## Modèles multiniveaux : deux intérêts majeurs {#sec-101}
+
+Les modèles multiniveaux ont deux principaux avantages : analyser la répartition de la variance entre les différents niveaux et introduire des variables explicatives aux différents niveaux du modèle.
+
+### Répartition de la variance entre les différents niveaux {#sec-1011}
+
+Les modèles multiniveaux permettent d’estimer comment se répartit la variance entre les différents niveaux du jeu de données. Dans les deux exemples de l'encadré précédent, ils permettraient de répondre aux questions suivantes :
+
+* Quel niveau explique le plus l’IMC, le niveau individuel (niveau 1) ou le niveau contextuel (niveau 2)?
+
+* Comment se répartit la variance des notes à l’examen de mathématiques entre les trois niveaux? A-t-on plus de variance pour les individus (niveau 1) ou au sein des classes (niveau 2) ou entre les différentes écoles (niveau 3)?
+
+### Estimation des coefficients aux différents niveaux {#sec-1012}
+Les modèles multiniveaux permettent d’estimer simultanément les coefficients de plusieurs variables indépendantes introduites à chacun des niveaux du modèle. Autrement dit, de voir comment les variables indépendantes introduites aux différents niveaux influencent la variable dépendante (*Y*) mesurée au niveau 1. Si nous reprenons l'exemple à trois niveaux (élèves/classes/écoles), plusieurs facteurs peuvent influencer la réussite ou la performance scolaire des élèves aux différents niveaux :
+
+* **Variables indépendantes au niveau 1** (élève) : âge, sexe, statut socioéconomique, langue maternelle autre que la langue d'enseignement...
+
+* **Variables indépendantes au niveau 2** (classe) : nombre d’élèves par classe, programme spécialisé ou pas...
+
+* **Variables indépendantes au niveau 3** (école) : indice de défavorisation de l’école, école publique ou privée, qualité des infrastructures de l'école (bâtiment, gymnase, cour d'école)...
+
+Dans la même veine, afin d'illustrer l'apport des modèles multiniveaux dans le champ de la géographie de la santé, Philibert et Apparicio  [-@philibert2007statistiques, p. 129] signalent que « pour un modèle à deux niveaux, il s’agit de modéliser $y_{ij}$, par exemple l’IMC d’un individu *i* (niveau 1) résidant dans un quartier *j* (niveau 2). Il est alors possible de mettre des variables explicatives tant au niveau 1 (âge, sexe, revenu, niveau d’éducation, etc.) qu’au niveau 2 (niveau de défavorisation sociale du quartier, offre de services et d’équipements sportifs et récréatifs, caractéristiques de l’environnement urbain, etc.). Dans cet exemple, nous pouvons voir comment la modélisation multiniveau permet d’estimer simultanément les effets environnementaux et individuels de manière à distinguer la contribution de chacun des niveaux (ex. : l’effet du revenu des individus et celui de la défavorisation du quartier) dans l’explication des variations géographiques observées ».
+
+::: bloc_aller_loin
+::: bloc_aller_loin-header
+::: bloc_aller_loin-icon
+:::
+**Évaluer les effets de milieu avec des analyses multiniveaux**
+:::
+::: bloc_aller_loin-body
+En santé des populations et en études urbaines, les modèles multiniveaux sont largement mobilisés pour évaluer les effets de milieu (*neighbourhoods effects* ou *area effects* en anglais).
+
+Atkinson et Kintrea [-@atkinson2001disentangling, p. 2278] définissent les « effets de milieu comme le changement net dans les potentialités de l’existence (*life chances*) attribuable au fait de vivre dans un quartier (ou une zone) plutôt qu'un autre » [traduction libre]. Les effets de milieu peuvent être positifs ou négatifs et concerner aussi bien les enfants que les adultes.
+
+Les analyses multiniveaux sont particulièrement adaptées à l'évaluation des effets de milieu. En effet, plusieurs phénomènes — état de santé, comportement ou choix individuels — peuvent être influencés à la fois par des caractéristiques individuelles (âge, sexe, niveau de revenu, niveau d'éducation, etc.) et par des caractéristiques contextuelles (caractéristiques du quartier).
+
+Avec un modèle multiniveau, une fois contrôlées les caractéristiques individuelles (variables indépendantes mesurées au niveau 1), il est alors possible d'évaluer l'effet des caractéristiques du quartier (variables indépendantes mesurées au niveau 2) sur un phénomène $y_{ij}$ mesuré pour un individu *i* résidant dans un quartier *j*.
+:::
+:::
+
+## Différents types de modèles multiniveaux {#sec-102}
+
+### Description du jeu de données utilisé {#sec-1021} 
+
+Dans le cadre de cette section, nous présentons uniquement les modèles à deux niveaux, soit celui pour modéliser un phénomène $y_{ij}$. Pour ce faire, nous utilisons des données tirées d'une étude de Pham et al. [-@apparicio2017disentangling]. Dans cet article, les auteurs souhaitent évaluer les effets des caractéristiques de la forme urbaine et des caractéristiques socioéconomiques sur la couverture des arbres de rue, et ce, à partir d'un modèle multiniveau. Ils disposent ainsi d'une structure hiérarchique de données avec deux niveaux : les tronçons de rue (niveau 1, n = 10 814) inclus dans un et un seul secteur de recensement (niveau 2, n = 312). La variable dépendante ($y_{ij}$) est le pourcentage de la superficie du tronçon de rue qui est couverte par des arbres, calculé à partir d'images satellites à haute résolution (Quickbird, 60 cm, septembre 2008). L'ensemble des variables utilisées pour les modèles sont reportées au @tbl-Multi.
+
+Sept variables indépendantes relatives à la forme urbaine sont mesurées pour les tronçons de rue, soit la largeur et la longueur de la rue, l'âge médian des bâtiments (introduit également au carré pour vérifier l'existence d'un effet curvilinéaire; voir la [section @sec-07511]), les pourcentages de bâtiments résidentiels, de duplex et de triplex, le nombre de bâtiments et finalement la distance moyenne entre le bâtiment et la rue. Les variables indépendantes pour les 312 secteurs de recensement (niveau 2) sont extraites du recensement canadien de 2006 (@tbl-Multi).
+
+```{r}
+#| label: tbl-Multi
+#| tbl-cap: Statistiques descriptives pour les variables des modèles multiniveaux
+#| echo: false
+#| message: false
+#| warning: false
+#| out-width: "75%"
+load("data/multiniveau/dataArbres.RData")
+
+vars <- c("PCTArb" , "Width" , "Length" , "AgeMed" , "ResiPCT" , "DuTriPct" , "NoLog" , "Setback",
+          "ValLog" , "UDipPCT" , "PCTFRAVI" , "PCTIMGRE",
+          "AvecEnf" , "FranPCT")
+
+intitule <- c("Arbres sur le tronçon de rue (%)" , "Largeur des rues" , "Longueur de rues" , "Âge médian des bâtiments",
+              "Bâtiments résidentiels (%)" , "Duplex ou triplex (%)", "Nombre de bâtiments", "Distance entre le bâtiment et la rue",
+              
+              "Valeur moyenne des logements (milliers de dollars)" , "Diplômés universitaires (%)" , "Personnes à faible revenu (%)" , "Immigrants récents (%)",
+              "Ménages avec enfants (%)" , "Langue maternelle française (%)")
+type1 <- c("VD" , "VI" , "VI" , "VI" , "VI" , "VI" , "VI" , "VI" , "VI" , "VI" , "VI" , "VI" , "VI" , "VI")
+type2 <- c("1" , "1" , "1" , "1" , "1" , "1" , "1" , "1" , "2" , "2" , "2" , "2" , "2" , "2")
+
+moy <- round(sapply(Multiniveau[vars], mean),1)
+et <- round(sapply(Multiniveau[vars], sd),1)
+
+stats <- data.frame(cbind(moy, et))
+stats <- cbind(vars, intitule, type1, type2, stats)
+
+options(knitr.kable.NA = "")
+knitr::kable(stats,
+           format.args = list(decimal.mark = ',', big.mark = " "),
+           digits = 1,
+           row.names = FALSE,
+           col.names = c("Nom" , "Intitulé" , "Type", "Niveau", "Moy.", "Écart type"),
+           align= c("l" , "l" , "c", "c", "r", "r")
+           )
+```
+
+### Démarche classique pour les modèles multiniveaux {#sec-1022} 
+
+La démarche habituelle en analyse multiniveau est de réaliser plusieurs modèles, allant du plus simple au plus complexe. Cette stratégie permet habituellement de bien cerner la répartition de la variance entre les différents niveaux et l'apport des variables explicatives introduites aux différents niveaux. De la sorte, cinq types de modèles peuvent être construits :
+
+1. Le modèle vide (appelé aussi modèle inconditionnel) qui comprend des constantes aléatoires au niveau 2, mais aucune variable explicative.
+
+2. Le modèle avec uniquement les variables indépendantes au niveau 1 et des constantes aléatoires au niveau 2.
+
+3. Le modèle complet avec les variables indépendantes aux deux niveaux et des constantes aléatoires.
+
+4. Le modèle complet avec les variables indépendantes aux deux niveaux, incluant une interaction entre une variable indépendante mesurée au niveau 1 et une autre mesurée au niveau 2.
+
+5. Le modèle avec les variables indépendantes aux deux niveaux et des constantes et pentes aléatoires.
+
+
+Dans les sous-sections suivantes, nous détaillons les quatre premiers modèles en prenant soin de montrer les similitudes qu'ils partagent avec les modèles à effets mixtes vus précédemment. Notez d'emblée que les trois premiers modèles sont les plus fréquemment utilisés.
+
+#### Modèle vide {#sec-10221} 
+
+Comme son nom l'indique, le modèle vide ne comprend aucune variable explicative. Il consiste simplement à faire varier la constante du niveau 1 avec des effets aléatoires au niveau 2, ce qui explique qu'il est souvent comparé à une ANOVA avec des effets aléatoires. En d'autres termes, ce modèle correspond à un GLMM avec constantes aléatoires dans lequel aucune variable indépendante n'est incluse au niveau 1. D'ailleurs, si vous comparez l'@eq-multiniveauModeleVide avec l'@eq-glmm2 au chapitre précédent, vous constaterez que seul le paramètre $\beta_1 x_1$ a été ôté et qu'il comprend aussi deux variances : l'une fixe au niveau 1 ($\sigma_e$) et l'autre aléatoire (stochastique) au niveau 2 ($\sigma_{\upsilon}$).
+
+$$
+\begin{aligned}
+&Y \sim Normal(\mu,\sigma_e)\\
+&g(\mu) = \beta_0 + \upsilon \\
+&\upsilon \sim Normal(0, \sigma_{\upsilon}) \\
+&g(x) = x
+\end{aligned}
+$$ {#eq-multiniveauModeleVide}
+
+**Quel est alors l'intérêt de réaliser un modèle si simple?** À partir des deux variances, il est possible de calculer le **coefficient de corrélation intraclasse** (*intraclass-correlation* (ICC) en anglais) qui est le rapport entre la variance aléatoire et la somme des variances des deux niveaux, soit fixe et aléatoire (@eq-multiniveauIcc). Ce coefficient varie ainsi de 0 à 1 et indique la proportion de la variance de la variable dépendante qui est imputable au niveau 2. Tous(tes) les auteur(e)s s'entendent sur le fait qu'il est impératif de commencer une analyse de multiniveau en calculant ce modèle vide qui nous informe de la répartition de la variance entre les deux niveaux [@raudenbush2002hierarchical;@gelman2006data;@tabachnick2007;@bressoux2010]. Nous pourrons ensuite analyser l'évolution de ce coefficient dans les modèles subséquents.
+
+$$
+\rho = \frac{\sigma_{\upsilon}}{\sigma_{\upsilon} + \sigma_{e}}
+$$ {#eq-multiniveauIcc}
+
+Les résultats du modèle vide (inconditionnel) à partir des données de Pham et al. [-@apparicio2017disentangling] sont présentés au @tbl-ModeleVide. La variance du niveau 1 est de 92,93 contre 19,82 au niveau 2. Le coefficient de corrélation intraclasse vaut alors : $\mbox{19,82} / \mbox{(19,82} + \mbox{92,93}) = \mbox{0,1758}$. Cela signifie que 18 % de la variance de la variable dépendante sont imputables au niveau 2 (des secteurs de recensement) et 82 % au niveau 1 (des tronçons). Nous verrons comment évolue ce coefficient dans les modèles subséquents.
+
+```{r}
+#| label: tbl-ModeleVide
+#| tbl-cap: Résultats du modèle vide (modèle 1)
+#| echo: false
+#| message: false
+#| warning: false
+library("lme4")
+library("MuMIn")
+library("performance")
+load("data/multiniveau/dataArbres.RData")
+Modele1 <- lmer(PCTArb ~ 1 + (1| SRNOM),  data = Multiniveau)
+ReslModele1 <- summary(Modele1)
+RandomEffects <- as.data.frame(VarCorr(Modele1))
+VarModel1Niv1 <- round(RandomEffects[1,4],3)
+VarModel1Niv2 <- round(RandomEffects[2,4],3)
+ICCModele1 <- round(VarModel1Niv1/(VarModel1Niv1+VarModel1Niv2),3)
+
+Temp <- summary(Modele1)
+coefs <- round(summary(Modele1)$coefficients,3)
+TableauModele1 <- as.data.frame(coefs)
+cols <- rownames(TableauModele1)
+cols[1] <- "  Constante"
+TableauModele1 <- cbind(cols, TableauModele1)
+TableauModele1 <- rbind(c(NA, NA, NA, NA), TableauModele1)
+TableauModele1[1,1] <- "Effets fixes (niveau 1)"
+
+nlignes <- nrow(TableauModele1)
+TableauModele1[nlignes+1,1] <- "Répartition de la variance"
+TableauModele1[nlignes+2,1] <- "Variance (niveau 1)"
+TableauModele1[nlignes+3,1] <- "Variance (niveau 2)"
+TableauModele1[nlignes+4,1] <- "Coefficient de corrélation intraclasse"
+TableauModele1[nlignes+2,2] <- VarModel1Niv1
+TableauModele1[nlignes+3,2] <- VarModel1Niv2
+TableauModele1[nlignes+4,2] <- ICCModele1
+
+TableauModele1[nlignes+5,1] <- "Qualité d'ajustement du modèle"
+TableauModele1[nlignes+6,1] <- "AIC"
+TableauModele1[nlignes+7,1] <- "R^2^ marginal"
+TableauModele1[nlignes+8,1] <- "R^2^ conditionnel"
+TableauModele1[nlignes+6,2] <- round(AIC(Modele1),3)
+TableauModele1[nlignes+7,2] <- round(r.squaredGLMM(Modele1)[1],3)
+TableauModele1[nlignes+8,2] <- round(r.squaredGLMM(Modele1)[2],3)
+
+options(knitr.kable.NA = "")
+knitr::kable(TableauModele1[, c(1,2,3,4)],
+             format.args = list(decimal.mark = ',', big.mark = " "),
+             digits = 3,
+             row.names = FALSE,
+             col.names = c("Paramètre" , "Coefficient" , "Erreur type", "Valeur de T"),
+             align= c("l" , "r" , "r", "r")
+             )
+```
+
+#### Modèle avec les variables indépendantes du niveau 1 {#sec-10222}
+
+Dans ce second modèle, nous introduisons uniquement les variables explicatives au niveau 1. Par conséquent, ce modèle est tout simplement un modèle à effets mixtes (GLMM) avec des constantes aléatoires largement décrit à la [section @sec-0921]). Si vous comparez l'équation du modèle vide (@eq-multiniveauModeleVide) avec l'équation de ce modèle (@eq-multiniveauModele2), vous constaterez que le paramètre $\beta_1 x_1$ a été ajouté. Il correspond au coefficient pour la variable indépendante $X_1$ mesurée au niveau 1 (effet fixe). Nous pourrions alors ajouter d'autres paramètres pour les autres variables indépendantes du modèle, soit $\beta_1 x_1 + \beta_2 x_2+ \ldots + \beta_k x_k$ ($k$ étant le nombre de variables explicatives mesurées au niveau 1, effets fixes).
+
+$$
+\begin{aligned}
+&Y \sim Normal(\mu,\sigma_e)\\
+&g(\mu) = \beta_0 + \beta_1 x_1 + \upsilon \\
+&\upsilon \sim Normal(0, \sigma_{\upsilon})) \\
+&g(x) = x
+\end{aligned}
+$$ {#eq-multiniveauModele2}
+
+Les résultats du second modèle sont présentés au @tbl-Modele2. 
+
+**La répartition de la variance entre les deux niveaux**. La variance du niveau 1 est désormais de 15,263 contre 80,317 au niveau 2, ce qui permet d'obtenir un coefficient de corrélation intraclasse de 0,1597. Cela signifie que de 16 % de la variance de la variable dépendante sont imputables au niveau 2 (des secteurs de recensement), une fois contrôlées les caractéristiques des tronçons.
+
+**La qualité d'ajustement du modèle**. Dans le chapitre précédent sur les GLMM, nous avons largement décrit plusieurs mesures de la qualité d'ajustement du modèle, notamment l'AIC et les R^2^ marginal et conditionnel. À titre de rappel, voici comment interpréter ces mesures :
+
+* Plus la valeur de l'AIC est faible, mieux le modèle est ajusté. En comparant les valeurs d'AIC du modèle vide et du modèle avec les variables explicatives du niveau 1 (80 305 *versus* 78 785), nous constatons, sans surprise, que ce dernier modèle est plus performant.
+
+* Le R^2^ marginal indique la proportion de la variance expliquée uniquement si les effets fixes sont pris en compte (ici, 0,129). Quant au R^2^ conditionnel, il indique la proportion de la variance expliquée à la fois par les effets fixes et aléatoires (ici, 0,268). L'écart important entre les deux R^2^ signale que les secteurs de recensement (effets aléatoires, niveau 2) jouent un rôle important dans le modèle.
+
+**Quelles informations peut-on tirer des coefficients de régression?**
+Les variables indépendantes relatives à la forme urbaine les plus importantes sont : le pourcentage de bâtiments résidentiels (`ResiPCT`), la largeur de la rue (`Width`) et le nombre de bâtiments (`NoLog`). Aussi, la distance entre le bâtiment et la rue (`Setback`) est associée positivement avec la variable dépendante. En effet, à chaque ajout d'un mètre de la distance moyenne entre les bâtiments et le tronçon de rue, la couverture des arbres sur le tronçon augmente de 0,202 point de pourcentage, toutes choses étant égales par ailleurs.
+
+```{r}
+#| label: tbl-Modele2
+#| tbl-cap: Résultats du modèle avec les variables indépendantes au niveau 1 (modèle 2)
+#| echo: false
+#| message: false
+#| warning: false
+# MODÈLE 2
+Modele2 <- lmer(PCTArb ~
+                  # Variables indépendantes au niveau 1
+                   Width+Length+AgeMed+AgeMed2+ResiPCT+DuTriPct+NoLog+Setback+
+                   (1| SRNOM), data = Multiniveau)
+
+RandomEffects <- as.data.frame(VarCorr(Modele2))
+VarModel2Niv1 <- round(RandomEffects[1,4],3)
+VarModel2Niv2 <- round(RandomEffects[2,4],3)
+ICCModele2 <- round(VarModel2Niv1/(VarModel2Niv1+VarModel2Niv2),3)
+
+Temp <- summary(Modele2)
+coefs <- round(summary(Modele2)$coefficients,3)
+TableauModele2 <- as.data.frame(coefs)
+cols <- rownames(TableauModele2)
+cols[1] <- "  Constante"
+TableauModele2 <- cbind(cols, TableauModele2)
+TableauModele2 <- rbind(c(NA, NA, NA, NA), TableauModele2)
+TableauModele2[1,1] <- "Effets fixes (niveau 1)"
+
+nlignes <- nrow(TableauModele2)
+TableauModele2[nlignes+1,1] <- "Répartition de la variance"
+TableauModele2[nlignes+2,1] <- "Variance (niveau 1)"
+TableauModele2[nlignes+3,1] <- "Variance (niveau 2)"
+TableauModele2[nlignes+4,1] <- "Coefficient de corrélation intraclasse"
+TableauModele2[nlignes+2,2] <- VarModel2Niv1
+TableauModele2[nlignes+3,2] <- VarModel2Niv2
+TableauModele2[nlignes+4,2] <- ICCModele2
+
+TableauModele2[nlignes+5,1] <- "Qualité d'ajustement du modèle"
+TableauModele2[nlignes+6,1] <- "AIC"
+TableauModele2[nlignes+7,1] <- "R^2^ marginal"
+TableauModele2[nlignes+8,1] <- "R^2^ conditionnel"
+
+TableauModele2[nlignes+6,2] <- round(AIC(Modele2),3)
+TableauModele2[nlignes+7,2] <- round(r.squaredGLMM(Modele2)[1],3)
+TableauModele2[nlignes+8,2] <- round(r.squaredGLMM(Modele2)[2],3)
+
+options(knitr.kable.NA = "")
+knitr::kable(TableauModele2[, c(1,2,3,4)],
+		       digits = 3,
+           format.args = list(decimal.mark = ',', big.mark = " "),
+           row.names = FALSE,
+           col.names = c("Paramètre" , "Coefficient" , "Erreur type", "Valeur de T"),
+           align= c("l" , "r" , "r", "r")
+           )
+```
+
+Remarquez la valeur de la constante : −1028,618. À titre de rappel, la constante est la valeur que prend la variable dépendante quand toutes les variables indépendantes sont égales à 0. Or, il est impossible qu'elles soient toutes égales à zéro. 
+
+
+::: bloc_astuce
+::: bloc_astuce-header
+::: bloc_astuce-icon
+:::
+**Centrage des variables quantitatives mesurées au niveau 1**
+:::
+::: bloc_astuce-body
+En analyse multiniveau, il est très courant et souvent recommandé de centrer les variables explicatives quantitatives au niveau 1. Deux options sont alors possibles :
+
+1. Pour une variable indépendante donnée, les observations sont centrées sur leur moyenne générale, c'est-à-dire la moyenne de l'ensemble des observations du jeu de données, soit $X_{ij} - \bar{X}$. Dans ce cas, la constante est donc la valeur que prend la variable $Y$ quand toutes les variables indépendantes sont égales à leur moyenne respective.
+2. Chaque observation est centrée sur la moyenne de son groupe respectif, soit $X_{ij} - \bar{X}_{.j}$.
+
+Comme signalé par Bressoux [-@bressoux2010, p. 328], « dans le premier cas, la variance des pentes sera estimée pour l'individu moyen dans la distribution générale, tandis que dans le second elle est estimée pour l'individu moyen de chaque groupe ».
+
+Autrement dit, comparativement à un modèle sans centrage, les valeurs des coefficients pour les variables indépendantes sont les mêmes dans le premier cas (seule la valeur de la constante va changer) tandis qu'elles sont différentes dans le second cas.
+
+Attention, il ne faut pas appliquer de centrage sur une variable qualitative, qu'elle soit dichotomique, nominale ou ordinale.
+
+**Pourquoi la pratique du centrage en analyse multiniveau est si courante?**
+
+Dans la plupart des livres sur les régressions multiniveaux, le centrage est recommandé, notamment dans l'ouvrage classique de Raudenbush et Bryk [-@raudenbush2002hierarchical]. Rappelons que ces modèles sont largement utilisés en éducation avec une structure hiérarchique classique élève/école/classe. Nous nous intéressons alors à l'individu moyen (l'élève), ce qui explique que le centrage est habituellement appliqué. Par exemple, ne pas centrer l'âge des élèves fait que la constante qui est obtenue est peu interprétable : difficile d'évaluer la note moyenne à un examen quand la variable *âge de l'élève* a la valeur de 0, tout comme les autres variables explicatives quantitatives relatives à l'élève.
+
+
+**Centrage et réduction de l'ensemble des variables du modèle**
+
+Il est à noter que certains auteurs centrent et réduisent l'ensemble des variables du modèle. À titre de rappel, le centrage consiste à soustraire à chaque valeur la moyenne de la variable; la réduction, à la diviser par l'écart-type de la variable ([section @sec-02552]). Pour chaque variable, la moyenne est alors égale à 0 et l'écart-type à 1. Les coefficients s'interprètent alors en termes d'augmentation d'une unité d'écart-type tant pour la VI que la VD. Ils correspondent alors à des coefficients de régression standardisés (abordés dans la [section @sec-0742]). Ce processus de centrage et de réduction des variables peut être motivé par des problèmes de convergence du modèle (lorsque l'algorithme d'optimisation n'arrive pas à trouver une solution pour produire les coefficients).
+:::
+:::
+
+Par conséquent, nous vous proposons de centrer les variables du niveau 1 de notre jeu de données. Si vous comparez les tableaux [-@tbl-Modele2] et [-@tbl-Modele2b], vous constaterez que les valeurs relatives aux coefficients, aux mesures de la répartition de la variance et à la qualité d'ajustement du modèle sont les mêmes. Seule la valeur de la constante change : elle passe de −1028,618 à 7,228. Elle s'interprète désormais de la façon suivante : si toutes les variables explicatives sont égales à leurs moyennes respectives, alors le pourcentage de la superficie du tronçon couverte par des arbres est égal à 7,228 %.
+
+```{r}
+#| label: tbl-Modele2b
+#| tbl-cap: Résultats du modèle avec les variables indépendantes centrées au niveau 1 (modèle 2)
+#| echo: false
+#| message: false
+#| warning: false
+
+VINiv1 <- c("Width" , "Length" , "AgeMed" , "AgeMed2" , "ResiPCT" , "DuTriPct" , "NoLog" , "Setback")
+for (e in VINiv1){
+  e.c <- paste(e, ".c", sep = "")
+  Multiniveau[[e.c]] <- Multiniveau[[e]] - mean(Multiniveau[[e]])
+}
+
+# MODÈLE 2
+Modele2 <- lmer(PCTArb ~
+                  # Variables indépendantes au niveau 1
+                   Width.c+Length.c+AgeMed.c+AgeMed2.c+ResiPCT.c+DuTriPct.c+NoLog.c+Setback.c+
+                   (1| SRNOM), data = Multiniveau)
+
+RandomEffects <- as.data.frame(VarCorr(Modele2))
+VarModel2Niv1 <- round(RandomEffects[1,4],3)
+VarModel2Niv2 <- round(RandomEffects[2,4],3)
+ICCModele2 <- round(VarModel2Niv1/(VarModel2Niv1+VarModel2Niv2),3)
+
+coefs <- round(summary(Modele2)$coefficients,3)
+TableauModele2 <- as.data.frame(coefs)
+cols <- rownames(TableauModele2)
+cols[1] <- "  Constante"
+TableauModele2 <- cbind(cols, TableauModele2)
+TableauModele2 <- rbind(c(NA, NA, NA, NA), TableauModele2)
+TableauModele2[1,1] <- "Effets fixes (niveau 1)"
+
+nlignes <- nrow(TableauModele2)
+TableauModele2[nlignes+1,1] <- "Répartition de la variance"
+TableauModele2[nlignes+2,1] <- "Variance (niveau 1)"
+TableauModele2[nlignes+3,1] <- "Variance (niveau 2)"
+TableauModele2[nlignes+4,1] <- "Coefficient de corrélation intraclasse"
+TableauModele2[nlignes+2,2] <- VarModel2Niv1
+TableauModele2[nlignes+3,2] <- VarModel2Niv2
+TableauModele2[nlignes+4,2] <- ICCModele2
+
+TableauModele2[nlignes+5,1] <- "Qualité d'ajustement du modèle"
+TableauModele2[nlignes+6,1] <- "AIC"
+TableauModele2[nlignes+7,1] <- "R^2^ marginal"
+TableauModele2[nlignes+8,1] <- "R^2^ conditionnel"
+
+TableauModele2[nlignes+6,2] <- round(AIC(Modele2),3)
+TableauModele2[nlignes+7,2] <- round(r.squaredGLMM(Modele2)[1],3)
+TableauModele2[nlignes+8,2] <- round(r.squaredGLMM(Modele2)[2],3)
+
+options(knitr.kable.NA = "")
+knitr::kable(TableauModele2[, c(1,2,3,4)],
+		       digits = 3,
+           row.names = FALSE,
+           format.args = list(decimal.mark = ',', big.mark = " "),
+           col.names = c("Paramètre" , "Coefficient" , "Erreur type", "Valeur de T"),
+           align= c("l" , "r" , "r", "r")
+           )
+```
+
+#### Modèle complet avec les variables indépendantes aux niveaux 1 et 2 {#sec-10223}
+
+Le troisième type de modèle consiste à introduire à la fois les variables explicatives mesurées au niveau 1 et au niveau 2 (@eq-multiniveauModele3). Il est communément appelé le modèle complet. Les variables explicatives du niveau 2 sont aussi considérées comme des effets fixes.
+
+$$
+\begin{aligned}
+&Y \sim Normal(\mu,\sigma_e)\\
+&g(\mu)  = \underbrace{\beta_0 + \beta_1 x_1}_{\mbox{effets fixes (niveau 1)}}+ \underbrace{\beta_2 z_2}_{\mbox{effets fixes (niveau 2)}}+\epsilon \\
+&\upsilon \sim Normal(0, \sigma_{\upsilon}) \\
+&g(x) = x
+\end{aligned}
+$$ {#eq-multiniveauModele3}
+
+Les résultats du troisième modèle sont présentés au @tbl-Modele3. Ce modèle permet d'évaluer les effets des caractéristiques socioéconomiques (mesurés au niveau des secteurs de recensement) sur la couverture des arbres des îlots, une fois contrôlées les caractéristiques de la forme urbaine des tronçons. Rappelons que dans ce modèle, les constantes sont aléatoires et les variables indépendantes au niveau 1 sont centrées.
+
+**Quelles informations peut-on tirer des coefficients de régression du niveau 2?**
+D’emblée, deux caractéristiques n'ont pas d'effet significatif sur la variable dépendante, soit les pourcentages de diplômés universitaires et de ménages avec enfants. Par contre, toutes choses étant égales par ailleurs, la valeur moyenne des logements et le pourcentage d'immigrants récents sont associés à une augmentation de la couverture végétale. À l'inverse, le pourcentage de personnes à faible revenu est associé à une diminution de la couverture végétale.
+
+```{r}
+#| label: tbl-Modele3
+#| tbl-cap: Résultats du modèle avec les variables indépendantes aux niveaux 1 et 2 (modèle 3)
+#| echo: false
+#| message: false
+#| warning: false
+# MODÈLE 3
+varsNiv2 <- c("ValLog" , "UDipPCT" , "PCTFRAVI" , "PCTIMGRE" , "AvecEnf" , "FranPCT")
+Modele3 <- lmer(PCTArb ~
+                  # Variables indépendantes au niveau 1
+                   Width.c+Length.c+AgeMed.c+AgeMed2.c+ResiPCT.c+DuTriPct.c+NoLog.c+Setback.c+
+                  # Variables indépendantes au niveau 2
+                  ValLog+UDipPCT+PCTFRAVI+PCTIMGRE+AvecEnf+FranPCT+                   (1| SRNOM), data = Multiniveau)
+
+RandomEffects <- as.data.frame(VarCorr(Modele3))
+VarModel3Niv1 <- round(RandomEffects[1,4],3)
+VarModel3Niv2 <- round(RandomEffects[2,4],3)
+ICCModele3 <- round(VarModel3Niv1/(VarModel3Niv1+VarModel3Niv2),3)
+
+coefs <- round(summary(Modele3)$coefficients,3)
+nvar1 <- length(VINiv1)+1
+nvar2 <- length(varsNiv2)
+nvar12 <- nvar1+nvar2
+
+coefNiv1 <- coefs[1:nvar1,]
+coefNiv2 <- coefs[(nvar1+1):nvar12,]
+coefs <- rbind(coefNiv1, c(NA, NA, NA), coefNiv2)
+
+TableauModele3 <- as.data.frame(coefs)
+cols <- rownames(TableauModele3)
+cols[1] <- "  Constante"
+TableauModele3 <- cbind(cols, TableauModele3)
+TableauModele3 <- rbind(c(NA, NA, NA, NA), TableauModele3)
+TableauModele3[1,1] <- "Effets fixes (niveau 1 : tronçons)"
+TableauModele3[(nvar1+2),1] <- "Effets fixes (niveau 2 : secteurs de recensement)"
+
+nlignes <- nrow(TableauModele3)
+TableauModele3[nlignes+1,1] <- "Répartition de la variance"
+TableauModele3[nlignes+2,1] <- "Variance (niveau 1)"
+TableauModele3[nlignes+3,1] <- "Variance (niveau 2)"
+TableauModele3[nlignes+4,1] <- "Coefficient de corrélation intraclasse"
+TableauModele3[nlignes+2,2] <- VarModel3Niv1
+TableauModele3[nlignes+3,2] <- VarModel3Niv2
+TableauModele3[nlignes+4,2] <- ICCModele3
+
+TableauModele3[nlignes+5,1] <- "Qualité d'ajustement du modèle"
+TableauModele3[nlignes+6,1] <- "AIC"
+TableauModele3[nlignes+7,1] <- "R^2^ marginal"
+TableauModele3[nlignes+8,1] <- "R^2^ conditionnel"
+
+TableauModele3[nlignes+6,2] <- round(AIC(Modele3),3)
+TableauModele3[nlignes+7,2] <- round(r.squaredGLMM(Modele3)[1],3)
+TableauModele3[nlignes+8,2] <- round(r.squaredGLMM(Modele3)[2],3)
+
+options(knitr.kable.NA = "")
+knitr::kable(TableauModele3[, c(1,2,3,4)],
+		       digits = 3,
+           row.names = FALSE,
+           format.args = list(decimal.mark = ',', big.mark = " "),
+           col.names = c("Paramètre" , "Coefficient" , "Erreur type", "Valeur de T"),
+           align= c("l" , "r" , "r", "r")
+           )
+```
+
+#### Modèle avec une interaction entre deux niveaux {#sec-10224}
+
+Dans la [section @sec-0754], nous avons vu comment introduire des variables d'interaction dans une régression linéaire multiple, soit entre deux variables continues ([section @sec-07541]), soit entre une variable continue et une variable dichotomique ([section @sec-07542]), soit entre deux variables dichotomiques ([section @sec-07543]). En analyse multiniveau, il peut être pertinent d'introduire une interaction entre une variable mesurée au niveau 1 et une autre mesurée au niveau 2 (@eq-multiniveauModele4).
+
+$$
+\begin{aligned}
+&Y \sim Normal(\mu,\sigma_e)\\
+&g(\mu)  = \underbrace{\beta_0 + \beta_1 x_1}_{\mbox{effets fixes (niv. 1)}}+ \underbrace{\beta_2 z_2}_{\mbox{effets fixes (niv. 2)}}+ \underbrace{\beta_3 (x_1 \times z_2)}_{\mbox{interaction (niv. 1 et 2)}}+ \epsilon \\
+&\upsilon \sim Normal(0, \sigma_{\upsilon})) \\
+&g(x) = x
+\end{aligned}
+$$ {#eq-multiniveauModele4}
+
+Dans le @tbl-Modele4, nous introduisons une variable d'interaction entre la *distance entre le bâtiment et la rue* (`Setback.c`) et le *pourcentage de personnes à faible revenu* (`PCTFRAVI`). On constate alors que `PCTFRAVI` est associé négativement avec la variable dépendante ($\beta =$ −0,079, *t* = −2,684). Toutefois, lorsqu'elle est mise en interaction avec la variable `Setback.c`, cette variable est significative et positive ($\beta =$ 0,008, *t* = 4,591).
+
+```{r}
+#| label: tbl-Modele4
+#| tbl-cap: Résultats du modèle avec une variable d'interaction entre les deux niveaux 1 et 2 (modèle 4)
+#| echo: false
+#| message: false
+#| warning: false
+
+Multiniveau$PCTFRAVI_Setback <-  Multiniveau$PCTFRAVI * Multiniveau$Setback.c
+
+# MODÈLE 4
+varsNiv2 <- c("ValLog" , "UDipPCT" , "PCTFRAVI" , "PCTIMGRE" , "AvecEnf" , "FranPCT")
+Modele4 <- lmer(PCTArb ~
+                  # Variables indépendantes au niveau 1
+                   Width.c+Length.c+AgeMed.c+AgeMed2.c+ResiPCT.c+DuTriPct.c+NoLog.c+Setback.c+
+                  # Variables indépendantes au niveau 2
+                  ValLog+UDipPCT+PCTFRAVI+PCTIMGRE+AvecEnf+FranPCT+                                     # Variable d'interaction
+                  PCTFRAVI_Setback+
+(1| SRNOM), data = Multiniveau)
+
+RandomEffects <- as.data.frame(VarCorr(Modele4))
+VarModel4Niv1 <- round(RandomEffects[1,4],3)
+VarModel4Niv2 <- round(RandomEffects[2,4],3)
+ICCModele4 <- round(VarModel4Niv1/(VarModel4Niv1+VarModel4Niv2),3)
+
+coefs <- round(summary(Modele4)$coefficients,3)
+nvar1 <- length(VINiv1)+1
+nvar2 <- length(varsNiv2)
+nvar12 <- nvar1+nvar2
+
+coefNiv1 <- coefs[1:nvar1,]
+coefNiv2 <- coefs[(nvar1+1):nvar12,]
+coefs <- rbind(coefNiv1, c(NA, NA, NA), coefNiv2,
+               c(NA, NA, NA), coefs[(nvar12+1),])
+
+TableauModele4 <- as.data.frame(coefs)
+cols <- rownames(TableauModele4)
+cols[1] <- "  Constante"
+TableauModele4 <- cbind(cols, TableauModele4)
+TableauModele4 <- rbind(c(NA, NA, NA, NA), TableauModele4)
+TableauModele4[1,1] <- "Effets fixes (niveau 1 : tronçons)"
+TableauModele4[(nvar1+2),1] <- "Effets fixes (niveau 2 : secteurs de recensement)"
+
+nlignes <- nrow(TableauModele4)
+TableauModele4[nlignes-1,1] <- "Variable d'interaction (niv. 1 et 2)"
+TableauModele4[nlignes,1] <- "Setback X PCTFRAVI"
+TableauModele4[nlignes+1,1] <- "Répartition de la variance"
+TableauModele4[nlignes+2,1] <- "Variance (niveau 1)"
+TableauModele4[nlignes+3,1] <- "Variance (niveau 2)"
+TableauModele4[nlignes+4,1] <- "Coefficient de corrélation intraclasse"
+TableauModele4[nlignes+2,2] <- VarModel4Niv1
+TableauModele4[nlignes+3,2] <- VarModel4Niv2
+TableauModele4[nlignes+4,2] <- ICCModele4
+
+TableauModele4[nlignes+5,1] <- "Qualité d'ajustement du modèle"
+TableauModele4[nlignes+6,1] <- "AIC"
+TableauModele4[nlignes+7,1] <- "R^2^ marginal"
+TableauModele4[nlignes+8,1] <- "R^2^ conditionnel"
+
+TableauModele4[nlignes+6,2] <- round(AIC(Modele4),3)
+TableauModele4[nlignes+7,2] <- round(r.squaredGLMM(Modele4)[1],3)
+TableauModele4[nlignes+8,2] <- round(r.squaredGLMM(Modele4)[2],3)
+
+options(knitr.kable.NA = "")
+knitr::kable(TableauModele4[, c(1,2,3,4)],
+		       digits = 3,
+           row.names = FALSE,
+           format.args = list(decimal.mark = ',', big.mark = " "),
+           col.names = c("Paramètre" , "Coefficient" , "Erreur type", "Valeur de T"),
+           align= c("l" , "r" , "r", "r")
+           )
+```
+
+## Conditions d'application des régressions multiniveaux {#sec-103}
+
+Puisque les modèles multiniveaux sont une extension des modèles à effets mixtes (GLMM), nous retrouvons globalement les mêmes conditions d'application (voir la [section @sec-093]), dont les principales sont :
+
+1. l'absence de multicolinéarité excessive,
+2. la normalité des résidus,
+3. l'absence d'observations trop influentes dans le modèle.
+
+**Combien de groupes au niveau 2?** Dans la [section @sec-093], nous avons vu que dans un modèle GLMM, plusieurs auteur(e)s, notamment Gelman et Hill 
+ [-@gelman2006data], préconisent un minimum de cinq groupes dans un modèle à effets mixtes. Toutefois, dans un modèle complet d'une régression multiniveau, nous introduisons aussi des variables indépendantes au niveau 2. Par conséquent, le nombre de groupes doit être augmenté significativement, et ce, idéalement proportionnellement au nombre des variables indépendantes ajoutées au niveau 2. En ce sens, Bressoux [-@bressoux2010, p.325] conseille d'avoir au moins 10 groupes pour chaque variable indépendante mesurée au niveau 2. Toujours selon Bressoux [-@bressoux2010, p.325], certains auteurs recommandent même 20 groupes par variable indépendante au niveau 2. En conséquence, bien qu'aucune règle de pouce soit clairement admise, il est clair qu'un modèle complet multiniveau nécessite un nombre de groupes conséquent.
+
+## Mise en œuvre dans R {#sec-104}
+
+Pour mettre en œuvre des modèles multiniveaux avec une variable dépendante continue, nous utilisons la fonction `lmer` du *package* `lme4`. Pour d'autres distributions, nous pouvons utiliser la fonction `glmer` implémentant différentes familles de modèles GLM, notamment binomiale (modèle multiniveau logistique), gaussien, Gamma, inverse gaussien, Poisson, Quasi-poisson, etc. Comme pour les modèles GLMM, lorsque d’autres distributions sont nécessaires, il est possible d'utiliser le *package* `gamlss`.
+
+### Le modèle vide {#sec-1041}
+Dans le code R ci-dessous, la syntaxe `lmer(PCTArb ~ 1 + (1| SRNOM),  data = Multiniveau)` permet de construire le modèle vide avec la variable indépendante `PCTArb` et `SRNOM` comme variable définissant les groupes au niveau 2, soit les 312 secteurs de recensement. À titre de rappel, le modèle vide ne comprend aucune variable indépendante.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+library("lme4")
+library("MuMIn")
+# chargement du jeu de données
+load("data/multiniveau/dataArbres.RData")
+
+# MODÈLE 1 : modèle vide (sans prédicteurs)
+#------------------------------------------------------
+# Écrire Y ~ 1 signifie que le modèle est vide
+# 1| SRNOM : signifie que l'on fait varier la constante avec la variable SRNOM
+Modele1 <- lmer(PCTArb ~ 1 + (1| SRNOM),  data = Multiniveau)
+
+# Nombre de groupes
+cat("nombre de groupes =", length(unique(Multiniveau$SRNOM)))
+```
+
+La fonction `summary(Modele1)` permet d'afficher les résultats du modèle. Dans la section intitulée `Random effects`, la variance pour le niveau 2 (`SRNOM (Intercept)`) est de 19,82 contre 92,93 pour le niveau 1 (`Residual`). Le coefficient de corrélation intraclasse (ICC) est donc égal à $\mbox{19,82 / (19,82+92,93)} \times \mbox{100 = 17,58}$%.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+# Résultats du modèle
+summary(Modele1)
+```
+
+Notez qu'il est possible d'obtenir directement la valeur de l'ICC avec la fonction `icc(Modele1)` du *package* `performance` et les statistiques d'ajustement du modèle avec les fonctions `logLik`, `AIC` et `BIC`.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+# Calcul de l'ICC (coefficient intraclasse)
+performance::icc(Modele1)
+ICC1 <- performance::icc(Modele1)
+cat("Part de la variance de la variable dépendante imputable au niveau 2 : ", 
+    round(ICC1$ICC_adjusted*100,2), "%", sep = "")
+
+# Qualité d'ajustement du modèle
+cat("Statistiques d'ajustement du modèle :",
+    "\n-2 Log V = ", -2*logLik(Modele1),
+    "\nAIC =", AIC(Modele1), 
+    "\nBIC =", BIC(Modele1))
+```
+
+### Modèle avec les variables indépendantes du niveau 1 {#sec-1042}
+
+Le second modèle consiste à introduire les variables indépendantes mesurées pour les tronçons de rue (niveau 1). Notez comment sont centrées préalablement les variables explicatives.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+# Centrage des variables indépendantes
+VINiv1 <- c("Width" , "Length" , "AgeMed" , "AgeMed2" , "ResiPCT" , "DuTriPct" , "NoLog" , "Setback")
+for (e in VINiv1){
+  e.c <- paste(e, ".c", sep = "")
+  Multiniveau[[e.c]] <- Multiniveau[[e]] - mean(Multiniveau[[e]])
+}
+
+# MODÈLE 2 : modèle avec les prédicteurs au niveau 1 (rues) 
+# ------------------------------------------------------
+Modele2 <- lmer(PCTArb ~
+                  # Variables indépendantes au niveau 1
+                   Width.c+Length.c+AgeMed.c+AgeMed2.c+ResiPCT.c+DuTriPct.c+NoLog.c+Setback.c+
+                   (1| SRNOM), data = Multiniveau)
+
+# Résultats du modèle
+summary(Modele2)
+
+# Calcul de l'ICC (coefficient intraclasse)
+performance::icc(Modele2)
+ICC2 <- performance::icc(Modele2)
+cat("Part de la variance de la variable dépendante ",
+    "\nimputable au niveau 2 : ", round(ICC2$ICC_adjusted*100,2), "%", sep = "")
+
+# Calcul des R2 conditionnel et marginal avec les fonctions
+# r.squaredGLMM ou r2_nakagawa du package performance
+r.squaredGLMM(Modele2)
+r2_nakagawa(Modele2)
+
+# Qualité d'ajustement du modèle
+cat("Statistiques d'ajustement du modèle",
+    "\n-2 Log L = ", -2*logLik(Modele2),
+    "\nAIC =", AIC(Modele2), 
+    "\nBIC =", BIC(Modele2))
+```
+
+
+### Modèle avec les variables indépendantes aux niveaux 1 et 2 {#sec-1043}
+
+Le troisième modèle comprend à la fois les variables indépendantes mesurées aux deux niveaux (tronçons et secteurs de recensement).
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+
+# MODÈLE 3 : modèle complet avec les prédicteurs aux niveaux 1 et 2
+# ------------------------------------------------------
+Modele3 <- lmer(PCTArb ~
+                  # Variables indépendantes au niveau 1
+                   Width.c+Length.c+AgeMed.c+AgeMed2.c+ResiPCT.c+DuTriPct.c+NoLog.c+Setback.c+
+                  # Variables indépendantes au niveau 2
+                  ValLog+UDipPCT+PCTFRAVI+PCTIMGRE+AvecEnf+FranPCT+
+                  (1| SRNOM), data = Multiniveau)
+
+# Résultats du modèle
+summary(Modele3)
+
+# Qualité d'ajustement du modèle
+cat("Statistiques d'ajustement du modèle",
+    "\n-2 Log L = ", -2*logLik(Modele3),
+    "\nAIC =", AIC(Modele3), "\nBIC =", BIC(Modele3))
+
+# Calcul de l'ICC (coefficient intraclasse)
+performance::icc(Modele3)
+ICC3 <- performance::icc(Modele3)
+cat("Part de la variance de la variable dépendante ",
+    "\nimputable au niveau 2 : ", round(ICC3$ICC_adjusted*100,2), "%", sep = "")
+
+# Calcul des R2 conditionnel et marginal avec les fonctions
+# r.squaredGLMM ou r2_nakagawa du package performance
+r.squaredGLMM(Modele3)
+r2_nakagawa(Modele3)
+```
+
+### Modèle complet avec une interaction {#sec-10414}
+
+Le quatrième modèle consiste à ajouter au modèle complet une interaction entre deux variables des deux niveaux.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+# Variance d'interaction
+Multiniveau$PCTFRAVI_Setback <-  Multiniveau$PCTFRAVI * Multiniveau$Setback.c
+
+# MODÈLE 4 : interaction aux deux niveaux
+# ------------------------------------------------------
+Modele4 <- lmer(PCTArb ~
+                  # Variables indépendantes au niveau 1
+                   Width.c+Length.c+AgeMed.c+AgeMed2.c+ResiPCT.c+DuTriPct.c+NoLog.c+Setback.c+
+                  # Variables indépendantes au niveau 2
+                  ValLog+UDipPCT+PCTFRAVI+PCTIMGRE+AvecEnf+FranPCT+
+                  # Variable d'interaction
+                  PCTFRAVI_Setback+
+(1| SRNOM), data = Multiniveau)
+
+# Résultats du modèle
+summary(Modele4)
+
+# Qualité d'ajustement du modèle
+cat("Statistiques d'ajustement du modèle",
+    "\n-2 Log L = ", -2*logLik(Modele4),
+    "\nAIC =", AIC(Modele3), "\nBIC =", BIC(Modele4))
+
+# Calcul de l'ICC (coefficient intraclasse)
+performance::icc(Modele4)
+ICC4 <- performance::icc(Modele4)
+cat("Part de la variance de la variable dépendante ",
+    "\nimputable au niveau 2 : ", round(ICC4$ICC_adjusted*100,2), "%", sep = "")
+
+# Calcul des R2 conditionnel et marginal avec les fonctions
+# r.squaredGLMM ou r2_nakagawa du package performance
+r.squaredGLMM(Modele4)
+r2_nakagawa(Modele4)
+```
+
+### Comparaison des quatre modèles {#sec-1045}
+
+Pour comparer les modèles, nous utilisons habituellement les statistiques d'ajustement du modèle vues plus haut, soit le maximum de vraisemblance (*−2 Log-likelihood*), l'AIC, l'ICC et les R^2^ marginal et conditionnel.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+c_logLik <- c(logLik(Modele1),logLik(Modele2),logLik(Modele3),logLik(Modele4))
+ICC <- c(performance::icc(Modele1)$ICC_adjusted,
+         performance::icc(Modele2)$ICC_adjusted,
+         performance::icc(Modele3)$ICC_adjusted,
+         performance::icc(Modele4)$ICC_adjusted)
+
+R2m <- c(r.squaredGLMM(Modele1)[1],
+         r.squaredGLMM(Modele2)[1],
+         r.squaredGLMM(Modele3)[1],
+         r.squaredGLMM(Modele4)[1])
+
+R2c <- c(r.squaredGLMM(Modele1)[2],
+         r.squaredGLMM(Modele2)[2],
+         r.squaredGLMM(Modele3)[2],
+         r.squaredGLMM(Modele4)[2])
+
+print(data.frame(
+            Modele = c("Modèle 1 (vide)", 
+                       "Modèle 2 (VI : niv. 1)", 
+                       "Modèle 3 (VI : niv. 1 et 2)",
+                       "Modèle 4 (interaction niv. 1 et 2"),
+            dl = AIC(Modele1, Modele2, Modele3, Modele4)$df,
+            Moins2LogLik = round(-2*c_logLik,0),
+            AIC = round(AIC(Modele1, Modele2, Modele3, Modele4)$AIC,0),
+            ICC = round(ICC,4),
+            R2marg = round(R2m,3),
+            R2cond = round(R2c,3)
+))
+```
+
+Vous constaterez ci-dessus que les valeurs d'AIC et de -2 log de vraisemblance diminuent des modèles 1 à 4, signalant une amélioration progressive des modèles. Cela se traduit aussi par une augmentation du R^2^ conditionnel incluant à la fois les effets fixes et aléatoires. Sans surprise, la valeur du coefficient de corrélation intraclasse diminue du modèle vide au modèle complet : plus nous ajoutons de variables dépendantes, plus la capacité explicative du niveau 2 diminue.
+
+Il est également judicieux de vérifier si un modèle est significativement différent du modèle précédent avec la fonction `anova` qui compare les différences de leurs déviances. En guise d'exemple, la différence de déviance de 59 ($\mbox{78 625}-\mbox{78 684}=\mbox{59}$) entre les modèles 3 et 2 (modèle complet *versus* modèle GLMM) avec six degrés de liberté – puisque le modèle 3 inclut six variables indépendantes de plus que le précédent ($\mbox{17}-\mbox{11}=\mbox{6}$) – est significative (*p* < 0,001). Cela indique que le modèle 3 est plus performant que le précédent.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+anova(Modele1, Modele2, Modele3, Modele4)
+```
+
+## Quiz de révision du chapitre {#sec-105}
+
+```{r}
+#| label: quizChapitre10
+#| echo: false
+#| warning: false
+#| results: asis
+source("code_complementaire/QuizzFunctions.R")
+Chapitre10_Multiniveau <- quizz("quiz/Chapitre10_Multiniveau.yml", "Chapitre10_Multiniveau")
+render_quizz(Chapitre10_Multiniveau)
+```

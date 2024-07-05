@@ -1,0 +1,102 @@
+- label: "D'après le nuage de points, les variables X et Y partagent une relation :"
+  type: uc
+  response: 1
+  answers:
+     - "linéaire positive"
+     - "linéaire négative"
+     - "curvilinéaire"
+     - "absence de relation"
+  help: "Relisez au besoin la [section @sec-041]."
+  image: "images/quiz/Quiz_Chap04_Question_01.jpg"
+  alt_txt: ""
+  
+- label: "D'après le nuage de points, les deux variables partagent une relation :"
+  type: uc
+  response: 3
+  answers:
+     - "linéaire positive"
+     - "linéaire négative"
+     - "curvilinéaire"
+     - "absence de relation"
+  help: "Relisez au besoin la [section @sec-041]."
+  image: "images/quiz/Quiz_Chap04_Question_02.jpg"
+  alt_txt: ""
+  
+- label: "La valeur de la covariance peut être positive ou négative. Plus sa valeur absolue est élevée :"
+  type: uc
+  response: 1
+  answers:
+     - "plus la relation linéaire entre les deux variables est importante"
+     - "plus la relation linéaire entre les deux variables est faible"
+     - "curvilinéaire"
+     - "absence de relation"
+  help: "Relisez au besoin la [section @sec-0422]."
+  image: "images/quiz/Quiz_Chap04_Question_03.jpg"
+  alt_txt: ""
+  
+- label: "Les coefficients de corrélation (Pearson, Speaman, etc.) varient de à :"
+  type: uc
+  response: 4
+  answers:
+     - "0 à 1"
+     - "moins l'infini à plus l'infini"     
+     - "0 à 100"
+     - "-1 à 1"
+  help: "Relisez au besoin la [section @sec-0433]."
+
+- label: "Cette statistique est tributaire des unités de mesure des deux variables. Cet inconvénient s'applique à :"
+  type: uc
+  response: 3
+  answers:
+     - "la corrélation de Pearson"
+     - "la corrélation de Spearman"     
+     - "la covariance"
+     - "la corrélation de Kendall"
+  help: "Relisez au besoin la [section @sec-0422]."
+     
+- label: "À la lecture du nuage de points, la corrélation de Pearson entre les deux variables est proche de :"
+  type: uc
+  response: 1
+  answers:
+     - "0"
+     - "-1"     
+     - "1"
+  help: "Relisez au besoin la [section @sec-041]."   
+  image: "images/quiz/Quiz_Chap04_Question_06.jpg"
+  alt_txt: ""
+  
+- label: "Le coefficient de Spearman est le coefficient de Pearson calculé sur des variables transformées en :"
+  type: uc
+  response: 1
+  answers:
+     - "rangs"
+     - "scores Z (variables centrées réduites)"     
+     - "sur une échelle 0 à 100"
+  help: "Relisez au besoin la [section @sec-0433]."     
+     
+- label: "Dans une régression linéaire, le résidu pour une observation est :"
+  type: uc
+  response: 2
+  answers:
+     - "la différence entre la variance de Y et la variance expliquée"
+     - "la différence entre la valeur observée et la valeur prédite"
+     - "le carré de la différence entre la valeur observée et la valeur prédite"     
+  help: "Relisez au besoin la [section @sec-0442]."     
+     
+- label: "Le coefficient de détermination (R2) varie de :"
+  type: uc
+  response: 3
+  answers:
+     - "-1 à 1"
+     - "-100 à 100"     
+     - "0 à 1"
+  help: "Relisez au besoin la [section @sec-0443]."     
+     
+     
+- label: "Un facteur confondant est une sorte de fondant au chocolat?"
+  type: uc
+  response: 2
+  answers:
+     - "Vrai"
+     - "Faux"     
+  help: "Relire le deuxième encadré à la [section @sec-044]."

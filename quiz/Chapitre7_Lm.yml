@@ -1,0 +1,73 @@
+- label: "Quels modèles sont imbriqués?"
+  type: uc
+  response: 1
+  answers:
+     - "Modèle A : Y = X1 + X2 + X3  /  Modèle B : Y = X1 + X2 + X3 + X4 + X5"
+     - "Modèle A : Y = X1 + X4 + X5  /  Modèle B : Y = X1 + X2 + X3 + X7 + X8"
+  help: "Relisez au besoin la [section @sec-0732]."
+  
+- label: "Quelle mesure relative à la qualité d'ajustement du modèle indique la proportion de la variance de la variable dépendante expliquée par les variables indépendantes du modèle?"
+  type: uc
+  response: 2
+  answers:
+     - "Statistique de Fisher"
+     - "Coefficient de détermination (R2)"
+     - "L’erreur quadratique moyenne (RMSE)"
+     - "Le coefficient de régression standardisé"
+  help: "Relisez au besoin la [section @sec-0731]."
+  
+- label: "Le R2 ajusté permet de comparer des modèles avec des nombres de variables indépendantes et/ou d'observations différents"
+  type: uc
+  response: 1
+  answers:
+     - "Vrai"
+     - "Faux"
+  help: "Relisez au besoin le début de la [section @sec-0732]."
+  
+- label: "Comment repérer les variables les plus importantes du modèle?"
+  type: uc
+  response: 2
+  answers:
+     - "Coefficients de régression"
+     - "Coefficients de régression standardisés"     
+     - "Erreurs types"
+  help: "Relisez au besoin la [section @sec-0742]."
+
+- label: "Comment évaluer la significativité des coefficients?"
+  type: mc
+  response: [1,2]
+  answers:
+     - "Valeur de t"
+     - "Valeur de p"
+     - "R2"
+     - "F de Fisher"
+  help: "Relisez au besoin la [section @sec-0743]."
+
+- label: "Pour un nombre très élevé d'observations, quelle affirmation est vraie pour les valeurs de t et de p?"
+  type: uc
+  response: 1
+  answers:
+     - "1,96 (p <= 0,05); 2,58  (p <= 0,01); 3,29 (p <= 0,001)"
+     - "1,96 (p <= 0,001); 2,58 (p <= 0,01); 3,29 (p <= 0,05)"
+     - "2,96 (p <= 0,05); 3,58  (p <= 0,01); 4,29 (p <= 0,001)"
+  help: "Relisez au besoin la [section @sec-0743)."     
+  
+- label: "Une variable indépendante dont l'intervalle de confiance à 95 % du coefficient de régression est de [-15,06 ; 28,17] est-elle significatif au seuil de p = 0,05?"
+  type: uc
+  response: 2
+  answers:
+     - "Vrai"
+     - "Faux"
+  help: "Relisez au besoin la [section @sec-0744]."
+  
+- label: "Comment poser un diagnostic sur un modèle de régression linéaire?"
+  type: mc
+  response: [1,2,3,4,5]
+  answers:
+     - "Nombre d'observations"
+     - "Normalité des résidus"     
+     - "Linéarité et homoscédasticité des résidus"     
+     - "Absence de multicolinéarité excessive"
+     - "Absence d’observations trop influentes"
+     - "Nombre de variables indépendantes" 
+  help: "Relisez le deuxième encadré à la [section @sec-076]."

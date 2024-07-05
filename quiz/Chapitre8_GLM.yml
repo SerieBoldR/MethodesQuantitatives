@@ -1,0 +1,92 @@
+- label: "Contrairement à un modèle LM, un GLM permet de choisir :"
+  type: mc
+  response: [1,3]
+  answers:
+     - la distribution conditionnelle de la variable Y
+     - une fonction de lien appliquée aux coefficients du modèle
+     - une fonction de lien appliquée à l'équation de régression du modèle
+     - la distribution à priori de la variable Y
+     - la distribution des résidus du modèle
+
+  help: "Relisez au besoin la [section @sec-081]."
+
+- label : "La fonction de lien est utilisée pour transformer :"
+  type: mc
+  response: [2,3]
+  answers:
+     - les paramètres d'un modèle et les rendre plus interprétables
+     - le résultat de l'équation d'un modèle pour le contraindre à un intervalle de valeurs cohérent avec le paramètre de la distribution modélisée
+     - le résultat de l'équation d'un modèle pour obtenir un effet multiplicatif plutôt qu'additif des coefficients
+     - la variable Y pour qu'elle suive une distribution normale
+  help: "Relisez au besoin la [section @sec-0812]"
+
+- label: "Un modèle GLM est ajusté par la méthode des moindres carrés."
+  type: uc
+  response: 2
+  answers:
+    - Vrai
+    - Faux
+  help : "Relisez au besoin la [section @sec-0811]."
+
+- label: "Dans un modèle GLM la vraisemblance (likelihood) est : "
+  type: mc
+  response: [1,4]
+  answers:
+    - "le produit des probabilités d'observer chacune des observations selon le modèle"
+    - "la somme des résidus du modèle"
+    - "un test de significativité du modèle"
+    - "impossible à calculer en pratique, nous lui préférons le log-likelihood"
+  help : "Relisez au besoin la [section @sec-113]."
+
+
+- label: "Idéalement, les résidus simulés d'un modèle GLM devraient : "
+  type: uc
+  response: 3
+  answers:
+    - suivre une distribution normale
+    - ne suivre aucune distribution particulière
+    - suivre une distribution uniforme
+    - être corrélés avec la variable Y
+  help : "Relisez au besoin la [section @sec-0814]."
+
+- label: "L'AIC "
+  type: mc
+  response: [1,2]
+  answers:
+    - mesure la qualité d'ajustement d'un modèle
+    - tient compte du nombre de paramètres dans un modèle
+    - mesure le niveau de significativité des coefficients d'un modèle
+    - pénalise les modèles avec un plus petit nombre de paramètres
+    - tient compte du nombre d'observations dans le modèle
+  help : "Relisez au besoin la [section @sec-0815]."
+
+- label: "Pour un modèle utilisant une distribution binomiale, le paramètre modélisé par l'équation de régression est :"
+  type: uc
+  response: 4
+  answers:
+    - "mu, la moyenne de y"
+    - "lambda, le nombre d’occurrences attendu pour y"
+    - "sigma, la variance de y"
+    - "p, la probabilité d'observer y = 1"
+  help : "Relisez au besoin la [section @sec-0821]."
+
+- label: "Si la fonction de lien logistique est utilisée dans un modèle binomial, comment peuvent être interprétés les coefficients?"
+  type: uc
+  response: 3
+  answers:
+    - "En appliquant la fonction log aux coefficients, nous obtenons l'effet linéaire de ceux-ci sur la probabilité p"
+    - "En appliquant la fonction exp aux coefficients, nous obtenons l'effet linéaire de ceux-ci sur la probabilité p"
+    - "En appliquant la fonction exp aux coefficients, nous obtenons leur effet sous forme de rapport de cote sur la probabilité p"
+    - "En appliquant la fonction 1/exp aux coefficients, nous obtenons leur effet sous forme de rapport de cote sur la probabilité p"
+  help : "Relisez au besoin la [section @sec-0821]."
+
+
+- label: "Pour choisir la distribution la mieux adaptée pour un modèle GLM, il est possible de : "
+  type: mc
+  response: [1,2]
+  answers:
+    - "consulter la littérature et retenir les distributions utilisées habituellement"
+    - "comparer plusieurs distributions et conserver le modèle le mieux ajusté selon les AIC"
+    - "utiliser systématiquement la distribution normale"
+    - "demander à un service de voyance"
+  help : "Relisez au besoin la [section @sec-086]."

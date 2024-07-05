@@ -1,0 +1,49 @@
+- label: "Quels sont les deux intérêts majeurs des modèles multiniveaux?"
+  type: mc
+  response: [1,2]
+  answers:
+     - "Analyser la répartition de la variance entre les différents niveaux"
+     - "Introduire des variables explicatives aux différents niveaux du modèle"
+     - "Construire des splines"
+  help: "Relisez au besoin la [section @sec-101]."
+ 
+- label: "Le modèle vide comprend :"
+  type: uc
+  response: 1
+  answers:
+     - "aucune variable explicative"
+     - "plusieurs variables explicatives aux niveaux 1 et 2"
+  help: "Relisez au besoin la [section @sec-10221]."
+  
+- label: "Un modèle avec uniquement les variables indépendantes du niveau 1 est un modèle à effets mixtes (GLMM)."
+  type: uc
+  response: 1
+  answers:
+     - "Vrai"
+     - "Faux"
+  help: "Relisez au besoin la [section @sec-10222]."
+  
+- label: "Quelle mesure permet d'analyser la répartition de la variance entre les deux niveaux?"
+  type: uc
+  response: 2
+  answers:
+     - "Coefficients de régression"
+     - "Coefficient de corrélation intraclasse"     
+     - "AIC"
+  help: "Relisez au besoin la [section @sec-10221]."
+
+- label: "Un modèle complet comprend des variables explicatives aux deux niveaux."
+  type: uc
+  response: 1
+  answers:
+     - "Vrai"
+     - "Faux"
+  help: "Relisez au besoin la [section @sec-10223]."
+
+- label: "Est-ce possible d'introduire une interaction entre une variable mesurée au niveau 1 et une autre mesurée au niveau 2?"
+  type: uc
+  response: 1
+  answers:
+     - "Vrai"
+     - "Faux"
+  help: "Relisez au besoin la [section @sec-10224]."  

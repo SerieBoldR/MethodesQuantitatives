@@ -1,0 +1,70 @@
+- label: "Des variables latentes ne sont pas directement observées, mais plutôt produites par la méthode factorielle afin de résumer les relations/associations entre plusieurs variables mesurées initialement."
+  type: uc
+  response: 1
+  answers:
+     - "Vrai"
+     - "Faux"
+  help: "Relisez au besoin l'introduction du [chapitre @sec-chap12]."
+  
+- label: "Quelles sont les métriques utilisées pour les trois principales méthodes factorielles?"
+  type: uc
+  response: 1
+  answers:
+     - "ACP (distance euclidienne), AFC (distance du khi-deux), ACM (distance du khi-deux)"
+     - "ACP (distance du khi-deux), AFC (distance du khi-deux), ACM (distance euclidienne)"
+     - "ACP (distance euclidienne), AFC (distance euclidienne), ACM (distance du khi-deux)"
+  help: "Relisez au besoin la [section @sec-1211]."
+  
+- label: "En ACP normée, la somme des valeurs propres (inertie totale) est égale au :"
+  type: uc
+  response: 1
+  answers:
+     - "nombre de variables quantitatives du tableau initial"
+     - "nombre d'observations moins le nombre de variables"
+  help: "Relisez au besoin le début de la [section @sec-12221]."
+  
+- label: "En ACP normée, la coordonnée factorielle d'une variable sur un axe est : "
+  type: uc
+  response: 2
+  answers:
+     - "le covariance de la variable avec la composante principale (axe factoriel)"
+     - "le coefficient de corrélation de la variable avec la composante principale (axe factoriel)"
+     - "la variance de la variable"
+  help: "Relisez au besoin la [section @sec-12222]."
+
+- label: "Quelles affirmations sont exactes pour toutes les méthodes factorielles?"
+  type: mc
+  response: [1,2,3]
+  answers:
+     - "La somme des cosinus carrés en ligne est toujours égale à 1"
+     - "La somme des valeurs propres est toujours égale à l'inertie totale du tableau"
+     - "La somme des contributions en colonne pour un axe est égale à 100 %"
+     - "Les coordonnées factorielles sont toujours le coefficient de corrélation de la variable avec l'axe"
+  help: "Relisez au besoin chacune des sections intitulées aides à l'interprétation pour les trois méthodes factorielles."
+
+- label: "L'analyse des correspondances multiples (ACM) est simplement une analyse des correspondances (AFC) sur un tableau disjonctif complet?"
+  type: uc
+  response: 1
+  answers:
+     - "Vrai"
+     - "Faux"
+  help: "Relisez au besoin la [section @sec-124]."
+
+- label: "Dans une ACM, les variables du tableau disjonctif complet sont :"
+  type: uc
+  response: 2
+  answers:
+     - "les fréquences des modalités des variables qualitatives"
+     - "les modalités des variables qualitatives transformées en variables binaires"
+  help: "Relisez au besoin la [section @sec-124]."   
+
+- label: "Quelles sont les étapes essentielles pour bien interpréter une analyse factorielle (ACP, AFC ou ACM)?"
+  type: mc
+  response: [1,2,3,4]
+  answers:
+     - "Interprétation des résultats des valeurs propres pour identifier le nombre d’axes à retenir"
+     - "Analyse des résultats pour les variables (coordonnées, cosinus carrés et contributions)"     
+     - "Analyse des résultats pour les individus (coordonnées, cosinus carrés et contributions)"     
+     - "Dénommer, qualifier chacun des axes suite à l'analyse des résultats pour les variables et les individus"
+  help: "Relisez le deuxième encadré à la [section @sec-1221]." 
+  

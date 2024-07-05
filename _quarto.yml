@@ -1,0 +1,92 @@
+project:
+  type: book
+  output-dir: docs
+license: CC BY-SA
+latex-auto-install: true
+
+lang: fr
+language:
+  title-block-author-plural: "Auteurs"
+  repo-action-links-issue: "Signaler un problème ou<br>formuler une suggestion"
+crossref:
+  fig-prefix: figure
+  tbl-prefix: tableau
+  sec-prefix: section
+  eq-prefix: équation
+  fig-title: Figure
+  tbl-title: Tableau
+  eq-title: Équation
+book:
+  title: 'Méthodes quantitatives en sciences sociales : un grand bol d’R'
+  search: true
+  author:
+    - name: Philippe Apparicio
+      url: https://www.usherbrooke.ca/recherche/fr/specialistes/details/philippe.apparicio
+      affiliation: Département de géomatique appliquée<br>Université de Sherbrooke
+      affiliation-url: https://www.usherbrooke.ca/geomatique/
+    - name: Jérémy Gelb
+      url: https://scholar.google.com/citations?user=oFofDScAAAAJ&hl=fr
+      affiliation: Autorité régionale de transport métropolitain
+      affiliation-url: https://www.artm.quebec/
+  date: today
+  date-format: YYYY-MM-DD
+  reader-mode: false
+  page-footer:
+    left: |
+      Méthodes quantitatives en sciences sociales : un grand bol d’R.
+    right: |
+      Ce livre a été réalisé avec <a href="https://quarto.org/">Quarto</a>.
+  cover-image: images/introduction/Couverture.png
+  favicon: images/introduction/Couverture.png
+  site-url: https://github.com/SerieBoldR/MethodesQuantitatives/index.html
+  repo-url: https://github.com/SerieBoldR/MethodesQuantitatives
+  repo-branch: main
+  repo-actions:
+  - issue
+  chapters:
+  - index.qmd
+  - 00-auteurs.qmd
+  - part: Partie 1. Découverte de R
+  - 01-priseenmainR.qmd
+  - part: Partie 2. Analyses univariées et représentations graphiques
+  - 02-univarie.qmd
+  - 03-magiedesgraphiques.qmd
+  - part: Partie 3. Analyses bivariées
+  - 04-bivarieeQuantiQuanti.qmd
+  - 05-bivarieeQualiQuali.qmd
+  - 06-bivarieeQualiQuanti.qmd
+  - part: Partie 4. Modèles de régression
+  - 07-regressionlineaire.qmd
+  - 08-GLM.qmd
+  - 09-GLMM.qmd
+  - 10-Multiniveau.qmd
+  - 11-GAM.qmd
+  - part: Partie 5. Analyses exploratoires multivariées
+  - 12-AnalysesFactorielles.qmd
+  - 13-MethodeClassification.qmd
+  - part: Partie 6. Annexes et bibliographie
+  - 14-Annexes.qmd
+  - references.qmd
+
+bibliography: references.bib
+csl: StyleINRS.csl
+
+format:
+  html:
+    colorlinks: true
+    css: css/quizlib.min.css
+    theme:
+      light:
+      - cosmo
+      - css/r4ds.scss
+    code-link: true
+    fontsize: 11pt
+    mainfont: Helvetica Neue,Helvetica,Arial,sans-serif
+    monofont: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace
+
+
+
+
+
+
+

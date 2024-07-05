@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="author" content="Philippe Apparicio">
+<meta name="author" content="Jérémy Gelb">
+<meta name="dcterms.date" content="2024-07-03">
+<title>Méthodes quantitatives en sciences sociales : un grand bol d’R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./00-auteurs.html" rel="next">
+<link href="./images/introduction/Couverture.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Pas de résultats",
+    "search-matching-documents-text": "documents trouvés",
+    "search-copy-link-title": "Copier le lien vers la recherche",
+    "search-hide-matches-text": "Cacher les correspondances additionnelles",
+    "search-more-match-text": "correspondance de plus dans ce document",
+    "search-more-matches-text": "correspondances de plus dans ce document",
+    "search-clear-button-title": "Effacer",
+    "search-detached-cancel-button-title": "Annuler",
+    "search-submit-button-title": "Envoyer"
+  }
+}</script><link rel="stylesheet" href="css/quizlib.min.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Préface</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Recherche" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Méthodes quantitatives en sciences sociales : un grand bol d’R</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/SerieBoldR/MethodesQuantitatives" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Recherche"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Préface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-auteurs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">À propos des auteurs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 1. Découverte de R</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-priseenmainR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Prise en main de R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 2. Analyses univariées et représentations graphiques</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-univarie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Statistiques descriptives univariées</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-magiedesgraphiques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Magie des graphiques</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 3. Analyses bivariées</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-bivarieeQuantiQuanti.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Relation linéaire entre deux variables quantitatives</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-bivarieeQualiQuali.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Relation entre deux variables qualitatives</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-bivarieeQualiQuanti.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Relation entre une variable qualitative et une variable quantitative</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 4. Modèles de régression</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-regressionlineaire.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Régression linéaire multiple</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-GLM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Régressions linéaires généralisées (GLM)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-GLMM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Régressions à effets mixtes (GLMM)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-Multiniveau.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Régressions multiniveaux</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-GAM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Modèles généralisés additifs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 5. Analyses exploratoires multivariées</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-AnalysesFactorielles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Méthodes factorielles</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-MethodeClassification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Méthodes de classification non supervisée</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 6. Annexes et bibliographie</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-Annexes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Annexes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bibliographie</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table des matières</h2>
+   
+  <ul>
+<li>
+<a href="#pr%C3%A9face" id="toc-préface" class="nav-link active" data-scroll-target="#pr%C3%A9face">Préface</a>
+  <ul class="collapse">
+<li><a href="#sect001" id="toc-sect001" class="nav-link" data-scroll-target="#sect001">Un manuel sous la forme d’une ressource éducative libre</a></li>
+  <li><a href="#sect002" id="toc-sect002" class="nav-link" data-scroll-target="#sect002">Un manuel conçu comme un projet collaboratif</a></li>
+  <li><a href="#sect003" id="toc-sect003" class="nav-link" data-scroll-target="#sect003">Comment lire ce livre?</a></li>
+  <li><a href="#sect003B" id="toc-sect003B" class="nav-link" data-scroll-target="#sect003B">Comment utiliser les données du livre pour reproduire les exemples?</a></li>
+  <li><a href="#sect004" id="toc-sect004" class="nav-link" data-scroll-target="#sect004">Liste des <em>packages</em> utilisés</a></li>
+  <li><a href="#sect005" id="toc-sect005" class="nav-link" data-scroll-target="#sect005">Structure du livre</a></li>
+  <li><a href="#sect006" id="toc-sect006" class="nav-link" data-scroll-target="#sect006">Pourquoi faut-il programmer en sciences sociales?</a></li>
+  <li><a href="#sect007" id="toc-sect007" class="nav-link" data-scroll-target="#sect007">Remerciements</a></li>
+  <li><a href="#sect008" id="toc-sect008" class="nav-link" data-scroll-target="#sect008">Dédicace toute spéciale à Cargo et Ambrée</a></li>
+  </ul>
+</li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/SerieBoldR/MethodesQuantitatives/issues/new" class="toc-action">Signaler un problème ou<br>formuler une suggestion</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">Méthodes quantitatives en sciences sociales : un grand bol d’R</h1>
+</div>
+
+
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Auteurs</div>
+  <div class="quarto-title-meta-heading">Affiliations</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://www.usherbrooke.ca/recherche/fr/specialistes/details/philippe.apparicio">Philippe Apparicio</a> </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://www.usherbrooke.ca/geomatique/">
+            Département de géomatique appliquée<br>Université de Sherbrooke
+            </a>
+          </p>
+      </div>
+      <div class="quarto-title-meta-contents">
+    <p class="author"><a href="https://scholar.google.com/citations?user=oFofDScAAAAJ&amp;hl=fr">Jérémy Gelb</a> </p>
+  </div>
+    <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            <a href="https://www.artm.quebec/">
+            Autorité régionale de transport métropolitain
+            </a>
+          </p>
+      </div>
+    </div>
+
+<div class="quarto-title-meta">
+
+      
+    <div>
+    <div class="quarto-title-meta-heading">Date de publication</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">2024-07-03</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header><p><img src="images/introduction/Couverture.png" title="Méthodes quantitatives en sciences sociales : un grand bol d’R" class="quarto-cover-image img-fluid"></p>
+<p><strong>Résumé&nbsp;:</strong> Ce livre vise à décrire une panoplie de méthodes quantitatives utilisées en sciences sociales avec le logiciel ouvert R. Il a d’ailleurs été écrit intégralement dans R avec Quarto. Le contenu est pensé pour être accessible à tous et toutes, même à ceux et celles n’ayant presque aucune base en statistique ou en programmation. Les personnes plus expérimentées y découvriront des sections sur des méthodes plus avancées comme les modèles à effets mixtes, les modèles multiniveaux, les modèles généralisés additifs ainsi que les méthodes factorielles et de classification. Ceux et celles souhaitant migrer progressivement d’un autre logiciel statistique vers R trouveront dans cet ouvrage les éléments pour une transition en douceur. La philosophie de ce livre est de donner toutes les clefs de compréhension et de mise en œuvre des méthodes abordées dans R. La présentation des méthodes est basée sur une approche compréhensive et intuitive plutôt que mathématique, sans pour autant que la rigueur statistique soit négligée.</p>
+<p><strong>Remerciements&nbsp;:</strong> Ce manuel a été réalisé avec le soutien de la fabriqueREL. Fondée en 2019, la fabriqueREL est portée par divers établissements d’enseignement supérieur du Québec et agit en collaboration avec les services de soutien pédagogique et les bibliothèques. Son but est de faire des ressources éducatives libres (REL) le matériel privilégié en enseignement supérieur au Québec.</p>
+<p><strong>Maquette de la page couverture et identité graphique du livre&nbsp;:</strong> Andrés Henao Florez.</p>
+<p><strong>Mise en page&nbsp;:</strong> Philippe Apparicio et Marie-Hélène Gadbois Del Carpio.</p>
+<p><strong>Révision linguistique&nbsp;:</strong> Denise Latreille.</p>
+<p>© Philippe Apparicio et Jérémy Gelb.</p>
+<p><strong>Pour citer cet ouvrage&nbsp;:</strong> Apparicio P. et J. Gelb (2024). <em>Méthodes quantitatives en sciences sociales&nbsp;: un grand bol d’R</em>. Université de Sherbrooke, Département de géomatique appliquée. fabriqueREL. Licence CC&nbsp;BY-SA. <br><br></p>
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure"><p><img src="images/introduction/CouvertureP2.png" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+<section id="préface" class="level1 unnumbered"><h1 class="unnumbered">Préface</h1>
+<p>Ce livre vise à décrire une panoplie de méthodes quantitatives utilisées en sciences sociales avec le logiciel ouvert R. Il a d’ailleurs été écrit intégralement dans R avec <a href="https://quarto.org/">Quatro</a>. Le contenu est pensé pour être accessible à tous et toutes, même à ceux et celles n’ayant presque aucune base en statistique ou en programmation. Les personnes plus expérimentées y découvriront des sections sur des méthodes plus avancées comme les modèles à effets mixtes, les modèles multiniveaux, les modèles généralisés additifs ainsi que les méthodes factorielles et de classification. Ceux et celles souhaitant migrer progressivement d’un autre logiciel statistique vers R trouveront dans cet ouvrage les éléments pour une transition en douceur. La philosophie de ce livre est de donner toutes les clefs de compréhension et de mise en œuvre des méthodes abordées dans R. La présentation des méthodes est basée sur une approche compréhensive et intuitive plutôt que mathématique, sans pour autant que la rigueur statistique ne soit négligée. Servez-vous votre boisson chaude ou froide favorite et installez-vous dans votre meilleur fauteuil. Bonne lecture!</p>
+<section id="sect001" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="sect001">Un manuel sous la forme d’une ressource éducative libre</h2>
+<p><strong>Pourquoi un manuel sous licence libre?</strong></p>
+<p>Les logiciels libres sont aujourd’hui très répandus. Comparativement aux logiciels propriétaires, l’accès au code source permet à quiconque de l’utiliser, de le modifier, de le dupliquer et de le partager. Le logiciel R, dans lequel sont mises en œuvre les méthodes quantitatives décrites décrites dans ce livre, est d’ailleurs à la fois un langage de programmation et un logiciel libre (sous la licence publique générale <a href="https://fr.wikipedia.org/wiki/Licence_publique_g%C3%A9n%C3%A9rale_GNU">GNU GPL2</a>). Par analogie aux logiciels libres, il existe aussi des <strong>ressources éducatives libres (REL)</strong> «&nbsp;dont la licence accorde les permissions désignées par les 5R (<strong>Retenir — Réutiliser — Réviser — Remixer — Redistribuer</strong>) et donc permet nécessairement la modification&nbsp;» (<a href="https://fabriquerel.org/rel/"><strong><em>fabriqueREL</em></strong></a>). La licence de ce livre, CC BY-SA (<a href="#fig-Licence">figure&nbsp;<span>1</span></a>), permet donc de&nbsp;:</p>
+<ul>
+<li><p><strong>Retenir</strong>, c’est-à-dire télécharger et imprimer gratuitement le livre. Notez qu’il aurait été plutôt surprenant d’écrire un livre payant sur un logiciel libre et donc gratuit. Aussi, nous aurions été très embarrassés que des personnes étudiantes avec des ressources financières limitées doivent payer pour avoir accès au livre, sans pour autant savoir préalablement si le contenu est réellement adapté à leurs besoins.</p></li>
+<li><p><strong>Réutiliser</strong>, c’est-à-dire utiliser la totalité ou une section du livre sans limitation et sans compensation financière. Cela permet ainsi à d’autres personnes enseignantes de l’utiliser dans le cadre d’activités pédagogiques.</p></li>
+<li><p><strong>Réviser</strong>, c’est-à-dire modifier, adapter et traduire le contenu en fonction d’un besoin pédagogique précis puisqu’aucun manuel n’est parfait, tant s’en faut! Le livre a d’ailleurs été écrit intégralement dans R avec <a href="https://quarto.org/">Quatro</a>. Quiconque peut ainsi télécharger gratuitement le code source du livre sur <a href="https://github.com/SerieBoldR/MethodesQuantitatives">github</a> et le modifier à sa guise (voir l’encadré intitulé <em>Suggestions d’adaptation du manuel</em>).</p></li>
+<li><p><strong>Remixer</strong>, c’est-à-dire «&nbsp;combiner la ressource avec d’autres ressources dont la licence le permet aussi pour créer une nouvelle ressource intégrée&nbsp;» (<a href="https://fabriquerel.org/rel/"><strong><em>fabriqueREL</em></strong></a>).</p></li>
+<li><p><strong>Redistribuer</strong>, c’est-à-dire distribuer, en totalité ou en partie, le manuel ou une version révisée sur d’autres canaux que le site Web du livre (par exemple, sur le site Moodle de votre université ou en faire une version imprimée).</p></li>
+</ul>
+<p>La licence de ce livre, CC BY-SA (<a href="#fig-Licence">figure&nbsp;<span>1</span></a>), oblige donc à&nbsp;:</p>
+<ul>
+<li><p>Attribuer la paternité de l’auteur dans vos versions dérivées, ainsi qu’une mention concernant les grandes modifications apportées, en utilisant la formulation suivante&nbsp;: Apparicio Philippe et Jérémy Gelb (2024). <em>Méthodes quantitatives en sciences sociales&nbsp;: un grand bol d’R</em>. Université de Sherbrooke. fabriqueREL. Licence CC&nbsp;BY-SA.</p></li>
+<li><p>Utiliser la même licence ou une licence similaire à toutes versions dérivées.</p></li>
+</ul>
+<div id="fig-Licence" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/introduction/Licence.JPG" class="img-fluid figure-img" style="width:80.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;1: Licence Creative Commons du livre</figcaption></figure>
+</div>
+<div class="bloc_astuce">
+<div class="bloc_astuce-header">
+<div class="bloc_astuce-icon">
+
+</div>
+<p><strong>Suggestions d’adaptation du manuel</strong></p>
+</div>
+<div class="bloc_astuce-body">
+<p>Pour chaque méthode d’analyse spatiale abordée dans le livre, une description détaillée et une mise en œuvre dans R sont disponibles. Par conséquent, plusieurs adaptations du manuel sont possibles&nbsp;:</p>
+<ul>
+<li><p>Conserver uniquement les chapitres sur les méthodes ciblées dans votre cours.</p></li>
+<li><p>En faire une version imprimée et la distribuer aux personnes étudiantes.</p></li>
+<li><p>Modifier la description d’une ou de plusieurs méthodes en effectuant les mises à jour directement dans les chapitres.</p></li>
+<li><p>Insérer ses propres jeux de données dans les sections intitulées <em>Mise en œuvre dans R</em>.</p></li>
+<li><p>Modifier les tableaux et figures.</p></li>
+<li><p>Ajouter une série d’exercices.</p></li>
+<li><p>Modifier les quiz de révision.</p></li>
+<li><p>Rédiger un nouveau chapitre.</p></li>
+<li><p>Modifier des syntaxes R. Plusieurs <em>packages</em> R peuvent être utilisés pour mettre en œuvre telle ou telle méthode. Ces derniers évoluent aussi très vite et de nouveaux <em>packages</em> sont proposés fréquemment. Par conséquent, il peut être judicieux de modifier une syntaxe R du livre en fonction de ses habitudes de programmation dans R (utilisation d’autres <em>packages</em> que ceux utilisés dans le manuel par exemple) ou de bien mettre à jour une syntaxe à la suite de la parution d’un nouveau <em>package</em> plus performant ou intéressant.</p></li>
+<li><p>Toute autre adaptation qui permet de répondre au mieux à un besoin pédagogique.</p></li>
+</ul>
+</div>
+</div>
+</section><section id="sect002" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="sect002">Un manuel conçu comme un projet collaboratif</h2>
+<p>Il existe actuellement de nombreux livres sous licence ouverte écrits avec <a href="https://rmarkdown.rstudio.com/">rmarkdown</a> ou <a href="https://quarto.org/">Quarto</a>, répertoriés sur les sites de <a href="https://bookdown.org/">https://bookdown.org/</a> et de <a href="https://quarto.org/docs/gallery/#books">https://quarto.org/docs/gallery/#books</a>. Sans surprise, R étant un logiciel libre dédié aux méthodes statistiques et à la science des données, plusieurs abordent les méthodes quantitatives, notamment&nbsp;:</p>
+<ul>
+<li><p><a href="https://bookdown.org/roback/bookdown-BeyondMLR/">Beyond Multiple Linear Regression: Applied Generalized Linear Models and Multilevel Models in R</a> <span class="citation" data-cites="roback2021beyond">(<a href="references.html#ref-roback2021beyond" role="doc-biblioref">Roback et Legler 2021</a>)</span>, CC BY-NC-SA.</p></li>
+<li><p><a href="https://www.econometrics-with-r.org/">Introduction to Econometrics with R</a> <span class="citation" data-cites="hanck2019introduction">(<a href="references.html#ref-hanck2019introduction" role="doc-biblioref">Hanck et al. 2019</a>)</span>, CC BY-NC-SA.</p></li>
+<li><p><a href="https://moderndive.com/">Statistical Inference via Data Science: A ModernDive into R and the Tidyverse</a> <span class="citation" data-cites="ismay2019statistical">(<a href="references.html#ref-ismay2019statistical" role="doc-biblioref">Ismay et Kim 2019</a>)</span>, CC BY-NC-SA.</p></li>
+<li><p><a href="https://r-graphics.org/">R Graphics Cookbook, 2nd edition</a> <span class="citation" data-cites="Chang2018">(<a href="references.html#ref-Chang2018" role="doc-biblioref">Chang 2018</a>)</span>, CC BY.</p></li>
+</ul>
+<p>Par contre, la grande majorité de ces livres numériques rédigés avec R sont en anglais. À notre connaissance, ce projet constitue le premier manuel numérique en français sur les méthodes quantitatives appliquées aux sciences sociales réalisé avec <code>Quatro</code>. La première version du livre étant lancée, il est grand temps de planifier les suivantes! Pour ce faire, nous considérons ce livre comme un <strong>projet collaboratif visant à mobiliser la communauté universitaire francophone qui enseigne les statistiques en sciences sociales avec R</strong>. Plusieurs raisons motivent cette vision collaborative&nbsp;:</p>
+<ul>
+<li><p><strong>Rien n’est parfait!</strong> Cette première version comprend sûrement des coquilles et certaines sections mériteraient d’être améliorées. Les commentaires et suggestions visant à améliorer son contenu sont les bienvenus.</p></li>
+<li><p><strong>La table des matières doit être impérativement extensible!</strong> De nombreuses méthodes statistiques très utilisées en sciences sociales ne sont pas abordées dans ce livre et mériteraient d’être ajoutées dans une version ultérieure&nbsp;: certaines extensions des régressions linéaires (régressions Rigge et Lasso, Tobit, quantile, etc.), les modèles d’équations simultanées, les analyses de données longitudinales (entre autres, modèles de survie, régression par panel), les modèles d’équations structurelles et bien d’autres! Par conséquent, si vous êtes intéressé(e)s, à ajouter un nouveau chapitre ou une partie du livre, nous vous invitons vivement à communiquer avec nous ou à diffuser sous une licence similaire votre version dérivée. L’objectif étant de continuer à faire tourner la roue du libre et, idéalement, que les futures versions soient corédigées par une communauté d’auteurs et d’autrices spécialistes en méthodes quantitatives.</p></li>
+</ul></section><section id="sect003" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="sect003">Comment lire ce livre?</h2>
+<p>Le livre comprend plusieurs types de blocs de texte qui en facilitent la lecture.</p>
+<div class="bloc_package">
+<div class="bloc_package-header">
+<div class="bloc_package-icon">
+
+</div>
+<p><strong>Bloc <em>packages</em></strong></p>
+</div>
+<div class="bloc_package-body">
+<p>Habituellement localisé au début d’un chapitre, il comprend la liste des <em>packages</em> R utilisés pour un chapitre.</p>
+</div>
+</div>
+<div class="bloc_objectif">
+<div class="bloc_objectif-header">
+<div class="bloc_objectif-icon">
+
+</div>
+<p><strong>Bloc objectif</strong></p>
+</div>
+<div class="bloc_objectif-body">
+<p>Il comprend une description des objectifs d’un chapitre ou d’une section.</p>
+</div>
+</div>
+<div class="bloc_notes">
+<div class="bloc_notes-header">
+<div class="bloc_notes-icon">
+
+</div>
+<p><strong>Bloc notes</strong></p>
+</div>
+<div class="bloc_notes-body">
+<p>Il comprend une information secondaire sur une notion, une idée abordée dans une section.</p>
+</div>
+</div>
+<div class="bloc_aller_loin">
+<div class="bloc_aller_loin-header">
+<div class="bloc_aller_loin-icon">
+
+</div>
+<p><strong>Bloc pour aller plus loin</strong></p>
+</div>
+<div class="bloc_aller_loin-body">
+<p>Il comprend des références ou des extensions d’une méthode abordée dans une section.</p>
+</div>
+</div>
+<div class="bloc_astuce">
+<div class="bloc_astuce-header">
+<div class="bloc_astuce-icon">
+
+</div>
+<p><strong>Bloc astuce</strong></p>
+</div>
+<div class="bloc_astuce-body">
+<p>Il décrit un élément qui vous facilitera la vie&nbsp;: une propriété statistique, un <em>package</em>, une fonction, une syntaxe R.</p>
+</div>
+</div>
+<div class="bloc_attention">
+<div class="bloc_attention-header">
+<div class="bloc_attention-icon">
+
+</div>
+<p><strong>Bloc attention</strong></p>
+</div>
+<div class="bloc_attention-body">
+<p>Il comprend une notion ou un élément important à bien maîtriser.</p>
+</div>
+</div>
+<div class="bloc_exercice">
+<div class="bloc_exercice-header">
+<div class="bloc_exercice-icon">
+
+</div>
+<p><strong>Bloc exercice</strong></p>
+</div>
+<div class="bloc_exercice-body">
+<p>Il comprend un court exercice de révision à la fin de chaque chapitre.</p>
+</div>
+</div>
+</section><section id="sect003B" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="sect003B">Comment utiliser les données du livre pour reproduire les exemples?</h2>
+<p>Ce livre comprend des exemples détaillés et appliqués dans R pour chacune des méthodes abordées. Ces exemples se basent sur des jeux de données structurés et mis à disposition avec le livre. Ils sont disponibles sur le <em>repo github</em> dans le sous-dossier <code>data</code>, à l’adresse <a href="https://github.com/SerieBoldR/MethodesQuantitatives/tree/main/data" class="uri">https://github.com/SerieBoldR/MethodesQuantitatives/tree/main/data</a>.</p>
+<p>Une autre option est de télécharger le <em>repo</em> complet du livre directement sur <em>github</em> (<a href="https://github.com/SerieBoldR/MethodesQuantitatives" class="uri">https://github.com/SerieBoldR/MethodesQuantitatives</a>) en cliquant sur le bouton <code>Code</code>, puis le bouton <code>Download ZIP</code> (<a href="#fig-downloaffromgit">figure&nbsp;<span>2</span></a>). Les données se trouvent alors dans le sous-dossier nommé <code>data</code>.</p>
+<div id="fig-downloaffromgit" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/introduction/download_github.png" class="img-fluid figure-img" style="width:40.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;2: Téléchargement de l’intégralité du livre</figcaption></figure>
+</div>
+</section><section id="sect004" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="sect004">Liste des <em>packages</em> utilisés</h2>
+<p>Pour écrire ce livre, nous avons utilisé de nombreux <em>packages</em> que vous pouvez installer avec le code ci-dessous.</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Liste des packages</span></span>
+<span><span class="va">ListePackages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"actuar"</span>, <span class="st">"AER"</span>, <span class="st">"apaTables"</span>, <span class="st">"boot"</span>, <span class="st">"car"</span>, <span class="st">"caret"</span>, <span class="st">"chorddiag"</span>, <span class="st">"classInt"</span>, </span>
+<span>                   <span class="st">"cluster"</span>, <span class="st">"clusterCrit"</span>, <span class="st">"correlation"</span>, <span class="st">"corrplot"</span>, <span class="st">"DescTools"</span>, <span class="st">"DHARMa"</span>, </span>
+<span>                   <span class="st">"dplyr"</span>, <span class="st">"effectsize"</span>,  <span class="st">"ellipse"</span>, <span class="st">"FactoMineR"</span>, <span class="st">"fastDummies"</span>, <span class="st">"fitdistrplus"</span>, </span>
+<span>                   <span class="st">"fmsb"</span>, <span class="st">"foreign"</span>, <span class="st">"gamlss"</span>, <span class="st">"gamlss.add"</span>, <span class="st">"gamlss.dist"</span>, <span class="st">"geocmeans"</span>, <span class="st">"gganimate"</span>,</span>
+<span>                   <span class="st">"ggeffects"</span>, <span class="st">"ggplot2"</span>, <span class="st">"ggpubr"</span>, <span class="st">"ggpubr"</span>, <span class="st">"ggpubr"</span>, <span class="st">"ggpubr"</span>, <span class="st">"ggspatial"</span>,</span>
+<span>                   <span class="st">"ggthemes"</span>, <span class="st">"gmodels"</span>, <span class="st">"grid"</span>, <span class="st">"gridExtra"</span>, <span class="st">"Hmisc"</span>, <span class="st">"itsadug"</span>, <span class="st">"kableExtra"</span>, </span>
+<span>                   <span class="st">"LaplacesDemon"</span>, <span class="st">"lme4"</span>, <span class="st">"lmtest"</span>, <span class="st">"lubridate"</span>, <span class="st">"MASS"</span>, <span class="st">"merTools"</span>, <span class="st">"metR"</span>, </span>
+<span>                   <span class="st">"mgcv"</span>, <span class="st">"moments"</span>, <span class="st">"MuMIn"</span>, <span class="st">"NbClust"</span>, <span class="st">"nortest"</span>, <span class="st">"pdftools"</span>, <span class="st">"performance"</span>, </span>
+<span>                   <span class="st">"ppcor"</span>, <span class="st">"proxy"</span>, <span class="st">"qqplotr"</span>, <span class="st">"QuantPsyc"</span>, <span class="st">"QuantPsyc"</span>, <span class="st">"QuantPsyc"</span>,</span>
+<span>                   <span class="st">"RColorBrewer"</span>, <span class="st">"reshape2"</span>, <span class="st">"ROCR"</span>, <span class="st">"rstatix"</span>, <span class="st">"sandwich"</span>, <span class="st">"sas7bdat"</span>, <span class="st">"segmented"</span>,</span>
+<span>                   <span class="st">"sf"</span>, <span class="st">"SimDesign"</span>, <span class="st">"sjstats"</span>, <span class="st">"snow"</span>, <span class="st">"splines2"</span>, <span class="st">"stargazer"</span>, <span class="st">"stats"</span>, <span class="st">"stringr"</span>, </span>
+<span>                   <span class="st">"textrank"</span>, <span class="st">"tmap"</span>, <span class="st">"tmap"</span>, <span class="st">"treemap"</span>, <span class="st">"udpipe"</span>, <span class="st">"vcd"</span>, <span class="st">"VGAM"</span>, <span class="st">"VGAM"</span>, <span class="st">"viridis"</span>, </span>
+<span>                   <span class="st">"Weighted.Desc.Stat"</span>, <span class="st">"wordcloud2"</span>, <span class="st">"xlsx"</span><span class="op">)</span></span>
+<span><span class="co"># Packages non installés dans la liste</span></span>
+<span><span class="va">PackagesNonInstalles</span> <span class="op">&lt;-</span> <span class="va">ListePackages</span><span class="op">[</span><span class="op">!</span><span class="op">(</span><span class="va">ListePackages</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/installed.packages.html">installed.packages</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span>,<span class="st">"Package"</span><span class="op">]</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co"># Installation des packages manquants</span></span>
+<span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">new.packages</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="va">PackagesNonInstalles</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="sect005" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="sect005">Structure du livre</h2>
+<p>Le livre est organisé autour de cinq grandes parties.</p>
+<p><strong>Partie 1. La découverte de R.</strong> Dans cette première partie, nous discutons brièvement de l’histoire et de la philosophie de R. Nous voyons ensuite comment installer R et RStudio. Les bases du langage R (particulièrement les principaux objets que sont le vecteur, la matrice, la liste et le <em>dataframe</em>) ainsi que la manipulation des données avec R sont aussi largement abordés dans le <a href="01-priseenmainR.html">chapitre&nbsp;<span>1</span></a>.</p>
+<p><strong>Partie 2. Analyses univariées et représentations graphiques</strong>. Cette seconde partie comprend deux chapitres. Dans le <a href="02-univarie.html">chapitre&nbsp;<span>2</span></a>, nous décrivons dans un premier temps les différents types de données (primaires <em>versus</em> secondaires, transversales <em>versus</em> longitudinales, spatiales <em>versus</em> aspatiales, individuelles <em>versus</em> agrégées), les différents types de variables quantitatives (discrètes et continues) et qualitatives (nominales et ordinales) et les principales distributions de variables utilisées en sciences sociales (uniforme, Bernoulli, binomiale, géométrique, binomiale négative, poisson, poisson avec excès de zéros, gaussienne, gaussienne asymétrique, log-normale, Student, Cauchy, Chi-carré, exponentielle, Gamma, bêta, Weibull et Pareto). Dans un second temps, nous abordons les statistiques descriptives pour des variables quantitatives (paramètres de tendance centrale, paramètres de position, paramètres de dispersion, paramètres de forme), puis qualitatives (fréquences absolues, relatives et cumulées).</p>
+<p>Dans le <a href="03-magiedesgraphiques.html">chapitre&nbsp;<span>3</span></a>, nous illustrons les incroyables capacités graphiques de R en mettant en œuvre les principaux graphiques (histogramme, graphique de densité, nuage de points, graphique en lignes, boîtes à moustache, graphique en violon, graphique en barre, graphique circulaire), quelques graphiques particuliers (graphique en radar, diagramme d’accord, nuage de mots, carte proportionnelle) et une initiation aux cartes choroplèthes.</p>
+<p><strong>Partie 3. Analyses bivariées.</strong> Cette troisième partie comprend trois chapitres dans lesquelles sont présentées les principales méthodes exploratoires et confirmatoires bivariées permettant d’évaluer la relation entre deux variables. Plus spécifiquement, nous présentons puis mettons en œuvre dans R les méthodes permettant d’explorer les relations entre deux variables quantitatives (covariance, corrélation et régression linéaire simple) dans le <a href="04-bivarieeQuantiQuanti.html">chapitre&nbsp;<span>4</span></a>, deux variables qualitatives (tableau de contingence et test du khi-deux) dans le <a href="05-bivarieeQualiQuali.html">chapitre&nbsp;<span>5</span></a> et une variable quantitative avec une variable qualitative avec deux modalités (tests de Student, de Welch et de Wilcoxon) ou avec plus de deux modalités (ANOVA et test de Kruskal-Wallis) dans le <a href="06-bivarieeQualiQuanti.html">chapitre&nbsp;<span>6</span></a>.</p>
+<p><strong>Partie 4. Modèles de régression</strong>. Dans cette quatrième partie sont présentées les principales méthodes de statistique inférentielle utilisées en sciences sociales&nbsp;: la régression linéaire multiple (<a href="07-regressionlineaire.html">chapitre&nbsp;<span>7</span></a>), les régressions linéaires généralisées (<a href="08-GLM.html">chapitre&nbsp;<span>8</span></a>), les régressions à effets mixtes (<a href="09-GLMM.html">chapitre&nbsp;<span>9</span></a>), les régressions multiniveaux (<a href="10-Multiniveau.html">chapitre&nbsp;<span>10</span></a>), et les modèles généralisés additifs (<a href="11-GAM.html">chapitre&nbsp;<span>11</span></a>).</p>
+<p><strong>Partie 5. Analyses exploratoires multivariées</strong>. Dans cette cinquième partie sont abordées les méthodes de statistique exploratoire et descriptive permettant de décrire des tableaux de données comprenant plusieurs variables. Nous décrivons d’abord les méthodes de réduction de données&nbsp;: les méthodes factorielles dans le <a href="12-AnalysesFactorielles.html">chapitre&nbsp;<span>12</span></a> (analyses de composantes principales, analyses factorielles de correspondances, analyses factorielles de correspondances multiples) et les méthodes de classification non supervisées dans le <a href="13-MethodeClassification.html">chapitre&nbsp;<span>13</span></a> (classification ascendante hiérarchique, k-moyennes, k-médianes, k-médoïdes et leurs extensions en logique floue comme les c-moyennes et c-médianes).</p>
+</section><section id="sect006" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="sect006">Pourquoi faut-il programmer en sciences sociales?</h2>
+<p>Vous contrasterez rapidement que R est un véritable langage de programmation. L’apprentissage de ce langage de programmation est-il pour autant pertinent pour les étudiants et étudiantes en sciences sociales? Il est vrai que la programmation n’est pas une compétence qui vient d’emblée à l’esprit lorsque l’on s’intéresse à la recherche aux sciences sociales. Pourtant, elle est de plus en plus importante, et ce, pour plusieurs raisons&nbsp;:</p>
+<ul>
+<li><p>Une part toujours plus grande des phénomènes sociaux se produisent ou peuvent s’observer au travers d’environnements numériques. Être capable d’exploiter efficacement ces outils permet d’extraire des données riches sur des phénomènes complexes, tel qu’en témoignent des études récentes sur la propagation de la désinformation sur les réseaux sociaux <span class="citation" data-cites="allcott2017social">(<a href="references.html#ref-allcott2017social" role="doc-biblioref">Allcott et Gentzkow 2017</a>)</span>, la migration des personnes <span class="citation" data-cites="spyratos2019quantifying">(<a href="references.html#ref-spyratos2019quantifying" role="doc-biblioref">Spyratos et al. 2019</a>)</span>, la propagation et les risques de contamination de la COVID-19 <span class="citation" data-cites="boulos2020geographical">(<a href="references.html#ref-boulos2020geographical" role="doc-biblioref">Boulos et Geraghty 2020</a>)</span>. Le plus souvent, les interfaces (API par exemple) permettant d’accéder à ces données nécessitent des habiletés en programmation.</p></li>
+<li><p>La quantité de données numériques ouvertes et accessibles en ligne croit chaque année sur des sujets très divers. La plupart des villes et des gouvernements ont maintenant leur portail de données ouvertes auxquelles s’ajoutent les données produites par des projets collaboratifs comme <a href="https://www.openstreetmap.org">OpenStreetMap</a> ou <a href="https://noise-planet.org/map_noisecapture/index.html">NoisePlanet</a>. Récupérer ces données et les structurer pour les utiliser à des fins de recherche nécessitent le plus souvent des compétences en programmation.</p></li>
+<li><p>Les méthodes quantitatives connaissent également un développement très important. Les logiciels propriétaires peinent à suivre la cadence de ce développement, contrairement aux logiciels à code source ouvert (comme R) qui permettent d’avoir accès aux dernières méthodes. Il est souvent long et coûteux de développer une interface graphique pour un logiciel, ce qui explique que la plupart de ces programmes en sont dépourvus et nécessitent alors de savoir programmer pour les utiliser.</p></li>
+<li><p>Savoir programmer donne une liberté considérable en recherche. Cette compétence permet notamment de ne plus être limité(e) aux fonctionnalités proposées par des logiciels spécifiques. Il devient possible d’innover tant en matière de structuration, d’exploration et d’analyse des données que de représentation des résultats en écrivant ses propres fonctions. Cette flexibilité contribue directement à la production d’une recherche de meilleure qualité et plus diversifiée.</p></li>
+<li><p>Programmer permet également d’automatiser des tâches qui autrement seraient extrêmement répétitives comme&nbsp;: déplacer et renommer une centaine de fichiers; retirer les lignes inutiles dans un ensemble de fichiers et les compiler dans une seule base de données; vérifier parmi des milliers d’adresses lesquelles sont valides; récupérer chaque jour les messages postés sur un forum. Autant de tâches faciles à automatiser si l’on sait programmer.</p></li>
+<li><p>Dans un logiciel avec une interface graphique, il est compliqué de conserver un historique des opérations effectuées. Programmer permet au contraire de garder une trace de l’ensemble des actions effectuées au cours d’un projet de recherche. En effet, le code utilisé reste disponible et permet de reproduire (ou d’adapter) la méthode et les résultats obtenus, ce qui est essentiel dans le monde de la recherche. À cela s’ajoute le fait que chaque ligne de code que vous écrivez vient s’ajouter à un capital de code que vous possédez, car elles pourront être réutilisées dans d’autres projets!</p></li>
+</ul></section><section id="sect007" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="sect007">Remerciements</h2>
+<p>De nombreuses personnes ont contribué à l’élaboration de ce manuel. Ce projet a bénéficié du soutien pédagogique et financier de la <a href="https://fabriquerel.org/"><strong><em>fabriqueREL</em></strong></a> (ressources éducatives libres). Les différentes rencontres avec le comité de suivi nous ont permis de comprendre l’univers des ressources éducatives libres (REL) et notamment leurs <a href="https://fabriquerel.org/rel/">fameux 5R</a> (Retenir — Réutiliser — Réviser — Remixer — Redistribuer), de mieux définir le besoin pédagogique visé par ce manuel, d’identifier des outils et des ressources pédagogiques pertinents pour son élaboration. Ainsi, nous remercions chaleureusement les membres de suivi de la <em>fabriqueREL</em> pour leur support inconditionnel&nbsp;:</p>
+<ul>
+<li>Myriam Beaudet, bibliothécaire à l’Université de Sherbrooke.</li>
+<li>Marianne Dubé, conseillère pédagogique à l’Université de Sherbrooke et coordonnatrice de la fabriqueREL.</li>
+<li>Myrian Grondin, bibliothécaire à l’Institut national de la recherche scientifique (INRS).</li>
+<li>Claude Potvin, conseiller en formation à l’Université Laval.</li>
+<li>Serge Allary, vice-recteur adjoint aux études de l’Université de Sherbrooke.</li>
+</ul>
+<p>Nous tenons aussi à remercier sincèrement les étudiants et étudiantes du cours <strong>Méthodes quantitatives appliquées aux études urbaines (EUR8219)</strong> du programme de maîtrise en études urbaines de l’INRS. Leurs commentaires et suggestions nous ont permis d’améliorer grandement les versions préliminaires de ce manuel qui ont été utilisées dans le cadre de ce cours.</p>
+<p>Nous remercions les membres du comité de révision pour leurs commentaires et suggestions très constructifs. Ce comité est composé de trois étudiantes et deux professeurs de l’<a href="https://inrs.ca/">INRS</a>&nbsp;:</p>
+<ul>
+<li>Victoria Gay-Gauvin, étudiante à la maîtrise en études urbaines.</li>
+<li>Salomé Vallette, étudiante au doctorat en études urbaines.</li>
+<li>Diana Pena Ruiz, étudiante au doctorat en études des populations.</li>
+<li>
+<a href="https://inrs.ca/la-recherche/professeurs/benoit-laplante/">Benoît Laplante</a>, professeur enseignant aux programmes de maîtrise et de doctorat en études des populations.</li>
+<li>
+<a href="https://inrs.ca/la-recherche/professeurs/xavier-leloup/">Xavier Leloup</a>, professeur enseignant au programme de doctorat en études urbaines.</li>
+</ul>
+<p>Finalement, nous remercions Denise Latreille, réviseure linguistique et chargée de cours à l’Université Sherbrooke, pour la révision du manuel.</p>
+</section><section id="sect008" class="level2 unnumbered"><h2 class="unnumbered anchored" data-anchor-id="sect008">Dédicace toute spéciale à Cargo et Ambrée</h2>
+<p>Fait cocasse, l’écriture de ce livre a démarré lorsque Philippe Apparicio était famille d’accueil d’un chiot de la <a href="https://www.mira.ca/fr/">Fondation Mira</a>, un organisme à but non lucratif qui forme des chiens-guides et d’assistance pour accroître l’autonomie et l’inclusion sociale des personnes vivant avec un handicap visuel ou moteur, ainsi que des jeunes présentant un trouble du spectre de l’autisme (TSA). En fin de rédaction du livre, ce fut au tour de Jérémy Gelb d’être famille d’accueil d’un autre chiot Mira. Nous remercions chaleureusement la <a href="https://www.mira.ca/fr/">Fondation Mira</a> pour nous avoir donné l’occasion de vivre cette expérience incroyable. Ce livre est donc dédié au beau Cargo et à la belle Ambrée qui nous ont tant supportés dans l’écriture du livre. Il n’y a rien de plus relaxant que d’écrire un livre de statistique avec un chiot qui dort à ses pieds!</p>
+<div id="fig-CargoAmbre" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/introduction/CargoAmbre.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;3: Cargo et Ambrée, chiots de la Fondation Mira</figcaption></figure>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-allcott2017social" class="csl-entry" role="listitem">
+Allcott, Hunt et Matthew Gentzkow. 2017. <span>«&nbsp;Social media and fake news in the 2016 election.&nbsp;»</span> <em>Journal of economic perspectives</em> 31 (2): 211‑36. <a href="https://doi.org/10.1257/jep.31.2.211">https://doi.org/10.1257/jep.31.2.211</a>.
+</div>
+<div id="ref-boulos2020geographical" class="csl-entry" role="listitem">
+Boulos, Maged N Kamel et Estella M Geraghty. 2020. <span>«&nbsp;Geographical tracking and mapping of coronavirus disease COVID-19/severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) epidemic and associated events around the world: how 21st century GIS technologies are supporting the global fight against outbreaks and epidemics.&nbsp;»</span> <em>International journal of health geographics</em> 19 (1): 1‑12. <a href="https://doi.org/10.1186/s12942-020-00202-8">https://doi.org/10.1186/s12942-020-00202-8</a>.
+</div>
+<div id="ref-Chang2018" class="csl-entry" role="listitem">
+Chang, Winston. 2018. <em>R Graphics Cookbook, 2nd edition</em>. CRC Press.
+</div>
+<div id="ref-hanck2019introduction" class="csl-entry" role="listitem">
+Hanck, Christoph, Martin Arnold, Alexander Gerber et Martin Schmelzer. 2019. <em>Introduction to econometrics with R</em>. s.n. <a href="https://www.econometrics-with-r.org/ITER.pdf">https://www.econometrics-with-r.org/ITER.pdf</a>.
+</div>
+<div id="ref-ismay2019statistical" class="csl-entry" role="listitem">
+Ismay, Chester et Albert Y Kim. 2019. <em>Statistical inference via data science: a ModernDive into R and the tidyverse</em>. CRC Press.
+</div>
+<div id="ref-roback2021beyond" class="csl-entry" role="listitem">
+Roback, Paul et Julie Legler. 2021. <em>Beyond multiple linear regression: Applied generalized linear models and multilevel models in R</em>. CRC Press.
+</div>
+<div id="ref-spyratos2019quantifying" class="csl-entry" role="listitem">
+Spyratos, Spyridon, Michele Vespe, Fabrizio Natale, Ingmar Weber, Emilio Zagheni et Marzia Rango. 2019. <span>«&nbsp;Quantifying international human mobility patterns using Facebook Network data.&nbsp;»</span> <em>PloS one</em> 14 (10): e0224134. <a href="https://doi.org/10.1371/journal.pone.0224134">https://doi.org/10.1371/journal.pone.0224134</a>.
+</div>
+</div>
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copié");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copié");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./00-auteurs.html" class="pagination-link">
+        <span class="nav-page-text">À propos des auteurs</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">Méthodes quantitatives en sciences sociales : un grand bol d’R.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">Ce livre a été réalisé avec <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+</body></html>

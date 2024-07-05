@@ -1,0 +1,39 @@
+- label: "Pour analyser la relation entre deux variables qualitatives, vous utilisez :"
+  type: uc
+  response: 4
+  answers:
+     - "la covariance"
+     - "la régression linéaire simple"
+     - "le coefficient de corrélation de Pearson"
+     - "un tableau de continence et un test du khi2"
+     - "le coefficient de corrélation de Spearman"
+     - "un compteur Geiger"
+  help: "Relisez au besoin l'introduction du [chapitre @sec-chap05]."
+
+- label : "Dans un tableau de contingence, quels sont les éléments disponibles?"
+  type: mc
+  response: [1,2,3,4,6]
+  answers:
+    - "Fréquences théoriques"
+    - "Fréquences observées"
+    - "Trois pourcentages (total, en lignes et en colonnes)"
+    - "Déviations"
+    - "Variance"
+    - "Contributions au khi-deux"
+  help: "Relisez au besoin la [section @sec-051]."
+
+- label: "La corrélation polychorique est particulièrement bien adaptée pour mesurer l'association entre deux variables qualitatives :"
+  type: uc
+  response: 1
+  answers:
+    - "ordinales"
+    - "nominales"
+  help: "Relisez au besoin l'encadré à la [section @sec-052]."
+
+- label: "S'il y a indépendance entre les deux variables qualitatives (khi-deux observé inférieur au khi-deux critique), il n'est pas nécessaire d'analyser en détail le tableau de contingence."
+  type: uc
+  response: 1
+  answers:
+     - "Vrai"
+     - "Faux"
+  help: "Relisez au besoin la [section @sec-054]."

@@ -1,0 +1,165 @@
+# Annexes {#sec-chap14}
+
+## Table des valeurs critiques de khi-deux {#sec-141}
+
+La courte syntaxe R ci-dessous permet de générer le @tbl-tableCritiqueKhi2 avec les valeurs critiques du khi-deux pour différents degrés de signification (valeurs de *p*).
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| results: hide
+library(stargazer)
+
+# vecteur pour les degrés de liberté de 1 à 30, puis 40 et 50
+dl <- c(1:30, 40, 50, 100, 250, 500) 
+# la fonction qchisq permet d'obtenir la valeur théorique en fonction 
+# d'une valeur de p et d'un nombre de degrés de liberté
+tableKhi2 <- cbind(dl,
+                p0.10 = round(qchisq(p = 0.90,  df = dl, lower.tail = TRUE), 3),
+                p0.05 = round(qchisq(p = 0.95,  df = dl, lower.tail = TRUE), 3),
+                p0.01 = round(qchisq(p = 0.99,  df = dl, lower.tail = TRUE), 3),
+                p0.001 =round(qchisq(p = 0.999, df = dl, lower.tail = TRUE), 3))
+# Impression du tableau avec la library stargazer
+stargazer(tableKhi2, type = "text", summary = FALSE, rownames = FALSE, align = TRUE, digits = 2,
+           title = "Distribution des valeurs critiques du Khi2")
+```
+
+
+```{r}
+#| label: tbl-tableCritiqueKhi2
+#| tbl-cap: Distribution des valeurs critiques du khi-deux
+#| echo: false
+#| message: false
+#| warning: false
+knitr::kable(tableKhi2, 
+             format.args = list(decimal.mark = ',', big.mark = " "),
+             digits = 2,
+             col.names = c("dl", "p = 0,10", "p = 0,05", "p = 0,01", "p = 0,001"),
+             align = c("r", "r", "r", "r", "r"),
+             position = "HOLD_position"
+)
+```
+
+
+## Table des valeurs critiques de Fisher {#sec-142}
+
+La courte syntaxe R ci-dessous permet de générer les tableaux  [-@tbl-CritiqueF1], [-@tbl-CritiqueF2] et [-@tbl-CritiqueF3] avec les valeurs critiques de *F* avec *p*&nbsp;=&nbsp;0,05.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| results: hide
+library(stargazer)
+
+dl1 <- c(1:10, 15, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400, 500, 1000)
+dl2 <- c(1:10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 500, 1000, 2000)
+matrice <- matrix(ncol = length(dl1), nrow = length(dl2), byrow = TRUE)
+for(r in 1:length(dl1)){
+  for(c in 1:length(dl2)){
+    matrice[c,r] <- round(qf(p = 0.05, dl1[r], dl2[c], lower.tail = FALSE), 2)
+  }
+}
+
+tableF_p0.05 <- data.frame(dl2 = dl2, matrice)
+names(tableF_p0.05) <- c("dl2", paste0("dl1=",dl1))
+
+stargazer(tableF_p0.05, type = "text", summary = FALSE, rownames = FALSE, align = TRUE, digits = 3,
+          title = "Distribution des valeurs critiques de F avec p = 0,05")
+```
+
+
+```{r}
+#| label: tbl-CritiqueF1
+#| tbl-cap: Distribution des valeurs critiques de F avec p = 0,05
+#| echo: false
+#| message: false
+#| warning: false
+nomcols <- names(tableF_p0.05)
+knitr::kable(tableF_p0.05[,1:11], 
+           format.args = list(decimal.mark = ',', big.mark = " "),
+           col.names = nomcols[1:11],
+           align = c("r", "r", "r", "r", "r", "r", "r", "r", "r", "r", "r"),
+           position = "HOLD_position")
+```
+
+
+
+```{r}
+#| label: tbl-CritiqueF2
+#| tbl-cap: Distribution des valeurs critiques de F avec p = 0,05 (suite)
+#| echo: false
+#| message: false
+#| warning: false
+knitr::kable(tableF_p0.05[,c(1,12:20)], 
+           format.args = list(decimal.mark = ',', big.mark = " "),
+           col.names=nomcols[c(1,12:20)],
+           align= c("r", "r", "r", "r", "r", "r", "r", "r", "r", "r"),
+           position = "HOLD_position")
+```
+
+
+
+```{r}
+#| label: tbl-CritiqueF3
+#| tbl-cap: Distribution des valeurs critiques de F avec p = 0,05 (suite)
+#| echo: false
+#| message: false
+#| warning: false
+knitr::kable(tableF_p0.05[,c(1,21:26)], 
+           format.args = list(decimal.mark = ',', big.mark = " "),
+           col.names=nomcols[c(1,21:26)],
+           align= c("r", "r", "r", "r", "r", "r", "r"),
+           position = "HOLD_position")
+```
+
+## Table des valeurs critiques de *t* {#sec-143}
+
+La courte syntaxe R ci-dessous permet de générer le @tbl-tableCritiqueT avec les valeurs critiques de *t* avec *p*&nbsp;=&nbsp;0,10, 0,05, 0,01 et 0,01.
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| results: hide
+library(stargazer)
+
+# vecteur pour les degrés de liberté de 1 à 30, puis 40 et 50
+dl <- c(1:30, 40, 50, 60, 70, 80, 90, 100, 250, 500, 1000, 2500) 
+# la fonction qchisq permet d'obtenir la valeur théorique en fonction 
+# d'une valeur de p et d'un nombre de degrés de liberté
+tableT <- cbind(dl,
+                p0.10 =  round(qt(p = 1 - (0.10/2),  df = dl),2),
+                p0.05 =  round(qt(p = 1 - (0.05/2),  df = dl),2),
+                p0.01 =  round(qt(p = 1 - (0.01/2),  df = dl),2),
+                p0.001 = round(qt(p = 1 - (0.001/2), df = dl),2))
+# Impression du tableau avec la library stargazer
+stargazer(tableT, type = "text", summary = FALSE, rownames = FALSE, align = TRUE, digits = 2,
+          title="Distribution des valeurs critiques de t")
+```
+
+```{r}
+#| label: tbl-tableCritiqueT
+#| tbl-cap: Distribution des valeurs critiques de t
+#| echo: false
+#| message: false
+#| warning: false
+# vecteur pour les degrés de liberté de 1 à 30, puis 40 et 50
+knitr::kable(tableT, 
+           format.args = list(decimal.mark = ',', big.mark = " "),
+           col.names = c("dl", "p = 0,10", "p = 0,05", "p = 0,01", "p = 0,001"),
+           align = c("r", "r", "r", "r", "r"),
+           position = "HOLD_position"
+)
+```
+
+
+```{r}
+#| echo: false
+#| results: asis
+if(knitr::is_latex_output()){
+  cat("# Bibliographie {-}")
+}
+```
+

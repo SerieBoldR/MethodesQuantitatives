@@ -1,0 +1,2434 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Méthodes quantitatives en sciences sociales : un grand bol d’R - 4&nbsp; Relation linéaire entre deux variables quantitatives</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./05-bivarieeQualiQuali.html" rel="next">
+<link href="./03-magiedesgraphiques.html" rel="prev">
+<link href="./images/introduction/Couverture.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Pas de résultats",
+    "search-matching-documents-text": "documents trouvés",
+    "search-copy-link-title": "Copier le lien vers la recherche",
+    "search-hide-matches-text": "Cacher les correspondances additionnelles",
+    "search-more-match-text": "correspondance de plus dans ce document",
+    "search-more-matches-text": "correspondances de plus dans ce document",
+    "search-clear-button-title": "Effacer",
+    "search-detached-cancel-button-title": "Annuler",
+    "search-submit-button-title": "Envoyer"
+  }
+}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script><link rel="stylesheet" href="css/quizlib.min.css">
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./04-bivarieeQuantiQuanti.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Relation linéaire entre deux variables quantitatives</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Basculer la barre latérale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Recherche" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Méthodes quantitatives en sciences sociales : un grand bol d’R</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/SerieBoldR/MethodesQuantitatives" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Recherche"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Préface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-auteurs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">À propos des auteurs</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 1. Découverte de R</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-priseenmainR.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Prise en main de R</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 2. Analyses univariées et représentations graphiques</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-univarie.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Statistiques descriptives univariées</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-magiedesgraphiques.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Magie des graphiques</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 3. Analyses bivariées</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-bivarieeQuantiQuanti.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Relation linéaire entre deux variables quantitatives</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-bivarieeQualiQuali.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Relation entre deux variables qualitatives</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-bivarieeQualiQuanti.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Relation entre une variable qualitative et une variable quantitative</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 4. Modèles de régression</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-regressionlineaire.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Régression linéaire multiple</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-GLM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Régressions linéaires généralisées (GLM)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-GLMM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Régressions à effets mixtes (GLMM)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-Multiniveau.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Régressions multiniveaux</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-GAM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Modèles généralisés additifs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 5. Analyses exploratoires multivariées</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-AnalysesFactorielles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Méthodes factorielles</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-MethodeClassification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Méthodes de classification non supervisée</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">Partie 6. Annexes et bibliographie</span></span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-Annexes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Annexes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bibliographie</span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table des matières</h2>
+   
+  <ul>
+<li><a href="#sec-041" id="toc-sec-041" class="nav-link active" data-scroll-target="#sec-041"><span class="header-section-number">4.1</span> Bref retour sur le postulat de la relation linéaire</a></li>
+  <li>
+<a href="#sec-042" id="toc-sec-042" class="nav-link" data-scroll-target="#sec-042"><span class="header-section-number">4.2</span> Covariance</a>
+  <ul class="collapse">
+<li><a href="#sec-0421" id="toc-sec-0421" class="nav-link" data-scroll-target="#sec-0421"><span class="header-section-number">4.2.1</span> Formulation</a></li>
+  <li><a href="#sec-0422" id="toc-sec-0422" class="nav-link" data-scroll-target="#sec-0422"><span class="header-section-number">4.2.2</span> Interprétation</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#sec-043" id="toc-sec-043" class="nav-link" data-scroll-target="#sec-043"><span class="header-section-number">4.3</span> Corrélation</a>
+  <ul class="collapse">
+<li><a href="#sec-0431" id="toc-sec-0431" class="nav-link" data-scroll-target="#sec-0431"><span class="header-section-number">4.3.1</span> Formulation</a></li>
+  <li><a href="#sec-0432" id="toc-sec-0432" class="nav-link" data-scroll-target="#sec-0432"><span class="header-section-number">4.3.2</span> Interprétation</a></li>
+  <li><a href="#sec-0433" id="toc-sec-0433" class="nav-link" data-scroll-target="#sec-0433"><span class="header-section-number">4.3.3</span> Corrélations pour des variables anormalement distribuées (coefficient de Spearman, tau de Kendall)</a></li>
+  <li><a href="#sec-0434" id="toc-sec-0434" class="nav-link" data-scroll-target="#sec-0434"><span class="header-section-number">4.3.4</span> Corrélations robustes (<em>Biweight midcorrelation</em>, <em>Percentage bend correlation</em> et la corrélation <em>pi</em> de Shepherd)</a></li>
+  <li><a href="#sec-0435" id="toc-sec-0435" class="nav-link" data-scroll-target="#sec-0435"><span class="header-section-number">4.3.5</span> Significativité des coefficients de corrélation</a></li>
+  <li><a href="#sec-0436" id="toc-sec-0436" class="nav-link" data-scroll-target="#sec-0436"><span class="header-section-number">4.3.6</span> Corrélation partielle</a></li>
+  <li><a href="#sec-0437" id="toc-sec-0437" class="nav-link" data-scroll-target="#sec-0437"><span class="header-section-number">4.3.7</span> Mise en œuvre dans R</a></li>
+  <li><a href="#sec-0438" id="toc-sec-0438" class="nav-link" data-scroll-target="#sec-0438"><span class="header-section-number">4.3.8</span> Comment rapporter des valeurs de corrélations?</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#sec-044" id="toc-sec-044" class="nav-link" data-scroll-target="#sec-044"><span class="header-section-number">4.4</span> Régression linéaire simple</a>
+  <ul class="collapse">
+<li><a href="#sec-0441" id="toc-sec-0441" class="nav-link" data-scroll-target="#sec-0441"><span class="header-section-number">4.4.1</span> Principe de base de la régression linéaire simple</a></li>
+  <li><a href="#sec-0442" id="toc-sec-0442" class="nav-link" data-scroll-target="#sec-0442"><span class="header-section-number">4.4.2</span> Formulation de la droite de régression des moindres carrés ordinaires</a></li>
+  <li><a href="#sec-0443" id="toc-sec-0443" class="nav-link" data-scroll-target="#sec-0443"><span class="header-section-number">4.4.3</span> Mesure de la qualité d’ajustement du modèle</a></li>
+  <li><a href="#sec-0444" id="toc-sec-0444" class="nav-link" data-scroll-target="#sec-0444"><span class="header-section-number">4.4.4</span> Mise en œuvre dans R</a></li>
+  <li><a href="#sec-0445" id="toc-sec-0445" class="nav-link" data-scroll-target="#sec-0445"><span class="header-section-number">4.4.5</span> Comment rapporter une régression linéaire simple</a></li>
+  </ul>
+</li>
+  <li><a href="#sec-045" id="toc-sec-045" class="nav-link" data-scroll-target="#sec-045"><span class="header-section-number">4.5</span> Quiz de révision du chapitre</a></li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/SerieBoldR/MethodesQuantitatives/issues/new" class="toc-action">Signaler un problème ou<br>formuler une suggestion</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-chap04" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Relation linéaire entre deux variables quantitatives</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><p>Dans le cadre de ce chapitre, nous présentons les trois principales méthodes permettant d’explorer la relation linéaire entre deux variables quantitatives, soit la covariance, la corrélation et la régression linéaire simple.</p>
+<div class="bloc_package">
+<div class="bloc_package-header">
+<div class="bloc_package-icon">
+
+</div>
+<p><strong>Liste des <em>packages</em> utilisés dans ce chapitre</strong></p>
+</div>
+<div class="bloc_package-body">
+<ul>
+<li>Pour créer des graphiques&nbsp;:
+<ul>
+<li>
+<code>ggplot2</code>, le seul, l’unique!</li>
+<li>
+<code>ggpubr</code> pour combiner des graphiques et réaliser des diagrammes quantiles-quantiles.</li>
+</ul>
+</li>
+<li>Pour manipuler des données&nbsp;:
+<ul>
+<li>
+<code>dplyr</code> notamment pour les fonctions <code>group_by</code>, <code>summarize</code> et les pipes %&gt;%.</li>
+</ul>
+</li>
+<li>Pour les corrélations&nbsp;:
+<ul>
+<li>
+<code>boot</code> pour réaliser des corrélations avec <em>bootstrap</em>.</li>
+<li>
+<code>correlation</code>, de l’ensemble de packages <code>easy_stats</code>, offrant une large panoplie de mesures de corrélation.</li>
+<li>
+<code>corrplot</code> pour créer des graphiques de matrices de corrélation.</li>
+<li>
+<code>Hmisc</code> pour calculer des corrélations de Pearson et Spearman.</li>
+<li>
+<code>ppcor</code> pour calculer des corrélations partielles.</li>
+<li>
+<code>psych</code> pour obtenir une matrice de corrélation (Pearson, Spearman et Kendall), les intervalles de confiance et les valeurs de <em>p</em>.</li>
+<li>
+<code>stargazer</code> pour créer de beaux tableaux d’une matrice de corrélation en HTML, en LaTeX ou en ASCII.</li>
+</ul>
+</li>
+<li>Autres <em>packages</em>&nbsp;:
+<ul>
+<li>
+<code>foreign</code> pour importer des fichiers externes.</li>
+<li>
+<code>MASS</code> pour générer des échantillons normalement distribués.</li>
+<li>
+<code>stargazer</code> pour imprimer des tableaux.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="bloc_objectif">
+<div class="bloc_objectif-header">
+<div class="bloc_objectif-icon">
+
+</div>
+<p><strong>Deux variables continues varient-elles dans le même sens ou bien en sens contraire?</strong></p>
+</div>
+<div class="bloc_objectif-body">
+<p>Répondre à cette question est une démarche exploratoire classique en sciences sociales puisque les données socioéconomiques sont souvent associées linéairement. En d’autres termes, lorsque l’une des deux variables tant à augmenter, l’autre augmente également ou diminue systématiquement.</p>
+<p>En études urbaines, nous pourrions vouloir vérifier si certaines variables socioéconomiques sont associées positivement ou négativement à des variables environnementales jugées positives (comme la couverture végétale ou des mesures d’accessibilité spatiale aux parcs) ou négatives (pollutions atmosphériques et sonores).</p>
+<p>Par exemple, au niveau des secteurs de recensement d’une ville canadienne, nous pourrions vouloir vérifier si le revenu médian des ménages et le coût moyen du loyer varient dans le même sens que la couverture végétale; ou encore s’ils varient en sens inverse des niveaux moyens de dioxyde d’azote ou de bruit routier.</p>
+<p>Pour évaluer la linéarité entre deux variables continues, deux statistiques descriptives sont utilisées&nbsp;: la <strong>covariance</strong> (<a href="#sec-042">section&nbsp;<span>4.2</span></a>) et la <strong>corrélation</strong> (<a href="#sec-043">section&nbsp;<span>4.3</span></a>).</p>
+</div>
+</div>
+<section id="sec-041" class="level2" data-number="4.1"><h2 data-number="4.1" class="anchored" data-anchor-id="sec-041">
+<span class="header-section-number">4.1</span> Bref retour sur le postulat de la relation linéaire</h2>
+<p>Vérifier le postulat de la linéarité consiste à évaluer si deux variables quantitatives varient dans le même sens ou bien en sens contraire. Toutefois, la relation entre deux variables quantitatives n’est pas forcément linéaire. En guise d’illustration, la <a href="#fig-fig2">figure&nbsp;<span>4.1</span></a> permet de distinguer quatre types de relations&nbsp;:</p>
+<ul>
+<li><p>Le cas <strong>a</strong> illustre une relation linéaire positive entre les deux variables puisqu’elles vont dans le même sens. Autrement dit, quand les valeurs de <em>X</em> augmentent, celles de <em>Y</em> augmentent aussi. En guise d’exemple, pour les secteurs de recensement d’une métropole donnée, il est fort probable que le coût moyen du loyer soit associé positivement avec le revenu médian des ménages. Graphiquement parlant, il est clair qu’une droite dans ce nuage de points résumerait efficacement la relation entre ces deux variables.</p></li>
+<li><p>Le cas <strong>b</strong> illustre une relation linéaire négative entre les deux variables puisqu’elles vont en sens inverse. Autrement dit, quand les valeurs de <em>X</em> augmentent, celles de <em>Y</em> diminuent, et inversement. En guise d’exemple, pour les secteurs de recensement d’une métropole donnée, il est fort probable que le revenu médian des ménages soit associé négativement avec le taux de chômage. De nouveau, une droite résumerait efficacement cette relation.</p></li>
+<li><p>Pour le cas <strong>c</strong>, il y a une relation entre les deux variables, mais qui n’est pas linéaire. Le nuage de points entre les deux variables prend d’ailleurs une forme parabolique qui traduit une relation curvilinéaire. Concrètement, nous observons une relation positive jusqu’à un certain seuil, puis une relation négative.</p></li>
+<li><p>Pour le cas <strong>d</strong>, la relation entre les deux variables est aussi curvilinéaire; d’abord négative, puis positive.</p></li>
+</ul>
+<div id="fig-fig2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/Chap04/LineaireCurvilineaire.jpg" class="img-fluid figure-img" style="width:85.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;4.1: Relations linéaires et curvilinéaires entre deux variables continues</figcaption></figure>
+</div>
+<p>Prenons un exemple concret pour illustrer le cas <strong>c</strong>. Dans une étude portant sur l’équité environnementale et la végétation à Montréal, Pham <em>et al.</em> <span class="citation" data-cites="PhamApparicioSeguin2012">(<a href="references.html#ref-PhamApparicioSeguin2012" role="doc-biblioref">2012</a>)</span> ont montré qu’il existe une relation curvilinéaire entre l’âge médian des bâtiments résidentiels (axe des abscisses) et les couvertures végétales (axes des ordonnées)&nbsp;:</p>
+<ul>
+<li><p>La couverture de la végétation totale et celle des arbres augmentent quand l’âge médian des bâtiments croît jusqu’à atteindre un pic autour de 60 ans (autour de 1950). Nous pouvons supposer que les secteurs récemment construits, surtout ceux dans les banlieues, présentent des niveaux de végétation plus faibles. Au fur et à mesure que le quartier vieillit, les arbres plantés lors du développement résidentiel deviennent matures —&nbsp;canopée plus importante&nbsp;–, d’où l’augmentation des valeurs de la couverture végétale totale et de celle des arbres.</p></li>
+<li><p>Par contre, dans les secteurs développés avant les années 1950, la densité du bâti est plus forte, laissant ainsi moins de place pour la végétation, ce qui explique une diminution des variables relatives à la couverture végétale (<a href="#fig-fig3">figure&nbsp;<span>4.2</span></a>).</p></li>
+</ul>
+<div id="fig-fig3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/Chap04/ExRelCurvi.jpg" class="img-fluid figure-img" style="width:65.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;4.2: Exemples de relations curvilinéaires</figcaption></figure>
+</div>
+<p>Dans les sous-sections suivantes, nous décrivons deux statistiques descriptives et exploratoires –&nbsp;la covariance (<a href="#sec-042">section&nbsp;<span>4.2</span></a>) et la corrélation (<a href="#sec-043">section&nbsp;<span>4.3</span></a>)&nbsp;– utilisées pour évaluer la <strong>relation linéaire</strong> entre deux variables continues (cas <strong>a</strong> et <strong>b</strong> à la <a href="#fig-fig2">figure&nbsp;<span>4.1</span></a>). Ces deux mesures permettent de mesurer le degré d’association entre deux variables, sans que l’une soit la variable dépendante (variable à expliquer) et l’autre, la variable indépendante (variable explicative). Puis, nous décrivons la régression linéaire simple (<a href="#sec-044">section&nbsp;<span>4.4</span></a>) qui permet justement de prédire une variable dépendante (<em>Y</em>) à partir d’une variable indépendante (<em>X</em>).</p>
+</section><section id="sec-042" class="level2" data-number="4.2"><h2 data-number="4.2" class="anchored" data-anchor-id="sec-042">
+<span class="header-section-number">4.2</span> Covariance</h2>
+<section id="sec-0421" class="level3" data-number="4.2.1"><h3 data-number="4.2.1" class="anchored" data-anchor-id="sec-0421">
+<span class="header-section-number">4.2.1</span> Formulation</h3>
+<p>La covariance (<a href="#eq-cov">équation&nbsp;<span>4.1</span></a>), écrite <span class="math inline">\(cov(x,y)\)</span>, est égale à la moyenne du produit des écarts des valeurs des deux variables par rapport à leurs moyennes respectives&nbsp;:</p>
+<p><span id="eq-cov"><span class="math display">\[
+cov(x,y) = \frac{\sum_{i=1}^n (x_{i}-\bar{x})(y_{i}-\bar{y})}{n-1} = \frac{covariation}{n-1}
+\tag{4.1}\]</span></span></p>
+<p>avec <span class="math inline">\(n\)</span> étant le nombre d’observations; <span class="math inline">\(\bar{x}\)</span> et <span class="math inline">\(\bar{y}\)</span> (prononcez x et y barre) étant les moyennes respectives des variables <em>X</em> et <em>Y</em>.</p>
+</section><section id="sec-0422" class="level3" data-number="4.2.2"><h3 data-number="4.2.2" class="anchored" data-anchor-id="sec-0422">
+<span class="header-section-number">4.2.2</span> Interprétation</h3>
+<p>Le numérateur de l’<a href="#eq-cov">équation&nbsp;<span>4.1</span></a> représente la covariation, soit la somme du produit des déviations des valeurs <span class="math inline">\(x_{i}\)</span> et <span class="math inline">\(y_{i}\)</span> par rapport à leurs moyennes respectives (<span class="math inline">\(\bar{x}\)</span> et <span class="math inline">\(\bar{y}\)</span>). La covariance est donc la covariation divisée par le nombre d’observations, soit la moyenne de la covariation. Sa valeur peut être positive ou négative&nbsp;:</p>
+<ul>
+<li><p>Positive quand les deux variables varient dans le même sens, c’est-à-dire lorsque les valeurs de la variable <em>X</em> s’éloignent de la moyenne, les valeurs de <em>Y</em> s’éloignent aussi dans le même sens; et elle est négative pour une situation inverse.</p></li>
+<li><p>Quand la covariance est égale à 0, il n’y a pas de relation entre les variables <em>X</em> et <em>Y</em>. Plus sa valeur absolue est élevée, plus la relation entre les deux variables <em>X</em> et <em>Y</em> est importante.</p></li>
+</ul>
+<p>Ainsi, la covariance correspond à un centrage des variables, c’est-à-dire à soustraire à chaque valeur de la variable sa moyenne correspondante. L’inconvénient majeur de l’utilisation de la covariance est qu’elle est tributaire des unités de mesure des deux variables. Par exemple, si nous calculons la covariance entre le pourcentage de personnes à faible revenu et la densité de population (habitants au km<sup>2</sup>) au niveau des secteurs de recensement de la région métropolitaine de Montréal, nous obtenons une valeur de covariance de 33&nbsp;625. En revanche, si la densité de population est exprimée en milliers d’habitants au km<sup>2</sup>, la valeur de la covariance sera de 33,625, alors que la relation linéaire entre les deux variables reste la même comme illustré à la <a href="#fig-covariance">figure&nbsp;<span>4.3</span></a>. Pour remédier à ce problème, nous privilégions l’utilisation du coefficient de corrélation.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-covariance" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="04-bivarieeQuantiQuanti_files/figure-html/fig-covariance-1.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;4.3: Covariance et unités de mesure</figcaption></figure>
+</div>
+</div>
+</div>
+</section></section><section id="sec-043" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="sec-043">
+<span class="header-section-number">4.3</span> Corrélation</h2>
+<section id="sec-0431" class="level3" data-number="4.3.1"><h3 data-number="4.3.1" class="anchored" data-anchor-id="sec-0431">
+<span class="header-section-number">4.3.1</span> Formulation</h3>
+<p>Le coefficient de corrélation de Pearson (<span class="math inline">\(r\)</span>) est égal à la covariance (numérateur) divisée par le produit des écarts-types des deux variables <em>X</em> et <em>Y</em> (dénominateur). Il représente une standardisation de la covariance. Autrement dit, le coefficient de corrélation repose sur un centrage (moyenne = 0) et une réduction (variance = 1) des deux variables, c’est-à-dire qu’il faut soustraire de chaque valeur sa moyenne correspondante et la diviser par son écart-type. Il correspond ainsi à la moyenne du produit des deux variables centrées réduites. Il s’écrit alors&nbsp;:</p>
+<p><span id="eq-cor"><span class="math display">\[
+r_{xy} = \frac{\sum_{i=1}^n (x_{i}-\bar{x})(y_{i}-\bar{y})}{(n-1)\sqrt{\sum_{i=1}^n(x_i - \bar{x})^2(y_i - \bar{y})^2}}=\sum_{i=1}^n\frac{Zx_iZy_i}{n-1}
+\tag{4.2}\]</span></span></p>
+<p>avec <span class="math inline">\(n\)</span> étant le nombre d’observations; <span class="math inline">\(\bar{x}\)</span> et <span class="math inline">\(\bar{y}\)</span> étant les moyennes respectives des variables <em>X</em> et <em>Y</em>.</p>
+<p>La syntaxe ci-dessous démontre que le coefficient de corrélation de Pearson est bien égal à la moyenne du produit de deux variables centrées réduites.</p>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="http://www.stats.ox.ac.uk/pub/MASS4/">"MASS"</a></span><span class="op">)</span></span>
+<span><span class="va">N</span> <span class="op">&lt;-</span> <span class="fl">1000</span>     <span class="co"># nombre d'observations</span></span>
+<span><span class="va">moy_x</span> <span class="op">&lt;-</span> <span class="fl">50</span>   <span class="co"># moyenne de x</span></span>
+<span><span class="va">moy_y</span> <span class="op">&lt;-</span> <span class="fl">40</span>   <span class="co"># moyenne de y</span></span>
+<span><span class="va">sd_x</span> <span class="op">&lt;-</span> <span class="fl">10</span>    <span class="co"># écart-type de x</span></span>
+<span><span class="va">sd_y</span> <span class="op">&lt;-</span> <span class="fl">8</span>     <span class="co"># écart-type de y</span></span>
+<span><span class="va">rxy</span> <span class="op">&lt;-</span> <span class="fl">.80</span> <span class="co"># corrélation entre X et Y</span></span>
+<span><span class="co">## création de deux variables fictives normalement distribuées et corrélées entre elles</span></span>
+<span><span class="co"># Création d'une matrice de covariance</span></span>
+<span><span class="va">cov</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">sd_x</span><span class="op">^</span><span class="fl">2</span>,  <span class="va">rxy</span><span class="op">*</span><span class="va">sd_x</span><span class="op">*</span><span class="va">sd_y</span>, <span class="va">rxy</span><span class="op">*</span><span class="va">sd_x</span><span class="op">*</span><span class="va">sd_y</span>, <span class="va">sd_y</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co"># Création du tableau de données avec deux variables</span></span>
+<span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/MASS/man/mvrnorm.html">mvrnorm</a></span><span class="op">(</span><span class="va">N</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">moy_x</span>, <span class="va">moy_y</span><span class="op">)</span>, <span class="va">cov</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Centrage et réduction des deux variables</span></span>
+<span><span class="va">df1</span><span class="op">$</span><span class="va">zV1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">df1</span><span class="op">$</span><span class="va">V1</span>, center <span class="op">=</span> <span class="cn">TRUE</span>, scale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">df1</span><span class="op">$</span><span class="va">zV2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/scale.html">scale</a></span><span class="op">(</span><span class="va">df1</span><span class="op">$</span><span class="va">V2</span>, center <span class="op">=</span> <span class="cn">TRUE</span>, scale <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co"># Corrélation de Pearson</span></span>
+<span><span class="va">cor1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">df1</span><span class="op">$</span><span class="va">V1</span>, <span class="va">df1</span><span class="op">$</span><span class="va">V2</span><span class="op">)</span></span>
+<span><span class="va">cor2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">df1</span><span class="op">$</span><span class="va">zV1</span><span class="op">*</span><span class="va">df1</span><span class="op">$</span><span class="va">zV2</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">df1</span><span class="op">)</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Corrélation de Pearson = "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">cor1</span>,<span class="fl">5</span><span class="op">)</span>,</span>
+<span>    <span class="st">"\nMoyenne du produit des variables centrées réduites ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">cor2</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Corrélation de Pearson =  0.79321 
+Moyenne du produit des variables centrées réduites = 0.79321</code></pre>
+</div>
+</div>
+</section><section id="sec-0432" class="level3" data-number="4.3.2"><h3 data-number="4.3.2" class="anchored" data-anchor-id="sec-0432">
+<span class="header-section-number">4.3.2</span> Interprétation</h3>
+<p>Le coefficient de corrélation <span class="math inline">\(r\)</span> varie de −1 à 1 avec&nbsp;:</p>
+<ul>
+<li>0 quand il n’y a pas de relation linéaire entre les variables <em>X</em> et <em>Y</em>;</li>
+<li>−1 quand il y a une relation linéaire négative parfaite;</li>
+<li>1 quand il y a une relation linéaire positive parfaite (<a href="#fig-coeffPearson">figure&nbsp;<span>4.4</span></a>).</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-coeffPearson" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="04-bivarieeQuantiQuanti_files/figure-html/fig-coeffPearson-1.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;4.4: Relations entre deux variables continues et coefficients de corrélation de Pearson</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Concrètement, le signe du coefficient de corrélation indique si la relation est positive ou négative et la valeur absolue du coefficient indique le degré d’association entre les deux variables. Reste à savoir comment déterminer qu’une valeur de corrélation est faible, moyenne ou forte. En sciences sociales, nous utilisons habituellement les intervalles de valeurs reportés au <a href="#tbl-tableIntervallesCorrelation">tableau&nbsp;<span>4.1</span></a>. Toutefois, ces seuils sont tout à fait arbitraires. En effet, dépendamment de la discipline de recherche (sciences sociales, sciences de la santé, sciences physiques, etc.) et des variables à l’étude, l’interprétation d’une valeur de corrélation peut varier. Par exemple, en sciences sociales, une valeur de corrélation de 0,2 est considérée comme très faible alors qu’en sciences de la santé, elle pourrait être considérée comme intéressante. À l’opposé, une valeur de 0,9 en sciences physiques pourrait être considérée comme faible. Il convient alors d’utiliser ces intervalles avec précaution.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-tableIntervallesCorrelation" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Tableau&nbsp;4.1: Intervalles pour l’interprétation du coefficient de corrélation habituellement utilisés en sciences sociales</caption>
+<thead><tr class="header">
+<th style="text-align: left;">Corrélation</th>
+<th style="text-align: left;">Négative</th>
+<th style="text-align: left;">Positive</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Faible</td>
+<td style="text-align: left;">de −0,3 à 0,0</td>
+<td style="text-align: left;">de 0,0 à 0,3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Moyenne</td>
+<td style="text-align: left;">de −0,5 à −0,3</td>
+<td style="text-align: left;">de 0,3 à 0,5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Forte</td>
+<td style="text-align: left;">de −1,0 à −0,5</td>
+<td style="text-align: left;">de 0,5 à 1,0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Le coefficient de corrélation mis au carré représente le coefficient de détermination et indique la proportion de la variance de la variable <em>Y</em> expliquée par la variable <em>X</em> et inversement. Par exemple, un coefficient de corrélation de −0,70 signale que 49&nbsp;% de la variance de la variable de <em>Y</em> est expliquée par <em>X</em> (<a href="#fig-coefCorrVar">figure&nbsp;<span>4.5</span></a>).</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-coefCorrVar" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="04-bivarieeQuantiQuanti_files/figure-html/fig-coefCorrVar-1.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;4.5: Coefficient de corrélation et proportion de la variance expliquée</figcaption></figure>
+</div>
+</div>
+</div>
+<p><strong>Condition d’application.</strong> L’utilisation du coefficient de corrélation de Pearson nécessite que les deux variables continues soient normalement distribuées et qu’elles ne comprennent pas de valeurs aberrantes ou extrêmes. D’ailleurs, plus le nombre d’observations est réduit, plus la présence de valeurs extrêmes a une répercussion importante sur le résultat du coefficient de corrélation de Pearson. En guise d’exemple, dans le nuage de points à gauche de la <a href="#fig-ValExtremes">figure&nbsp;<span>4.6</span></a>, il est possible d’identifier des valeurs extrêmes qui se démarquent nettement dans le jeu de données&nbsp;: six observations avec une densité de population supérieure à 20&nbsp;000 habitants au km<sup>2</sup> et deux observations avec un pourcentage de 65 ans et plus supérieur à 55&nbsp;%. Si l’on supprime ces observations (ce qui est défendable dans ce contexte) – soit moins d’un pour cent des observations du jeu de données initial –, la valeur du coefficient de corrélation passe de −0,158 à −0,194, signalant une augmentation du degré d’association entre les deux variables.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-ValExtremes" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="04-bivarieeQuantiQuanti_files/figure-html/fig-ValExtremes-1.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;4.6: Illustation de l’effet des valeurs extrêmes sur le coefficient de Pearson</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="sec-0433" class="level3" data-number="4.3.3"><h3 data-number="4.3.3" class="anchored" data-anchor-id="sec-0433">
+<span class="header-section-number">4.3.3</span> Corrélations pour des variables anormalement distribuées (coefficient de Spearman, tau de Kendall)</h3>
+<p>Lorsque les variables sont fortement anormalement distribuées, le coefficient de corrélation de Pearson est peu adapté pour analyser leurs relations linéaires. Il est alors conseillé d’utiliser deux statistiques non paramétriques&nbsp;: principalement, le coefficient de corrélation de Spearman (<em>rho</em>) et secondairement, le tau (<span class="math inline">\(\tau\)</span>) de Kendall, qui varient aussi tous deux de −1 à 1. Calculé sur les rangs des deux variables, le <strong>coefficient de Spearman</strong> est le rapport entre la covariance des deux variables de rangs sur les écarts-types des variables de rangs. En d’autres termes, il représente simplement le coefficient de Pearson calculé sur les rangs des deux variables&nbsp;:</p>
+<p><span id="eq-spearman"><span class="math display">\[
+r_{xy} = \frac{cov(rg_{x}, rg_{y})}{\sigma_{rg_{x}}\sigma_{rg_{y}}}
+\tag{4.3}\]</span></span></p>
+<p>La syntaxe ci-dessous démontre clairement que le coefficient de Spearman est bien le coefficient de Pearson calculé sur les rangs (<a href="#sec-0431">section&nbsp;<span>4.3.1</span></a>).</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/bivariee/sr_rmr_mtl_2016.csv"</span><span class="op">)</span></span>
+<span><span class="co"># Transformation des deux variables en rangs</span></span>
+<span><span class="va">df</span><span class="op">$</span><span class="va">HabKm2_rang</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rank.html">rank</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">HabKm2</span><span class="op">)</span></span>
+<span><span class="va">df</span><span class="op">$</span><span class="va">A65plus_rang</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rank.html">rank</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">A65plus</span><span class="op">)</span></span>
+<span><span class="co"># Coefficient de Spearman avec la fonction cor et la méthode spearman</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Coefficient de Spearman = "</span>, </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">HabKm2</span>, <span class="va">df</span><span class="op">$</span><span class="va">A65plus</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Coefficient de Spearman =  -0.11953</code></pre>
+</div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Coefficient de Pearson sur les variables transformées en rangs</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Coefficient de Pearson calculé sur les variables transformées en rangs = "</span>, </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">HabKm2_rang</span>, <span class="va">df</span><span class="op">$</span><span class="va">A65plus_rang</span>, method <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Coefficient de Pearson calculé sur les variables transformées en rangs =  -0.11953</code></pre>
+</div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Vérification avec l'équation</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Covariance divisée par le produit des écarts-types sur les rangs :"</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cov</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">HabKm2_rang</span>, <span class="va">df</span><span class="op">$</span><span class="va">A65plus_rang</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">HabKm2_rang</span><span class="op">)</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">A65plus_rang</span><span class="op">)</span><span class="op">)</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Covariance divisée par le produit des écarts-types sur les rangs : -0.11953</code></pre>
+</div>
+</div>
+<p>Le <strong>tau de Kendall</strong> est une autre mesure non paramétrique calculée comme suit&nbsp;:</p>
+<p><span id="eq-tau"><span class="math display">\[
+\tau = \frac{n_{c}-n_{d}}{\frac{1}{2}n(n-1)}
+\tag{4.4}\]</span></span></p>
+<p>avec <span class="math inline">\(n_{c}\)</span> et <span class="math inline">\(n_{d}\)</span> qui sont respectivement les nombres de paires d’observations <strong>c</strong>oncordantes et <strong>d</strong>iscordantes; et le dénominateur étant le nombre total de paires d’observations. Des paires sont dites concordantes quand les valeurs des deux observations vont dans le même sens pour les deux variables (<span class="math inline">\(x_{i}&gt;x_{j}\)</span> et <span class="math inline">\(y_{i}&gt;y_{j}\)</span> ou <span class="math inline">\(x_{i}&lt;x_{j}\)</span> et <span class="math inline">\(y_{i}&lt;y_{j}\)</span>), et discordantes quand elles vont en sens contraire (<span class="math inline">\(x_{i}&gt;x_{j}\)</span> et <span class="math inline">\(y_{i}&lt;y_{j}\)</span> ou <span class="math inline">\(x_{i}&lt;x_{j}\)</span> et <span class="math inline">\(y_{i}&gt;y_{j}\)</span>). Contrairement au calcul du coefficient de Spearman, celui du tau Kendall peut être chronophage&nbsp;: plus le nombre d’observations est élevé, plus les temps de calcul et la mémoire utilisée sont importants. En effet, avec <em>n</em>&nbsp;=&nbsp;1000, le nombre de paires d’observations (<span class="math inline">\({\mbox{0,5}\times n(n-1)}\)</span>) est de 499&nbsp;500, contre près de 50 millions avec <em>n</em>&nbsp;=&nbsp;10&nbsp;000 (49&nbsp;995&nbsp;000).</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-PearsonSpearmanKendall" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="04-bivarieeQuantiQuanti_files/figure-html/fig-PearsonSpearmanKendall-1.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;4.7: Comparaison des coefficients de Pearson, Spearman et Kendall sur deux variables anormalement distribuées</figcaption></figure>
+</div>
+</div>
+</div>
+<p>À la lecture des deux histogrammes à la <a href="#fig-PearsonSpearmanKendall">figure&nbsp;<span>4.7</span></a>, il est clair que les variables <em>densité de population</em> et <em>pourcentage de personnes ayant 65 ou plus</em> sont très anormalement distribuées. Dans ce contexte, l’utilisation du coefficient de Pearson peut nous amener à mésestimer la relation existant entre les deux variables. Notez que les coefficients de Spearman et de Kendall sont tous les deux plus faibles.</p>
+</section><section id="sec-0434" class="level3" data-number="4.3.4"><h3 data-number="4.3.4" class="anchored" data-anchor-id="sec-0434">
+<span class="header-section-number">4.3.4</span> Corrélations robustes (<em>Biweight midcorrelation</em>, <em>Percentage bend correlation</em> et la corrélation <em>pi</em> de Shepherd)</h3>
+<p>Dans l’exemple donné à la <a href="#fig-ValExtremes">figure&nbsp;<span>4.6</span></a>, nous avions identifié des valeurs extrêmes et les avons retiré du jeu de données. Cette pratique peut tout à fait se justifier quand les données sont erronées (un capteur de pollution renvoyant une valeur négative, un questionnaire rempli par un mauvais plaisantin, etc.), mais parfois les cas extrêmes font partie du phénomène à analyser. Dans ce contexte, les identifier et les retirer peut paraître arbitraire. Une solution plus élégante est d’utiliser des méthodes dites <strong>robustes</strong>, c’est-à-dire moins sensibles aux valeurs extrêmes. Pour les corrélations, la <em>Biweight midcorrelation</em> <span class="citation" data-cites="wilcox1994percentage">(<a href="references.html#ref-wilcox1994percentage" role="doc-biblioref">Wilcox 1994</a>)</span> est au coefficient de Pearson ce que la médiane est à la moyenne. Il est donc pertinent de l’utiliser pour des jeux de données présentant potentiellement des valeurs extrêmes. Elle est calculée comme suit&nbsp;:</p>
+<p><span id="eq-bicor"><span class="math display">\[
+\begin{aligned}
+&amp;u_{i} = \frac{x_{i} - med(x)}{9 \times (med(|x_{i} - med(x)|))} \text{ et } v_{i} = \frac{y_{i} - med(y)}{9 \times (med(|y_{i} - med(y)|))}\\
+&amp;w_{i}^{(x)} = (1 - u_{i}^2)^2 I(1 - |u_{i}|) \text{ et } w_{i}^{(y)} = (1 - v_{i}^2)^2 I(1 - |v_{i}|)\\
+&amp;I(x) =
+\begin{cases}
+1, \text{si } x = 1\\
+0, \text{sinon}
+\end{cases}\\
+&amp;\tilde{x}_{i} = \frac{(x_{i} - med(x))w_{i}^{(x)}}{\sqrt{(\sum_{j=1}^m)[(x_{j} - med(x))w_{j}^{(x)}]^2}} \text{ et } \tilde{y}_{i} = \frac{(y_{i} - med(y))w_{i}^{(y)}}{\sqrt{(\sum_{j=1}^m)[(y_{j} - med(y))w_{j}^{(y)}]^2}}\\
+&amp;bicor(x,y) = \sum_{i=1}^m \tilde{x_i}\tilde{y_i}
+\end{aligned}
+\tag{4.5}\]</span></span></p>
+<p>Comme le souligne l’<a href="#eq-bicor">équation&nbsp;<span>4.5</span></a>, la <em>Biweight midcorrelation</em> est basée sur les écarts à la médiane, plutôt que sur les écarts à la moyenne.</p>
+<p>Assez proche de la <em>Biweight midcorrelation</em>, la <em>Percentage bend correlation</em> se base également sur la médiane des variables <em>X</em> et <em>Y</em>. Le principe général est de donner un poids plus faible dans le calcul de cette corrélation à un certain pourcentage des observations (20&nbsp;% sont généralement recommandés) dont la valeur est éloignée de la médiane. Pour une description complète de la méthode, vous pouvez lire l’article de <span class="citation" data-cites="wilcox1994percentage">Wilcox (<a href="references.html#ref-wilcox1994percentage" role="doc-biblioref">1994</a>)</span>.</p>
+<p>Enfin, une autre option est l’utilisation de la corrélation <span class="math inline">\(pi\)</span> de Sherphred <span class="citation" data-cites="Schwarzkopf2012">(<a href="references.html#ref-Schwarzkopf2012" role="doc-biblioref">Schwarzkopf, Haas et Rees 2012</a>)</span>. Il s’agit simplement d’une méthode en deux étapes. Premièrement, les valeurs extrêmes sont identifiées à l’aide d’une approche par <em>bootstrap</em> utilisant la distance de Mahalanobis (calculant les écarts multivariés entre les observations). Deuxièmement, le coefficient de <em>Spearman</em> est calculé sur les observations restantes.</p>
+<p>Appliquons ces corrélations aux données précédentes. Notez que ce simple code d’une dizaine de lignes permet d’explorer rapidement la corrélation entre deux variables selon six mesures de corrélation.</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://easystats.github.io/correlation/">"correlation"</a></span><span class="op">)</span></span>
+<span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/bivariee/sr_rmr_mtl_2016.csv"</span><span class="op">)</span></span>
+<span><span class="va">methods</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Pearson"</span> , <span class="st">"Spearman"</span> , <span class="st">"Biweight"</span> , <span class="st">"Percentage"</span> , <span class="st">"Shepherd"</span><span class="op">)</span></span>
+<span><span class="va">rs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">methods</span>, <span class="kw">function</span><span class="op">(</span><span class="va">m</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">test</span> <span class="op">&lt;-</span> <span class="fu">correlation</span><span class="fu">::</span><span class="fu"><a href="https://easystats.github.io/correlation/reference/cor_test.html">cor_test</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df1</span>, x <span class="op">=</span> <span class="st">"Hab1000Km2"</span>, y <span class="op">=</span> <span class="st">"A65plus"</span>, method <span class="op">=</span> <span class="va">m</span>, ci<span class="op">=</span><span class="fl">0.95</span><span class="op">)</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">test</span><span class="op">$</span><span class="va">r</span>, <span class="va">test</span><span class="op">$</span><span class="va">CI_low</span>, <span class="va">test</span><span class="op">$</span><span class="va">CI_high</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="va">dfCorr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">rs</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">dfCorr</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"r"</span> , <span class="st">"IC_2.5"</span> , <span class="st">"IC_97.5"</span><span class="op">)</span></span>
+<span><span class="va">dfCorr</span><span class="op">$</span><span class="va">method</span> <span class="op">&lt;-</span> <span class="va">methods</span></span>
+<span></span>
+<span><span class="co"># Impression du tableau avec le package stargazer</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">stargazer</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/stargazer/man/stargazer.html">stargazer</a></span><span class="op">(</span><span class="va">dfCorr</span>, type <span class="op">=</span> <span class="st">"text"</span>, summary <span class="op">=</span> <span class="cn">FALSE</span>, rownames <span class="op">=</span> <span class="cn">FALSE</span>, align <span class="op">=</span> <span class="cn">FALSE</span>, digits <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>          title <span class="op">=</span> <span class="st">"Comparaison de différentes corrélations pour les deux variables"</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-robcorr" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Tableau&nbsp;4.2: Comparaison de différentes corrélations pour les deux variables</caption>
+<thead><tr class="header">
+<th style="text-align: right;">r</th>
+<th style="text-align: right;">IC 2,5 %</th>
+<th style="text-align: right;">IC 97,5 %</th>
+<th style="text-align: left;">Méthode</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">-0.158</td>
+<td style="text-align: right;">-0.219</td>
+<td style="text-align: right;">-0.095</td>
+<td style="text-align: left;">Pearson</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.120</td>
+<td style="text-align: right;">-0.184</td>
+<td style="text-align: right;">-0.055</td>
+<td style="text-align: left;">Spearman</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.137</td>
+<td style="text-align: right;">-0.199</td>
+<td style="text-align: right;">-0.074</td>
+<td style="text-align: left;">Biweight</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">-0.174</td>
+<td style="text-align: right;">-0.235</td>
+<td style="text-align: right;">-0.111</td>
+<td style="text-align: left;">Percentage</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">-0.121</td>
+<td style="text-align: right;">-0.187</td>
+<td style="text-align: right;">-0.054</td>
+<td style="text-align: left;">Shepherd</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Il est intéressant de mentionner que ces trois corrélations sont rarement utilisées malgré leur pertinence dans de nombreux cas d’application. Nous faisons face ici à un cercle vicieux dans la recherche&nbsp;: les méthodes les plus connues sont les plus utilisées, car elles sont plus facilement acceptées par la communauté scientifique. Des méthodes plus élaborées nécessitent davantage de justification et de discussion, ce qui peut conduire à de multiples sessions de corrections/resoumissions pour qu’un article soit accepté, malgré le fait qu’elles puissent être plus adaptées au jeu de données à l’étude.</p>
+</section><section id="sec-0435" class="level3" data-number="4.3.5"><h3 data-number="4.3.5" class="anchored" data-anchor-id="sec-0435">
+<span class="header-section-number">4.3.5</span> Significativité des coefficients de corrélation</h3>
+<p>Quelle que soit la méthode utilisée, il convient de vérifier si le coefficient de corrélation est ou non statistiquement différent de 0. En effet, nous travaillons la plupart du temps avec des données d’échantillonnage, et très rarement avec des populations complètes. En collectant un nouvel échantillon, aurions-nous obtenu des résultats différents? Le calcul de ce degré de significativité permet de quantifier le niveau de certitude quant à l’existence d’une corrélation entre les deux variables, positive ou négative. Cet objectif est réalisé en calculant la valeur de <em>t</em> et le nombre de degrés de liberté&nbsp;: <span class="math inline">\(t=\sqrt{\frac{n-2}{1-r^2}}\)</span> et <span class="math inline">\(dl = n-2\)</span> avec <span class="math inline">\(r\)</span> et <span class="math inline">\(n\)</span> étant respectivement le coefficient de corrélation et le nombre d’observations. De manière classique, nous utiliserons la table des valeurs critiques de la distribution de <span class="math inline">\(t\)</span>&nbsp;: si la valeur de <span class="math inline">\(t\)</span> est supérieure à la valeur critique (avec <em>p</em> = 0,05 et le nombre de degrés de liberté), alors le coefficient est significatif à 5&nbsp;%. En d’autres termes, si la vraie corrélation entre les deux variables (calculable uniquement à partir des populations complètes) était 0, alors la probabilité de collecter notre échantillon serait inférieure à 5&nbsp;%. Dans ce contexte, nous pouvons raisonnablement rejeter l’hypothèse nulle (corrélation de 0).</p>
+<p>La courte syntaxe ci-dessous illustre comment calculer la valeur de <span class="math inline">\(t\)</span>, le nombre de degrés de liberté et la valeur de <em>p</em> pour une corrélation donnée.</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/bivariee/sr_rmr_mtl_2016.csv"</span><span class="op">)</span></span>
+<span><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">A65plus</span>, <span class="va">df</span><span class="op">$</span><span class="va">LogTailInc</span><span class="op">)</span>     <span class="co"># Corrélation</span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>                           <span class="co"># Nombre d'observations</span></span>
+<span><span class="va">dl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">-</span><span class="fl">2</span>                        <span class="co"># degrés de liberté</span></span>
+<span><span class="va">t</span> <span class="op">&lt;-</span>  <span class="va">r</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">r</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>             <span class="co"># Valeur de T</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fl">2</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">pt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>, <span class="va">dl</span><span class="op">)</span><span class="op">)</span>                <span class="co"># Valeur de p</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"\nCorrélation ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">r</span>, <span class="fl">4</span><span class="op">)</span>,       </span>
+<span>    <span class="st">"\nValeur de t ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">t</span>, <span class="fl">4</span><span class="op">)</span>,</span>
+<span>    <span class="st">"\nDegrés de liberté ="</span>, <span class="va">dl</span>,</span>
+<span>    <span class="st">"\np = "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span>        </span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Corrélation = -0.0693 
+Valeur de t = -2.1413 
+Degrés de liberté = 949 
+p =  0.0325</code></pre>
+</div>
+</div>
+<p>Plus simplement, la fonction <code>cor.test</code> permet d’obtenir en une seule ligne de code le coefficient de corrélation, l’intervalle de confiance à 95&nbsp;% et les valeurs de <em>t</em> et de <em>p</em>, comme illustré dans la syntaxe ci-dessous. Si l’intervalle de confiance est à cheval sur 0, c’est-à-dire que la borne inférieure est négative et la borne supérieure positive, alors le coefficient de corrélation n’est pas significatif au seuil choisi (95&nbsp;% habituellement). Dans l’exemple ci-dessous, la relation linéaire entre les deux variables est significativement négative avec une corrélation de Pearson de −0,158 (<em>p</em>&nbsp;=&nbsp;0,000) et un intervalle de confiance à 95&nbsp;% de −0,219 à −0,095.</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Intervalle de confiance à 95 %</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">HabKm2</span>, <span class="va">df</span><span class="op">$</span><span class="va">A65plus</span>, conf.level <span class="op">=</span> <span class="fl">.95</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  df$HabKm2 and df$A65plus
+t = -4.9318, df = 949, p-value = 9.616e-07
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.2194457 -0.0954687
+sample estimates:
+       cor 
+-0.1580801 </code></pre>
+</div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Vous pouvez accéder à chaque sortie de la fonction cor.test comme suit :</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">HabKm2</span>, <span class="va">df</span><span class="op">$</span><span class="va">A65plus</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Valeur de corrélation = "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="va">estimate</span>,<span class="fl">3</span><span class="op">)</span>, <span class="st">"\n"</span>,</span>
+<span>    <span class="st">"Intervalle à 95 % = ["</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="va">conf.int</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,<span class="fl">3</span><span class="op">)</span>, <span class="st">" "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="va">conf.int</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,<span class="fl">3</span><span class="op">)</span>, <span class="st">"]"</span>, <span class="st">"\n"</span>,</span>
+<span>    <span class="st">"Valeur de t = "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="va">statistic</span>,<span class="fl">3</span><span class="op">)</span>, <span class="st">"\n"</span>,</span>
+<span>    <span class="st">"Valeur de p = "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="va">p.value</span>,<span class="fl">3</span><span class="op">)</span>,<span class="st">"\n"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Valeur de corrélation = -0.158
+Intervalle à 95 % = [-0.219 -0.095]
+Valeur de t = -4.932
+Valeur de p = 0</code></pre>
+</div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Corrélation de Spearman</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">HabKm2</span>, <span class="va">df</span><span class="op">$</span><span class="va">A65plus</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Spearman's rank correlation rho
+
+data:  df$HabKm2 and df$A65plus
+S = 160482182, p-value = 0.0002202
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.1195333 </code></pre>
+</div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Corrélation de Kendall</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">HabKm2</span>, <span class="va">df</span><span class="op">$</span><span class="va">A65plus</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Kendall's rank correlation tau
+
+data:  df$HabKm2 and df$A65plus
+z = -3.7655, p-value = 0.0001662
+alternative hypothesis: true tau is not equal to 0
+sample estimates:
+        tau 
+-0.08157061 </code></pre>
+</div>
+</div>
+<p>On pourra aussi modifier l’intervalle de confiance, par exemple à 90&nbsp;% ou 99&nbsp;%. L’intervalle de confiance et le seuil de significativité doivent être définis avant l’étude. Leur choix doit s’appuyer sur les standards de la littérature du domaine étudié, du niveau de preuve attendu et de la quantité de données.</p>
+<div class="cell">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Intervalle à 90 %</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">HabKm2</span>, <span class="va">df</span><span class="op">$</span><span class="va">A65plus</span>, method <span class="op">=</span> <span class="st">"pearson"</span>, conf.level <span class="op">=</span> <span class="fl">.90</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  df$HabKm2 and df$A65plus
+t = -4.9318, df = 949, p-value = 9.616e-07
+alternative hypothesis: true correlation is not equal to 0
+90 percent confidence interval:
+ -0.2096826 -0.1055995
+sample estimates:
+       cor 
+-0.1580801 </code></pre>
+</div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Intervalle à 99 %</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">HabKm2</span>, <span class="va">df</span><span class="op">$</span><span class="va">A65plus</span>, method <span class="op">=</span> <span class="st">"pearson"</span>, conf.level <span class="op">=</span> <span class="fl">.99</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  df$HabKm2 and df$A65plus
+t = -4.9318, df = 949, p-value = 9.616e-07
+alternative hypothesis: true correlation is not equal to 0
+99 percent confidence interval:
+ -0.23839910 -0.07561336
+sample estimates:
+       cor 
+-0.1580801 </code></pre>
+</div>
+</div>
+<p><strong>Corrélation et <em>bootstrap</em>.</strong> Il est possible d’estimer la corrélation en mobilisant la notion de <em>bootstrap</em>, soit des méthodes d’inférence statistique basées sur des réplications des données initiales par rééchantillonnage. Concrètement, la méthode du <em>bootstrap</em> permet une mesure de la corrélation avec un intervalle de confiance à partir de <em>r</em> réplications, comme illustré à partir de la syntaxe ci-dessous.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"boot"</span><span class="op">)</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/bivariee/sr_rmr_mtl_2016.csv"</span><span class="op">)</span></span>
+<span><span class="co"># Fonction pour la corrélation</span></span>
+<span><span class="va">correlation</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">i</span>, <span class="va">X</span>, <span class="va">Y</span>, <span class="va">cor.type</span> <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="co"># Paramètres de la fonction :</span></span>
+<span>  <span class="co"># data : DataFrame</span></span>
+<span>  <span class="co"># X et Y : noms des variables X et Y</span></span>
+<span>  <span class="co"># cor.type : type de corrélation : c("pearson" , "spearman" , "kendall")</span></span>
+<span>  <span class="co"># i : indice qui sera utilisé par les réplications (à ne pas modifier)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">df</span><span class="op">[[</span><span class="va">X</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, <span class="va">df</span><span class="op">[[</span><span class="va">Y</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>, method<span class="op">=</span><span class="va">cor.type</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="co"># Calcul du Bootstrap avec 5000 réplications</span></span>
+<span><span class="va">corBootstraped</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/boot/man/boot.html">boot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">df</span>, <span class="co"># nom du tableau</span></span>
+<span>                     statistic <span class="op">=</span> <span class="va">correlation</span>, <span class="co"># appel de la fonction à répliquer </span></span>
+<span>                     R <span class="op">=</span> <span class="fl">5000</span>, <span class="co"># nombre de réplications</span></span>
+<span>                     X <span class="op">=</span> <span class="st">"A65plus"</span>,</span>
+<span>                     Y <span class="op">=</span> <span class="st">"HabKm2"</span>, </span>
+<span>                     cor.type <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span></span>
+<span><span class="co"># Histogramme pour les valeurs de corrélation issues du Bootstrap</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">corBootstraped</span><span class="op">)</span></span>
+<span><span class="co"># Corrélation "bootstrapée"</span></span>
+<span><span class="va">corBootstraped</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ORDINARY NONPARAMETRIC BOOTSTRAP
+
+
+Call:
+boot(data = df, statistic = correlation, R = 5000, X = "A65plus", 
+    Y = "HabKm2", cor.type = "pearson")
+
+
+Bootstrap Statistics :
+      original        bias    std. error
+t1* -0.1580801 -0.0003229473  0.03911101</code></pre>
+</div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Intervalle de confiance du bootstrap à 95 %</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/boot/man/boot.ci.html">boot.ci</a></span><span class="op">(</span>boot.out <span class="op">=</span> <span class="va">corBootstraped</span>, conf <span class="op">=</span> <span class="fl">0.95</span>, type <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+Based on 5000 bootstrap replicates
+
+CALL : 
+boot.ci(boot.out = corBootstraped, conf = 0.95, type = "all")
+
+Intervals : 
+Level      Normal              Basic         
+95%   (-0.2344, -0.0811 )   (-0.2395, -0.0885 )  
+
+Level     Percentile            BCa          
+95%   (-0.2277, -0.0767 )   (-0.2175, -0.0504 )  
+Calculations and Intervals on Original Scale</code></pre>
+</div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Comparaison de l'intervalle classique basé sur la valeur de T</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">HabKm2</span>, <span class="va">df</span><span class="op">$</span><span class="va">A65plus</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="va">estimate</span>,<span class="fl">5</span><span class="op">)</span>, <span class="st">" ["</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="va">conf.int</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,<span class="fl">4</span><span class="op">)</span>, <span class="st">" "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p</span><span class="op">$</span><span class="va">conf.int</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,<span class="fl">4</span><span class="op">)</span>, <span class="st">"]"</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>-0.15808 [-0.2194 -0.0955]</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-fig9" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="04-bivarieeQuantiQuanti_files/figure-html/fig-fig9-1.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;4.8: Histogramme pour les valeurs de corrélation issues du Bootstrap</figcaption></figure>
+</div>
+</div>
+</div>
+<p>Le <em>bootstrap</em> renvoie un coefficient de corrélation de Pearson de −0,158. Les intervalles de confiance obtenus à partir des différentes méthodes d’estimation (normale, basique, pourcentage et BCa) ne sont pas à cheval sur 0, indiquant que le coefficient est significatif à 5&nbsp;%.</p>
+</section><section id="sec-0436" class="level3" data-number="4.3.6"><h3 data-number="4.3.6" class="anchored" data-anchor-id="sec-0436">
+<span class="header-section-number">4.3.6</span> Corrélation partielle</h3>
+<div class="bloc_objectif">
+<div class="bloc_objectif-header">
+<div class="bloc_objectif-icon">
+
+</div>
+<p><strong>Relation entre deux variables une fois prise en compte une autre variable dite de contrôle</strong></p>
+</div>
+<div class="bloc_objectif-body">
+<p>La corrélation partielle permet d’évaluer la relation linéaire entre deux variables quantitatives continues, après avoir contrôlé une ou plusieurs autres variables quantitatives (dites variables de contrôle).</p>
+<p>En études urbaines, nous pourrions vouloir vérifier si deux variables sont ou non associées après avoir contrôlé la densité de population ou encore la distance au centre-ville.</p>
+</div>
+</div>
+<p>Le coefficient de corrélation partielle peut être calculé pour plusieurs mesures de corrélation (notamment, Pearson, Spearman et Kendall). Variant aussi de −1 à 1, il est calculé comme suit&nbsp;:</p>
+<p><span id="eq-corpartielle"><span class="math display">\[
+r_{ABC} = \frac{r_{AB}-r_{AC}r_{BC}}{\sqrt{(1-r_{AC}^2)(1-r_{BC}^2)}}
+\tag{4.6}\]</span></span></p>
+<p>avec <em>A</em> et <em>B</em> étant les deux variables pour lesquelles nous souhaitons évaluer la relation linéaire, une fois contrôlée la variable <em>C</em>; <span class="math inline">\(r\)</span> étant le coefficient de corrélation (Pearson, Spearman ou Kendall) entre deux variables.</p>
+<p>Dans l’exemple ci-dessous, nous voulons estimer la relation linéaire entre le pourcentage de personnes à faible revenu et la couverture végétale au niveau des îlots de l’île de Montréal, une fois contrôlée la densité de population. En effet, plus cette dernière est forte, plus la couverture végétale est faible (<span class="math inline">\(r\)</span> de Pearson = −0,563). La valeur du <span class="math inline">\(r\)</span> de Pearson s’élève à −0,513 entre le pourcentage de personnes à faible revenu dans la population totale de l’îlot et la couverture végétale. Une fois la densité de population contrôlée, elle chute à −0,316. Pour calculer la corrélation partielle, nous pouvons utiliser la fonction <code>pcor.test</code> du package <code>ppcor</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://svn.r-project.org/R-packages/trunk/foreign/">"foreign"</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"ppcor"</span><span class="op">)</span></span>
+<span><span class="va">dfveg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/foreign/man/read.dbf.html">read.dbf</a></span><span class="op">(</span><span class="st">"data/bivariee/IlotsVeg2006.dbf"</span><span class="op">)</span></span>
+<span><span class="co"># Corrélation entre les trois variables</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">dfveg</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"VegPct"</span>, <span class="st">"Pct_FR"</span> , <span class="st">"LogDens"</span><span class="op">)</span><span class="op">]</span>, method <span class="op">=</span> <span class="st">"p"</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        VegPct Pct_FR LogDens
+VegPct   1.000 -0.513  -0.563
+Pct_FR  -0.513  1.000   0.513
+LogDens -0.563  0.513   1.000</code></pre>
+</div>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Corrélation partielle avec la fonction pcor.test entre :</span></span>
+<span><span class="co"># la couverture végétale de l'îlot (%) et</span></span>
+<span><span class="co"># le pourcentage de personnes à faible revenu</span></span>
+<span><span class="co"># une fois contrôlée la densité de population</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/ppcor/man/pcor.test.html">pcor.test</a></span><span class="op">(</span><span class="va">dfveg</span><span class="op">$</span><span class="va">Pct_FR</span>, <span class="va">dfveg</span><span class="op">$</span><span class="va">VegPct</span>, <span class="va">dfveg</span><span class="op">$</span><span class="va">LogDens</span>, method <span class="op">=</span> <span class="st">"p"</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    estimate       p.value statistic     n gp  Method
+1 -0.3155194 8.093159e-235 -33.59772 10213  1 pearson</code></pre>
+</div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Calcul de la corrélation partielle avec la formule</span></span>
+<span><span class="va">corAB</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">dfveg</span><span class="op">$</span><span class="va">VegPct</span>, <span class="va">dfveg</span><span class="op">$</span><span class="va">Pct_FR</span>, method <span class="op">=</span> <span class="st">"p"</span><span class="op">)</span></span>
+<span><span class="va">corAC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">dfveg</span><span class="op">$</span><span class="va">VegPct</span>, <span class="va">dfveg</span><span class="op">$</span><span class="va">LogDens</span>, method <span class="op">=</span> <span class="st">"p"</span><span class="op">)</span></span>
+<span><span class="va">corBC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">dfveg</span><span class="op">$</span><span class="va">Pct_FR</span>, <span class="va">dfveg</span><span class="op">$</span><span class="va">LogDens</span>, method <span class="op">=</span> <span class="st">"p"</span><span class="op">)</span></span>
+<span><span class="va">CorP</span>  <span class="op">&lt;-</span> <span class="op">(</span><span class="va">corAB</span> <span class="op">-</span> <span class="op">(</span><span class="va">corAC</span><span class="op">*</span><span class="va">corBC</span><span class="op">)</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">corAC</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">*</span><span class="op">(</span><span class="fl">1</span><span class="op">-</span><span class="va">corBC</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Corr. partielle avec ppcor  = "</span>, </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ppcor/man/pcor.test.html">pcor.test</a></span><span class="op">(</span><span class="va">dfveg</span><span class="op">$</span><span class="va">Pct_FR</span>,  <span class="va">dfveg</span><span class="op">$</span><span class="va">VegPct</span>, <span class="va">dfveg</span><span class="op">$</span><span class="va">LogDens</span>, method<span class="op">=</span><span class="st">"p"</span><span class="op">)</span><span class="op">$</span><span class="va">estimate</span>,<span class="fl">5</span><span class="op">)</span>,</span>
+<span>    <span class="st">"\nCorr. partielle (formule)  = "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">CorP</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Corr. partielle avec ppcor  =  -0.31552 
+Corr. partielle (formule)  =  -0.31552</code></pre>
+</div>
+</div>
+</section><section id="sec-0437" class="level3" data-number="4.3.7"><h3 data-number="4.3.7" class="anchored" data-anchor-id="sec-0437">
+<span class="header-section-number">4.3.7</span> Mise en œuvre dans R</h3>
+<p>Comme vous l’aurez compris, il est possible d’arriver au même résultat par différents moyens. Pour calculer les corrélations, nous avons utilisé jusqu’à présent les fonctions de base <code>cor</code> et <code>cor.test</code>. Il est aussi possible de recourir à des fonctions d’autres <em>packages</em>, dont notamment&nbsp;:</p>
+<ul>
+<li><p><code>Hmisc</code>, dont la fonction <code>rcorr</code> permet de calculer des corrélations de Pearson et de Spearman (mais non celle de Kendall) avec les valeurs de <em>p</em>.</p></li>
+<li><p><code>psych</code>, dont la fonction <code>corr.test</code> permet d’obtenir une matrice de corrélation (Pearson, Spearman et Kendall), les intervalles de confiance et les valeurs de <em>p</em>.</p></li>
+<li><p><code>stargazer</code> pour créer de beaux tableaux d’une matrice de corrélation en <em>HTML</em>, en <em>LaTeX</em> ou en ASCII.</p></li>
+<li><p><code>apaTables</code> pour créer un tableau avec une matrice de corrélation dans un fichier Word.</p></li>
+<li><p><code>correlation</code> pour aller plus loin et explorer les corrélations bayésiennes, robustes, non linéaires ou multiniveaux.</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/bivariee/sr_rmr_mtl_2016.csv"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://hbiostat.org/R/Hmisc/">"Hmisc"</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st">"stargazer"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/dstanley4/apaTables">"apaTables"</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://dplyr.tidyverse.org">"dplyr"</a></span><span class="op">)</span></span>
+<span><span class="co"># Corrélations de Pearson et Spearman et valeurs de p </span></span>
+<span><span class="co"># avec la fonction rcorr de Hmisc pour deux variables</span></span>
+<span><span class="fu">Hmisc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Hmisc/man/rcorr.html">rcorr</a></span><span class="op">(</span><span class="va">df1</span><span class="op">$</span><span class="va">RevMedMen</span>, <span class="va">df1</span><span class="op">$</span><span class="va">Locataire</span>, type <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      x     y
+x  1.00 -0.78
+y -0.78  1.00
+
+n= 951 
+
+
+P
+  x  y 
+x     0
+y  0   </code></pre>
+</div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">Hmisc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Hmisc/man/rcorr.html">rcorr</a></span><span class="op">(</span><span class="va">df1</span><span class="op">$</span><span class="va">RevMedMen</span>, <span class="va">df1</span><span class="op">$</span><span class="va">Locataire</span>, type <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      x     y
+x  1.00 -0.91
+y -0.91  1.00
+
+n= 951 
+
+
+P
+  x  y 
+x     0
+y  0   </code></pre>
+</div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Matrice de corrélation avec la fonction rcorr de Hmisc pour plus de variables</span></span>
+<span><span class="co"># Nous créons au préalable un vecteur avec les noms des variables à sélectionner</span></span>
+<span><span class="va">Vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"RevMedMen"</span> , <span class="st">"Locataire"</span>, <span class="st">"LogTailInc"</span> , <span class="st">"A65plus"</span> , <span class="st">"ImgRec"</span>, <span class="st">"HabKm2"</span>, <span class="st">"FaibleRev"</span><span class="op">)</span></span>
+<span><span class="fu">Hmisc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Hmisc/man/rcorr.html">rcorr</a></span><span class="op">(</span><span class="va">df1</span><span class="op">[</span>, <span class="va">Vars</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">as.matrix</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           RevMedMen Locataire LogTailInc A65plus ImgRec HabKm2 FaibleRev
+RevMedMen       1.00     -0.78      -0.46   -0.07  -0.46  -0.49     -0.74
+Locataire      -0.78      1.00       0.56    0.00   0.64   0.71      0.88
+LogTailInc     -0.46      0.56       1.00   -0.07   0.82   0.48      0.62
+A65plus        -0.07      0.00      -0.07    1.00  -0.06  -0.16     -0.01
+ImgRec         -0.46      0.64       0.82   -0.06   1.00   0.56      0.68
+HabKm2         -0.49      0.71       0.48   -0.16   0.56   1.00      0.64
+FaibleRev      -0.74      0.88       0.62   -0.01   0.68   0.64      1.00
+
+n= 951 
+
+
+P
+           RevMedMen Locataire LogTailInc A65plus ImgRec HabKm2 FaibleRev
+RevMedMen            0.0000    0.0000     0.0441  0.0000 0.0000 0.0000   
+Locataire  0.0000              0.0000     0.9594  0.0000 0.0000 0.0000   
+LogTailInc 0.0000    0.0000               0.0325  0.0000 0.0000 0.0000   
+A65plus    0.0441    0.9594    0.0325             0.0682 0.0000 0.6796   
+ImgRec     0.0000    0.0000    0.0000     0.0682         0.0000 0.0000   
+HabKm2     0.0000    0.0000    0.0000     0.0000  0.0000        0.0000   
+FaibleRev  0.0000    0.0000    0.0000     0.6796  0.0000 0.0000          </code></pre>
+</div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Avec la fonction corr.test du package psych pour avoir la matrice de corrélation</span></span>
+<span><span class="co"># (Pearson, Spearman et Kendall), les intervalles de confiance et les valeurs de p</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu">psych</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/psych/man/corr.test.html">corr.test</a></span><span class="op">(</span><span class="va">df</span><span class="op">[</span>, <span class="va">Vars</span><span class="op">]</span>, </span>
+<span>              method <span class="op">=</span> <span class="st">"kendall"</span>,  </span>
+<span>              ci <span class="op">=</span> <span class="cn">TRUE</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>, short <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:psych::corr.test(x = df[, Vars], method = "kendall", alpha = 0.05, 
+    ci = TRUE)
+Correlation matrix 
+           RevMedMen Locataire LogTailInc A65plus ImgRec HabKm2 FaibleRev
+RevMedMen       1.00     -0.74      -0.43   -0.03  -0.41  -0.45     -0.79
+Locataire      -0.74      1.00       0.45   -0.03   0.47   0.56      0.75
+LogTailInc     -0.43      0.45       1.00   -0.01   0.59   0.41      0.51
+A65plus        -0.03     -0.03      -0.01    1.00  -0.02  -0.08      0.01
+ImgRec         -0.41      0.47       0.59   -0.02   1.00   0.50      0.52
+HabKm2         -0.45      0.56       0.41   -0.08   0.50   1.00      0.50
+FaibleRev      -0.79      0.75       0.51    0.01   0.52   0.50      1.00
+Sample Size 
+[1] 951
+Probability values (Entries above the diagonal are adjusted for multiple tests.) 
+           RevMedMen Locataire LogTailInc A65plus ImgRec HabKm2 FaibleRev
+RevMedMen        0.0      0.00        0.0    1.00      0   0.00         0
+Locataire        0.0      0.00        0.0    1.00      0   0.00         0
+LogTailInc       0.0      0.00        0.0    1.00      0   0.00         0
+A65plus          0.4      0.37        0.7    0.00      1   0.07         1
+ImgRec           0.0      0.00        0.0    0.58      0   0.00         0
+HabKm2           0.0      0.00        0.0    0.01      0   0.00         0
+FaibleRev        0.0      0.00        0.0    0.77      0   0.00         0
+
+ Confidence intervals based upon normal theory.  To get bootstrapped values, try cor.ci
+            raw.lower raw.r raw.upper raw.p lower.adj upper.adj
+RvMdM-Loctr     -0.77 -0.74     -0.71  0.00     -0.78     -0.69
+RvMdM-LgTlI     -0.49 -0.43     -0.38  0.00     -0.51     -0.36
+RvMdM-A65pl     -0.09 -0.03      0.04  0.40     -0.11      0.05
+RvMdM-ImgRc     -0.46 -0.41     -0.35  0.00     -0.48     -0.33
+RvMdM-HbKm2     -0.50 -0.45     -0.39  0.00     -0.52     -0.37
+RvMdM-FblRv     -0.81 -0.79     -0.76  0.00     -0.82     -0.75
+Loctr-LgTlI      0.40  0.45      0.50  0.00      0.38      0.52
+Loctr-A65pl     -0.09 -0.03      0.03  0.37     -0.11      0.05
+Loctr-ImgRc      0.42  0.47      0.52  0.00      0.39      0.54
+Loctr-HbKm2      0.51  0.56      0.60  0.00      0.49      0.62
+Loctr-FblRv      0.72  0.75      0.78  0.00      0.71      0.79
+LgTlI-A65pl     -0.08 -0.01      0.05  0.70     -0.09      0.06
+LgTlI-ImgRc      0.54  0.59      0.63  0.00      0.52      0.65
+LgTlI-HbKm2      0.36  0.41      0.46  0.00      0.34      0.48
+LgTlI-FblRv      0.46  0.51      0.56  0.00      0.44      0.58
+A65pl-ImgRc     -0.08 -0.02      0.05  0.58     -0.10      0.06
+A65pl-HbKm2     -0.14 -0.08     -0.02  0.01     -0.17      0.00
+A65pl-FblRv     -0.05  0.01      0.07  0.77     -0.05      0.07
+ImgRc-HbKm2      0.46  0.50      0.55  0.00      0.43      0.57
+ImgRc-FblRv      0.47  0.52      0.57  0.00      0.45      0.59
+HbKm2-FblRv      0.46  0.50      0.55  0.00      0.43      0.57</code></pre>
+</div>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Création d'un tableau pour une matrice de corrélation</span></span>
+<span><span class="co"># changer le paramètre type pour 'html' or 'latex' si souhaité</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">df1</span><span class="op">[</span>, <span class="va">Vars</span><span class="op">]</span>, method<span class="op">=</span><span class="st">"pearson"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/stargazer/man/stargazer.html">stargazer</a></span><span class="op">(</span><span class="va">p</span>, title <span class="op">=</span> <span class="st">"Correlation Matrix"</span>, type <span class="op">=</span> <span class="st">"text"</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Correlation Matrix
+=========================================================================
+           RevMedMen Locataire LogTailInc A65plus ImgRec HabKm2 FaibleRev
+-------------------------------------------------------------------------
+RevMedMen      1      -0.785     -0.461   -0.065  -0.458 -0.489  -0.743  
+Locataire   -0.785       1       0.562    -0.002  0.645  0.708    0.879  
+LogTailInc  -0.461     0.562       1      -0.069  0.816  0.475    0.622  
+A65plus     -0.065    -0.002     -0.069      1    -0.059 -0.158  -0.013  
+ImgRec      -0.458     0.645     0.816    -0.059    1    0.561    0.678  
+HabKm2      -0.489     0.708     0.475    -0.158  0.561    1      0.642  
+FaibleRev   -0.743     0.879     0.622    -0.013  0.678  0.642      1    
+-------------------------------------------------------------------------</code></pre>
+</div>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Créer un tableau avec la matrice de corrélation </span></span>
+<span><span class="co"># dans un fichier Word (.doc)</span></span>
+<span><span class="fu">apaTables</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/apaTables/man/apa.cor.table.html">apa.cor.table</a></span><span class="op">(</span><span class="va">df1</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"RevMedMen"</span> , <span class="st">"Locataire"</span> , <span class="st">"LogTailInc"</span><span class="op">)</span><span class="op">]</span>, </span>
+<span>                         filename <span class="op">=</span> <span class="st">"data/bivariee/TitiLaMatrice.doc"</span>,</span>
+<span>                         show.conf.interval <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                         landscape <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+
+Means, standard deviations, and correlations with confidence intervals
+ 
+
+  Variable      M        SD       1            2         
+  1. RevMedMen  66065.50 26635.27                        
+                                                         
+  2. Locataire  45.05    26.33    -.78**                 
+                                  [-.81, -.76]           
+                                                         
+  3. LogTailInc 5.54     4.82     -.46**       .56**     
+                                  [-.51, -.41] [.52, .60]
+                                                         
+
+Note. M and SD are used to represent mean and standard deviation, respectively.
+Values in square brackets indicate the 95% confidence interval.
+The confidence interval is a plausible range of population correlations 
+that could have caused the sample correlation (Cumming, 2014).
+ * indicates p &lt; .05. ** indicates p &lt; .01.
+ </code></pre>
+</div>
+</div>
+<div class="bloc_astuce">
+<div class="bloc_astuce-header">
+<div class="bloc_astuce-icon">
+
+</div>
+<p><strong>Une image vaut mille mots, surtout pour une matrice de corrélation!</strong></p>
+</div>
+<div class="bloc_astuce-body">
+<p>Le package <code>corrplot</code> vous permet justement de construire de belles figures avec une matrice de corrélation (figures <a href="#fig-corrplot1"><span>4.9</span></a> et <a href="#fig-corrplot2"><span>4.10</span></a>). L’intérêt de ce type de figure est de repérer rapidement des associations intéressantes lorsque nous calculons les corrélations entre un grand nombre de variables.</p>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/taiyun/corrplot">"corrplot"</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://rpkgs.datanovia.com/ggpubr/">"ggpubr"</a></span><span class="op">)</span></span>
+<span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/bivariee/sr_rmr_mtl_2016.csv"</span><span class="op">)</span></span>
+<span><span class="va">Vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"RevMedMen"</span> , <span class="st">"Locataire"</span>, <span class="st">"LogTailInc"</span> , <span class="st">"A65plus"</span> , <span class="st">"ImgRec"</span>, <span class="st">"HabKm2"</span>, <span class="st">"FaibleRev"</span><span class="op">)</span></span>
+<span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">df1</span><span class="op">[</span>, <span class="va">Vars</span><span class="op">]</span>, method<span class="op">=</span><span class="st">"pearson"</span><span class="op">)</span></span>
+<span><span class="va">couleurs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/colorRamp.html">colorRampPalette</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"#053061"</span>, <span class="st">"#2166AC"</span> , <span class="st">"#4393C3"</span>, <span class="st">"#92C5DE"</span>,</span>
+<span>                               <span class="st">"#D1E5F0"</span>, <span class="st">"#FFFFFF"</span>, <span class="st">"#FDDBC7"</span>, <span class="st">"#F4A582"</span>,</span>
+<span>                               <span class="st">"#D6604D"</span>, <span class="st">"#B2182B"</span>, <span class="st">"#67001F"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">corrplot</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/corrplot/man/corrplot.html">corrplot</a></span><span class="op">(</span><span class="va">p</span>, addrect <span class="op">=</span> <span class="fl">3</span>, method<span class="op">=</span><span class="st">"number"</span>,</span>
+<span>                   diag <span class="op">=</span> <span class="cn">FALSE</span>, col<span class="op">=</span><span class="fu">couleurs</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-corrplot1" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="04-bivarieeQuantiQuanti_files/figure-html/fig-corrplot1-1.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;4.9: Matrice de corrélation avec corrplot (chiffres)</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fig2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/corrplot/man/corrplot.mixed.html">corrplot.mixed</a></span><span class="op">(</span><span class="va">p</span>, lower<span class="op">=</span><span class="st">"number"</span>, lower.col <span class="op">=</span> <span class="st">"black"</span>, </span>
+<span>                      upper <span class="op">=</span> <span class="st">"ellipse"</span>, upper.col<span class="op">=</span><span class="fu">couleurs</span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-corrplot2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="04-bivarieeQuantiQuanti_files/figure-html/fig-corrplot2-1.png" class="img-fluid figure-img" style="width:60.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;4.10: Matrice de corrélation avec corrplot (chiffres et ellipses)</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="sec-0438" class="level3" data-number="4.3.8"><h3 data-number="4.3.8" class="anchored" data-anchor-id="sec-0438">
+<span class="header-section-number">4.3.8</span> Comment rapporter des valeurs de corrélations?</h3>
+<p>Bien qu’il n’y ait pas qu’une seule manière de reporter des corrélations, voici quelques lignes directrices pour vous guider&nbsp;:</p>
+<ul>
+<li><p>Signaler si la corrélation est faible, modérée ou forte.</p></li>
+<li><p>Indiquer si la corrélation est positive ou négative. Toutefois, ce n’est pas une obligation, car nous pouvons rapidement le constater avec le signe du coefficient.</p></li>
+<li><p>Mettre le <em>r</em> et le <em>p</em> en italique et en minuscules.</p></li>
+<li><p>Deux décimales uniquement pour le <span class="math inline">\(r\)</span> (sauf si une plus grande précision se justifie dans le domaine d’étude).</p></li>
+<li><p>Trois décimales pour la valeur de <em>p</em>. Si elle est inférieure à 0,001, écrire plutôt <em>p</em> &lt; 0,001.</p></li>
+<li><p>Indiquer éventuellement le nombre de degrés de liberté, soit <span class="math inline">\(r(dl)=...\)</span></p></li>
+</ul>
+<p>Voici des exemples&nbsp;:</p>
+<ul>
+<li><p>La corrélation entre les variables <em>revenu médian des ménages</em> et <em>pourcentage de locataires</em> est fortement négative (<em>r</em> = −0,78, <em>p</em> &lt; 0,001).</p></li>
+<li><p>La corrélation entre les variables <em>revenu médian des ménages</em> et <em>pourcentage de locataires</em> est forte (<em>r</em>(949)&nbsp;=&nbsp;−0,78, <em>p</em> &lt; 0,001).</p></li>
+<li><p>La corrélation entre les variables <em>densité de population</em> et <em>revenu médian des ménages</em> est modérée (<em>r</em> = −0,49, <em>p</em> &lt; 0,001).</p></li>
+<li><p>La corrélation entre les variables <em>densité de population</em> et <em>pourcentage de 65 ans et plus</em> n’est pas significative (<em>r</em> = −0,08, <em>p</em> = 0,07).</p></li>
+</ul>
+<p>Pour un texte en anglais, référez-vous à&nbsp;: <a href="https://www.socscistatistics.com/tutorials/correlation/default.aspx" target="_blank">https://www.socscistatistics.com/tutorials/correlation/default.aspx</a>.</p>
+</section></section><section id="sec-044" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="sec-044">
+<span class="header-section-number">4.4</span> Régression linéaire simple</h2>
+<div class="bloc_objectif">
+<div class="bloc_objectif-header">
+<div class="bloc_objectif-icon">
+
+</div>
+<p><strong>Comment expliquer et prédire une variable continue en fonction d’une autre variable?</strong></p>
+</div>
+<div class="bloc_objectif-body">
+<p>Répondre à cette question relève de la statistique inférentielle. Il s’agit en effet d’établir une équation simple du type <span class="math inline">\(Y = a + bX\)</span> pour expliquer et prédire les valeurs d’une variable dépendante (<em>Y</em>) à partir d’une variable indépendante (<em>X</em>). L’équation de la régression est construite grâce à un jeu de données (un échantillon). À partir de cette équation, il est possible de prédire la valeur attendue de <em>Y</em> pour n’importe quelle valeur de <em>X</em>. Nous appelons cette équation un modèle, car elle cherche à représenter la réalité de façon simplifiée.</p>
+<p>La régression linéaire simple relève ainsi de la statistique inférentielle et se distingue ainsi de la <strong>covariance</strong> (<a href="#sec-042">section&nbsp;<span>4.2</span></a>) et de la <strong>corrélation</strong> (<a href="#sec-043">section&nbsp;<span>4.3</span></a>) qui relèvent quant à eux de la statistique bivariée descriptive et exploratoire.</p>
+<p>Par exemple, la régression linéaire simple pourrait être utilisée pour expliquer les notes d’un groupe d’étudiants et d’étudiantes à un examen (variable dépendante <em>Y</em>) en fonction du nombre d’heures consacrées à la révision des notes de cours (variable indépendante <em>X</em>). Une fois l’équation de régression déterminée et si le modèle est efficace, nous pourrons prédire les notes des personnes inscrites au cours la session suivante en fonction du temps qu’ils ou qu’elles prévoient passer à étudier, et ce, avant l’examen.</p>
+<p>Formulons un exemple d’application de la régression linéaire simple en études urbaines. Dans le cadre d’une étude sur les îlots de chaleur urbains, la température de surface (variable dépendante) pourrait être expliquée par la proportion de la superficie de l’îlot couverte par de la végétation (variable indépendante). Nous supposons alors que plus cette proportion est importante, plus la température est faible et inversement, soit une relation linéaire négative. Si le modèle est efficace, nous pourrions prédire la température moyenne des îlots d’une autre municipalité pour laquelle nous ne disposons pas d’une carte de température, et repérer ainsi les îlots de chaleur potentiels. Bien entendu, il est peu probable que nous arrivions à prédire efficacement la température moyenne des îlots avec uniquement la couverture végétale comme variable explicative. En effet, bien d’autres caractéristiques de la forme urbaine peuvent influencer ce phénomène comme la densité du bâti, la couleur des toits, les occupations du sol présentes, l’effet des canyons urbains, etc. Il faudrait alors inclure non pas une, mais plusieurs variables explicatives (indépendantes).</p>
+<p>Ainsi, nous distinguons la <strong>régression linéaire simple</strong> (une seule variable indépendante) de la <strong>régression linéaire multiple</strong> (plusieurs variables indépendantes); cette dernière est largement abordée au <a href="07-regressionlineaire.html">chapitre&nbsp;<span>7</span></a>.</p>
+</div>
+</div>
+<p>Dans cette section, nous décrivons succinctement la régression linéaire simple. Concrètement, nous voyons comment déterminer la droite de régression, interpréter ses différents paramètres du modèle et évaluer la qualité d’ajustement du modèle. Nous n’abordons ni les hypothèses liées au modèle de régression linéaire des moindres carrés ordinaires (MCO) ni les conditions d’application. Ces éléments sont expliqués au <a href="07-regressionlineaire.html">chapitre&nbsp;<span>7</span></a>, consacré à la régression linéaire multiple.</p>
+<div class="bloc_attention">
+<div class="bloc_attention-header">
+<div class="bloc_attention-icon">
+
+</div>
+<p><strong>Corrélation, régression simple et causalité&nbsp;: attention aux raccourcis!</strong></p>
+</div>
+<div class="bloc_attention-body">
+<p>Si une variable <em>X</em> explique et prédit efficacement une variable <em>Y</em>, cela ne veut pas dire pour autant qu’<em>X</em> cause <em>Y</em>. Autrement dit, la corrélation, soit le degré d’association entre deux variables, ne signifie pas qu’il existe un lien de causalité entre elles.</p>
+<p>Premièrement, la variable explicative (<em>X</em>, indépendante) doit absolument précéder la variable à expliquer (<em>Y</em>, dépendante). Par exemple, l’âge (<em>X</em>) peut influencer le sentiment de sécurité (<em>Y</em>). Mais, le sentiment de sécurité ne peut en aucun cas influencer l’âge. Par conséquent, l’âge ne peut conceptuellement pas être la variable dépendante dans cette relation.</p>
+<p>Deuxièmement, bien qu’une variable puisse expliquer efficacement une autre variable, elle peut être un <strong>facteur confondant</strong>. Prenons deux exemples bien connus&nbsp;:</p>
+<ul>
+<li><p>Avoir les doigts jaunes est associé au cancer du poumon. Bien entendu, les doigts jaunes ne causent pas le cancer&nbsp;: c’est un facteur confondant puisque fumer augmente les risques du cancer du poumon et jaunit aussi les doigts.</p></li>
+<li>
+<p>Dans un article intitulé <em>Chocolate Consumption, Cognitive Function, and Nobel Laureates</em>, Messerli <span class="citation" data-cites="Messerli">(<a href="references.html#ref-Messerli" role="doc-biblioref">2012</a>)</span> a trouvé une corrélation positive entre la consommation de chocolat par habitant et le nombre de prix Nobel pour dix millions d’habitants pour 23 pays. Ce résultat a d’ailleurs été rapporté par de nombreux médias, sans pour autant que Messerli <span class="citation" data-cites="Messerli">(<a href="references.html#ref-Messerli" role="doc-biblioref">2012</a>)</span> et les journalistes concluent à un lien de causalité entre les deux variables&nbsp;:</p>
+<ul>
+<li><p><a href="https://ici.radio-canada.ca/nouvelle/582457/chocolat-consommateurs-nobels">Radio Canada</a></p></li>
+<li><p><a href="https://www.lapresse.ca/vivre/sante/nutrition/201210/11/01-4582347-etude-plus-un-pays-mange-de-chocolat-plus-il-a-de-prix-nobel.php">La Presse</a></p></li>
+<li><p><a href="https://www.lepoint.fr/insolite/le-chocolat-dope-aussi-l-obtention-de-prix-nobel-12-10-2012-1516159_48.php">Le Point</a>.</p></li>
+</ul>
+</li>
+</ul>
+<p>Les chercheurs et les chercheuses savent bien que la consommation de chocolat ne permet pas d’obtenir des résultats intéressants et de les publier dans des revues prestigieuses; c’est plutôt le café ! Plus sérieusement, il est probable que les pays les plus riches investissent davantage dans la recherche et obtiennent ainsi plus de prix Nobel. Dans les pays les plus riches, il est aussi probable que l’on consomme plus de chocolat, considéré comme un produit de luxe dans les pays les plus pauvres.</p>
+<p>Pour approfondir le sujet sur la confusion entre corrélation, régression simple et causalité, vous pouvez visionner cette courte <a href="https://www.youtube.com/embed/A-_naeATJ6o">vidéo ludique de vulgarisation</a>.</p>
+<p>L’association entre deux variables peut aussi être simplement le fruit du hasard. Si nous explorons de très grandes quantités de données (avec un nombre impressionnant d’observations et de variables), soit une démarche relevant du forage ou de la fouille de données (<em>data mining</em> en anglais), le hasard fera que nous risquons d’obtenir des corrélations surprenantes entre certaines variables. Prenons un exemple concret&nbsp;: admettons que nous ayons collecté 100 variables et que nous calculons les corrélations entre chaque paire de variables. Nous obtenons une matrice de corrélation de 100&nbsp;x&nbsp;100, à laquelle nous pouvons enlever la diagonale et une moitié de la matrice, ce qui nous laisse un total de 4950 corrélations différentes. Admettons que nous choisissions un seuil de significativité de 5&nbsp;%, nous devons alors nous attendre à ce que le hasard produise des résultats significatifs dans 5&nbsp;% des cas. Sur 4950 corrélations, cela signifie qu’environ 247 corrélations seront significatives, et ce, indépendamment de la nature des données. Nous pouvons aisément illustrer ce fait avec la syntaxe suivante&nbsp;:</p>
+<div class="cell">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="st"><a href="https://hbiostat.org/R/Hmisc/">"Hmisc"</a></span><span class="op">)</span></span>
+<span><span class="va">nbVars</span> <span class="op">&lt;-</span> <span class="fl">100</span> <span class="co"># nous utilisons 100 variables générées aléatoirement pour l'expérience</span></span>
+<span><span class="va">nbExperiment</span> <span class="op">&lt;-</span> <span class="fl">1000</span> <span class="co"># nous reproduirons 1000 fois l'expérience avec les 100 variables</span></span>
+<span><span class="co"># Le nombre de variables significatives par expérience est enregistré dans Results</span></span>
+<span><span class="va">Results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># Itérons pour chaque expérimentation (1000 fois)</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">nbExperiment</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">Datas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="co"># Générons 100 variables aléatoires normalement distribuées</span></span>
+<span>  <span class="kw">for</span> <span class="op">(</span><span class="va">j</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">nbVars</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="va">Datas</span><span class="op">[[</span><span class="va">j</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">150</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  <span class="va">DF</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="st">"cbind"</span>, <span class="va">datas</span><span class="op">)</span></span>
+<span>  <span class="co"># Calculons la matrice de corrélation pour les 100 variables</span></span>
+<span>  <span class="va">cor_mat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/Hmisc/man/rcorr.html">rcorr</a></span><span class="op">(</span><span class="va">DF</span><span class="op">)</span></span>
+<span>  <span class="co"># Comptons combien de fois les corrélations étaient significatives</span></span>
+<span>  <span class="va">Sign</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">cor_mat</span><span class="op">$</span><span class="va">P</span><span class="op">&lt;</span><span class="fl">0.05</span><span class="op">)</span></span>
+<span>  <span class="va">NbPairs</span> <span class="op">&lt;-</span> <span class="va">Sign</span><span class="op">[[</span><span class="st">"TRUE"</span><span class="op">]</span><span class="op">]</span><span class="op">/</span><span class="fl">2</span></span>
+<span>  <span class="co"># Ajoutons les résultats dans Results</span></span>
+<span>  <span class="va">Results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">Results</span>, <span class="va">NbPairs</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="co"># Transformons Results en un DataFrame</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Values <span class="op">=</span> <span class="va">Results</span><span class="op">)</span></span>
+<span><span class="co"># Affichons le résultat dans un graphique</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Values</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>y <span class="op">=</span><span class="va">..density..</span><span class="op">)</span>, </span>
+<span>                 colour <span class="op">=</span> <span class="st">"black"</span>, </span>
+<span>                 fill <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_function.html">stat_function</a></span><span class="op">(</span>fun <span class="op">=</span> <span class="va">dnorm</span>, args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>mean <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">Values</span><span class="op">)</span>, </span>
+<span>                sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">Values</span><span class="op">)</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">Values</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"red"</span>, size <span class="op">=</span> <span class="fl">1.2</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, x<span class="op">=</span><span class="fl">0</span>, y <span class="op">=</span> <span class="fl">0.028</span>, </span>
+<span>           label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Nombre moyen de corrélations significatives\n</span></span>
+<span><span class="st">                         sur 1000 réplications : "</span>,</span>
+<span>                         <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">Values</span><span class="op">)</span>,<span class="fl">0</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span>, hjust<span class="op">=</span><span class="st">"left"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">"Nombre de corrélations significatives"</span><span class="op">)</span><span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ylab</a></span><span class="op">(</span><span class="st">"densité"</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="fig-replicationhist" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/Chap04/ReplicationHist.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;4.11: Corrélations significatives obtenues aléatoirement</figcaption></figure>
+</div>
+</div>
+</div>
+<section id="sec-0441" class="level3" data-number="4.4.1"><h3 data-number="4.4.1" class="anchored" data-anchor-id="sec-0441">
+<span class="header-section-number">4.4.1</span> Principe de base de la régression linéaire simple</h3>
+<p>La régression linéaire simple vise à déterminer une droite (une fonction linéaire) qui résume le mieux la relation linéaire entre une variable dépendante (<em>Y</em>) et une variable indépendante (<em>X</em>)&nbsp;: <span id="eq-regsimple"><span class="math display">\[
+\widehat{y_i} = \beta_{0} + \beta_{1}x_{i}
+\tag{4.7}\]</span></span></p>
+<p>avec <span class="math inline">\(\widehat{y_i}\)</span> et <span class="math inline">\(x_{i}\)</span> qui sont respectivement la valeur prédite de la variable dépendante et la valeur de la variable indépendante pour l’observation <span class="math inline">\(i\)</span>. <span class="math inline">\(\beta_{0}\)</span> est la constante (<em>intercept</em> en anglais) et représente la valeur prédite de la variable <em>Y</em> quand <em>X</em> est égale à 0. <span class="math inline">\(\beta_{1}\)</span> est le coefficient de régression pour la variable <em>X</em>, soit la pente de la droite. Ce coefficient nous informe sur la relation entre les deux variables&nbsp;: s’il est positif, la relation est positive; s’il est négatif, la relation est négative; s’il est proche de 0, la relation est nulle (la droite est alors horizontale). Plus la valeur absolue de <span class="math inline">\(\beta_{1}\)</span> est élevée, plus la pente est forte et plus la variable <em>Y</em> varie à chaque changement d’une unité de la variable <em>X</em>.</p>
+<p>Considérons un exemple fictif de dix municipalités d’une région métropolitaine pour lesquelles nous disposons de deux variables&nbsp;: le pourcentage de personnes occupées se rendant au travail principalement à vélo et la distance entre chaque municipalité et le centre-ville de la région métropolitaine (<a href="#tbl-regfictives">tableau&nbsp;<span>4.3</span></a>).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-regfictives" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Tableau&nbsp;4.3: Données fictives sur l’utilisation du vélo par municipalité</caption>
+<thead><tr class="header">
+<th style="text-align: left;">Municipalité</th>
+<th style="text-align: center;">Vélo</th>
+<th style="text-align: right;">KMCV</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: center;">12,5</td>
+<td style="text-align: right;">14,135</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: center;">13,5</td>
+<td style="text-align: right;">10,065</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: center;">15,8</td>
+<td style="text-align: right;">7,762</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">D</td>
+<td style="text-align: center;">15,9</td>
+<td style="text-align: right;">11,239</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">E</td>
+<td style="text-align: center;">17,6</td>
+<td style="text-align: right;">7,706</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: center;">18,5</td>
+<td style="text-align: right;">7,195</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">G</td>
+<td style="text-align: center;">21,2</td>
+<td style="text-align: right;">7,953</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">H</td>
+<td style="text-align: center;">23,0</td>
+<td style="text-align: right;">4,293</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">I</td>
+<td style="text-align: center;">25,3</td>
+<td style="text-align: right;">5,225</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">J</td>
+<td style="text-align: center;">30,2</td>
+<td style="text-align: right;">2,152</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p>D’emblée, à la lecture du nuage de points (<a href="#fig-reg">figure&nbsp;<span>4.12</span></a>), nous décelons une forte relation linéaire négative entre les deux variables&nbsp;: plus la distance entre la municipalité et le centre-ville de la région métropolitaine augmente, plus le pourcentage de cyclistes est faible, ce qui est confirmé par le coefficient de corrélation (<em>r</em> = −0,90). La droite de régression (en rouge à la <a href="#fig-reg">figure&nbsp;<span>4.12</span></a>) qui résume le mieux la relation entre <code>Vélo</code> (variable dépendante) et <code>KmCV</code> (variable indépendante) s’écrit alors&nbsp;: <strong>Vélo = 30,603 − 1,448 x KmCV</strong>.</p>
+<p>La valeur du coefficient de régression (<span class="math inline">\(\beta_{1}\)</span>) est de −1,448. Le signe de ce coefficient décrit une relation négative entre les deux variables. Ainsi, à chaque ajout d’une unité de la distance entre la municipalité et le centre-ville (exprimée en kilomètres), le pourcentage de cyclistes diminue de 1,448. Retenez que l’unité de mesure de la variable dépendante est très importante pour bien interpréter le coefficient de régression. En effet, si la distance au centre-ville n’était pas exprimée en kilomètres, mais plutôt en mètres, <span class="math inline">\(\beta_1\)</span> serait égal à −0,001448. Dans la même optique, l’ajout de 10&nbsp;km de distance entre une municipalité et le centre-ville fait diminuer le pourcentage de cyclistes de −14,48 points de pourcentage.</p>
+<p>Avec, cette équation de régression, il est possible de prédire le pourcentage de cyclistes pour n’importe quelle municipalité de la région métropolitaine. Par exemple, pour des distances de 5, 10 ou 20 kilomètres, les pourcentages de cyclistes seraient de&nbsp;:</p>
+<ul>
+<li><span class="math inline">\(\widehat{y_i} = \mbox{30,603} + (\mbox{-1,448} \times \mbox{5 km) = 23,363}\)</span></li>
+<li><span class="math inline">\(\widehat{y_i} = \mbox{30,603} + (\mbox{-1,448} \times \mbox{10 km) = 8,883}\)</span></li>
+<li><span class="math inline">\(\widehat{y_i} = \mbox{30,603} + (\mbox{-1,448} \times \mbox{20 km) = 1,643}\)</span></li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-reg" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="04-bivarieeQuantiQuanti_files/figure-html/fig-reg-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;4.12: Relation linéaire entre l’utilisation du vélo et la distance au centre-ville</figcaption></figure>
+</div>
+</div>
+</div>
+</section><section id="sec-0442" class="level3" data-number="4.4.2"><h3 data-number="4.4.2" class="anchored" data-anchor-id="sec-0442">
+<span class="header-section-number">4.4.2</span> Formulation de la droite de régression des moindres carrés ordinaires</h3>
+<p>Reste à savoir comment sont estimés les différents paramètres de l’équation, soit <span class="math inline">\(\beta_0\)</span> et <span class="math inline">\(\beta_1\)</span>. À la <a href="#fig-reg2">figure&nbsp;<span>4.13</span></a>, les points noirs représentent les valeurs observées (<span class="math inline">\(y_i\)</span>) et les points bleus, les valeurs prédites (<span class="math inline">\(\widehat{y_i}\)</span>) par l’équation du modèle. Les traits noirs verticaux représentent, pour chaque observation <span class="math inline">\(i\)</span>, l’écart entre la valeur observée et la valeur prédite, dénommé résidu (<span class="math inline">\(\epsilon_i\)</span>, prononcez epsilon de <em>i</em> ou plus simplement le résidu pour <em>i</em> ou le terme d’erreur de <em>i</em>). Si un point est au-dessus de la droite de régression, la valeur observée est alors supérieure à la valeur prédite (<span class="math inline">\(y_i &gt; \widehat{y_i}\)</span>) et inversement, si le point est au-dessous de la droite (<span class="math inline">\(y_i &lt; \widehat{y_i}\)</span>). Plus cet écart (<span class="math inline">\(\epsilon_i\)</span>) est important, plus l’observation s’éloigne de la prédiction du modèle et, par extension, moins bon est le modèle. Au <a href="#tbl-regfictives2">tableau&nbsp;<span>4.4</span></a>, vous constaterez que la somme des résidus est égale à zéro. La méthode des moindres carrés ordinaires (MCO) vise à minimiser les écarts au carré entre les valeurs observées (<span class="math inline">\(y_i\)</span>) et prédites (<span class="math inline">\(\beta_0+\beta_1 x_i\)</span>, soit <span class="math inline">\(\widehat{y_i}\)</span>)&nbsp;:</p>
+<p><span id="eq-mco"><span class="math display">\[
+min\sum_{i=1}^n{(y_i-(\beta_0+\beta_1 x_i))^2}
+\tag{4.8}\]</span></span></p>
+<p>Pour minimiser ces écarts, le coefficient de régression <span class="math inline">\(\beta_1\)</span> représente le rapport entre la covariance entre <em>X</em> et <em>Y</em> et la variance de <em>Y</em> (<a href="#eq-b1">équation&nbsp;<span>4.9</span></a>), tandis que la constante <span class="math inline">\(\beta_0\)</span> est la moyenne de la variable <em>Y</em> moins le produit de la moyenne de <em>X</em> et de son coefficient de régression (<a href="#eq-b0">équation&nbsp;<span>4.10</span></a>).</p>
+<p><span id="eq-b1"><span class="math display">\[
+\beta_1 = \frac{\sum_{i=1}^n (x_{i}-\bar{x})(y_{i}-\bar{y})}{\sum_{i=1}^n (x_i-\bar{x})^2} = \frac{cov(X,Y)}{var(X)}
+\tag{4.9}\]</span></span></p>
+<p><span id="eq-b0"><span class="math display">\[
+\beta_0 = \widehat{Y}-\beta_1 \widehat{X}
+\tag{4.10}\]</span></span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-reg2" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="04-bivarieeQuantiQuanti_files/figure-html/fig-reg2-1.png" class="img-fluid figure-img" style="width:65.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;4.13: Droite de régression, valeurs observées, prédites et résidus</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-regfictives2" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Tableau&nbsp;4.4: Valeurs observées, prédites et résidus</caption>
+<thead><tr class="header">
+<th style="text-align: left;">Municipalité</th>
+<th style="text-align: center;">Vélo</th>
+<th style="text-align: right;">KmCV</th>
+<th style="text-align: right;">Valeur prédite</th>
+<th style="text-align: right;">Résidu</th>
+<th style="text-align: right;">Résidu au carré</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: center;">12,5</td>
+<td style="text-align: right;">14,135</td>
+<td style="text-align: right;">10,138</td>
+<td style="text-align: right;">2,362</td>
+<td style="text-align: right;">5,579</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: center;">13,5</td>
+<td style="text-align: right;">10,065</td>
+<td style="text-align: right;">16,031</td>
+<td style="text-align: right;">-2,531</td>
+<td style="text-align: right;">6,406</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: center;">15,8</td>
+<td style="text-align: right;">7,762</td>
+<td style="text-align: right;">19,365</td>
+<td style="text-align: right;">-3,565</td>
+<td style="text-align: right;">12,709</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">D</td>
+<td style="text-align: center;">15,9</td>
+<td style="text-align: right;">11,239</td>
+<td style="text-align: right;">14,331</td>
+<td style="text-align: right;">1,569</td>
+<td style="text-align: right;">2,462</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">E</td>
+<td style="text-align: center;">17,6</td>
+<td style="text-align: right;">7,706</td>
+<td style="text-align: right;">19,446</td>
+<td style="text-align: right;">-1,846</td>
+<td style="text-align: right;">3,408</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: center;">18,5</td>
+<td style="text-align: right;">7,195</td>
+<td style="text-align: right;">20,186</td>
+<td style="text-align: right;">-1,686</td>
+<td style="text-align: right;">2,843</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">G</td>
+<td style="text-align: center;">21,2</td>
+<td style="text-align: right;">7,953</td>
+<td style="text-align: right;">19,089</td>
+<td style="text-align: right;">2,111</td>
+<td style="text-align: right;">4,456</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">H</td>
+<td style="text-align: center;">23,0</td>
+<td style="text-align: right;">4,293</td>
+<td style="text-align: right;">24,388</td>
+<td style="text-align: right;">-1,388</td>
+<td style="text-align: right;">1,927</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">I</td>
+<td style="text-align: center;">25,3</td>
+<td style="text-align: right;">5,225</td>
+<td style="text-align: right;">23,038</td>
+<td style="text-align: right;">2,262</td>
+<td style="text-align: right;">5,117</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">J</td>
+<td style="text-align: center;">30,2</td>
+<td style="text-align: right;">2,152</td>
+<td style="text-align: right;">27,488</td>
+<td style="text-align: right;">2,712</td>
+<td style="text-align: right;">7,355</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Somme</td>
+<td style="text-align: center;">–</td>
+<td style="text-align: right;">–</td>
+<td style="text-align: right;">–</td>
+<td style="text-align: right;">0,000</td>
+<td style="text-align: right;">52,262</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="sec-0443" class="level3" data-number="4.4.3"><h3 data-number="4.4.3" class="anchored" data-anchor-id="sec-0443">
+<span class="header-section-number">4.4.3</span> Mesure de la qualité d’ajustement du modèle</h3>
+<p>Les trois mesures les plus courantes pour évaluer la qualité d’ajustement d’un modèle de régression linéaire simple sont l’erreur quadratique moyenne (<em>root-mean-square error</em> en anglais, <em>RMSE</em>), le coefficient de détermination (<em>R<sup>2</sup></em>) et la statistique <em>F</em> de Fisher. Pour mieux appréhender le calcul de ces trois mesures, rappelons que l’équation de régression s’écrit&nbsp;:</p>
+<p><span id="eq-reg2"><span class="math display">\[
+y_i = \beta_0 + \beta_1 x_1+ \epsilon_i \Rightarrow Y= \beta_0 + \beta_1 X + \epsilon
+\tag{4.11}\]</span></span></p>
+<p>Elle comprend ainsi une partie de <em>Y</em> qui est expliquée par le modèle et une autre partie non expliquée, soit <span class="math inline">\(\epsilon\)</span>, appelée habituellement le terme d’erreur. Ce terme d’erreur pourrait représenter d’autres variables explicatives qui n’ont pas été prises en compte pour prédire la variable indépendante ou une forme de variation aléatoire inexplicable présente lors de la mesure.</p>
+<p><span id="eq-reg3"><span class="math display">\[
+Y  = \underbrace{\beta_0 + \beta_1 X}_{\mbox{partie expliquée par le modèle}}+ \underbrace{\epsilon}_{\mbox{partie non expliquée}}
+\tag{4.12}\]</span></span></p>
+<p>Par exemple, pour la municipalité <em>A</em> au <a href="#tbl-regfictives2">tableau&nbsp;<span>4.4</span></a>, nous avons&nbsp;: <span class="math inline">\(y_A = \widehat{y}_A - \epsilon_A \Rightarrow \mbox{12,5} = \mbox{10,138}+\mbox{2,362}\)</span>. Souvenez-vous que la variance d’une variable est la somme des écarts à la moyenne, divisée par le nombre d’observations. Par extension, il est alors possible de décomposer la variance de <em>Y</em> comme suit&nbsp;:</p>
+<p><span id="eq-reg4"><span class="math display">\[
+\underbrace{\sum_{i=1}^n (y_{i}-\bar{y})^2}_{\mbox{variance de Y}} = \underbrace{\sum_{i=1}^n (\widehat{y}_i-\bar{y})^2}_{\mbox{var. expliquée}} + \underbrace{\sum_{i=1}^n (y_{i}-\widehat{y})^2}_{\mbox{var. non expliquée}} \Rightarrow
+SCT = SCE + SCR
+\tag{4.13}\]</span></span></p>
+<p>avec&nbsp;:</p>
+<ul>
+<li><p><em>SCT</em> est la somme des écarts au carré des valeurs observées à la moyenne (<em>total sum of squares</em> en anglais)</p></li>
+<li><p><em>SCE</em> est la somme des écarts au carré des valeurs prédites à la moyenne (<em>regression sum of squares</em> en anglais)</p></li>
+<li><p><em>SCR</em> est la somme des carrés des résidus (<em>sum of squared errors</em> en anglais).</p></li>
+</ul>
+<p>Autrement dit, la variance totale est égale à la variance expliquée plus la variance non expliquée. Au <a href="#tbl-computeR">tableau&nbsp;<span>4.5</span></a>, vous pouvez repérer les valeurs de <em>SCT</em>, <em>SCE</em> et <em>SCR</em> et constater que 279,30 = 227,04 + 52,26 et 27,93 = 22,70 + 5,23.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-computeR" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Tableau&nbsp;4.5: Calcul du coefficient de détermination</caption>
+<colgroup>
+<col style="width: 12%">
+<col style="width: 6%">
+<col style="width: 15%">
+<col style="width: 12%">
+<col style="width: 16%">
+<col style="width: 22%">
+<col style="width: 14%">
+</colgroup>
+<thead><tr class="header">
+<th style="text-align: left;">Municipalité</th>
+<th style="text-align: right;"><span class="math inline">\(y_i\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(\widehat{y}_i\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(\epsilon_i\)</span></th>
+<th style="text-align: right;"><span class="math inline">\((y_i-\bar{y})^2\)</span></th>
+<th style="text-align: right;"><span class="math inline">\((\widehat{y}_i-y_i)^2\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(\epsilon_i^2\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">12,50</td>
+<td style="text-align: right;">10,14</td>
+<td style="text-align: right;">2,36</td>
+<td style="text-align: right;">46,92</td>
+<td style="text-align: right;">84,86</td>
+<td style="text-align: right;">5,58</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">13,50</td>
+<td style="text-align: right;">16,03</td>
+<td style="text-align: right;">-2,53</td>
+<td style="text-align: right;">34,22</td>
+<td style="text-align: right;">11,02</td>
+<td style="text-align: right;">6,41</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">15,80</td>
+<td style="text-align: right;">19,37</td>
+<td style="text-align: right;">-3,57</td>
+<td style="text-align: right;">12,60</td>
+<td style="text-align: right;">0,00</td>
+<td style="text-align: right;">12,71</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">D</td>
+<td style="text-align: right;">15,90</td>
+<td style="text-align: right;">14,33</td>
+<td style="text-align: right;">1,57</td>
+<td style="text-align: right;">11,90</td>
+<td style="text-align: right;">25,19</td>
+<td style="text-align: right;">2,46</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">E</td>
+<td style="text-align: right;">17,60</td>
+<td style="text-align: right;">19,45</td>
+<td style="text-align: right;">-1,85</td>
+<td style="text-align: right;">3,06</td>
+<td style="text-align: right;">0,01</td>
+<td style="text-align: right;">3,41</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: right;">18,50</td>
+<td style="text-align: right;">20,19</td>
+<td style="text-align: right;">-1,69</td>
+<td style="text-align: right;">0,72</td>
+<td style="text-align: right;">0,70</td>
+<td style="text-align: right;">2,84</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">G</td>
+<td style="text-align: right;">21,20</td>
+<td style="text-align: right;">19,09</td>
+<td style="text-align: right;">2,11</td>
+<td style="text-align: right;">3,42</td>
+<td style="text-align: right;">0,07</td>
+<td style="text-align: right;">4,46</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">H</td>
+<td style="text-align: right;">23,00</td>
+<td style="text-align: right;">24,39</td>
+<td style="text-align: right;">-1,39</td>
+<td style="text-align: right;">13,32</td>
+<td style="text-align: right;">25,38</td>
+<td style="text-align: right;">1,93</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">I</td>
+<td style="text-align: right;">25,30</td>
+<td style="text-align: right;">23,04</td>
+<td style="text-align: right;">2,26</td>
+<td style="text-align: right;">35,40</td>
+<td style="text-align: right;">13,60</td>
+<td style="text-align: right;">5,12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">J</td>
+<td style="text-align: right;">30,20</td>
+<td style="text-align: right;">27,49</td>
+<td style="text-align: right;">2,71</td>
+<td style="text-align: right;">117,72</td>
+<td style="text-align: right;">66,22</td>
+<td style="text-align: right;">7,36</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">N</td>
+<td style="text-align: right;">10,00</td>
+<td style="text-align: right;">–</td>
+<td style="text-align: right;">–</td>
+<td style="text-align: right;">–</td>
+<td style="text-align: right;">–</td>
+<td style="text-align: right;">–</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Somme</td>
+<td style="text-align: right;">193,50</td>
+<td style="text-align: right;">–</td>
+<td style="text-align: right;">0,00</td>
+<td style="text-align: right;">279,30</td>
+<td style="text-align: right;">227,04</td>
+<td style="text-align: right;">52,26</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Moyenne</td>
+<td style="text-align: right;">19,35</td>
+<td style="text-align: right;">–</td>
+<td style="text-align: right;">0,00</td>
+<td style="text-align: right;">27,93</td>
+<td style="text-align: right;">22,70</td>
+<td style="text-align: right;">5,23</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p><strong>Calcul de l’erreur quadratique moyenne</strong></p>
+<p>La somme des résidus au carré (<em>SCR</em>) divisée par le nombre d’observations représente donc le carré moyen des erreurs (en anglais, <em>mean square error - MSE</em>), soit la variance résiduelle du modèle (52,26 / 10 = 5,23). Plus sa valeur est faible, plus le modèle est efficace pour prédire la variable indépendante. L’erreur quadratique moyenne (en anglais, <em>root-mean-square error - RMSE</em>) est simplement la racine carrée de la somme des résidus au carré divisée par le nombre d’observations (<span class="math inline">\(n\)</span>)&nbsp;:</p>
+<p><span id="eq-reg5"><span class="math display">\[
+RMSE = \sqrt{\frac{\sum_{i=1}^n (y_{i}-\widehat{y})^2}{n}}
+\tag{4.14}\]</span></span></p>
+<p>Elle représente ainsi une <strong>mesure absolue des erreurs</strong> qui est exprimée dans l’unité de mesure de la variable dépendante. Dans le cas présent, nous avons&nbsp;: <span class="math inline">\(\sqrt{5,23}=2,29\)</span>. Cela signifie qu’en moyenne, l’écart absolu (ou erreur absolue) entre les valeurs observées et prédites est de 2,29 points de pourcentage. De nouveau, une plus faible valeur de <strong>RMSE</strong> indique un meilleur ajustement du modèle. Mais surtout, le RMSE permet d’évaluer avec quelle précision le modèle prédit la variable dépendante. Il est donc particulièrement important si l’objectif principal du modèle est de prédire des valeurs sur un échantillon d’observations pour lequel la variable dépendante est inconnue.</p>
+<p><strong>Calcul du coefficient de détermination</strong></p>
+<p>Nous avons largement démontré que la variance totale est égale à la variance expliquée plus la variance non expliquée. La qualité du modèle peut donc être évaluée avec le coefficient de détermination (<em>R<sup>2</sup></em>), soit le rapport entre les variances expliquée et totale&nbsp;:</p>
+<p><span id="eq-reg6"><span class="math display">\[
+R^2 = \frac{SCE}{SCT} \mbox{ avec } R^2 \in \left[0,1\right]
+\tag{4.15}\]</span></span></p>
+<p>Comparativement au RMSE qui est une mesure absolue, le coefficient de détermination est une <strong>mesure relative</strong> qui varie de 0 à 1. Il exprime la proportion de la variance de <em>Y</em> qui est expliquée par la variable <em>X</em>; autrement dit, plus sa valeur est élevée, plus <em>X</em> influence/est capable de prédire <em>Y</em>. Dans le cas présent, nous avons&nbsp;: R<sup>2</sup> = 227,04 / 279,3 = 0,8129, ce qui signale que 81,3&nbsp;% de la variance du pourcentage de cyclistes est expliquée par la distance entre la municipalité et le centre-ville de la région métropolitaine. Tel que signalé dans la <a href="#sec-0432">section&nbsp;<span>4.3.2</span></a>, la racine carrée du coefficient de détermination (<em>R<sup>2</sup></em>) est égale au coefficient de corrélation (<span class="math inline">\(r\)</span>) entre les deux variables.</p>
+<p><strong>Calcul de la statistique <em>F</em> de Fisher</strong></p>
+<p>La statistique <em>F</em> de Fisher permet de vérifier la significativité globale du modèle.</p>
+<p><span id="eq-reg7"><span class="math display">\[
+F = (n-2)\frac{R^2}{1-R^2} = (n-2)\frac{SCE}{SCR}
+\tag{4.16}\]</span></span></p>
+<p>L’hypothèse nulle (<em>H<sub>0</sub></em> avec <span class="math inline">\(\beta_1=0\)</span>) est rejetée si la valeur calculée de <em>F</em> est supérieure à la valeur critique de la table <em>F</em> avec <em>1, n-2</em> degrés de liberté et un seuil <span class="math inline">\(\alpha\)</span> (<em>p</em>&nbsp;=&nbsp;0,05 habituellement) (voir la table des valeurs critiques de <em>F</em>, <a href="14-Annexes.html#sec-142">section&nbsp;<span>14.2</span></a>). Notez que nous utilisons rarement la table <em>F</em> puisqu’avec la fonction <code>pf(f obtenu, 1, n-2, lower.tail = FALSE)</code>, nous obtenons obtient directement la valeur de <em>p</em> associée à la valeur de <em>F</em>. Concrètement, si le test <em>F</em> est significatif (avec <em>p</em>&nbsp;&lt;&nbsp;0,05), plus la valeur de <em>F</em> est élevée, plus le modèle est efficace (et plus le <em>R<sup>2</sup></em> sera également élevé).</p>
+<p>Notez que la fonction <code>summary</code> renvoie les résultats du modèle, dont notamment le test <em>F</em> de Fisher.</p>
+<div class="cell">
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># utiliser la fonction summary</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">modele</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Velo ~ KmCV, data = data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.5652 -1.8062  0.0906  2.2241  2.7125 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  30.6032     2.0729  14.763 4.36e-07 ***
+KmCV         -1.4478     0.2456  -5.895 0.000364 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.556 on 8 degrees of freedom
+Multiple R-squared:  0.8129,    Adjusted R-squared:  0.7895 
+F-statistic: 34.75 on 1 and 8 DF,  p-value: 0.0003637</code></pre>
+</div>
+</div>
+<p>Dans le cas présent, <span class="math inline">\(F = (10 - 2)\frac{\mbox{0,8129}}{\mbox{1-0,8129}} = (10-2)\frac{\mbox{227,04}}{\mbox{52,26}} = \mbox{34,75}\)</span> avec une valeur de <span class="math inline">\(\mbox{p &lt; 0,001}\)</span>. Par conséquent, le modèle est significatif.</p>
+</section><section id="sec-0444" class="level3" data-number="4.4.4"><h3 data-number="4.4.4" class="anchored" data-anchor-id="sec-0444">
+<span class="header-section-number">4.4.4</span> Mise en œuvre dans R</h3>
+<p>Comment calculer une régression linéaire simple dans R. Rien de plus simple avec la fonction <code>lm(formula = y ~ x, data= DataFrame)</code>.</p>
+<div class="cell">
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">df1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"data/bivariee/Reg.csv"</span>, stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">## Création d'un objet pour le modèle</span></span>
+<span><span class="va">monmodele</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Velo</span> <span class="op">~</span> <span class="va">KmCV</span>, <span class="va">df1</span><span class="op">)</span></span>
+<span><span class="co">## Résultats du modèle avec la fonction summary</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">monmodele</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Velo ~ KmCV, data = df1)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.5652 -1.8062  0.0906  2.2241  2.7125 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  30.6032     2.0729  14.763 4.36e-07 ***
+KmCV         -1.4478     0.2456  -5.895 0.000364 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.556 on 8 degrees of freedom
+Multiple R-squared:  0.8129,    Adjusted R-squared:  0.7895 
+F-statistic: 34.75 on 1 and 8 DF,  p-value: 0.0003637</code></pre>
+</div>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">## Calcul du MSE et du RMSE</span></span>
+<span><span class="va">MSE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">monmodele</span><span class="op">$</span><span class="va">residuals</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">RMSE</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">MSE</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"MSE = "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">MSE</span>, <span class="fl">2</span><span class="op">)</span>, <span class="st">"; RMSE = "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">RMSE</span>,<span class="fl">2</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>MSE = 5.23; RMSE = 2.29</code></pre>
+</div>
+</div>
+</section><section id="sec-0445" class="level3" data-number="4.4.5"><h3 data-number="4.4.5" class="anchored" data-anchor-id="sec-0445">
+<span class="header-section-number">4.4.5</span> Comment rapporter une régression linéaire simple</h3>
+<p>Nous avons calculé une régression linéaire simple pour prédire le pourcentage d’actifs occupés utilisant le vélo pour se rendre au travail en fonction de la distance entre la municipalité et le centre-ville de la région métropolitaine (en kilomètres). Le modèle obtient un <em>F</em> de Fisher significatif (<em>F</em>(1,8)&nbsp;=&nbsp;34,75, <em>p</em>&nbsp;&lt;&nbsp;0,001) et un <em>R<sup>2</sup></em> de 0,813. Le pourcentage de cyclistes peut être prédit par l’équation suivante&nbsp;: 30,603 - 1,448 x (distance au centre-ville en km).</p>
+</section></section><section id="sec-045" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="sec-045">
+<span class="header-section-number">4.5</span> Quiz de révision du chapitre</h2>
+<div id="Chapitre4_QuantiQuanti" class="card">
+<link type="text/javascript" src="libs/quizlib.1.0.1.min.js">
+<script>var Quiz=function(a,b){this.Classes=Object.freeze({QUESTION:"quizlib-question",QUESTION_TITLE:"quizlib-question-title",QUESTION_ANSWERS:"quizlib-question-answers",QUESTION_WARNING:"quizlib-question-warning",CORRECT:"quizlib-correct",INCORRECT:"quizlib-incorrect",TEMP:"quizlib-temp"}),this.unansweredQuestionText="Question sans réponse !",this.container=document.getElementById(a),this.questions=[],this.result=new QuizResult,this.answers=b;for(var c=0;c<this.container.children.length;c++)this.container.children[c].classList.contains(Quiz.Classes.QUESTION)&&this.questions.push(this.container.children[c]);if(this.answers.length!=this.questions.length)throw new Error("Number of answers does not match number of questions!")};Quiz.Classes=Object.freeze({QUESTION:"quizlib-question",QUESTION_TITLE:"quizlib-question-title",QUESTION_ANSWERS:"quizlib-question-answers",QUESTION_WARNING:"quizlib-question-warning",CORRECT:"quizlib-correct",INCORRECT:"quizlib-incorrect",TEMP:"quizlib-temp"}),Quiz.prototype.checkAnswers=function(a){void 0===a&&(a=!0);for(var b=[],c=[],d=0;d<this.questions.length;d++){var e=this.questions[d],f=this.answers[d],g=[];this.clearHighlights(e);for(var h,i=e.getElementsByClassName(Quiz.Classes.QUESTION_ANSWERS)[0].getElementsByTagName("input"),j=0;j<i.length;j++)h=i[j],"checkbox"===h.type||"radio"===h.type?h.checked&&g.push(h.value):""!==h.value&&g.push(h.value);1!=g.length||Array.isArray(f)?0===g.length&&b.push(e):g=g[0],c.push(Utils.compare(g,f))}if(0===b.length||!a)return this.result.setResults(c),!0;for(d=0;d<b.length;d++){var k=document.createElement("span");k.appendChild(document.createTextNode(this.unansweredQuestionText)),k.className=Quiz.Classes.QUESTION_WARNING,b[d].getElementsByClassName(Quiz.Classes.QUESTION_TITLE)[0].appendChild(k)}return!1},Quiz.prototype.clearHighlights=function(a){for(var b=a.getElementsByClassName(Quiz.Classes.QUESTION_WARNING);b.length>0;)b[0].parentNode.removeChild(b[0]);var c,d=[a.getElementsByClassName(Quiz.Classes.CORRECT),a.getElementsByClassName(this.Classes.INCORRECT)];for(i=0;i<d.length;i++)for(;d[i].length>0;)c=d[i][0],c.classList.remove(Quiz.Classes.CORRECT),c.classList.remove(Quiz.Classes.INCORRECT);for(var e=a.getElementsByClassName(Quiz.Classes.TEMP);e.length>0;)e[0].parentNode.removeChild(e[0])},Quiz.prototype.highlightResults=function(a){for(var b,c=0;c<this.questions.length;c++)b=this.questions[c],b.getElementsByClassName(Quiz.Classes.QUESTION_TITLE)[0].classList.add(this.result.results[c]?Quiz.Classes.CORRECT:Quiz.Classes.INCORRECT),void 0!==a&&a(this,b,c,this.result.results[c])};var QuizResult=function(){this.results=[],this.totalQuestions=0,this.score=0,this.scorePercent=0,this.scorePercentFormatted=0};QuizResult.prototype.setResults=function(a){this.results=a,this.totalQuestions=this.results.length,this.score=0;for(var b=0;b<this.results.length;b++)this.results[b]&&this.score++;this.scorePercent=this.score/this.totalQuestions,this.scorePercentFormatted=Math.floor(100*this.scorePercent)};var Utils=function(){};Utils.compare=function(a,b){if(a.length!=b.length)return!1;if(Array.isArray(a)&&Array.isArray(b)){for(var c=0;c<a.length;c++)if(a[c]!==b[c])return!1;return!0}return a===b};
+
+function showResults(quiz) {
+    // Check answers and continue if all questions have been answered
+    if (quiz.checkAnswers()) {
+        var quizScorePercent = quiz.result.scorePercentFormatted; // The unformatted percentage is a decimal in range 0 - 1
+        var quizResultElement = document.getElementById('quiz-result');
+        quizResultElement.style.display = 'block';
+        document.getElementById('quiz-percent').innerHTML = quizScorePercent.toString();
+
+        // Change background colour of results div according to score percent
+        if (quizScorePercent > 75) quizResultElement.style.backgroundColor = '#4caf50';
+        else if (quizScorePercent > 50) quizResultElement.style.backgroundColor = '#ffc107';
+        else if (quizScorePercent > 25) quizResultElement.style.backgroundColor = '#ff9800';
+        else if (quizScorePercent > 0) quizResultElement.style.backgroundColor = '#f44336';
+
+        // Highlight questions according to whether they were correctly answered. The callback allows us to highlight/show the correct answer
+        quiz.highlightResults(handleAnswers);
+    }
+}
+
+/** Callback for Quiz.highlightResults. Highlights the correct answers of incorrectly answered questions
+ * Parameters are: the quiz object, the question element, question number, correctly answered flag
+ */
+function handleAnswers(quiz, question, no, correct) {
+    if (!correct) {
+        var answers = question.getElementsByTagName('input');
+        for (var i = 0; i < answers.length; i++) {
+            if (answers[i].type === 'checkbox' || answers[i].type === 'radio'){
+                // If the current input element is part of the correct answer, highlight it
+                if (quiz.answers[no].indexOf(answers[i].value) > -1) {
+                    answers[i].parentNode.classList.add(Quiz.Classes.CORRECT);
+                }
+            } else {
+                // If the input is anything other than a checkbox or radio button, show the correct answer next to the element
+                var correctAnswer = document.createElement('span');
+                correctAnswer.classList.add(Quiz.Classes.CORRECT);
+                correctAnswer.classList.add(Quiz.Classes.TEMP); // quiz.checkAnswers will automatically remove elements with the temp class
+                correctAnswer.innerHTML = quiz.answers[no];
+                correctAnswer.style.marginLeft = '10px';
+                answers[i].parentNode.insertBefore(correctAnswer, answers[i].nextSibling);
+            }
+        }
+    }
+}
+
+  var quizz_Chapitre4_QuantiQuanti;
+  window.onload = function() {
+    quizz_Chapitre4_QuantiQuanti = new Quiz('Chapitre4_QuantiQuanti', ['1','3','1','4','3','1','1','2','3','2']);
+  };</script><link rel="stylesheet" type="text/css" src="css/quizlib.min.css">
+<div class="card quizlib-question">
+<div class="quizlib-question-title">
+D’après le nuage de points, les variables X et Y partagent une relation :
+</div>
+<img src="images/quiz/Quiz_Chap04_Question_01.jpg" alt="" style="width: 50%;display: block;margin-left: auto;margin-right: auto;margin-bottom: 0.5em;margin-top: 0.5em;"><div>
+Relisez au besoin la <a href="#sec-041">section&nbsp;<span>4.1</span></a>.
+</div>
+<div class="quizlib-question-answers">
+
+<table class="table table-sm table-striped small">
+<tbody><tr>
+<td>
+<label>linéaire positive</label>
+</td>
+<td>
+<input type="radio" name="q1" value="1">
+</td>
+</tr>
+<tr>
+<td>
+<label>linéaire négative</label>
+</td>
+<td>
+<input type="radio" name="q1" value="2">
+</td>
+</tr>
+<tr>
+<td>
+<label>curvilinéaire</label>
+</td>
+<td>
+<input type="radio" name="q1" value="3">
+</td>
+</tr>
+<tr>
+<td>
+<label>absence de relation</label>
+</td>
+<td>
+<input type="radio" name="q1" value="4">
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="card quizlib-question">
+<div class="quizlib-question-title">
+D’après le nuage de points, les deux variables partagent une relation :
+</div>
+<img src="images/quiz/Quiz_Chap04_Question_02.jpg" alt="" style="width: 50%;display: block;margin-left: auto;margin-right: auto;margin-bottom: 0.5em;margin-top: 0.5em;"><div>
+Relisez au besoin la <a href="#sec-041">section&nbsp;<span>4.1</span></a>.
+</div>
+<div class="quizlib-question-answers">
+
+<table class="table table-sm table-striped small">
+<tbody><tr>
+<td>
+<label>linéaire positive</label>
+</td>
+<td>
+<input type="radio" name="q2" value="1">
+</td>
+</tr>
+<tr>
+<td>
+<label>linéaire négative</label>
+</td>
+<td>
+<input type="radio" name="q2" value="2">
+</td>
+</tr>
+<tr>
+<td>
+<label>curvilinéaire</label>
+</td>
+<td>
+<input type="radio" name="q2" value="3">
+</td>
+</tr>
+<tr>
+<td>
+<label>absence de relation</label>
+</td>
+<td>
+<input type="radio" name="q2" value="4">
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="card quizlib-question">
+<div class="quizlib-question-title">
+La valeur de la covariance peut être positive ou négative. Plus sa valeur absolue est élevée :
+</div>
+<img src="images/quiz/Quiz_Chap04_Question_03.jpg" alt="" style="width: 50%;display: block;margin-left: auto;margin-right: auto;margin-bottom: 0.5em;margin-top: 0.5em;"><div>
+Relisez au besoin la <a href="#sec-0422">section&nbsp;<span>4.2.2</span></a>.
+</div>
+<div class="quizlib-question-answers">
+
+<table class="table table-sm table-striped small">
+<tbody><tr>
+<td>
+<label>plus la relation linéaire entre les deux variables est importante</label>
+</td>
+<td>
+<input type="radio" name="q3" value="1">
+</td>
+</tr>
+<tr>
+<td>
+<label>plus la relation linéaire entre les deux variables est faible</label>
+</td>
+<td>
+<input type="radio" name="q3" value="2">
+</td>
+</tr>
+<tr>
+<td>
+<label>curvilinéaire</label>
+</td>
+<td>
+<input type="radio" name="q3" value="3">
+</td>
+</tr>
+<tr>
+<td>
+<label>absence de relation</label>
+</td>
+<td>
+<input type="radio" name="q3" value="4">
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="card quizlib-question">
+<div class="quizlib-question-title">
+Les coefficients de corrélation (Pearson, Speaman, etc.) varient de à :
+</div>
+<div>
+Relisez au besoin la <a href="#sec-0433">section&nbsp;<span>4.3.3</span></a>.
+</div>
+<div class="quizlib-question-answers">
+
+<table class="table table-sm table-striped small">
+<tbody><tr>
+<td>
+<label>0 à 1</label>
+</td>
+<td>
+<input type="radio" name="q4" value="1">
+</td>
+</tr>
+<tr>
+<td>
+<label>moins l’infini à plus l’infini</label>
+</td>
+<td>
+<input type="radio" name="q4" value="2">
+</td>
+</tr>
+<tr>
+<td>
+<label>0 à 100</label>
+</td>
+<td>
+<input type="radio" name="q4" value="3">
+</td>
+</tr>
+<tr>
+<td>
+<label>-1 à 1</label>
+</td>
+<td>
+<input type="radio" name="q4" value="4">
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="card quizlib-question">
+<div class="quizlib-question-title">
+Cette statistique est tributaire des unités de mesure des deux variables. Cet inconvénient s’applique à :
+</div>
+<div>
+Relisez au besoin la <a href="#sec-0422">section&nbsp;<span>4.2.2</span></a>.
+</div>
+<div class="quizlib-question-answers">
+
+<table class="table table-sm table-striped small">
+<tbody><tr>
+<td>
+<label>la corrélation de Pearson</label>
+</td>
+<td>
+<input type="radio" name="q5" value="1">
+</td>
+</tr>
+<tr>
+<td>
+<label>la corrélation de Spearman</label>
+</td>
+<td>
+<input type="radio" name="q5" value="2">
+</td>
+</tr>
+<tr>
+<td>
+<label>la covariance</label>
+</td>
+<td>
+<input type="radio" name="q5" value="3">
+</td>
+</tr>
+<tr>
+<td>
+<label>la corrélation de Kendall</label>
+</td>
+<td>
+<input type="radio" name="q5" value="4">
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="card quizlib-question">
+<div class="quizlib-question-title">
+À la lecture du nuage de points, la corrélation de Pearson entre les deux variables est proche de :
+</div>
+<img src="images/quiz/Quiz_Chap04_Question_06.jpg" alt="" style="width: 50%;display: block;margin-left: auto;margin-right: auto;margin-bottom: 0.5em;margin-top: 0.5em;"><div>
+Relisez au besoin la <a href="#sec-041">section&nbsp;<span>4.1</span></a>.
+</div>
+<div class="quizlib-question-answers">
+
+<table class="table table-sm table-striped small">
+<tbody><tr>
+<td>
+<label>0</label>
+</td>
+<td>
+<input type="radio" name="q6" value="1">
+</td>
+</tr>
+<tr>
+<td>
+<label>-1</label>
+</td>
+<td>
+<input type="radio" name="q6" value="2">
+</td>
+</tr>
+<tr>
+<td>
+<label>1</label>
+</td>
+<td>
+<input type="radio" name="q6" value="3">
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="card quizlib-question">
+<div class="quizlib-question-title">
+Le coefficient de Spearman est le coefficient de Pearson calculé sur des variables transformées en :
+</div>
+<div>
+Relisez au besoin la <a href="#sec-0433">section&nbsp;<span>4.3.3</span></a>.
+</div>
+<div class="quizlib-question-answers">
+
+<table class="table table-sm table-striped small">
+<tbody><tr>
+<td>
+<label>rangs</label>
+</td>
+<td>
+<input type="radio" name="q7" value="1">
+</td>
+</tr>
+<tr>
+<td>
+<label>scores Z (variables centrées réduites)</label>
+</td>
+<td>
+<input type="radio" name="q7" value="2">
+</td>
+</tr>
+<tr>
+<td>
+<label>sur une échelle 0 à 100</label>
+</td>
+<td>
+<input type="radio" name="q7" value="3">
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="card quizlib-question">
+<div class="quizlib-question-title">
+Dans une régression linéaire, le résidu pour une observation est :
+</div>
+<div>
+Relisez au besoin la <a href="#sec-0442">section&nbsp;<span>4.4.2</span></a>.
+</div>
+<div class="quizlib-question-answers">
+
+<table class="table table-sm table-striped small">
+<tbody><tr>
+<td>
+<label>la différence entre la variance de Y et la variance expliquée</label>
+</td>
+<td>
+<input type="radio" name="q8" value="1">
+</td>
+</tr>
+<tr>
+<td>
+<label>la différence entre la valeur observée et la valeur prédite</label>
+</td>
+<td>
+<input type="radio" name="q8" value="2">
+</td>
+</tr>
+<tr>
+<td>
+<label>le carré de la différence entre la valeur observée et la valeur prédite</label>
+</td>
+<td>
+<input type="radio" name="q8" value="3">
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="card quizlib-question">
+<div class="quizlib-question-title">
+Le coefficient de détermination (R2) varie de :
+</div>
+<div>
+Relisez au besoin la <a href="#sec-0443">section&nbsp;<span>4.4.3</span></a>.
+</div>
+<div class="quizlib-question-answers">
+
+<table class="table table-sm table-striped small">
+<tbody><tr>
+<td>
+<label>-1 à 1</label>
+</td>
+<td>
+<input type="radio" name="q9" value="1">
+</td>
+</tr>
+<tr>
+<td>
+<label>-100 à 100</label>
+</td>
+<td>
+<input type="radio" name="q9" value="2">
+</td>
+</tr>
+<tr>
+<td>
+<label>0 à 1</label>
+</td>
+<td>
+<input type="radio" name="q9" value="3">
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<div class="card quizlib-question">
+<div class="quizlib-question-title">
+Un facteur confondant est une sorte de fondant au chocolat?
+</div>
+<div>
+Relire le deuxième encadré à la <a href="#sec-044">section&nbsp;<span>4.4</span></a>.
+</div>
+<div class="quizlib-question-answers">
+
+<table class="table table-sm table-striped small">
+<tbody><tr>
+<td>
+<label>Vrai</label>
+</td>
+<td>
+<input type="radio" name="q10" value="1">
+</td>
+</tr>
+<tr>
+<td>
+<label>Faux</label>
+</td>
+<td>
+<input type="radio" name="q10" value="2">
+</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+<button type="button" onclick="showResults(quizz_Chapitre4_QuantiQuanti);" id="buttonID">
+Vérifier votre résultat
+</button>
+<div id="quiz-result" class="card">
+<p><span id="quiz-percent"></span></p>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-Messerli" class="csl-entry" role="listitem">
+Messerli, Franz H. 2012. <span>«&nbsp;Chocolate consumption, cognitive Function, and Nobel laureates.&nbsp;»</span> <em>The new England Journal of Medicine</em> 367 (16): 1563‑1564. <a href="https://doi.org/10.1056/nejmon1211064">https://doi.org/10.1056/nejmon1211064</a>.
+</div>
+<div id="ref-PhamApparicioSeguin2012" class="csl-entry" role="listitem">
+Pham, Thi-Thanh-Hien, Philippe Apparicio, Anne-Marie Séguin, Shawn Landry et Martin Gagnon. 2012. <span>«&nbsp;Spatial distribution of vegetation in Montreal: an uneven distribution or environmental inequity?&nbsp;»</span> <em>Landscape and urban planning</em> 107 (3): 214‑224. <a href="http://dx.doi.org/10.1016/j.landurbplan.2012.06.002">http://dx.doi.org/10.1016/j.landurbplan.2012.06.002</a>.
+</div>
+<div id="ref-Schwarzkopf2012" class="csl-entry" role="listitem">
+Schwarzkopf, Dietrich, Benjamin de Haas et Geraint Rees. 2012. <span>«&nbsp;Better ways to improve standards in brain-behavior correlation analysis.&nbsp;»</span> <em>Frontiers in Human Neuroscience</em> 6: 200. <a href="https://www.frontiersin.org/articles/10.3389/fnhum.2012.00200">https://www.frontiersin.org/articles/10.3389/fnhum.2012.00200</a>.
+</div>
+<div id="ref-wilcox1994percentage" class="csl-entry" role="listitem">
+Wilcox, Rand R. 1994. <span>«&nbsp;The percentage bend correlation coefficient.&nbsp;»</span> <em>Psychometrika</em> 59 (4): 601‑616. <a href="https://doi.org/10.1007/BF02294395">https://doi.org/10.1007/BF02294395</a>.
+</div>
+</div>
+</section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copié");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copié");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./03-magiedesgraphiques.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Magie des graphiques</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./05-bivarieeQualiQuali.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Relation entre deux variables qualitatives</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer"><div class="nav-footer">
+    <div class="nav-footer-left">Méthodes quantitatives en sciences sociales : un grand bol d’R.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">Ce livre a été réalisé avec <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
+
+
+</body></html>

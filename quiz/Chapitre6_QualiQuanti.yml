@@ -1,0 +1,98 @@
+- label: "Comment comparer les moyennes de deux groupes?"
+  type: uc
+  response: 1
+  answers:
+     - "t de Student (test t)"
+     - "Analyse de variance (ANOVA)"
+     - "Covariance et corrélation"
+     - "Test de Kruskal-Wallis"
+  help: "Relisez au besoin la [section @sec-0611]."
+  
+- label: "Comment comparer les médianes de plus de deux groupes?"
+  type: uc
+  response: 4
+  answers:
+     - "t de Student (test t)"
+     - "Analyse de variance (ANOVA)"
+     - "Test de Kruskal-Wallis"
+     - "Test de Wilcoxon"
+  help: "Relisez au besoin la [section @sec-0612]."
+  
+- label: "Les observations de deux groupes qui n’ont aucun lien entre eux; les tailles des deux échantillons peuvent être différentes. Cette affirmation s'applique à des"
+  type: uc
+  response: 1
+  answers:
+     - "échantillons indépendants (dits non appariés)"
+     - "échantillons dépendants (dits appariés)"
+  help: "Relisez au besoin le début de la [section @sec-0611]."
+  
+- label: "Lorsque les variances des deux groupes sont dissemblables, quel test utilisez-vous?"
+  type: uc
+  response: 2
+  answers:
+     - "Test de Student (test t)"
+     - "Test de Welch (appelé aussi Satterthwaite)"     
+     - "Analyse de variance (ANOVA)"
+  help: "Relisez au besoin la [section @sec-0611]."
+
+- label: "Ces boîtes à moustaches s'appliquent à des :"
+  type: uc
+  response: 1
+  answers:
+     - "échantillons dépendants (dits appariés)"
+     - "échantillons indépendants (dits non appariés)"
+  help: "Relisez au besoin la [section @sec-06111]."
+  image: "images/quiz/Quiz_Chap06_Question_05.jpg"
+  alt_txt: ""
+
+- label: "Plus la variance intergroupe (dissimilarité des groupes) est maximisée et corollairement plus la variance intragroupe (homogénéité de chacun des groupes) est minimisée, plus les groupes sont clairement distincts et plus l’ANOVA est performante. Selon vous, à la lecture de ces graphiques, l'ANOVA risque-t-elle d'être très performante?"
+  type: uc
+  response: 2
+  answers:
+     - "Oui"
+     - "Non"
+  help: "Relisez au besoin la [section @sec-06211]."  
+  image: "images/quiz/Quiz_Chap06_Question_06.jpg"
+  alt_txt: ""
+  
+- label: "Quelles sont les trois conditions d’application de l’ANOVA?"
+  type: mc
+  response: [1,2,3]
+  answers:
+     - "Normalité des groupes"
+     - "Homogénéité des variances des groupes (homoscédasticité)"     
+     - "Indépendance des observations (pseudo-réplication)"
+     - "Il faut deux groupes"
+     - "Les groupes doivent être de taille égale"
+  help: "Relisez au besoin la [section @sec-06213]."   
+  
+- label: "Le test non paramétrique de Kruskal-Wallis permet de comparer les médianes de plus de deux groupes."
+  type: uc
+  response: 1
+  answers:
+     - "Vrai"
+     - "Faux"
+  help: "Relisez au besoin la [section @sec-0622]."          
+     
+- label: "Sur quelle(s) variances est basée l'ANOVA?"
+  type: mc
+  response: [1,2,3]
+  answers:
+     - "La variance totale"
+     - "La variance intragroupe"     
+     - "La variance intergroupe"     
+  help: "Relire le deuxième encadré à la [section @sec-06211]."
+  
+- label: "Quelles sont les variantes de l'ANOVA?"
+  type: mc
+  response: [1,2,3,4,5]
+  answers:
+     - "Une ANOVA à deux facteurs"
+     - "Une ANOVA multifacteur"     
+     - "L'analyse de covariance (ANCOVA)"     
+     - "L'analyse de variance multivariée (MANOVA)"
+     - "L'analyse de covariance multivariée (MANCOVA)"
+     - "La SUPERNOVA"     
+     - "La BOSSANOVA" 
+     - "Le CASANOVA" 
+  help: "Relire le deuxième encadré à la [section @sec-0624]."
