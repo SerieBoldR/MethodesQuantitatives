@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="author" content="Philippe Apparicio">
 <meta name="author" content="Jérémy Gelb">
-<meta name="dcterms.date" content="2024-07-05">
+<meta name="dcterms.date" content="2024-07-08">
 <title>Méthodes quantitatives en sciences sociales : un grand bol d’R</title>
 <style>
 code{white-space: pre-wrap;}
@@ -296,6 +296,7 @@ div.csl-indent {
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
 <h1 class="title">Méthodes quantitatives en sciences sociales : un grand bol d’R</h1>
+<p class="subtitle lead">Deuxième édition</p>
 </div>
 
 
@@ -331,7 +332,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Date de publication</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2024-07-05</p>
+      <p class="date">2024-07-08</p>
     </div>
   </div>
   
@@ -340,13 +341,13 @@ div.csl-indent {
   
 
 </header><p><img src="images/introduction/Couverture.png" title="Méthodes quantitatives en sciences sociales : un grand bol d’R" class="quarto-cover-image img-fluid"></p>
-<p><strong>Résumé&nbsp;:</strong> Ce livre vise à décrire une panoplie de méthodes quantitatives utilisées en sciences sociales avec le logiciel ouvert R. Il a d’ailleurs été écrit intégralement dans R avec Quarto. Le contenu est pensé pour être accessible à tous et toutes, même à ceux et celles n’ayant presque aucune base en statistique ou en programmation. Les personnes plus expérimentées y découvriront des sections sur des méthodes plus avancées comme les modèles à effets mixtes, les modèles multiniveaux, les modèles généralisés additifs ainsi que les méthodes factorielles et de classification. Ceux et celles souhaitant migrer progressivement d’un autre logiciel statistique vers R trouveront dans cet ouvrage les éléments pour une transition en douceur. La philosophie de ce livre est de donner toutes les clefs de compréhension et de mise en œuvre des méthodes abordées dans R. La présentation des méthodes est basée sur une approche compréhensive et intuitive plutôt que mathématique, sans pour autant que la rigueur statistique soit négligée.</p>
+<p><strong>Résumé&nbsp;:</strong> Ce livre vise à décrire une panoplie de méthodes quantitatives utilisées en sciences sociales avec le logiciel ouvert R. Il a d’ailleurs été écrit intégralement dans R avec Quarto. Le contenu est pensé pour être accessible à tous et toutes, même à ceux et celles n’ayant presque aucune base en statistique ou en programmation. Les personnes plus expérimentées y découvriront des sections sur des méthodes plus avancées comme les modèles à effets mixtes, les modèles multiniveaux, les modèles généralisés additifs ainsi que les méthodes factorielles et de classification. Ceux et celles souhaitant migrer progressivement d’un autre logiciel statistique vers R trouveront dans cet ouvrage les éléments pour une transition en douceur. La philosophie de ce livre est de donner toutes les clefs de compréhension et de mise en œuvre des méthodes abordées dans R. La présentation des méthodes est basée sur une approche compréhensive et intuitive plutôt que mathématique, sans pour autant que la rigueur statistique soit négligée. La première édition du livre était compilé avec le <em>package</em> bookdown; cette seconde édition est rédigé avec Quarto.</p>
 <p><strong>Remerciements&nbsp;:</strong> Ce manuel a été réalisé avec le soutien de la fabriqueREL. Fondée en 2019, la fabriqueREL est portée par divers établissements d’enseignement supérieur du Québec et agit en collaboration avec les services de soutien pédagogique et les bibliothèques. Son but est de faire des ressources éducatives libres (REL) le matériel privilégié en enseignement supérieur au Québec.</p>
 <p><strong>Maquette de la page couverture et identité graphique du livre&nbsp;:</strong> Andrés Henao Florez.</p>
 <p><strong>Mise en page&nbsp;:</strong> Philippe Apparicio et Marie-Hélène Gadbois Del Carpio.</p>
 <p><strong>Révision linguistique&nbsp;:</strong> Denise Latreille.</p>
 <p>© Philippe Apparicio et Jérémy Gelb.</p>
-<p><strong>Pour citer cet ouvrage&nbsp;:</strong> Apparicio P. et J. Gelb (2024). <em>Méthodes quantitatives en sciences sociales&nbsp;: un grand bol d’R</em>. Université de Sherbrooke, Département de géomatique appliquée. fabriqueREL. Licence CC&nbsp;BY-SA. <br><br></p>
+<p><strong>Pour citer cet ouvrage&nbsp;:</strong> Apparicio P. et J. Gelb (2024). <em>Méthodes quantitatives en sciences sociales&nbsp;: un grand bol d’R</em>. Deuxième édition, Université de Sherbrooke, Département de géomatique appliquée. fabriqueREL. Licence CC&nbsp;BY-SA. <br><br></p>
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure"><p><img src="images/introduction/CouvertureP2.png" class="img-fluid figure-img" style="width:80.0%"></p>
 </figure>
@@ -365,7 +366,7 @@ div.csl-indent {
 </ul>
 <p>La licence de ce livre, CC BY-SA (<a href="#fig-Licence">figure&nbsp;<span>1</span></a>), oblige donc à&nbsp;:</p>
 <ul>
-<li><p>Attribuer la paternité de l’auteur dans vos versions dérivées, ainsi qu’une mention concernant les grandes modifications apportées, en utilisant la formulation suivante&nbsp;: Apparicio Philippe et Jérémy Gelb (2024). <em>Méthodes quantitatives en sciences sociales&nbsp;: un grand bol d’R</em>. Université de Sherbrooke. fabriqueREL. Licence CC&nbsp;BY-SA.</p></li>
+<li><p>Attribuer la paternité de l’auteur dans vos versions dérivées, ainsi qu’une mention concernant les grandes modifications apportées, en utilisant la formulation suivante&nbsp;: Apparicio Philippe et Jérémy Gelb (2024). <em>Méthodes quantitatives en sciences sociales&nbsp;: un grand bol d’R</em>. Deuxième édition, Université de Sherbrooke. fabriqueREL. Licence CC&nbsp;BY-SA.</p></li>
 <li><p>Utiliser la même licence ou une licence similaire à toutes versions dérivées.</p></li>
 </ul>
 <div id="fig-Licence" class="quarto-figure quarto-figure-center anchored">

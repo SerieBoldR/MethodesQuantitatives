@@ -2244,7 +2244,7 @@ Prediction     0     1
 <div class="cell-output cell-output-stdout">
 <pre><code>
   1   2   3 
-676 289  35 </code></pre>
+712 257  31 </code></pre>
 </div>
 </div>
 <p>À partir de ces simulations de prédiction, nous pouvons réaliser un diagnostic des résidus simulés grâce au <em>package</em> <code>DHARMa</code>.</p>
@@ -5116,21 +5116,18 @@ GAMLSS-RS iteration 9: Global Deviance = 1481.825 </code></pre>
 1         19         1         1         1          1          0     7208.538
 5         12         1         0         1          0          0     8585.350
 26         7         0         0         1          0          0     1342.625
-34         6         0         0         1          0          0    12516.410
 44         5         0         0         0          0          0     4998.519
 482        0         0         0         0          0          0     1813.911
     Densite_pop  Entropie DensiteInter Long_arterePS Artere NB_voies5 log_acci
 1      5980.923 0.8073926     42.41597       6955.00      1         1 2.995732
 5      8655.430 0.7607852     89.11495       6412.27      0         0 2.564949
 26     2751.012 0.0000000     73.35344       2849.66      0         0 2.079442
-34     8950.942 0.4300549     74.91879       8443.01      1         0 1.945910
 44     8090.478 0.7879618     66.86856       4517.65      0         0 1.791759
 482    8988.260 0.4486079     60.93742       3821.78      1         0 0.000000
     catego_acci catego_acci2 Arret VAG sum_app LogEmploi AccOrdinal    PopHa
 1             1            1     0   1       4  8.883021          2 5.980923
 5             1            1     0   1       4  9.057813          2 8.655430
 26            1            1     1   1       3  7.202382          2 2.751012
-34            1            1     1   0       3  9.434796          2 8.950942
 44            1            1     1   1       4  8.516897          2 8.090478
 482           0            0     0   0       3  7.503240          0 8.988260</code></pre>
 </div>
@@ -5146,17 +5143,17 @@ GAMLSS-RS iteration 9: Global Deviance = 1481.825 </code></pre>
 <span>               family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/gamlss.dist/man/ZIP.html">ZIP</a></span><span class="op">(</span>mu.link <span class="op">=</span> <span class="st">"log"</span>, sigma.link<span class="op">=</span><span class="st">"logit"</span><span class="op">)</span>,</span>
 <span>               data <span class="op">=</span> <span class="va">data2</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>GAMLSS-RS iteration 1: Global Deviance = 1376.558 
-GAMLSS-RS iteration 2: Global Deviance = 1368.237 
-GAMLSS-RS iteration 3: Global Deviance = 1365.622 
-GAMLSS-RS iteration 4: Global Deviance = 1364.753 
-GAMLSS-RS iteration 5: Global Deviance = 1364.436 
-GAMLSS-RS iteration 6: Global Deviance = 1364.317 
-GAMLSS-RS iteration 7: Global Deviance = 1364.274 
-GAMLSS-RS iteration 8: Global Deviance = 1364.258 
-GAMLSS-RS iteration 9: Global Deviance = 1364.252 
-GAMLSS-RS iteration 10: Global Deviance = 1364.25 
-GAMLSS-RS iteration 11: Global Deviance = 1364.249 </code></pre>
+<pre><code>GAMLSS-RS iteration 1: Global Deviance = 1390.884 
+GAMLSS-RS iteration 2: Global Deviance = 1381.199 
+GAMLSS-RS iteration 3: Global Deviance = 1378.319 
+GAMLSS-RS iteration 4: Global Deviance = 1377.422 
+GAMLSS-RS iteration 5: Global Deviance = 1377.118 
+GAMLSS-RS iteration 6: Global Deviance = 1377.015 
+GAMLSS-RS iteration 7: Global Deviance = 1376.982 
+GAMLSS-RS iteration 8: Global Deviance = 1376.972 
+GAMLSS-RS iteration 9: Global Deviance = 1376.968 
+GAMLSS-RS iteration 10: Global Deviance = 1376.967 
+GAMLSS-RS iteration 11: Global Deviance = 1376.966 </code></pre>
 </div>
 <div class="sourceCode" id="cb129"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Extraire la prédiction des valeurs lambda</span></span>
 <span><span class="va">lambdas</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">modelza</span>, type <span class="op">=</span> <span class="st">"response"</span>, what <span class="op">=</span> <span class="st">"mu"</span><span class="op">)</span></span>
@@ -5255,21 +5252,21 @@ GAMLSS-RS iteration 11: Global Deviance = 1364.249 </code></pre>
 <span>     <span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$`deviance expliquee`
-[1] 0.1110817
+[1] 0.1073371
 
 $`McFadden ajuste`
-'log Lik.' 0.361296 (df=18)
+'log Lik.' 0.3588483 (df=18)
 
 $`Cox and Snell`
-'log Lik.' 0.8097617 (df=18)
+'log Lik.' 0.8086509 (df=18)
 
 $Nagelkerke
-'log Lik.' 0.819894 (df=18)</code></pre>
+'log Lik.' 0.8186255 (df=18)</code></pre>
 </div>
 <div class="sourceCode" id="cb133"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Calcul du RMSE</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">preds</span> <span class="op">-</span> <span class="va">data2</span><span class="op">$</span><span class="va">Nbr_acci</span><span class="op">)</span><span class="op">**</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.626853</code></pre>
+<pre><code>[1] 2.635322</code></pre>
 </div>
 </div>
 <p>Le modèle avec excès de zéro ajusté ne parvient à expliquer que 11&nbsp;% de la déviance totale. Il obtient toutefois des valeurs de R<sup>2</sup> assez hautes (McFadden ajusté&nbsp;: 0,36, Nagerlkerke&nbsp;: 0,82). Son RMSE est très élevé (2,6), comparativement à celui que nous avons obtenu avec le modèle binomial négatif (1,9). Considérant ces éléments, ce modèle est nettement moins informatif que le modèle binomial négatif et ne devrait pas être retenu. Nous montrons tout de même ici comment interpréter ces résultats.</p>
@@ -5295,19 +5292,19 @@ Fitting method: RS()
 Mu link function:  log
 Mu Coefficients:
                 Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)   -2.589e+00  5.457e-01  -4.745 2.76e-06 ***
-Feux_auto      7.126e-01  2.008e-01   3.549 0.000425 ***
-Feux_piet      4.244e-01  1.068e-01   3.973 8.19e-05 ***
-Pass_piet      2.894e-01  1.993e-01   1.452 0.147184    
-Terreplein    -3.347e-01  1.663e-01  -2.013 0.044692 *  
-Apaisement     2.284e-01  1.534e-01   1.489 0.137202    
-LogEmploi      1.542e-01  7.544e-02   2.043 0.041559 *  
-Densite_pop    8.619e-05  1.524e-05   5.657 2.65e-08 ***
-Entropie      -1.700e-01  3.018e-01  -0.564 0.573341    
-DensiteInter   3.950e-03  2.058e-03   1.919 0.055580 .  
-Long_arterePS  1.140e-05  2.018e-05   0.565 0.572435    
-Artere         5.150e-02  1.140e-01   0.452 0.651684    
-NB_voies5      4.518e-01  1.037e-01   4.356 1.62e-05 ***
+(Intercept)   -2.609e+00  5.366e-01  -4.862 1.58e-06 ***
+Feux_auto      5.779e-01  1.902e-01   3.039  0.00251 ** 
+Feux_piet      4.207e-01  1.045e-01   4.026 6.59e-05 ***
+Pass_piet      3.995e-01  1.937e-01   2.062  0.03970 *  
+Terreplein    -3.348e-01  1.665e-01  -2.011  0.04487 *  
+Apaisement     2.246e-01  1.532e-01   1.466  0.14342    
+LogEmploi      1.663e-01  7.445e-02   2.234  0.02594 *  
+Densite_pop    8.610e-05  1.500e-05   5.742 1.66e-08 ***
+Entropie      -2.894e-01  2.936e-01  -0.986  0.32475    
+DensiteInter   4.035e-03  2.047e-03   1.971  0.04931 *  
+Long_arterePS  1.100e-05  1.987e-05   0.553  0.58019    
+Artere         8.629e-02  1.106e-01   0.780  0.43586    
+NB_voies5      4.295e-01  1.015e-01   4.232 2.77e-05 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -5315,23 +5312,23 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 Sigma link function:  logit
 Sigma Coefficients:
               Estimate Std. Error t value Pr(&gt;|t|)   
-(Intercept)  9.625e-01  5.697e-01   1.690  0.09176 . 
-Feux_auto   -1.641e+00  6.177e-01  -2.656  0.00816 **
-Feux_piet    2.260e-01  7.529e-01   0.300  0.76421   
-Densite_pop -1.167e-04  5.581e-05  -2.092  0.03700 * 
-NB_voies5   -1.807e+00  1.272e+00  -1.421  0.15596   
+(Intercept)  1.004e+00  5.514e-01   1.821   0.0692 . 
+Feux_auto   -1.716e+00  5.932e-01  -2.892   0.0040 **
+Feux_piet    2.661e-01  7.039e-01   0.378   0.7055   
+Densite_pop -1.170e-04  5.455e-05  -2.145   0.0324 * 
+NB_voies5   -1.831e+00  1.213e+00  -1.509   0.1319   
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 ------------------------------------------------------------------
-No. of observations in the fit:  499 
+No. of observations in the fit:  500 
 Degrees of Freedom for the fit:  18
-      Residual Deg. of Freedom:  481 
+      Residual Deg. of Freedom:  482 
                       at cycle:  11 
  
-Global Deviance:     1364.249 
-            AIC:     1400.249 
-            SBC:     1476.076 
+Global Deviance:     1376.967 
+            AIC:     1412.967 
+            SBC:     1488.829 
 ******************************************************************</code></pre>
 </div>
 <div class="sourceCode" id="cb137"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Multiplication par 1000 des coefficients de population</span></span>
@@ -5400,65 +5397,65 @@ Global Deviance:     1364.249
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">-2.589</td>
+<td style="text-align: right;">-2.609</td>
 <td style="text-align: right;">&lt;0.001</td>
-<td style="text-align: right;">0.075</td>
+<td style="text-align: right;">0.074</td>
 <td style="text-align: right;">0.026</td>
-<td style="text-align: right;">0.219</td>
+<td style="text-align: right;">0.211</td>
 <td style="text-align: right;">***</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Feux_auto</td>
-<td style="text-align: right;">0.713</td>
-<td style="text-align: right;">&lt;0.001</td>
-<td style="text-align: right;">2.039</td>
-<td style="text-align: right;">1.376</td>
-<td style="text-align: right;">3.022</td>
-<td style="text-align: right;">***</td>
+<td style="text-align: right;">0.578</td>
+<td style="text-align: right;">0.003</td>
+<td style="text-align: right;">1.782</td>
+<td style="text-align: right;">1.228</td>
+<td style="text-align: right;">2.587</td>
+<td style="text-align: right;">**</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Feux_piet</td>
-<td style="text-align: right;">0.424</td>
+<td style="text-align: right;">0.421</td>
 <td style="text-align: right;">&lt;0.001</td>
-<td style="text-align: right;">1.529</td>
-<td style="text-align: right;">1.24</td>
-<td style="text-align: right;">1.885</td>
+<td style="text-align: right;">1.523</td>
+<td style="text-align: right;">1.241</td>
+<td style="text-align: right;">1.869</td>
 <td style="text-align: right;">***</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Pass_piet</td>
-<td style="text-align: right;">0.289</td>
-<td style="text-align: right;">0.147</td>
-<td style="text-align: right;">1.336</td>
-<td style="text-align: right;">0.904</td>
-<td style="text-align: right;">1.974</td>
-<td style="text-align: right;"></td>
+<td style="text-align: right;">0.399</td>
+<td style="text-align: right;">0.04</td>
+<td style="text-align: right;">1.491</td>
+<td style="text-align: right;">1.02</td>
+<td style="text-align: right;">2.179</td>
+<td style="text-align: right;">*</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Terreplein</td>
 <td style="text-align: right;">-0.335</td>
 <td style="text-align: right;">0.045</td>
-<td style="text-align: right;">0.716</td>
-<td style="text-align: right;">0.517</td>
-<td style="text-align: right;">0.991</td>
+<td style="text-align: right;">0.715</td>
+<td style="text-align: right;">0.516</td>
+<td style="text-align: right;">0.992</td>
 <td style="text-align: right;">*</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Apaisement</td>
-<td style="text-align: right;">0.228</td>
-<td style="text-align: right;">0.137</td>
-<td style="text-align: right;">1.257</td>
-<td style="text-align: right;">0.93</td>
-<td style="text-align: right;">1.697</td>
+<td style="text-align: right;">0.225</td>
+<td style="text-align: right;">0.143</td>
+<td style="text-align: right;">1.252</td>
+<td style="text-align: right;">0.927</td>
+<td style="text-align: right;">1.69</td>
 <td style="text-align: right;"></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">LogEmploi</td>
-<td style="text-align: right;">0.154</td>
-<td style="text-align: right;">0.042</td>
-<td style="text-align: right;">1.167</td>
-<td style="text-align: right;">1.006</td>
-<td style="text-align: right;">1.353</td>
+<td style="text-align: right;">0.166</td>
+<td style="text-align: right;">0.026</td>
+<td style="text-align: right;">1.181</td>
+<td style="text-align: right;">1.021</td>
+<td style="text-align: right;">1.366</td>
 <td style="text-align: right;">*</td>
 </tr>
 <tr class="even">
@@ -5467,52 +5464,52 @@ Global Deviance:     1364.249
 <td style="text-align: right;">&lt;0.001</td>
 <td style="text-align: right;">1.09</td>
 <td style="text-align: right;">1.058</td>
-<td style="text-align: right;">1.123</td>
+<td style="text-align: right;">1.122</td>
 <td style="text-align: right;">***</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Entropie</td>
-<td style="text-align: right;">-0.17</td>
-<td style="text-align: right;">0.573</td>
-<td style="text-align: right;">0.844</td>
-<td style="text-align: right;">0.467</td>
-<td style="text-align: right;">1.524</td>
+<td style="text-align: right;">-0.289</td>
+<td style="text-align: right;">0.325</td>
+<td style="text-align: right;">0.749</td>
+<td style="text-align: right;">0.421</td>
+<td style="text-align: right;">1.331</td>
 <td style="text-align: right;"></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">DensiteInter</td>
 <td style="text-align: right;">0.004</td>
-<td style="text-align: right;">0.056</td>
+<td style="text-align: right;">0.049</td>
 <td style="text-align: right;">1.004</td>
 <td style="text-align: right;">1</td>
 <td style="text-align: right;">1.008</td>
-<td style="text-align: right;">.</td>
+<td style="text-align: right;">*</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Long_arterePS</td>
 <td style="text-align: right;">0.011</td>
-<td style="text-align: right;">0.572</td>
+<td style="text-align: right;">0.58</td>
 <td style="text-align: right;">1.011</td>
 <td style="text-align: right;">0.972</td>
-<td style="text-align: right;">1.052</td>
+<td style="text-align: right;">1.051</td>
 <td style="text-align: right;"></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Artere</td>
-<td style="text-align: right;">0.051</td>
-<td style="text-align: right;">0.652</td>
-<td style="text-align: right;">1.053</td>
-<td style="text-align: right;">0.842</td>
-<td style="text-align: right;">1.316</td>
+<td style="text-align: right;">0.086</td>
+<td style="text-align: right;">0.436</td>
+<td style="text-align: right;">1.09</td>
+<td style="text-align: right;">0.878</td>
+<td style="text-align: right;">1.354</td>
 <td style="text-align: right;"></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">NB_voies5</td>
-<td style="text-align: right;">0.452</td>
+<td style="text-align: right;">0.429</td>
 <td style="text-align: right;">&lt;0.001</td>
-<td style="text-align: right;">1.571</td>
-<td style="text-align: right;">1.282</td>
-<td style="text-align: right;">1.925</td>
+<td style="text-align: right;">1.536</td>
+<td style="text-align: right;">1.259</td>
+<td style="text-align: right;">1.875</td>
 <td style="text-align: right;">***</td>
 </tr>
 </tbody>
@@ -5537,47 +5534,47 @@ Global Deviance:     1364.249
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">0.963</td>
-<td style="text-align: right;">0.092</td>
-<td style="text-align: right;">2.618</td>
-<td style="text-align: right;">0.857</td>
-<td style="text-align: right;">7.997</td>
+<td style="text-align: right;">1.004</td>
+<td style="text-align: right;">0.069</td>
+<td style="text-align: right;">2.729</td>
+<td style="text-align: right;">0.926</td>
+<td style="text-align: right;">8.042</td>
 <td style="text-align: right;">.</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Feux_auto</td>
-<td style="text-align: right;">-1.641</td>
-<td style="text-align: right;">0.008</td>
-<td style="text-align: right;">0.194</td>
-<td style="text-align: right;">0.058</td>
-<td style="text-align: right;">0.65</td>
+<td style="text-align: right;">-1.716</td>
+<td style="text-align: right;">0.004</td>
+<td style="text-align: right;">0.18</td>
+<td style="text-align: right;">0.056</td>
+<td style="text-align: right;">0.575</td>
 <td style="text-align: right;">**</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Feux_piet</td>
-<td style="text-align: right;">0.226</td>
-<td style="text-align: right;">0.764</td>
-<td style="text-align: right;">1.254</td>
-<td style="text-align: right;">0.287</td>
-<td style="text-align: right;">5.483</td>
+<td style="text-align: right;">0.266</td>
+<td style="text-align: right;">0.706</td>
+<td style="text-align: right;">1.305</td>
+<td style="text-align: right;">0.328</td>
+<td style="text-align: right;">5.184</td>
 <td style="text-align: right;"></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">Densite_pop</td>
 <td style="text-align: right;">-0.117</td>
-<td style="text-align: right;">0.037</td>
+<td style="text-align: right;">0.032</td>
 <td style="text-align: right;">0.89</td>
-<td style="text-align: right;">0.798</td>
-<td style="text-align: right;">0.993</td>
+<td style="text-align: right;">0.799</td>
+<td style="text-align: right;">0.99</td>
 <td style="text-align: right;">*</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">NB_voies5</td>
-<td style="text-align: right;">-1.807</td>
-<td style="text-align: right;">0.156</td>
-<td style="text-align: right;">0.164</td>
-<td style="text-align: right;">0.014</td>
-<td style="text-align: right;">1.985</td>
+<td style="text-align: right;">-1.831</td>
+<td style="text-align: right;">0.132</td>
+<td style="text-align: right;">0.16</td>
+<td style="text-align: right;">0.015</td>
+<td style="text-align: right;">1.728</td>
 <td style="text-align: right;"></td>
 </tr>
 </tbody>
@@ -6595,7 +6592,7 @@ Jour       1.330091  6        1.024055</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>sim_outliers
 FALSE  TRUE 
-22934   612 </code></pre>
+22929   617 </code></pre>
 </div>
 <div class="sourceCode" id="cb170"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Retirer ces observations des données</span></span>
 <span><span class="va">dataset3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">dataset2</span>, <span class="va">sim_outliers</span> <span class="op">==</span> <span class="cn">FALSE</span><span class="op">)</span></span>
@@ -6689,22 +6686,22 @@ FALSE  TRUE
 <span>     <span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$`deviance expliquee`
-[1] 0.05054679
+[1] 0.05052634
 
 $`McFadden ajuste`
-[1] 0.05009929
+[1] 0.05007867
 
 $`Cox and Snell`
-[1] 0.3322684
+[1] 0.3321125
 
 $Nagelkerke
-[1] 0.332381</code></pre>
+[1] 0.3322252</code></pre>
 </div>
 <div class="sourceCode" id="cb174"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Calcul du RMSE</span></span>
 <span><span class="va">preds</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">modele</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="op">(</span><span class="va">preds</span> <span class="op">-</span> <span class="va">dataset3</span><span class="op">$</span><span class="va">Duree</span><span class="op">)</span><span class="op">**</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 13.37362</code></pre>
+<pre><code>[1] 13.35041</code></pre>
 </div>
 </div>
 <p>Le modèle n’explique que 5&nbsp;% de la déviance et obtient des valeurs de R<sup>2</sup> ajusté de McFadden, de Cox et Snell et de Nagelkerke de respectivement 0,05, 0,33 et 0,33. La moyenne de l’erreur quadratique est de seulement 13,4 indiquant que le modèle se trompe en moyenne de seulement 13,4 minutes. La capacité de prédiction du modèle est donc limitée sans être catastrophique.</p>
@@ -6822,8 +6819,8 @@ $Nagelkerke
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">Constante</td>
-<td style="text-align: right;">2,925</td>
-<td style="text-align: right;">18,626</td>
+<td style="text-align: right;">2,924</td>
+<td style="text-align: right;">18,624</td>
 <td style="text-align: right;">0,000</td>
 <td style="text-align: right;">14,910</td>
 <td style="text-align: right;">23,266</td>
@@ -6849,29 +6846,29 @@ $Nagelkerke
 </tr>
 <tr class="even">
 <td style="text-align: left;">transport collectif</td>
-<td style="text-align: right;">0,426</td>
-<td style="text-align: right;">1,531</td>
+<td style="text-align: right;">0,422</td>
+<td style="text-align: right;">1,525</td>
 <td style="text-align: right;">0,000</td>
-<td style="text-align: right;">1,493</td>
-<td style="text-align: right;">1,570</td>
+<td style="text-align: right;">1,487</td>
+<td style="text-align: right;">1,564</td>
 <td style="text-align: right;">***</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">vehicule individuel</td>
-<td style="text-align: right;">-0,316</td>
-<td style="text-align: right;">0,729</td>
+<td style="text-align: right;">-0,317</td>
+<td style="text-align: right;">0,728</td>
 <td style="text-align: right;">0,000</td>
-<td style="text-align: right;">0,711</td>
+<td style="text-align: right;">0,710</td>
 <td style="text-align: right;">0,748</td>
 <td style="text-align: right;">***</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">velo</td>
-<td style="text-align: right;">-0,260</td>
-<td style="text-align: right;">0,771</td>
+<td style="text-align: right;">-0,257</td>
+<td style="text-align: right;">0,773</td>
 <td style="text-align: right;">0,000</td>
-<td style="text-align: right;">0,752</td>
-<td style="text-align: right;">0,791</td>
+<td style="text-align: right;">0,754</td>
+<td style="text-align: right;">0,793</td>
 <td style="text-align: right;">***</td>
 </tr>
 <tr class="odd">
@@ -6894,38 +6891,38 @@ $Nagelkerke
 </tr>
 <tr class="odd">
 <td style="text-align: left;">loisir</td>
-<td style="text-align: right;">-0,011</td>
-<td style="text-align: right;">0,989</td>
-<td style="text-align: right;">0,509</td>
-<td style="text-align: right;">0,956</td>
-<td style="text-align: right;">1,022</td>
+<td style="text-align: right;">-0,013</td>
+<td style="text-align: right;">0,987</td>
+<td style="text-align: right;">0,464</td>
+<td style="text-align: right;">0,955</td>
+<td style="text-align: right;">1,021</td>
 <td style="text-align: right;"></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">magasinage</td>
-<td style="text-align: right;">-0,111</td>
-<td style="text-align: right;">0,895</td>
+<td style="text-align: right;">-0,115</td>
+<td style="text-align: right;">0,891</td>
 <td style="text-align: right;">0,000</td>
-<td style="text-align: right;">0,865</td>
-<td style="text-align: right;">0,927</td>
+<td style="text-align: right;">0,862</td>
+<td style="text-align: right;">0,922</td>
 <td style="text-align: right;">***</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">travail</td>
-<td style="text-align: right;">-0,063</td>
-<td style="text-align: right;">0,939</td>
+<td style="text-align: right;">-0,067</td>
+<td style="text-align: right;">0,935</td>
 <td style="text-align: right;">0,000</td>
-<td style="text-align: right;">0,911</td>
-<td style="text-align: right;">0,968</td>
+<td style="text-align: right;">0,908</td>
+<td style="text-align: right;">0,964</td>
 <td style="text-align: right;">***</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">LogDist</td>
-<td style="text-align: right;">0,332</td>
-<td style="text-align: right;">1,393</td>
+<td style="text-align: right;">0,333</td>
+<td style="text-align: right;">1,395</td>
 <td style="text-align: right;">0,000</td>
-<td style="text-align: right;">1,379</td>
-<td style="text-align: right;">1,408</td>
+<td style="text-align: right;">1,380</td>
+<td style="text-align: right;">1,409</td>
 <td style="text-align: right;">***</td>
 </tr>
 <tr class="odd">
@@ -6948,11 +6945,11 @@ $Nagelkerke
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Meme</td>
-<td style="text-align: right;">-0,041</td>
-<td style="text-align: right;">0,960</td>
-<td style="text-align: right;">0,000</td>
-<td style="text-align: right;">0,939</td>
-<td style="text-align: right;">0,980</td>
+<td style="text-align: right;">-0,038</td>
+<td style="text-align: right;">0,963</td>
+<td style="text-align: right;">0,001</td>
+<td style="text-align: right;">0,943</td>
+<td style="text-align: right;">0,984</td>
 <td style="text-align: right;">***</td>
 </tr>
 <tr class="even">
@@ -6975,11 +6972,11 @@ $Nagelkerke
 </tr>
 <tr class="even">
 <td style="text-align: left;">samedi et dimanche</td>
-<td style="text-align: right;">0,001</td>
-<td style="text-align: right;">1,001</td>
-<td style="text-align: right;">0,931</td>
-<td style="text-align: right;">0,980</td>
-<td style="text-align: right;">1,022</td>
+<td style="text-align: right;">0,004</td>
+<td style="text-align: right;">1,004</td>
+<td style="text-align: right;">0,691</td>
+<td style="text-align: right;">0,983</td>
+<td style="text-align: right;">1,025</td>
 <td style="text-align: right;"></td>
 </tr>
 <tr class="odd">
@@ -6993,11 +6990,11 @@ $Nagelkerke
 </tr>
 <tr class="even">
 <td style="text-align: left;">shape</td>
-<td style="text-align: right;">1,145</td>
-<td style="text-align: right;">3,141</td>
+<td style="text-align: right;">1,146</td>
+<td style="text-align: right;">3,145</td>
 <td style="text-align: right;">0,000</td>
-<td style="text-align: right;">3,086</td>
-<td style="text-align: right;">3,196</td>
+<td style="text-align: right;">3,089</td>
+<td style="text-align: right;">3,200</td>
 <td style="text-align: right;">***</td>
 </tr>
 </tbody>

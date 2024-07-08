@@ -473,8 +473,8 @@ r_{xy} = \frac{\sum_{i=1}^n (x_{i}-\bar{x})(y_{i}-\bar{y})}{(n-1)\sqrt{\sum_{i=1
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Corrélation de Pearson = "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">cor1</span>,<span class="fl">5</span><span class="op">)</span>,</span>
 <span>    <span class="st">"\nMoyenne du produit des variables centrées réduites ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">cor2</span>,<span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Corrélation de Pearson =  0.79777 
-Moyenne du produit des variables centrées réduites = 0.79777</code></pre>
+<pre><code>Corrélation de Pearson =  0.80165 
+Moyenne du produit des variables centrées réduites = 0.80165</code></pre>
 </div>
 </div>
 </section><section id="sec-0432" class="level3" data-number="4.3.2"><h3 data-number="4.3.2" class="anchored" data-anchor-id="sec-0432">
@@ -821,7 +821,7 @@ boot(data = df, statistic = correlation, R = 5000, X = "A65plus",
 
 Bootstrap Statistics :
       original       bias    std. error
-t1* -0.1580801 -0.001275033   0.0406925</code></pre>
+t1* -0.1580801 -0.000756053  0.03996929</code></pre>
 </div>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Intervalle de confiance du bootstrap à 95 %</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/boot/man/boot.ci.html">boot.ci</a></span><span class="op">(</span>boot.out <span class="op">=</span> <span class="va">corBootstraped</span>, conf <span class="op">=</span> <span class="fl">0.95</span>, type <span class="op">=</span> <span class="st">"all"</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -834,10 +834,10 @@ boot.ci(boot.out = corBootstraped, conf = 0.95, type = "all")
 
 Intervals : 
 Level      Normal              Basic         
-95%   (-0.2366, -0.0770 )   (-0.2430, -0.0851 )  
+95%   (-0.2357, -0.0790 )   (-0.2414, -0.0868 )  
 
 Level     Percentile            BCa          
-95%   (-0.2310, -0.0732 )   (-0.2178, -0.0456 )  
+95%   (-0.2293, -0.0748 )   (-0.2161, -0.0519 )  
 Calculations and Intervals on Original Scale</code></pre>
 </div>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Comparaison de l'intervalle classique basé sur la valeur de T</span></span>

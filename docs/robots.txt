@@ -1,1 +1,1 @@
-Sitemap: https://github.com/SerieBoldR/MethodesQuantitatives/index.html/sitemap.xml
+Sitemap: https://serieboldr.github.io/MethodesQuantitatives/index.html/sitemap.xml

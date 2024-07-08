@@ -1665,11 +1665,11 @@ b_2 = (g_2 + 3) (1 - 1/n)^2 - 3
 <span><span class="va">Normale</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1500</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">DescTools</span><span class="fu">::</span><span class="fu"><a href="https://andrisignorell.github.io/DescTools/reference/Skew.html">Kurt</a></span><span class="op">(</span><span class="va">Normale</span><span class="op">)</span>,<span class="fl">3</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.036</code></pre>
+<pre><code>[1] -0.115</code></pre>
 </div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu">moments</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/moments/man/kurtosis.html">kurtosis</a></span><span class="op">(</span><span class="va">Normale</span><span class="op">)</span>,<span class="fl">3</span><span class="op">)</span></span></code><button title="Copier vers le presse-papier" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 2.968</code></pre>
+<pre><code>[1] 2.889</code></pre>
 </div>
 </div>
 </div>
@@ -1788,88 +1788,88 @@ b_2 = (g_2 + 3) (1 - 1/n)^2 - 3
 <tr class="odd">
 <td style="text-align: left;">S</td>
 <td style="text-align: left;">Skewness</td>
-<td style="text-align: right;">-0,078</td>
-<td style="text-align: right;">1,162</td>
-<td style="text-align: right;">-1,199</td>
-<td style="text-align: right;">-0,369</td>
-<td style="text-align: right;">0,031</td>
+<td style="text-align: right;">-0,004</td>
+<td style="text-align: right;">0,953</td>
+<td style="text-align: right;">-1,254</td>
+<td style="text-align: right;">0,934</td>
+<td style="text-align: right;">-0,026</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">K</td>
 <td style="text-align: left;">Kurtosis</td>
-<td style="text-align: right;">-0,043</td>
-<td style="text-align: right;">1,495</td>
-<td style="text-align: right;">1,845</td>
-<td style="text-align: right;">6,540</td>
-<td style="text-align: right;">-0,895</td>
+<td style="text-align: right;">-0,066</td>
+<td style="text-align: right;">1,071</td>
+<td style="text-align: right;">1,734</td>
+<td style="text-align: right;">5,312</td>
+<td style="text-align: right;">-1,142</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">KS</td>
 <td style="text-align: left;">Kolmogorov-Smirnov (KS)</td>
 <td style="text-align: right;">0,026</td>
-<td style="text-align: right;">0,099</td>
-<td style="text-align: right;">0,088</td>
-<td style="text-align: right;">0,098</td>
-<td style="text-align: right;">0,041</td>
+<td style="text-align: right;">0,087</td>
+<td style="text-align: right;">0,106</td>
+<td style="text-align: right;">0,102</td>
+<td style="text-align: right;">0,057</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">LF</td>
 <td style="text-align: left;">Lilliefors (LF)</td>
 <td style="text-align: right;">0,026</td>
-<td style="text-align: right;">0,099</td>
-<td style="text-align: right;">0,088</td>
-<td style="text-align: right;">0,098</td>
-<td style="text-align: right;">0,041</td>
+<td style="text-align: right;">0,087</td>
+<td style="text-align: right;">0,106</td>
+<td style="text-align: right;">0,102</td>
+<td style="text-align: right;">0,057</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">SW</td>
 <td style="text-align: left;">Shapiro-Wilk (SW)</td>
 <td style="text-align: right;">0,998</td>
-<td style="text-align: right;">0,914</td>
-<td style="text-align: right;">0,916</td>
-<td style="text-align: right;">0,903</td>
-<td style="text-align: right;">0,976</td>
+<td style="text-align: right;">0,938</td>
+<td style="text-align: right;">0,904</td>
+<td style="text-align: right;">0,910</td>
+<td style="text-align: right;">0,959</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">AD</td>
 <td style="text-align: left;">Anderson-Darling (AD)</td>
-<td style="text-align: right;">0,295</td>
-<td style="text-align: right;">10,740</td>
-<td style="text-align: right;">9,390</td>
-<td style="text-align: right;">10,886</td>
-<td style="text-align: right;">1,950</td>
+<td style="text-align: right;">0,211</td>
+<td style="text-align: right;">6,788</td>
+<td style="text-align: right;">11,807</td>
+<td style="text-align: right;">9,750</td>
+<td style="text-align: right;">4,588</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">JB</td>
 <td style="text-align: left;">Jarque-Bera (JB)</td>
-<td style="text-align: right;">0,524</td>
-<td style="text-align: right;">181,762</td>
-<td style="text-align: right;">225,553</td>
-<td style="text-align: right;">2 343,009</td>
-<td style="text-align: right;">12,001</td>
+<td style="text-align: right;">0,132</td>
+<td style="text-align: right;">92,936</td>
+<td style="text-align: right;">261,716</td>
+<td style="text-align: right;">1 491,255</td>
+<td style="text-align: right;">20,423</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">KS.p</td>
 <td style="text-align: left;">KS (valeur p)</td>
-<td style="text-align: right;">0,895</td>
-<td style="text-align: right;">0,000</td>
+<td style="text-align: right;">0,884</td>
 <td style="text-align: right;">0,001</td>
 <td style="text-align: right;">0,000</td>
-<td style="text-align: right;">0,384</td>
+<td style="text-align: right;">0,000</td>
+<td style="text-align: right;">0,075</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">LF.p</td>
 <td style="text-align: left;">LF (valeur p)</td>
-<td style="text-align: right;">0,582</td>
+<td style="text-align: right;">0,558</td>
 <td style="text-align: right;">0,000</td>
 <td style="text-align: right;">0,000</td>
 <td style="text-align: right;">0,000</td>
-<td style="text-align: right;">0,048</td>
+<td style="text-align: right;">0,000</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">SW.p</td>
 <td style="text-align: left;">SW (valeur p)</td>
-<td style="text-align: right;">0,686</td>
+<td style="text-align: right;">0,922</td>
 <td style="text-align: right;">0,000</td>
 <td style="text-align: right;">0,000</td>
 <td style="text-align: right;">0,000</td>
@@ -1878,7 +1878,7 @@ b_2 = (g_2 + 3) (1 - 1/n)^2 - 3
 <tr class="odd">
 <td style="text-align: left;">AD.p</td>
 <td style="text-align: left;">AD (valeur p)</td>
-<td style="text-align: right;">0,596</td>
+<td style="text-align: right;">0,858</td>
 <td style="text-align: right;">0,000</td>
 <td style="text-align: right;">0,000</td>
 <td style="text-align: right;">0,000</td>
@@ -1887,11 +1887,11 @@ b_2 = (g_2 + 3) (1 - 1/n)^2 - 3
 <tr class="even">
 <td style="text-align: left;">JB.p</td>
 <td style="text-align: left;">JB (valeur p)</td>
-<td style="text-align: right;">0,770</td>
+<td style="text-align: right;">0,936</td>
 <td style="text-align: right;">0,000</td>
 <td style="text-align: right;">0,000</td>
 <td style="text-align: right;">0,000</td>
-<td style="text-align: right;">0,002</td>
+<td style="text-align: right;">0,000</td>
 </tr>
 </tbody>
 </table>
