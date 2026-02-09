@@ -44,6 +44,7 @@ book:
   repo-branch: main
   repo-actions:
   - issue
+  - edit
   chapters:
   - index.qmd
   - 00-auteurs.qmd
